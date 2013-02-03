@@ -4,7 +4,7 @@
 #' 
 #' 
 
-call_mclapply <- function(f, x, paropts){
+call_mclapply <- function(f, x, paropts = NULL){
 	# provides the parallel backend for other functions in mchof
 	
 	if(TRUE){

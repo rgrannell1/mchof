@@ -12,8 +12,7 @@
 #' # remove NA values from a vector 
 #' p <- function(x) !is.na(x)
 #' mcFilter(p, c(3,2,6,NA, 2))
-#' 
-    
+#'   
 
 mcFilter <- function(f, x, paropts = NULL){
 	# A parallel version of Filter

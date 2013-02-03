@@ -1,4 +1,7 @@
-#'
+#' @title  a
+#' 
+#' @name mcReduce
+#' 
 #' @param f
 #' @param x, 
 #' @param init, 
@@ -6,7 +9,7 @@
 #' @param accumulate, 
 #' @param paropts, 
 
-mcReduce <- function(f, x, init, right, accumulate, paropts){
+mcReduce <- function(f, x, init, right, accumulate, paropts = NULL){
 	
 	
 	
