@@ -11,3 +11,5 @@ Collate:
 	'mchof.R'
     'mcFilter.R'
     'call_mclapply.R'
+	'mcReduce.R'
+	'mcPosition.R'

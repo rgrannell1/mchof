@@ -1,8 +1,8 @@
 \name{mcReduce}
 \alias{mcReduce}
-\title{Reduce's a binary}
+\title{a}
 \usage{
-  mcReduce(f, x, init, right, accumulate, paropts)
+  mcReduce(f, x, init, right, accumulate, paropts = NULL)
 }
 \arguments{
   \item{f}{}

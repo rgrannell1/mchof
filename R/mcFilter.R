@@ -1,12 +1,17 @@
-#' Filters a list or vector in parallel 
 #' 
-#' @description mcFilter extracts the elements of a vector for 
+#' mcFilter extracts the elements of a vector for 
 #' which the function \code{f} returns true, in parallel
 #' 
-#' @param f, a unary function that returns either \code{TRUE} or \code{FALSE}
-#' @param x, a vector
-#' @param paropts, a list of parameters to be handed to 
-#'    mclapply (see \code{\link{mclapply}})
+#' @title mcFilter
+#' 
+#' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
+#' @param x a vector
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see details and \code{\link{mclapply}})
+#'    
+#' @details give all the details
+#' 
+#' @seealso a list of related and relevant functions
 #'    
 #' @examples
 #' # remove NA values from a vector 
@@ -15,7 +20,7 @@
 #'   
 
 mcFilter <- function(f, x, paropts = NULL){
-	# A parallel version of Filter
+	# multicore version of the Filter function
 
 	ind <- as.logical(call_mclapply(f, x, paropts))
 	x[!is.na(ind) & ind]

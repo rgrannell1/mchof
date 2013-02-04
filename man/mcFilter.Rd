@@ -1,6 +1,6 @@
 \name{mcFilter}
 \alias{mcFilter}
-\title{Filters a list or vector in parallel}
+\title{mcFilter}
 \usage{
   mcFilter(f, x, paropts = NULL)
 }
@@ -17,9 +17,15 @@
   mcFilter extracts the elements of a vector for which the
   function \code{f} returns true, in parallel
 }
+\details{
+  give all the details
+}
 \examples{
 # remove NA values from a vector
 p <- function(x) !is.na(x)
 mcFilter(p, c(3,2,6,NA, 2))
+}
+\seealso{
+  a list of related and relevant functions
 }
 

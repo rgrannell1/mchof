@@ -1,7 +1,4 @@
-#' 
-#' 
-#' 
-#' 
+#' a piece of boilerplate factored out of 
 #' 
 
 call_mclapply <- function(f, x, paropts = NULL){
