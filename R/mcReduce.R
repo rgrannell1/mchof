@@ -14,10 +14,25 @@
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 
-mcReduce <- function(f, x, init, right, accumulate, paropts = NULL){
+
+is.associative
+is.commutive
+
+mcReduce <- function(f, x, init, right, accumulate, is.associative = FALSE,
+	paropts = NULL){
+	# multicore version of Reduce, iff f is associative
+	
+	if(!is.associative){
+		return(Reduce(f, x, init, right, accumulate))
+	}
+		
+	
+	
 	
 	
 	
 	
 	
 }
+
+

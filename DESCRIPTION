@@ -13,3 +13,4 @@ Collate:
     'call_mclapply.R'
 	'mcReduce.R'
 	'mcPosition.R'
+	'mcFind.R'
