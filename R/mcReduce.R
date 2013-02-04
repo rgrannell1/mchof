@@ -14,7 +14,6 @@
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 
-
 is.associative
 is.commutive
 
@@ -45,12 +44,17 @@ mcReduce <- function(f, x, init, right, accumulate, is.associative = FALSE,
 		}
 	} 
 	if(!accumulate){
-		
+		if(right){
+			# complete reduce (right)	
+		} else {
+			# complete reduce
+		}
+		init
 		
 	} else {
 		
 	}
-		
+	init
 		
 		
 		

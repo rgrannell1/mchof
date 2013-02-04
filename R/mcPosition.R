@@ -32,15 +32,16 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 		return(Position(f, x, right, nomatch))
 	}
 	
-	ind <- matrix(NA, nrow = ncores, ncol = ceiling(length(x)/ncores))
+	ind <- matrix(NA, nrow = ncores,
+		ncol = ceiling(length(x)/ncores))
 	ind[seq_along(x)] <- seq_along(x)
 	ind <- if(right & ncores > 1){
 		t(apply(ind, 2, rev))
 	} else t(ind)
 	
-	direction <- if(right) identity else rev
+	direct <- if(right) identity else rev
 	
-	for(i in direction(seq_len(ncol(ind)))){
+	for(i in direct(seq_len(ncol(ind)))){
 		
 		res <- Reduce(
 			f = rbind, 

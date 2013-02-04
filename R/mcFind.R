@@ -26,3 +26,4 @@ mcFind <- function(f, x, right = FALSE, nomatch = NULL){
 		x[[pos]]
 	else nomatch
 }
+
