@@ -1,5 +1,5 @@
 
-mcPosition <- function(f, x, right=FALSE, nomatch, paropts = NULL){
+mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts = NULL){
 	
 	ncores <- if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
 		paropts$mc.cores
@@ -18,24 +18,24 @@ mcPosition <- function(f, x, right=FALSE, nomatch, paropts = NULL){
 			x = call_mclapply(
 	   				function(j) c(j, f(x[[j]])), 
 	   				ind[i,], paropts) )
-		
+			
 		res <- res[,1] * res[,2]
 
-		if(any(res != 0)){
+		if(any(res[!is.na(res)] != 0)){
 			return((ind[i,])[min(which(res > 0))])
 		}
 	}
 	nomatch
 }
 
+system.time(
 mcPosition(
-	function(x) x > 5, 1:10,
+	function(x){Sys.sleep(0.3); F}, 1:100,
 	right = F,
-	paropts = list(mc.cores = 2))
+	paropts = list(mc.cores = 4))
+)
 
-
-
-
+val <- c()
 
 
 
