@@ -5,13 +5,13 @@
   mcFilter(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f,}{a unary function that returns either
-  \code{TRUE} or \code{FALSE}}
+  \item{f}{a unary function that returns either \code{TRUE}
+  or \code{FALSE}}
 
-  \item{x,}{a vector}
+  \item{x}{a vector}
 
-  \item{paropts,}{a list of parameters to be handed to
-  mclapply (see \code{\link{mclapply}})}
+  \item{paropts}{a list of parameters to be handed to
+  mclapply (see details and \code{\link{mclapply}})}
 }
 \description{
   mcFilter extracts the elements of a vector for which the

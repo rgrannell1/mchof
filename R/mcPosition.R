@@ -19,7 +19,9 @@
 #' @examples   
 #' mcPosition(function(x) !is.null(x), 10:20, paropts = list(mc.cores = 2))
 #' mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))       
-#' 
+
+## BUG: WHY USE NA as placehodler? WHAT IF USER NEEDS NA?
+## Todo: better search algorithm? still O(n), O(log(n)) may be possible
 
 mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	# multicore version of Position
