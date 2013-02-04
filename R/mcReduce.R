@@ -25,14 +25,33 @@ mcReduce <- function(f, x, init, right, accumulate, is.associative = FALSE,
 	if(!is.associative){
 		return(Reduce(f, x, init, right, accumulate))
 	}
+	mis <- missing(init)
+	len <- length(x)
+	if(len == 0){
+		return(if(mis) NULL else init)
+	}
+	f <- match.fun(f)
+	if(!as.vector(x) || is.object(x)){
+		x <- as.list(x)
+	}
+	ind <- seq_len(len)
+	if(mis){
+		if(right){
+			init <- x[[len]]
+			ind <- ind[-len]
+		} else {
+			init <- x[[1L]]
+			ind <- ind[-1L]
+		}
+	} 
+	if(!accumulate){
 		
-	
-	
-	
-	
-	
-	
-	
+		
+	} else {
+		
+	}
+		
+		
+		
+		
 }
-
-

@@ -25,6 +25,7 @@
 mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	# multicore version of Position
 	
+	f <- match.fun(f)
 	if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
 		ncores <- paropts$mc.cores
 	} else {
@@ -39,7 +40,7 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	
 	direction <- if(right) identity else rev
 	
-	for(i in direction(seq_along(ncol(ind)))){
+	for(i in direction(seq_len(ncol(ind)))){
 		
 		res <- Reduce(
 			f = rbind, 
