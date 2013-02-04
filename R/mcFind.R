@@ -12,6 +12,12 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 #'
+#' @details
+#' 
+#' @seealso
+#' 
+#' @examples
+#' 
 
 mcFind <- function(f, x, right = FALSE, nomatch = NULL){
 	# multicore version of Find
