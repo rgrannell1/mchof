@@ -9,10 +9,8 @@ mcPosition <- function(f, x, right=FALSE, nomatch, paropts = NULL){
 		nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
 	ind[seq_along(x)] <- seq_along(x)
-	ind <- t(ind)
-	
-	print(ind)
-	
+	ind <- if(right) t(apply(ind, 2,rev)) else t(ind)
+		
 	for(i in if(right) nrow(ind):1 else 1:nrow(ind)){
 		
 		res <- Reduce(
@@ -21,18 +19,19 @@ mcPosition <- function(f, x, right=FALSE, nomatch, paropts = NULL){
 	   				function(j) c(j, f(x[[j]])), 
 	   				ind[i,], paropts) )
 		
-		print(res)
-		
 		res <- res[,1] * res[,2]
 
-		if(res != 0){
-			return((ind[i,])[min(res > 0)])
+		if(any(res != 0)){
+			return((ind[i,])[min(which(res > 0))])
 		}
 	}
 	nomatch
 }
 
-mcPosition(function(x) x > 5, 1:10, paropts = list(mc.cores = 2))
+mcPosition(
+	function(x) x > 5, 1:10,
+	right = F,
+	paropts = list(mc.cores = 2))
 
 
 
