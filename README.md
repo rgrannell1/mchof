@@ -6,13 +6,9 @@ Map-like higher-order functions such as ```lapply``` are a common part of the R 
 
 ### Performance
 
-A common use case for parallel programming is to try reduce the runtime of problems that are independent of each other and are each fairly computationally heavy in their own right. To simulate this, I'm going to take
+A common use case for parallel programming is to try reduce the runtime of problems that are independent of each other and are each fairly computationally heavy in their own right. To simulate this, I took a very slow implementation of the fibonnaci sequence, used it in a predicate function and tested the performance of Filter vs mcFilter.
 
-The benchmarks below were obtained on a fairly low to middle range laptop:
-
-* Processor: *Celeron Dual-Core CPU T3500 @ 2.10GHz × 2*
-* RAM: *3.8 GiB*
-* OS: *64-bit Ubuntu*
+The benchmarks below were obtained on a low to middle range 64-bit laptop (2 x 2.1 Ghz processor, 4GB Ram).
 
 ```
 slowfib <- function(x){
