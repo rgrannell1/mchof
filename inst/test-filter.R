@@ -2,6 +2,7 @@ context("ensures mcFilter is well behaved")
 
 cat('  t-filter')
 
+
 test_that("special cases work properly", {
 	fun <- function(x) TRUE
 	cases <- list(
@@ -17,3 +18,19 @@ test_that("special cases work properly", {
 				Filter(fun, case))
 	})
 })
+
+test_that("equal results for random inputs", {
+	
+	
+	
+	
+})
+
+
+
+
+
+
+
+
+
