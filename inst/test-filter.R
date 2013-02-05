@@ -21,11 +21,23 @@ test_that("special cases work properly", {
 
 test_that("equal results for random inputs", {
 	
-	mcFilter(
-		f = num_fun(),	
-		x = x_gen(100, number_gen()),
-		paropts = paropts_gen())	
+	replicate(100, {
 	
+		t_fun <- num_fun()[[1]]
+		t_x <- x_gen(
+			n=sample(10:100, size=1), 
+			f = number_gen)
+		t_paropts <- paropts_gen()[[1]]
+		
+		expect_equal(,
+			mcFilter(
+				f = t_fun,	
+				x = t_x,
+				paropts = t_paropts),	
+			Filter(
+				f = t_f,	
+				x = t_x))
+	})
 })
 
 

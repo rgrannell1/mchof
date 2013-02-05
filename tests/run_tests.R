@@ -19,7 +19,7 @@ paropts_gen <- function(n=1){
 		list(
 			list(mc.preschedule=T),
 			list(mc.silent = T, mc.cores = 2),
-			list(mc.preshedule=F, mc.cores = 2)
+			list(mc.preschedule=F, mc.cores = 2)
 		), size = n)	
 }
 string_fun <- function(n=1){
@@ -38,7 +38,7 @@ num_fun <- function(n=1){
 			function(x)	min(x) < 101
 	), size = n)
 }
-x_gen <- function(n=100, f=number_gen){
+x_gen <- function(n=100, f){
 	as.list(match.fun(f)(n))
 }
 
