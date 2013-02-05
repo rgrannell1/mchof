@@ -21,8 +21,10 @@ test_that("special cases work properly", {
 
 test_that("equal results for random inputs", {
 	
-	
-	
+	mcFilter(
+		f = num_fun(),	
+		x = x_gen(100, number_gen()),
+		paropts = paropts_gen())	
 	
 })
 
