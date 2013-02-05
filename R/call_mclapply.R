@@ -32,11 +32,9 @@ call_mclapply <- function(f, x, paropts = NULL){
 	# other functions in mchof
 	
 	if(!is.function(f)) stop('f is not a function')
-	if(!is.vector(x)) stop('x is not a vector/list')
 	
 	if(!is.null(paropts)){
 		check_paropts(paropts)
 	}
-
 	do.call(mclapply, c(list(FUN = f, X = x), paropts))
 }

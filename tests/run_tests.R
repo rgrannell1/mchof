@@ -2,6 +2,8 @@ library(mchof)
 library(multicore)
 library(testthat)
 
+# an assortment of generators for unit tests
+
 bool_gen <- function(n=1, list = FALSE){
 	# generates a list/vector of n random bools
 	sample(c(TRUE, FALSE), size = n, replace = TRUE) 
