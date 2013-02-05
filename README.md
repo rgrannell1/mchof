@@ -28,8 +28,8 @@ system.time(mcFilter(pred, rand, list(mc.cores = 2)))
         <td>Filter</td>
         <td>mcFilter(cores=2)</td>
     </tr>
-        <td> 101.811 </td>
-        <td> 61.861 </td>
+        <td> ~102 s </td>
+        <td> ~62 s </td>
     <tr>
     
     </tr>
