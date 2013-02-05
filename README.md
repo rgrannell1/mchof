@@ -35,6 +35,4 @@ system.time(mcFilter(pred, rand, list(mc.cores = 2)))
     </tr>
 </table>
 
-For even more time-intensive processes - such as joining together large data structures using Reduce or running expensive predicates over a dataset - the performance gain grows proportional to the number of cores used.
-
-
+for computationally intensive processes the performance grows proportional to the number of cores used.
