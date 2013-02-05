@@ -25,4 +25,13 @@
   Returns the value of the first element of x that meets
   the predicate f.
 }
+\details{
+  a
+}
+\examples{
+a
+}
+\seealso{
+  a
+}
 

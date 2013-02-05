@@ -9,9 +9,19 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 #'    
-#' @details give all the details
+#' @details mcFilter behaves identically to Filter from the user's point of 
+#'     view; the results of the function should not differ from those obtained
+#'     using \code{\link{Filter}}) with similar parameters. However, execution 
+#'     should be much faster for particular application than Filter, 
+#'     especially if the function \code{f} is computation-intensive and a large
+#'     number of cores are available.
+#'     
+#'     As with \code{\link{Filter}}), NA values obtained during filtering are 
+#'     assumed to be \code{FALSE}
 #' 
-#' @seealso a list of related and relevant functions
+#' @seealso see \code{\link{Filter}}) for the non-parallel version of this 
+#'     function, \code{\link{mclapply}}) for more details about the parallel
+#'     backend being employed. 
 #'    
 #' @examples
 #' # remove NA values from a vector 
@@ -21,33 +31,22 @@
 
 mcFilter <- function(f, x, paropts = NULL){
 	# multicore version of the Filter function
-
-	f <- match.fun(f)
+	
+	if(is.null(x)) return(x)
+	
 	ind <- as.logical(call_mclapply(f, x, paropts))
 	x[!is.na(ind) & ind]
 }
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-#-#-# UNIT TESTS FOR MCFILTER
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+require(devtools); require(testthat)
+auto_test(
+	'/home/rgrannell1/Dropbox/R directory/mchof/R/mcFilter.R',
+	'/home/rgrannell1/Dropbox/R directory/mchof/tests/testmcFilter.R')
 
-require(testthat); require(multicore)
 
-# make sure that order is identical, and answer same for non-empty args
-replicate(
-	100, 	
-	expr = {
-		random_data <- sample(-100:100, size = sample(1:100, size = 1))
-		
-		expect_equal(
-			mcFilter(
-				f = function(x) x > 10,	
-				random_data,
-				paropts = list(mc.cores = 2) ),	
-			Filter(
-				f = function(x) x > 10,	
-				random_data) )		
-})
+
+
+
 
 
 
