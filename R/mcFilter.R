@@ -28,6 +28,20 @@
 #' p <- function(x) !is.na(x)
 #' mcFilter(p, c(3,2,6,NA, 2))
 #'   
+#' # the same example, in parallel
+#' p <- function(x) !is.na(x)
+#' mcFilter(p, c(3,2,6,NA, 2, list(mc.cores = 2)))
+#' 
+#' # a more advanced example, using anonymous functions to
+#' filter out combinations that don't meet a predicate 
+#' 
+#' mcFilter(
+#'     f = function(pair){
+#'         val <- sum(unlist(pair))
+#'  	   if(val > 2 && val < 10) TRUE else FALSE
+#'     },
+#'     x = apply(combn(8, 3), 2, function(x) list(x)) )
+#' 
 
 mcFilter <- function(f, x, paropts = NULL){
 	# multicore version of the Filter function
@@ -38,26 +52,7 @@ mcFilter <- function(f, x, paropts = NULL){
 	x[!is.na(ind) & ind]
 }
 
-require(devtools); require(testthat)
-auto_test(
-	'/home/rgrannell1/Dropbox/R directory/mchof/R/mcFilter.R',
-	'/home/rgrannell1/Dropbox/R directory/mchof/tests/testmcFilter.R')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# require(devtools); require(testthat)
+# auto_test(
+# 	'/home/rgrannell1/Dropbox/R directory/mchof/R/mcFilter.R',
+# 	'/home/rgrannell1/Dropbox/R directory/mchof/tests/testmcFilter.R')

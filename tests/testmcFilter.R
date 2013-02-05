@@ -66,8 +66,15 @@ test_that("same values of x return same results (normal vals)", {
 		
 		random_data <- sample(1:100, size = sample(1:10))
 		expect_equal(
-			mcFilter(function(y) y > 5, random_data),
+			mcFilter(function(y) y > 5, random_data, list(mc.cores = 3)),
 			Filter(function(y) y > 5, random_data))	
 	}
 })
+
+context("test over a large number of inputs")
+
+
+
+
+
 
