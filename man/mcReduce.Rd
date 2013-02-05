@@ -1,6 +1,6 @@
 \name{mcReduce}
 \alias{mcReduce}
-\title{a}
+\title{mcReduce}
 \usage{
   mcReduce(f, x, init, right, accumulate,
     is.associative = FALSE, paropts = NULL)
@@ -27,6 +27,6 @@
   to mclapply (see details and \code{\link{mclapply}})}
 }
 \description{
-  a
+  mcReduce
 }
 

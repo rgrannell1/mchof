@@ -1,4 +1,4 @@
-#' @title  a
+#' @title mcReduce
 #' 
 #' @name mcReduce
 #' 
