@@ -40,7 +40,7 @@ context("ensures mcFilter is well behaved")
 	})
 	
 	test_that("the appropriate errors are thrown", {
-			
+	
 		sapply(
 			cases,	
 			function(f){

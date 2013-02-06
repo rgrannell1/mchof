@@ -39,9 +39,12 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 		t(apply(ind, 2, rev))
 	} else t(ind)
 	
-	direct <- if(right) identity else rev
-	
-	for(i in direct(seq_len(ncol(ind)))){
+	ind_direction <- if(right){
+		seq_len(ncol(ind))
+	} else {
+		rev(seq_len(ncol(ind)))
+	}
+	for(i in ind_direction){
 		
 		res <- Reduce(
 			f = rbind, 
@@ -80,8 +83,3 @@ mcFind <- function(f, x, right = FALSE, nomatch = NULL){
 		x[[pos]]
 	else nomatch
 }
-
-
-
-
-
