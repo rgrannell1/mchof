@@ -5,7 +5,7 @@ mchof - MultiCore Higher-Order Functions
 Map-like higher-order functions such as ```lapply``` are a common part of the R user's vocabulary, and have efficient parallel implementations in packages like ```plyr``` and ```multicore```. This package provides parallel wrappers for other higher-order functions in vanilla R, such as ```Filter``` and ```Position```.
 
 * parallel functions tested extensively to ensure interchangeability with their non-parallel equivalents
-* based on the ```multicore```
+* based on the ```multicore``` parallel library for ease-of-use on the part of the user
 
 ### Performance
 
