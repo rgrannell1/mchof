@@ -2,13 +2,16 @@ context("Check that mcPosition")
 
 cat('   t-Position')
 
+	cases <- 
+
 	test_that("special cases work properly", {
+		t_fun <- function(x) TRUE
 		sapply(
-			cases,	
+			special_cases,	
 			function(case){
 				expect_equal(
-					mcPosition(),	
-					Position())
+					mcPosition(t_fun, case),	
+					Position(t_fun, case))
 			})
 	})
 	
@@ -36,7 +39,7 @@ cat('   t-Find')
 
 	test_that("special cases work properly", {
 		sapply(
-			cases,	
+			special_cases,	
 			function(case){
 				expect_equal(
 					mcFind(),	

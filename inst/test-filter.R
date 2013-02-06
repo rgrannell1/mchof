@@ -1,17 +1,12 @@
 context("ensures mcFilter is well behaved")
 	
 	cat('  t-filter')
-	
-	cases <- list(
-		NULL, NA, NaN, Inf, -Inf, NA_integer_, 	
-		NA_real_, NA_character_, NA_complex_, integer(0),
-		list(), list(list()))
-	
+		
 	test_that("special cases work properly", {
 		fun <- function(x) TRUE
 	
 		sapply(
-			cases,
+			special_cases,
 			function(case){
 				expect_equal(
 					mcFilter(fun, case, paropts=list(mc.cores = 2)),	
