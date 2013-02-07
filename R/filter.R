@@ -8,19 +8,18 @@
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
 #' @param x a vector
 #' @param paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#'    \code{mclapply} (see details)
 #'    
-#' @details mcFilter behaves identically to \code{\link{Filter}} from the user's 
-#'     point of view; the results of the function should not differ from those obtained
-#'     using \code{\link{Filter}} with similar parameters. However, execution 
+#' @details 
+#' 
 #'     should be much faster for particular application than Filter, 
 #'     especially if the function \code{f} is computation-intensive and a large
 #'     number of cores are available. 
 #'     
-#'     As with \code{\link{Filter}}, NA values obtained during filtering are 
+#'     As with Filter, NA values obtained during filtering are 
 #'     assumed to be \code{FALSE}
 #' 
-#' @seealso see \code{\link{Filter}} for the non-parallel version of this 
+#' @seealso see \code{\link{Filter}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
 #'    
@@ -33,24 +32,31 @@
 #' p <- function(x) !is.na(x)
 #' mcFilter(p, c(3,2,6,NA, 2, list(mc.cores = 2)))
 #' 
+#' # find all even numbers in a vector of numbers 
+#' 
+#' even_ints <- function(x){
+#'     Filter(
+#'         f = function(y) if(is.integer(y) && !(y %% 2)) TRUE else FALSE,
+#' 	       x)
+#' }
+#' even_ints(c(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L))
+#'
 #' # a more advanced example, using anonymous functions to
 #' # filter out combinations that don't meet a predicate 
 #' mcFilter(
 #'     f = function(pair){
 #'         val <- sum(unlist(pair))
 #'  	   if(val > 2 && val < 10) TRUE else FALSE
-#'     }, x = apply(combn(8, 3), 2, list)) 
+#'     }, 
+#'     x = apply(combn(8, 3), 2, list),
+#'     paropts = list(mc.cores = 2)) 
 
 mcFilter <- function(f, x, paropts = NULL){
 	# multicore version of the Filter function
 	
+	f <- match.fun(f)
 	if(is.null(x)) return(x)
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
 	x[!is.na(ind) & ind]
 }
-
-# require(devtools); require(testthat)
-# auto_test(
-# 	'/home/rgrannell1/Dropbox/R directory/mchof/R/filter.R',
-# 	'/home/rgrannell1/Dropbox/R directory/mchof/tests/testmcFilter.R')

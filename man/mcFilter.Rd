@@ -18,14 +18,10 @@
   function \code{f} returns \code{TRUE}, in parallel
 }
 \details{
-  mcFilter behaves identically to \code{\link{Filter}} from
-  the user's point of view; the results of the function
-  should not differ from those obtained using
-  \code{\link{Filter}} with similar parameters. However,
-  execution should be much faster for particular
-  application than Filter, especially if the function
-  \code{f} is computation-intensive and a large number of
-  cores are available.
+  should be much faster for particular application than
+  Filter, especially if the function \code{f} is
+  computation-intensive and a large number of cores are
+  available.
 
   As with \code{\link{Filter}}, NA values obtained during
   filtering are assumed to be \code{FALSE}
@@ -39,13 +35,24 @@ mcFilter(p, c(3,2,6,NA, 2))
 p <- function(x) !is.na(x)
 mcFilter(p, c(3,2,6,NA, 2, list(mc.cores = 2)))
 
+# find all even numbers in a vector of numbers
+
+even_ints <- function(x){
+    Filter(
+        f = function(y) if(is.integer(y) && !(y \%\% 2)) TRUE else FALSE,
+	       x)
+}
+even_ints(c(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L))
+
 # a more advanced example, using anonymous functions to
 # filter out combinations that don't meet a predicate
 mcFilter(
     f = function(pair){
         val <- sum(unlist(pair))
  	   if(val > 2 && val < 10) TRUE else FALSE
-    }, x = apply(combn(8, 3), 2, list))
+    },
+    x = apply(combn(8, 3), 2, list),
+    paropts = list(mc.cores = 2))
 }
 \seealso{
   see \code{\link{Filter}} for the non-parallel version of

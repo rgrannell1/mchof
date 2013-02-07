@@ -26,6 +26,10 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	# multicore version of Position
 	
 	f <- match.fun(f)
+	
+	if(!is.logical(right) || is.na(right)){
+		stop('right must be TRUE or FALSE')
+	}
 	if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
 		ncores <- paropts$mc.cores
 	} else {
@@ -79,7 +83,22 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 mcFind <- function(f, x, right = FALSE, nomatch = NULL){
 	# multicore version of Find
 	
-	if((pos <- mcPosition(f, x, right, nomatch = 0L) > 0L)) 
+	if(!is.logical(right) || is.na(right)){
+		stop('right must be TRUE or FALSE')
+	}
+	if((pos <- mcPosition(f, x, right, nomatch = 0) > 0)){
 		x[[pos]]
+	}
 	else nomatch
 }
+
+
+
+
+
+
+
+
+
+
+
