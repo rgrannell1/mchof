@@ -34,18 +34,21 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 		ncores <- paropts$mc.cores
 	} else ncores <- 1
 	
-	ind <- matrix(NA, nrow = ncores,
+	ind <- matrix(NA,
+		nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
 	ind[seq_along(x)] <- seq_along(x)
 	ind <- if(right & ncores > 1){
 		t(apply(ind, 2, rev))
 	} else t(ind)
 	
-	ind_direction <- if(right){
+	iterate_direction <- if(right){
 		seq_len(ncol(ind))
 	} else rev(seq_len(ncol(ind)))
 
-	for(i in ind_direction){
+	for(i in iterate_direction){
+		
+		# this whole block of code is awful!
 		
 		res <- Reduce(
 			f = rbind, 
@@ -62,14 +65,6 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	}
 	integer(0)
 }
-
-mcPosition(
-	function(x) x > 5,
-	right = F,
-	1:11, paropts = list(mc.cores = 2))
-
-
-
 
 
 
