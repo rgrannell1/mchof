@@ -32,9 +32,7 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	}
 	if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
 		ncores <- paropts$mc.cores
-	} else {
-		return(Position(f, x, right, nomatch))
-	}
+	} else ncores <- 1
 	
 	ind <- matrix(NA, nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
@@ -48,6 +46,9 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	} else {
 		rev(seq_len(ncol(ind)))
 	}
+	
+	print(ind_direction)
+	
 	for(i in ind_direction){
 		
 		res <- Reduce(
@@ -56,14 +57,24 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	   				f = function(j) c(j, f(x[[j]])), 
 	   				x = (ind[i,])[!is.na(ind[i,])], paropts) )
 			
-		res <- res[,1] * res[,2]
+		true_ind <- res[,1] * res[,2]
 
-		if(any(res[!is.na(res)] != 0)){
-			return((ind[i,])[min(which(!is.na(res) & res > 0))])
+		if(any(true_ind[!is.na(true_ind)] != 0)){
+			return((ind[i,])[min(which(!is.na(true_ind) & true_ind > 0))])
 		}
 	}
 	nomatch
 }
+
+mcPosition(
+	function(x) x > 5,
+	right = F,
+	1:11, paropts = list(mc.cores = 2))
+
+
+
+
+
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
