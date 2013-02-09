@@ -49,24 +49,19 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	for(i in iterate_direction){
 		
 		# this whole block of code is awful!
+		jobs <- na.omit(ind[i,])
 		
-		res <- Reduce(
-			f = rbind, 
-			x = call_mclapply(
-	   				f = function(j) c(j, f(x[[j]])), 
-	   				x = (ind[i,])[!is.na(ind[i,])], paropts) )
-			
-		true_ind <- res[,1] * res
-		true_ind <- true_ind[!is.na(true_ind)]
-
-		if(any(true_ind > 0))){
-			(ind[i,])[min(which(true_ind > 0))]
-		}
+		checked_ind <- do.call(
+			rbind,	
+			call_mclapply(
+				f = function(j) j * as.logical(f(x[[j]])),		
+				x = jobs, paropts))
+		
+		if(any(checked_ind != 0)) min(na.omit(checked_ind) > 0)
+		
 	}
 	integer(0)
 }
-
-
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
