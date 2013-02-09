@@ -20,9 +20,7 @@
 #' mcPosition(function(x) !is.null(x), 10:20, paropts = list(mc.cores = 2))
 #' mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))       
 
-## Todo: better search algorithm? still O(n), O(log(n)) may be possible
-
-mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
+mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	# multicore version of Position
 	
 	f <- match.fun(f)
@@ -62,7 +60,7 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 			(ind[i,])[min(which(true_ind > 0))]
 		}
 	}
-	nomatch
+	integer(0)
 }
 
 mcPosition(
@@ -92,10 +90,7 @@ mcPosition(
 
 mcFind <- function(f, x, right = FALSE, nomatch = NULL){
 	# multicore version of Find
-	
-	if(!is.logical(right) || is.na(right)){
-		stop('right must be TRUE or FALSE')
-	}
+
 	if((pos <- mcPosition(f, x, right, nomatch = 0) > 0)){
 		x[[pos]]
 	}
