@@ -27,6 +27,8 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	
 	f <- match.fun(f)
 	
+	if(is.null(x) return(x)
+	
 	if(!is.logical(right) || is.na(right)){
 		stop('right must be TRUE or FALSE')
 	}
@@ -43,12 +45,8 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	
 	ind_direction <- if(right){
 		seq_len(ncol(ind))
-	} else {
-		rev(seq_len(ncol(ind)))
-	}
-	
-	print(ind_direction)
-	
+	} else rev(seq_len(ncol(ind)))
+
 	for(i in ind_direction){
 		
 		res <- Reduce(
@@ -57,10 +55,11 @@ mcPosition <- function(f, x, right=FALSE, nomatch=NA, paropts=NULL){
 	   				f = function(j) c(j, f(x[[j]])), 
 	   				x = (ind[i,])[!is.na(ind[i,])], paropts) )
 			
-		true_ind <- res[,1] * res[,2]
+		true_ind <- res[,1] * res
+		true_ind <- true_ind[!is.na(true_ind)]
 
-		if(any(true_ind[!is.na(true_ind)] != 0)){
-			return((ind[i,])[min(which(!is.na(true_ind) & true_ind > 0))])
+		if(any(true_ind > 0))){
+			(ind[i,])[min(which(true_ind > 0))]
 		}
 	}
 	nomatch
