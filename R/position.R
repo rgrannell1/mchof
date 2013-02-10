@@ -25,8 +25,6 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	
 	f <- match.fun(f)
 	
-	if(is.null(x) return(x)
-	
 	if(!is.logical(right) || is.na(right)){
 		stop('right must be TRUE or FALSE')
 	}
@@ -34,34 +32,33 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 		ncores <- paropts$mc.cores
 	} else ncores <- 1
 	
-	ind <- matrix(NA,
+	job_ind <- matrix(NA,
 		nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
-	ind[seq_along(x)] <- seq_along(x)
-	ind <- if(right & ncores > 1){
-		t(apply(ind, 2, rev))
-	} else t(ind)
+	job_ind[seq_along(x)] <- seq_along(x)
+	job_ind <- if(right & ncores > 1){
+		t(apply(job_ind, 2, rev))
+	} else t(job_ind)
 	
 	iterate_direction <- if(right){
-		seq_len(ncol(ind))
-	} else rev(seq_len(ncol(ind)))
-
+		1:ncol(job_ind)
+	} else rev(1:nrow(job_ind))
+	
 	for(i in iterate_direction){
+		parallel_jobs <- na.omit(job_ind[i,])
 		
-		# this whole block of code is awful!
-		jobs <- na.omit(ind[i,])
-		
-		checked_ind <- do.call(
-			rbind,	
-			call_mclapply(
+		checked_ind <- unlist(call_mclapply(
 				f = function(j) j * as.logical(f(x[[j]])),		
-				x = jobs, paropts))
-		
-		if(any(checked_ind != 0)) min(na.omit(checked_ind) > 0)
-		
+				x = parallel_jobs, paropts))
+	
+		if(any(checked_ind != 0)){
+			return(min(na.omit(checked_ind) > 0))
+		}
 	}
 	integer(0)
 }
+
+mcPosition(function(x) x > 5, 10:1)
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
@@ -76,15 +73,14 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 #'
-#' 
 
-mcFind <- function(f, x, right = FALSE, nomatch = NULL){
+mcFind <- function(f, x, right = FALSE){
 	# multicore version of Find
 
-	if((pos <- mcPosition(f, x, right, nomatch = 0) > 0)){
-		x[[pos]]
+	if((first_match <- mcPosition(f, x, right, nomatch = 0) > 0)){
+		x[[first_match]]
 	}
-	else nomatch
+	else integer(0)
 }
 
 
