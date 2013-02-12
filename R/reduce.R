@@ -33,7 +33,6 @@ mcReduce <- function(f, x, init, paropts = NULL){
 				to_push <- list(first = x[[1]], second = x[[2]])
 				x <- tail(x, -2)
 			}
-			
 			pairs <- c(pairs, list(to_push))
 		}
 		return(pairs)
@@ -42,14 +41,12 @@ mcReduce <- function(f, x, init, paropts = NULL){
 	transitional <- to_pairs(x)
 	
 	while(length(transitional) > 1){
-		
-		print(transitional)
-		
+	
 		transitional <- to_pairs(call_mclapply(
 			function(trans_vals){
 				# takes two or one argument, returns one
 
-				if(length(trans_vals) == 1){
+				if(is.na(trans_vals$second)){
 					trans_vals$first
 				} else {
 					f(trans_vals$first, trans_vals$second)
@@ -57,25 +54,10 @@ mcReduce <- function(f, x, init, paropts = NULL){
 			},	
 			x = transitional, paropts))
 	}
-	return(transitional)
+	
+	collapsed <- f(transitional[[1]]$first, transitional[[1]]$second) 
+	return(collapsed)
 }
 
-
-
-
-
-
-mcReduce('+', 1:10, 1)
-
-
-
-
-
-
-
-
-
-
-
-
+mcReduce(f = get('+'), 1:10, 1)
 
