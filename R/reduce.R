@@ -22,28 +22,57 @@ mcReduce <- function(f, x, init, paropts = NULL){
 		# list of lists, where each lists contains two elements
 		# from X, or one in the last nested list if x has odd length
 		
+		pairs <- list()
 		
-		
+		while(length(x) > 0){
+			
+			if(length(x) == 1){
+				to_push <- list(first = x[[1]], second = NA)
+				x <- tail(x, -1)
+			} else{
+				to_push <- list(first = x[[1]], second = x[[2]])
+				x <- tail(x, -2)
+			}
+			
+			pairs <- c(pairs, list(to_push))
+		}
+		return(pairs)
 	}
 
 	transitional <- to_pairs(x)
-
+	
 	while(length(transitional) > 1){
+		
+		print(transitional)
 		
 		transitional <- to_pairs(call_mclapply(
 			function(trans_vals){
 				# takes two or one argument, returns one
-				
+
 				if(length(trans_vals) == 1){
-					trans_vals
+					trans_vals$first
 				} else {
-					f(trans_vals[[1]], trans_vals[[2]])
+					f(trans_vals$first, trans_vals$second)
 				}	
 			},	
 			x = transitional, paropts))
 	}
 	return(transitional)
 }
+
+
+
+
+
+
+mcReduce('+', 1:10, 1)
+
+
+
+
+
+
+
 
 
 
