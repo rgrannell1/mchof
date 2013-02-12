@@ -18,13 +18,14 @@ mcReduce <- function(f, x, init, paropts = NULL){
 	# multicore version of Reduce
 	
 	to_pairs <- function(x){
-		# takes a list of elements x, returns a 
-		# 
+		# takes a list of elements x in X, returns a 
+		# list of lists, where each lists contains two elements
+		# from X, or one in the last nested list if x has odd length
+		
 		
 		
 	}
-	
-	job_ind <- seq_len(length(x))
+
 	transitional <- to_pairs(x)
 
 	while(length(transitional) > 1){
@@ -41,7 +42,7 @@ mcReduce <- function(f, x, init, paropts = NULL){
 			},	
 			x = transitional, paropts))
 	}
-	
+	return(transitional)
 }
 
 
