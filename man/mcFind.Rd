@@ -2,7 +2,7 @@
 \alias{mcFind}
 \title{mcFind}
 \usage{
-  mcFind(f, x, right = FALSE, nomatch = NULL)
+  mcFind(f, x, right = FALSE)
 }
 \arguments{
   \item{f}{a unary function that returns either \code{TRUE}

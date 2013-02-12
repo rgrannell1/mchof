@@ -6,8 +6,6 @@ test_that("t1 - mcPosition's special cases",{
 		mcPosition(
 			function(x) NULL == TRUE, NULL),
 		integer(0))
-	
-	
 })
 
 test_that("t2 - mcPosition's standard cases",{

@@ -28,28 +28,35 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	if(!is.logical(right) || is.na(right)){
 		stop('right must be TRUE or FALSE')
 	}
-	if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
-		ncores <- paropts$mc.cores
-	} else ncores <- 1
+	ncores <- if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
+		paropts$mc.cores
+	} else 1
 	
+	# this matrix determines which tasks are done in parallel
 	job_ind <- matrix(NA,
 		nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
+	
 	job_ind[seq_along(x)] <- seq_along(x)
+	
 	job_ind <- if(right & ncores > 1){
 		t(apply(job_ind, 2, rev))
 	} else t(job_ind)
 	
-	iterate_direction <- if(right){
+	job_direction <- if(right){
 		1:ncol(job_ind)
 	} else rev(1:nrow(job_ind))
 	
-	for(i in iterate_direction){
+	for(i in job_direction){
 		parallel_jobs <- na.omit(job_ind[i,])
 		
 		checked_ind <- unlist(call_mclapply(
-				f = function(j) j * as.logical(f(x[[j]])),		
-				x = parallel_jobs, paropts))
+			f = function(j){
+				# returns the index times a boolean
+				
+				j * as.logical(f(x[[j]]))
+			},		
+			x = parallel_jobs, paropts))
 	
 		if(any(checked_ind != 0)){
 			return(min(na.omit(checked_ind) > 0))

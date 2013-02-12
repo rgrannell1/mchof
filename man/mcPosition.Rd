@@ -2,8 +2,7 @@
 \alias{mcPosition}
 \title{mcPosition}
 \usage{
-  mcPosition(f, x, right = FALSE, nomatch = NA,
-    paropts = NULL)
+  mcPosition(f, x, right = FALSE, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns either \code{TRUE}

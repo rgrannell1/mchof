@@ -19,9 +19,9 @@
   \item{accumulate}{a boolean value. Should each
   intermediate step in the Reduce be returned?}
 
-  \item{nomatch}{the variable that is returned if no
-  elements such that \code{f(element) = TRUE} are found in
-  \code{x}. Defaults to \code{NA}}
+  \item{is.associative}{a boolean value. Is f an
+  associative function (i.e) (x1 f x2) f x3 == x1 (f x2 f
+  x3)}
 
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see details and \code{\link{mclapply}})}

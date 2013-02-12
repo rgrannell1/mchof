@@ -11,7 +11,7 @@
   \item{x}{a vector}
 
   \item{paropts}{a list of parameters to be handed to
-  mclapply (see details and \code{\link{mclapply}})}
+  \code{mclapply} (see details)}
 }
 \description{
   mcFilter extracts the elements of a vector for which the
@@ -23,8 +23,8 @@
   computation-intensive and a large number of cores are
   available.
 
-  As with \code{\link{Filter}}, NA values obtained during
-  filtering are assumed to be \code{FALSE}
+  As with Filter, NA values obtained during filtering are
+  assumed to be \code{FALSE}
 }
 \examples{
 # remove NA values from a vector
@@ -55,8 +55,8 @@ mcFilter(
     paropts = list(mc.cores = 2))
 }
 \seealso{
-  see \code{\link{Filter}} for the non-parallel version of
-  this function, \code{\link{mclapply}} for more details
+  see \code{\link{Filter}} for the non-parallel equivelant
+  of this function, \code{\link{mclapply}} for more details
   about the parallel backend being employed.
 }
 

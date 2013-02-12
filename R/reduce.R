@@ -9,50 +9,43 @@
 #'     right, or from right to left?
 #' @param accumulate a boolean value. Should each intermediate step in the Reduce
 #'     be returned?
-#' @param nomatch the variable that is returned if no elements such that
-#'     \code{f(element) = TRUE} are found in \code{x}. Defaults to \code{NA} 
+#' @param is.associative a boolean value. Is f an associative function (i.e)
+#' (x1 f x2) f x3 == x1 (f x2 f x3) 
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
 
-mcReduce <- function(f, x, init, right, accumulate, is.associative = FALSE,
-	paropts = NULL){
-	# multicore version of Reduce, iff f is associative
+mcReduce <- function(f, x, init, paropts = NULL){
+	# multicore version of Reduce
 	
-	if(!is.associative){
-		return(Reduce(f, x, init, right, accumulate))
-	}
-	mis <- missing(init)
-	len <- length(x)
-	if(len == 0){
-		return(if(mis) NULL else init)
-	}
-	f <- match.fun(f)
-	if(!as.vector(x) || is.object(x)){
-		x <- as.list(x)
-	}
-	ind <- seq_len(len)
-	if(mis){
-		if(right){
-			init <- x[[len]]
-			ind <- ind[-len]
-		} else {
-			init <- x[[1L]]
-			ind <- ind[-1L]
-		}
-	} 
-	if(!accumulate){
-		if(right){
-			# complete reduce (right)	
-		} else {
-			# complete reduce
-		}
-		init
+	to_pairs <- function(x){
+		# takes a list of elements x, returns a 
+		# 
 		
-	} else {
 		
 	}
-	init
+	
+	job_ind <- seq_len(length(x))
+	transitional <- to_pairs(x)
+
+	while(length(transitional) > 1){
 		
-		
-		
+		transitional <- to_pairs(call_mclapply(
+			function(trans_vals){
+				# takes two or one argument, returns one
+				
+				if(length(trans_vals) == 1){
+					trans_vals
+				} else {
+					f(trans_vals[[1]], trans_vals[[2]])
+				}	
+			},	
+			x = transitional, paropts))
+	}
+	
 }
+
+
+
+
+
+
