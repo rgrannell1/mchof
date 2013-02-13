@@ -17,25 +17,21 @@
 mcReduce <- function(f, x, init, paropts = NULL){
 	# multicore version of Reduce
 	
-	to_pairs <- function(x){
+	to_pairs <- function(flatlist){
 		# takes a list of elements x in X, returns a 
 		# list of lists, where each lists contains two elements
 		# from X, or one in the last nested list if x has odd length
 		
-		pairs <- list()
-		
-		while(length(x) > 0){
-			
-			if(length(x) == 1){
-				to_push <- list(first = x[[1]], second = NA)
-				x <- tail(x, -1)
-			} else{
-				to_push <- list(first = x[[1]], second = x[[2]])
-				x <- tail(x, -2)
-			}
-			pairs <- c(pairs, list(to_push))
-		}
-		return(pairs)
+		Map(
+			function(i){
+				
+				if(i == length(flatlist)){
+					list(first = flatlist[[i]], second = NA)
+				} else list(
+					first = flatlist[[i]],
+					second = flatlist[[i+1]])
+			},	
+			seq(from = 1, by = 2, len = ceiling(length(x)/2)))
 	}
 
 	transitional <- to_pairs(x)
