@@ -26,11 +26,10 @@ mcReduce <- function(f, x, paropts = NULL){
 	
 	to_pairs <- function(flatlist){
 		# takes a list of elements x in X, returns a 
-		# list of lists, where each lists contains two elements
+		# list of lists, each containing two elements
 		# from X, or one in the last nested list if x has odd length
 			
-		Map(
-			function(i){
+		Map(function(i){
 				
 				if(i == length(flatlist)){
 					list(first = flatlist[[i]], second = NA)
@@ -42,9 +41,9 @@ mcReduce <- function(f, x, paropts = NULL){
 	}
 
 	f <- match.fun(f)
-	
 	not_reduced <- to_pairs(x)
 	
+	# successively reduce pairs of elements in not_reduce to a single element
 	while(length(not_reduced) > 1){
 		
 		not_reduced <- to_pairs(call_mclapply(
@@ -62,5 +61,3 @@ mcReduce <- function(f, x, paropts = NULL){
 	
 	f(not_reduced[[1]]$first, not_reduced[[1]]$second) 
 }
-
-
