@@ -34,24 +34,24 @@ mcReduce <- function(f, x, init, paropts = NULL){
 			seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
 	}
 
-	transitional <- to_pairs(x)
+	not_reduced <- to_pairs(x)
 	
-	while(length(transitional) > 1){
+	while(length(not_reduced) > 1){
 		
-		transitional <- to_pairs(call_mclapply(
-			function(trans_vals){
+		not_reduced <- to_pairs(call_mclapply(
+			function(val_pair){
 				# returns f(x1, x2), or x1 
 				
-				if(is.na(trans_vals$second)){
-					trans_vals$first
+				if(is.na(val_pair$second)){
+					val_pair$first
 				} else {
-					f(trans_vals$first, trans_vals$second)
+					f(val_pair$first, val_pair$second)
 				}	
 			},	
-			x = transitional, paropts))
+			x = not_reduced, paropts))
 	}
 	
-	f(transitional[[1]]$first, transitional[[1]]$second) 
+	f(not_reduced[[1]]$first, not_reduced[[1]]$second) 
 }
 
 
