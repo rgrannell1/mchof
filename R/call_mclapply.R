@@ -1,5 +1,4 @@
 
-
 call_mclapply <- function(f, x, paropts = NULL){
 	# provides the interface to the parallel backend for 
 	# other functions in mchof
@@ -25,9 +24,8 @@ call_mclapply <- function(f, x, paropts = NULL){
 	if(!is.function(f)) stop('f is not a function')
 	if(!is.vector(x)) stop('x is not a vector')
 	
-	if(!is.null(paropts)){
-		check_paropts(paropts)
-	}
+	if(!is.null(paropts)) check_paropts(paropts)
+	
 	do.call(
 		what = multicore::mclapply,
 		args = c(list(FUN = f, X = x), paropts))

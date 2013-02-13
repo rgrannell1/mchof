@@ -46,6 +46,8 @@ mcReduce <- function(f, x, paropts = NULL){
 	# successively reduce pairs of elements in not_reduce to a single element
 	while(length(not_reduced) > 1){
 		
+		print(not_reduced)
+		
 		not_reduced <- to_pairs(call_mclapply(
 			function(val_pair){
 				# returns f(x1, x2), or x1 

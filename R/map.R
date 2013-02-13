@@ -1,3 +1,0 @@
-mcMap <- function(){
-	
-}
