@@ -14,4 +14,3 @@ Collate:
     'call_mclapply.R'
     'reduce.R'
     'position.R'
-    'map.R'

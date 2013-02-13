@@ -29,7 +29,7 @@ test_that("check that everything's running quick", {
 	expect_that(
 		system.time(call_mclapply(
 			function(x) Sys.sleep(0.5), 1:10, list(mc.cores = 2)))[3],	
-		takes_less_than(3))
+		takes_less_than(3)) # at least 60% speedup
 
 })
 

@@ -14,9 +14,9 @@
 }
 \description{
   \code{mcReduce} can be used as a parallel replacement for
-  a subclass of problems that can be solved with Reduce;
-  parallelising reduce is only possible when the function f
-  is associative; that is
+  a subclass of problems that can be solved with
+  \code{Reduce} ; parallelising \code{Reduce} is only
+  possible when the function f is associative; that is
 
   \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f
   x3)}. In practicality this means that the order in which
