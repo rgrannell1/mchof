@@ -54,6 +54,9 @@ mcFilter(
     x = apply(combn(8, 3), 2, list),
     paropts = list(mc.cores = 2))
 }
+\author{
+  Ryan Grannell
+}
 \seealso{
   see \code{\link{Filter}} for the non-parallel equivelant
   of this function, \code{\link{mclapply}} for more details
