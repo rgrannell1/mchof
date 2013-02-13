@@ -20,8 +20,14 @@ test_that("error when given bad arguments", {
 })
 
 test_that("returns correct results for sample cases", {
+	expect_equal(
+		call_mclapply(function(x) x, 1:5),
+		list(1,2,3,4,5))
 	
-	
+	expect_equal(
+		call_mclapply(function(x) !is.na(x),
+		c(1, 2, 3, NA, 4, 5)), list(TRUE, TRUE, TRUE, FALSE, TRUE, TRUE))
+
 })
 
 test_that("check that everything's running quick", {
