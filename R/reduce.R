@@ -21,7 +21,7 @@ mcReduce <- function(f, x, init, paropts = NULL){
 		# takes a list of elements x in X, returns a 
 		# list of lists, where each lists contains two elements
 		# from X, or one in the last nested list if x has odd length
-		
+			
 		Map(
 			function(i){
 				
@@ -31,17 +31,17 @@ mcReduce <- function(f, x, init, paropts = NULL){
 					first = flatlist[[i]],
 					second = flatlist[[i+1]])
 			},	
-			seq(from = 1, by = 2, len = ceiling(length(x)/2)))
+			seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
 	}
 
 	transitional <- to_pairs(x)
 	
 	while(length(transitional) > 1){
-	
+		
 		transitional <- to_pairs(call_mclapply(
 			function(trans_vals){
-				# takes two or one argument, returns one
-
+				# returns f(x1, x2), or x1 
+				
 				if(is.na(trans_vals$second)){
 					trans_vals$first
 				} else {
@@ -51,9 +51,7 @@ mcReduce <- function(f, x, init, paropts = NULL){
 			x = transitional, paropts))
 	}
 	
-	collapsed <- f(transitional[[1]]$first, transitional[[1]]$second) 
-	return(collapsed)
+	f(transitional[[1]]$first, transitional[[1]]$second) 
 }
 
-mcReduce(f = get('+'), 1:10, 1)
 
