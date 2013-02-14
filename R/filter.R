@@ -56,6 +56,7 @@ mcFilter <- function(f, x, paropts = NULL){
 	# multicore version of the Filter function
 	
 	f <- match.fun(f)
+	if(is.null(x)) return(x)
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
 	x[!is.na(ind) & ind]
