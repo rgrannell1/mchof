@@ -32,23 +32,38 @@ test_that("mcPosition's special cases work like
 	expect_equal(
 		mcPosition(
 			function(x) x > 3,	
-			x),		
-		x[which(x > 3)[1]])
+			x),	
+		which(x > 3)[1]
+		)
 	
+	expect_equal(
+		mcPosition(
+			is.null,
+			NULL), 1)
+	
+	x <- c(1,2,3,NA,5,6)
+	expect_equal(
+		mcPosition(is.na, x),	
+		which(is.na(x))[1])
+	
+	expect_equal(
+		mcPosition(
+			function(x) x > 3,	
+			x, right=TRUE),		
+		which(rev(x) > 3)[1])
+	
+	expect_equal(
+		mcPosition(
+			function(x) x > 3,	
+			x),	
+		which(x > 3)[1], paropts = list(mc.cores = 2)
+	)	
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
+test_that("mcFind returns the correct value", {
+	
+	
+})
 
 
 

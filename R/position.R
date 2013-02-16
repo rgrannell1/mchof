@@ -3,6 +3,7 @@
 #'
 #' @title mcPosition
 #'  
+#' @export
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
 #' @param x a vector
 #' @param right a boolean value. Should the first \code{TRUE} or last 
@@ -70,7 +71,8 @@ mcPosition(function(x) x > 5, 10:1)
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
 #' @title mcFind
-#'  
+#' 
+#' @export
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
 #' @param x a vector
 #' @param right a boolean value. Should the first \code{TRUE} or last 
