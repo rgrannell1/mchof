@@ -28,13 +28,15 @@ mcReduce <- function(f, x, paropts = NULL){
 	
 	to_pairs <- function(flatlist){
 		# takes a list [x1, ..., xn], returns a list of pairs
-		# [ [x1, x2], ..., [x(n-1), xn | NA] ]. If flatlist is odd length 
-		# the last element in the last list is NA
+		# [ [x1, x2], ..., [x(n-1), xn | NULL] ]. If flatlist is odd length 
+		# the last element in the last list is NULL.
 			
 		Map(function(i){
 				
 				if(i == length(flatlist)){
-					list(first = flatlist[[i]], second = NA)
+					list(
+						first = flatlist[[i]],
+						second = NULL)
 				} else list(
 					first = flatlist[[i]],
 					second = flatlist[[i+1]])
@@ -43,27 +45,22 @@ mcReduce <- function(f, x, paropts = NULL){
 	}
 
 	f <- match.fun(f)
-	not_reduced <- to_pairs(x)
+	reducable <- to_pairs(x)
 	
 	# successively reduce pairs of elements in not_reduce to a single element
-	while(length(not_reduced) > 1){
+	while(length(reducable) > 1){
 
-		not_reduced <- to_pairs(
+		reducable <- to_pairs(
 			call_mclapply(
 				function(val_pair){
 					# returns f(x1, x2), or x1 if only one 
 					
-					# WHY IS NA SPECIAL?
-					
-					
-					if(is.na(val_pair$second)){
-						val_pair$first
-					} else {
-						f(val_pair$first, val_pair$second)
-					}	
+					with(
+						'val_pair',	
+						if(is.null(second)) first else f(first, second) ) 
 				},	
-				x = not_reduced, paropts))
+				x = reducable, paropts))
 	}
 	
-	f(not_reduced[[1]]$first, not_reduced[[1]]$second) 
+	f(reducable[[1]]$first, reducable[[1]]$second) 
 }
