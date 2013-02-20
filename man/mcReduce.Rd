@@ -5,7 +5,7 @@
   mcReduce(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a binary function}
+  \item{f}{a two-argument function}
 
   \item{x}{a vector or list}
 
@@ -16,7 +16,8 @@
   \code{mcReduce} can be used as a parallel replacement for
   a subclass of problems that can be solved with
   \code{Reduce} ; parallelising \code{Reduce} is only
-  possible when the function f is associative; that is
+  possible when the function f is associative; in infix
+  notation that is
 
   \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f
   x3)}. In practicality this means that the order in which
@@ -29,6 +30,9 @@
   - 3}, so it should not be used as a binary function for
   \code{mcReduce}
 }
+\examples{
+mcReduce(get('+'), 1:10)
+mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
 \author{
   Ryan Grannell
 }

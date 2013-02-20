@@ -61,4 +61,3 @@ mcFilter <- function(f, x, paropts = NULL){
 	ind <- as.logical(call_mclapply(f, x, paropts))
 	x[!is.na(ind) & ind]
 }
-

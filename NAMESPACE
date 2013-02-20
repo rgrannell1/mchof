@@ -1,1 +1,4 @@
 export(mcFilter)
+export(mcFind)
+export(mcPosition)
+export(mcReduce)

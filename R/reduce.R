@@ -22,16 +22,22 @@
 #' @param x a vector or list
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
+#'
+#' @examples 
+#' mcReduce(get('+'), 1:10)
+#' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
+#'
 
 mcReduce <- function(f, x, paropts = NULL){
-	# multicore version of Reduce
+	# multicore associative-only version of Reduce
 	
 	to_pairs <- function(flatlist){
 		# takes a list [x1, ..., xn], returns a list of pairs
-		# [ [x1, x2], ..., [x(n-1), xn | NULL] ]. If flatlist is odd length 
+		# [ [x1, x2], ..., [x(n-1), xn || NULL] ]. If flatlist is odd length 
 		# the last element in the last list is NULL.
 			
-		Map(function(i){
+		Map(
+			function(i){
 				
 				if(i == length(flatlist)){
 					list(
@@ -40,27 +46,26 @@ mcReduce <- function(f, x, paropts = NULL){
 				} else list(
 					first = flatlist[[i]],
 					second = flatlist[[i+1]])
-			},	
-			seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
+			}, seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
 	}
 
 	f <- match.fun(f)
 	reducable <- to_pairs(x)
 	
-	# successively reduce pairs of elements in not_reduce to a single element
 	while(length(reducable) > 1){
-
+		
 		reducable <- to_pairs(
 			call_mclapply(
 				function(val_pair){
-					# returns f(x1, x2), or x1 if only one 
+					# returns f(x1, x2), or x1 if only 
+					# one valid argument given
 					
-					with(
-						'val_pair',	
+					with(val_pair,	
 						if(is.null(second)) first else f(first, second) ) 
 				},	
 				x = reducable, paropts))
 	}
-	
-	f(reducable[[1]]$first, reducable[[1]]$second) 
+	with(reducable[[1]], f(first, second)) 
 }
+
+mcReduce(get('+'), 1:10, list(mc.cores = 2))
