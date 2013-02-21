@@ -38,13 +38,14 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	} else 1
 	
 	# this matrix determines which tasks are done in parallel
+	
 	job_ind <- matrix(NA,
 		nrow = ncores,
 		ncol = ceiling(length(x)/ncores))
 	
 	job_ind[seq_along(x)] <- seq_along(x)
 	
-	job_ind <- if(right & ncores > 1){
+	job_ind <- if(right && ncores > 1){
 		t(apply(job_ind, 2, rev))
 	} else t(job_ind)
 	
@@ -53,15 +54,16 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	} else rev(1:nrow(job_ind))
 	
 	for(i in job_direction){
-		parallel_jobs <- na.omit(job_ind[i,])
+		parallel_jobs <- job_ind[i, which(!is.na(job_ind[i,]))]
 		
 		checked_ind <- unlist(call_mclapply(
 			f = function(j){
 				# returns the index times a boolean
 				
 				j * as.logical(f(x[[j]]))
+				
 			},		
-			x = parallel_jobs, paropts))
+			x = parallel_jobs, paropts = paropts))
 	
 		if(any(checked_ind != 0)){
 			return(min(na.omit(checked_ind) > 0))
@@ -69,8 +71,6 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	}
 	integer(0)
 }
-
-mcPosition(function(x) x > 5, 10:1)
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'

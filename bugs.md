@@ -1,7 +1,12 @@
 
 ## BUGS
 
-A list of bugs that need squashing:
+A list of bugs that need squashing, and todo:
 
-- mcPosition throws error for cores > 1; passing function to 
-  call_mclapply as vector. Simplify job indexing.
+
+
+## TODO
+
+- simplify indexing of mcPosition jobs; should be a two-liner
+- simplfy NA removal in mcPosition
+

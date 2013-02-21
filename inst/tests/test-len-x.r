@@ -1,5 +1,5 @@
 
-context("special cases of x handled consistently")
+context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
@@ -50,11 +50,11 @@ test_that("mcFilter length(0) |-> length(0)", {
 		), integer(0))
 })
 
-test_that("mcReduce", {
+test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
 
 	# len(x) == 1 |-> 1
 	expect_equal(
-		mcReduce(get('+'), c(1)),
+		mcReduce(get('+'), c(1)), 
 		1)
 	
 	# NULL |-> NULL 

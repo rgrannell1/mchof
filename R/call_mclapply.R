@@ -22,7 +22,7 @@ call_mclapply <- function(f, x, paropts = NULL){
 		if(any(c('x', 'X') %in% names(paropts))) stop(
 			'x or X may not be specified in paropts')
 	}
-	
+
 	if(!is.function(f)) stop('f is not a function')
 	if(!is.vector(x)) stop('x is not a vector')
 	
