@@ -69,7 +69,7 @@ mcReduce <- function(f, x, paropts = NULL){
 				},	
 				x = reducable, paropts))
 	}
-	with(reducable[[1]], f(first, second)) 
+	with(reducable[[1]], f(first, second))
 }
 
 mcReduce(get('+'), 1:10, list(mc.cores = 2))

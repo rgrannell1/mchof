@@ -3,6 +3,8 @@ call_mclapply <- function(f, x, paropts = NULL){
 	# provides the interface to the parallel backend for 
 	# other functions in mchof
 	
+	require(multicore)
+	
 	check_paropts <- function(paropts){
 		# stops the program if invalid arguments are
 		# included in paropts

@@ -34,6 +34,8 @@ mcPosition(function(x) !is.null(x), 10:20, paropts = list(mc.cores = 2))
 mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))
 }
 \seealso{
-  many links
+  see \code{\link{Position}} for the non-parallel
+  equivelant of this function, \code{\link{mclapply}} for
+  more details about the parallel backend being employed.
 }
 
