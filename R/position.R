@@ -70,6 +70,7 @@ mcPosition(function(x) x > 5, 10:1)
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
+#' @author Ryan Grannell
 #' @title mcFind
 #' 
 #' @export

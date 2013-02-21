@@ -33,6 +33,7 @@
 \examples{
 mcReduce(get('+'), 1:10)
 mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
+}
 \author{
   Ryan Grannell
 }
