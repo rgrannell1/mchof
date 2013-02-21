@@ -30,4 +30,3 @@ call_mclapply <- function(f, x, paropts = NULL){
 		what = multicore::mclapply,
 		args = c(list(FUN = f, X = x), paropts))
 }
-

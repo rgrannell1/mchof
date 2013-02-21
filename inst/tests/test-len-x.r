@@ -64,19 +64,7 @@ test_that("mcReduce", {
 	
 	# |-> 
 	expect_equal(
-		
+		mcReduce(),		
 		
 	)
 })
-
-
-
-
-
-
-
-
-
-
-
-

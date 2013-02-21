@@ -95,14 +95,3 @@ mcFind <- function(f, x, right = FALSE){
 	}
 	else integer(0)
 }
-
-
-
-
-
-
-
-
-
-
-
