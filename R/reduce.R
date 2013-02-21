@@ -31,6 +31,9 @@
 mcReduce <- function(f, x, paropts = NULL){
 	# multicore associative-only version of Reduce
 	
+	if(is.null(x)) return(NULL)
+	if(length(x) == 1) return(x)
+	
 	to_pairs <- function(flatlist){
 		# takes a list [x1, ..., xn], returns a list of pairs
 		# [ [x1, x2], ..., [x(n-1), xn || NULL] ]. If flatlist is odd length 
