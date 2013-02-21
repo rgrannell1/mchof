@@ -25,6 +25,7 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	# multicore version of Position
 	
 	f <- match.fun(f)
+	if(is.null(x)) return(integer(0))
 	
 	if(!is.logical(right) || is.na(right)){
 		stop('right must be TRUE or FALSE')
@@ -87,7 +88,9 @@ mcPosition(function(x) x > 5, 10:1)
 mcFind <- function(f, x, right = FALSE){
 	# multicore version of Find
 
-	if((first_match <- mcPosition(f, x, right, nomatch = 0) > 0)){
+	if(is.null(x)) return(NULL)
+	
+	if((first_match <- mcPosition(f, x, right) > 0)){
 		x[[first_match]]
 	}
 	else integer(0)
