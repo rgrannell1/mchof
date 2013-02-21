@@ -1,34 +1,24 @@
 
-context("make sure factors aren't handled where they shouldn't be")
+context("make sure factors throw errors")
 
-test_that("mcFilter", {
+true_fun <- function(...) TRUE
+
+test_that("errors thrown by all functions", {
 
 	expect_error(
-		mcFilter(),	
-		'')
-	
-})
-
-test_that("mcPosition", {
+		mcReduce(true_fun, factor(c(1,2,3,2,1)),	
+		'factor')
 	
 	expect_error(
-		mcPosition(),	
-		'')
-	
-})
-
-test_that("mcFind", {
+		mcFind(true_fun, factor(c(1,2,3,2,1))),	
+		'factor')
 	
 	expect_error(
-		mcFind(),	
-		'')
-	
-})
-
-test_that("Reduce", {
+		mcPosition(true_fun, factor(c(1,2,3,2,1))),	
+		'factor')
 	
 	expect_error(
-		mcReduce(),	
-		'')
+		mcFilter(true_fun, factor(c(1,2,3,2,1))),	
+		'factor')
 	
 })

@@ -15,7 +15,9 @@
 #'    
 #' @details many details
 #'    
-#' @seealso many links
+#' @seealso see \code{\link{Position}} for the non-parallel equivelant of this 
+#'     function, \code{\link{mclapply}} for more details about the parallel
+#'     backend being employed. 
 #'    
 #' @examples   
 #' mcPosition(function(x) !is.null(x), 10:20, paropts = list(mc.cores = 2))
@@ -84,7 +86,10 @@ mcPosition(function(x) x > 5, 10:1)
 #'     \code{f(element) = TRUE} are found in \code{x}. Defaults to \code{NA} 
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
-#'
+#' 
+#' @seealso see \code{\link{Find}} for the non-parallel equivelant of this 
+#'     function, \code{\link{mclapply}} for more details about the parallel
+#'     backend being employed. 
 
 mcFind <- function(f, x, right = FALSE){
 	# multicore version of Find
