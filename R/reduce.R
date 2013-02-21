@@ -33,6 +33,7 @@ mcReduce <- function(f, x, paropts = NULL){
 	
 	if(is.null(x)) return(NULL)
 	if(length(x) == 1) return(x)
+	if(is.factor(x)) stop('x may not be a factor')
 	
 	to_pairs <- function(flatlist){
 		# takes a list [x1, ..., xn], returns a list of pairs
