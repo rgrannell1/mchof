@@ -27,6 +27,7 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	# multicore version of Position
 	
 	f <- match.fun(f)
+
 	if(is.null(x)) return(integer(0))
 	if(is.factor(x)) stop('x may not be a factor')
 	
@@ -50,23 +51,23 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	} else t(job_ind)
 	
 	job_direction <- if(right){
-		1:ncol(job_ind)
-	} else rev(1:nrow(job_ind))
-	
+		nrow(job_ind):1
+	} else 1:nrow(job_ind)
+
 	for(i in job_direction){
-		parallel_jobs <- job_ind[i, which(!is.na(job_ind[i,]))]
+		jobs <- job_ind[i,]
+		jobs <- jobs[!is.na(jobs)]
 		
 		checked_ind <- unlist(call_mclapply(
 			f = function(j){
-				# returns the index times a boolean
 				
-				j * as.logical(f(x[[j]]))
-				
+				is_match <- as.logical(f(x[[j]]))
+				if(!is.na(is_match) && is_match) j else Inf	
 			},		
-			x = parallel_jobs, paropts = paropts))
-	
-		if(any(checked_ind != 0)){
-			return(min(na.omit(checked_ind) > 0))
+			x = jobs, paropts = paropts))
+		
+		if(any(checked_ind != Inf)){
+			return(min(checked_ind))
 		}
 	}
 	integer(0)

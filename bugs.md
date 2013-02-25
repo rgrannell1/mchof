@@ -3,10 +3,10 @@
 
 A list of bugs that need squashing, and todo:
 
-
-
 ## TODO
 
-- simplify indexing of mcPosition jobs; should be a two-liner
-- simplfy NA removal in mcPosition
+- improve docs
+- standard case unit checks
 
+- simplify indexing of mcPosition jobs; should be a two-liner
+- simplify special case checking: reduce redundancy

@@ -38,7 +38,7 @@ test_that("mcFilter length(0) |-> length(0)", {
 	# NULL |-> NULL
 	expect_equal(
 		mcFilter(
-			function(x) ,
+			function(x) T,
 			NULL
 		), T)
 	

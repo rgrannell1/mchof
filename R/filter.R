@@ -50,7 +50,12 @@
 #'  	   if(val > 2 && val < 10) TRUE else FALSE
 #'     }, 
 #'     x = apply(combn(8, 3), 2, list),
-#'     paropts = list(mc.cores = 2)) 
+#'     paropts = list(mc.cores = 2))  
+
+
+
+
+
 
 mcFilter <- function(f, x, paropts = NULL){
 	# multicore version of the Filter function
