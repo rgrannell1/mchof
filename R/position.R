@@ -28,7 +28,7 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	
 	f <- match.fun(f)
 
-	if(is.null(x)) return(integer(0))
+	if(is.null(x) || length(x) == 0) return(integer(0))
 	if(is.factor(x)) stop('x may not be a factor')
 	
 	if(!is.logical(right) || is.na(right)){
@@ -53,7 +53,7 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	job_direction <- if(right){
 		nrow(job_ind):1
 	} else 1:nrow(job_ind)
-
+	
 	for(i in job_direction){
 		jobs <- job_ind[i,]
 		jobs <- jobs[!is.na(jobs)]
@@ -62,12 +62,14 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 			f = function(j){
 				
 				is_match <- as.logical(f(x[[j]]))
-				if(!is.na(is_match) && is_match) j else Inf	
+				if(!is.na(is_match) && is_match) j else NaN	
 			},		
 			x = jobs, paropts = paropts))
 		
-		if(any(checked_ind != Inf)){
-			return(min(checked_ind))
+		checked_ind <- checked_ind[!is.nan(checked_ind)]
+		
+		if(length(checked_ind > 0)){
+			return(if(right) max(checked_ind) else min(checked_ind))
 		}
 	}
 	integer(0)
@@ -96,6 +98,7 @@ mcFind <- function(f, x, right = FALSE){
 	# multicore version of Find
 
 	if(is.null(x)) return(NULL)
+	if(length(x) == 0) return(x)
 	if(is.factor(x)) stop('x may not be a factor')
 	
 	if((first_match <- mcPosition(f, x, right) > 0)){

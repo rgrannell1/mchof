@@ -23,7 +23,13 @@ test_that("test that the answer is invariant under mc.cores and right", {
 			c(F, F, T, F, F, T, F),
 			right = TRUE,
 			list(mc.cores = 12)), 6)
-
+	
+	expect_equal(
+		mcPosition(
+			function(x) x > 5,
+			c(1, 3, 5, 6, 7),
+			right = TRUE,
+			list(mc.cores = 4)), 5)
 })
 
 

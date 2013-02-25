@@ -15,7 +15,7 @@ test_that("mcPosition length(0) |-> length(0)", {
 	expect_equal(	
 		mcPosition(
 			true_fun, x = integer(0)),
-		NULL)	
+		integer(0))	
 })
 
 test_that("mcFind length(0) |-> length(0)", {
@@ -40,7 +40,7 @@ test_that("mcFilter length(0) |-> length(0)", {
 		mcFilter(
 			function(x) T,
 			NULL
-		), T)
+		), NULL)
 	
 	# [A](0) |-> [A](0)
 	expect_equal(
