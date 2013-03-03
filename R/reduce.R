@@ -28,17 +28,17 @@
 #' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
 #'
 
-mcReduce <- function(f, x, paropts = NULL){
+mcReduce <- function (f, x, paropts = NULL) {
 	# multicore associative f only version of Reduce
 	
-	to_pairs <- function(flatlist){
+	to_pairs <- function (flatlist) {
 		# takes a list [x1, ..., xn], returns a list of pairs
 		# [ [x1, x2], ..., [x(n-1), xn || NULL] ]. If flatlist is odd length 
 		# the last element in the last list is NULL.
 			
-		Map(function(i){
+		Map( function(i) {
 			
-				if(i == length(flatlist)){
+				if (i == length(flatlist)) {
 					list(
 						first = flatlist[[i]],
 						second = NULL)
@@ -50,21 +50,21 @@ mcReduce <- function(f, x, paropts = NULL){
 			}, seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
 	}
 
-	if(is.null(x)) return(NULL)
-	if(length(x) == 1) return(x)
-	if(is.factor(x)) stop('x may not be a factor')
+	if (is.null(x)) return(NULL)
+	if (length(x) == 1) return(x)
+	if (is.factor(x)) stop('x may not be a factor')
 	
 	f <- match.fun(f)
 	reducable <- to_pairs(x)
 	
-	while(length(reducable) > 1){
+	while (length(reducable) > 1) {
 		
 		reducable <- to_pairs(
 			call_mclapply(
 				function(val_pair){
 					
 					with(val_pair,	
-						if(is.null(second)){
+						if (is.null(second)) {
 							first
 						} else {
 							f(first, second)

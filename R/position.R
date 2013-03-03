@@ -19,22 +19,24 @@
 #'     function, \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
 #'    
-#' @examples   
-#' mcPosition(function(x) !is.null(x), 10:20, paropts = list(mc.cores = 2))
+#' @examples
+#' # find the index of the first position of the first non-NA value in a vector
+#' mcPosition(function(x) !is.na(x), c(10, NA, 11:20), paropts = list(mc.cores = 2))
+#' # get the index of the first value larger than five from the rightmost index of a vector
 #' mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))       
 
-mcPosition <- function(f, x, right=FALSE, paropts=NULL){
+mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# multicore version of Position
 	
 	f <- match.fun(f)
 
-	if(is.null(x) || length(x) == 0) return(integer(0))
-	if(is.factor(x)) stop('x may not be a factor')
+	if (is.null(x) || length(x) == 0) return(integer(0))
+	if (is.factor(x)) stop('x may not be a factor')
 	
-	if(!is.logical(right) || is.na(right)){
+	if (!is.logical(right) || is.na(right)) {
 		stop('right must be TRUE or FALSE')
 	}
-	ncores <- if(!is.null(paropts) && 'mc.cores' %in% names(paropts)){
+	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		paropts$mc.cores
 	} else 1
 	
@@ -46,15 +48,15 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 	
 	job_ind[seq_along(x)] <- seq_along(x)
 	
-	job_ind <- if(right && ncores > 1){
+	job_ind <- if (right && ncores > 1) {
 		t(apply(job_ind, 2, rev))
 	} else t(job_ind)
 	
-	job_direction <- if(right){
+	job_direction <- if (right) {
 		nrow(job_ind):1
 	} else 1:nrow(job_ind)
 	
-	for(i in job_direction){
+	for (i in job_direction) {
 		jobs <- job_ind[i,]
 		jobs <- jobs[!is.na(jobs)]
 		
@@ -62,14 +64,14 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 			f = function(j){
 				
 				is_match <- as.logical(f(x[[j]]))
-				if(!is.na(is_match) && is_match) j else NaN	
+				if (!is.na(is_match) && is_match) j else NaN	
 			},		
 			x = jobs, paropts = paropts))
 		
 		checked_ind <- checked_ind[!is.nan(checked_ind)]
 		
-		if(length(checked_ind > 0)){
-			return(if(right) max(checked_ind) else min(checked_ind))
+		if (length(checked_ind > 0)) {
+			return(if (right) max(checked_ind) else min(checked_ind))
 		}
 	}
 	integer(0)
@@ -93,16 +95,31 @@ mcPosition <- function(f, x, right=FALSE, paropts=NULL){
 #' @seealso see \code{\link{Find}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
+#'
+#' @examples mcFind(
+#'     function(x){
+#'         grepl('^[J].*$', x)
+#'     },
+#'     c('mark', 'sam', 'Jane', 'Peter'))
+#'
 
-mcFind <- function(f, x, right = FALSE){
+mcFind <- function(f, x, right = FALSE, paropts){
 	# multicore version of Find
 
-	if(is.null(x)) return(NULL)
-	if(length(x) == 0) return(x)
-	if(is.factor(x)) stop('x may not be a factor')
+	if (is.null(x)) return(NULL)
+	if (length(x) == 0) return(x)
+	if (is.factor(x)) stop('x may not be a factor')
 	
-	if((first_match <- mcPosition(f, x, right) > 0)){
+	first_match <- mcPosition(f, x, right, paropts)
+	
+	if (length(first_match) > 0) {
 		x[[first_match]]
 	}
 	else integer(0)
 }
+
+
+
+
+
+

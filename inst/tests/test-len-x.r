@@ -62,6 +62,4 @@ test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
 		mcReduce(get('+'), NULL),
 		NULL)
 	
-	# |-> 
-
 })

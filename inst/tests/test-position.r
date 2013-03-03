@@ -30,6 +30,7 @@ test_that("test that the answer is invariant under mc.cores and right", {
 			c(1, 3, 5, 6, 7),
 			right = TRUE,
 			list(mc.cores = 4)), 5)
+	
 })
 
 
