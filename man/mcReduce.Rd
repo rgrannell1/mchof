@@ -5,7 +5,7 @@
   mcReduce(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a two-argument function}
+  \item{f}{a binary function}
 
   \item{x}{a vector or list}
 
@@ -34,7 +34,7 @@
 mcReduce(get('+'), 1:10)
 mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
 }
-\author{
-  Ryan Grannell
+\seealso{
+  \code{\link{reduce}}
 }
 

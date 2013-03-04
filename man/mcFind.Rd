@@ -2,7 +2,7 @@
 \alias{mcFind}
 \title{mcFind}
 \usage{
-  mcFind(f, x, right = FALSE)
+  mcFind(f, x, right = FALSE, paropts)
 }
 \arguments{
   \item{f}{a unary function that returns either \code{TRUE}
@@ -24,6 +24,13 @@
 \description{
   Returns the value of the first element of x that meets
   the predicate f.
+}
+\examples{
+mcFind(
+    function(x){
+        grepl('^[J].*$', x)
+    },
+    c('mark', 'sam', 'Jane', 'Peter'))
 }
 \author{
   Ryan Grannell

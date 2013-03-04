@@ -18,13 +18,10 @@
   function \code{f} returns \code{TRUE}, in parallel
 }
 \details{
-  should be much faster for particular application than
-  Filter, especially if the function \code{f} is
-  computation-intensive and a large number of cores are
-  available.
-
-  As with Filter, NA values obtained during filtering are
-  assumed to be \code{FALSE}
+  mcFilter returns . NA values obtained during logical
+  filtering are assumed to be FALSE, as with Filter. The
+  user can modify this behaviour by making sure the
+  argument f returns TRUE is a value is NA under coersion
 }
 \examples{
 # remove NA values from a vector
