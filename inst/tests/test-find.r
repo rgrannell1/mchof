@@ -1,12 +1,15 @@
 
 context("check that Find's normal cases work")
 
-test_that("", {
+test_that("variety of cases", {
 	
 	expect_equal(
 		mcFind(
-			f = function (x) x == 'c',	
+			f = function (x){
+				x == 'c'
+			},	
 			x = c('a', 'b', 'c', 'd'),
+			right = FALSE,
 			paropts = list(mc.cores = 2) ), 'c')
 	
 	expect_equal(

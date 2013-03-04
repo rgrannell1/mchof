@@ -103,14 +103,14 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #'     c('mark', 'sam', 'Jane', 'Peter'))
 #'
 
-mcFind <- function(f, x, right = FALSE, paropts){
+mcFind <- function (f, x, right = FALSE, paropts) {
 	# multicore version of Find
 
 	if (is.null(x)) return(NULL)
 	if (length(x) == 0) return(x)
 	if (is.factor(x)) stop('x may not be a factor')
 	
-	first_match <- mcPosition(f, x, right, paropts)
+	first_match <- mcPosition (f, x, right, paropts)
 	
 	if (length(first_match) > 0) {
 		x[[first_match]]
