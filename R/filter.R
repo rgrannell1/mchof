@@ -11,14 +11,9 @@
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details 
-#' 
-#'     should be much faster for particular application than Filter, 
-#'     especially if the function \code{f} is computation-intensive and a large
-#'     number of cores are available. 
-#'     
-#'     As with Filter, NA values obtained during filtering are 
-#'     assumed to be \code{FALSE}
+#' @details mcFilter returns . NA values obtained during logical filtering
+#' are assumed to be FALSE, as with Filter. The user can modify this behaviour
+#' by making sure the argument f returns TRUE is a value is NA under coersion
 #' 
 #' @seealso see \code{\link{Filter}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
@@ -51,11 +46,6 @@
 #'     }, 
 #'     x = apply(combn(8, 3), 2, list),
 #'     paropts = list(mc.cores = 2))  
-
-
-
-
-
 
 mcFilter <- function (f, x, paropts = NULL) {
 	# multicore version of the Filter function

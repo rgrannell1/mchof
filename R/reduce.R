@@ -1,5 +1,4 @@
 #' @title mcReduce
-#' @author Ryan Grannell
 #' 
 #' @export
 #' @description \code{mcReduce} can be used as a parallel replacement for a 
@@ -18,7 +17,7 @@
 #'   
 #' @name mcReduce
 #' 
-#' @param f a two-argument function
+#' @param f a binary function
 #' @param x a vector or list
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
@@ -26,6 +25,7 @@
 #' @examples 
 #' mcReduce(get('+'), 1:10)
 #' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
+#' @seealso \code{\link{reduce}}
 #'
 
 mcReduce <- function (f, x, paropts = NULL) {
