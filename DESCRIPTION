@@ -17,7 +17,8 @@ Imports:
     multicore
 Suggests:
     testthat
-License: GPL2
+License: GPL-2
+SystemRequirements: POSIX-compliant OS (not Windows)
 Collate:
     'filter.R'
     'call_mclapply.R'

@@ -24,8 +24,8 @@
 #'
 #' @examples 
 #' mcReduce(get('+'), 1:10)
-#' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6))
-#' @seealso \code{\link{reduce}}
+#' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6)))
+#' @seealso \code{\link{Reduce}}
 #'
 
 mcReduce <- function (f, x, paropts = NULL) {

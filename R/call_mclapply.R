@@ -1,3 +1,4 @@
+#' @import multicore
 
 call_mclapply <- function (f, x, paropts = NULL) {
 	# provides the interface to the parallel backend for 
