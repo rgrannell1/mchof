@@ -61,9 +61,9 @@ mcReduce <- function (f, x, paropts = NULL) {
 		
 		reducable <- to_pairs(
 			call_mclapply(
-				function(val_pair){
+				function (val_pair) {
 					
-					with(val_pair,	
+					with (val_pair,	
 						if (is.null(second)) {
 							first
 						} else {
@@ -72,5 +72,5 @@ mcReduce <- function (f, x, paropts = NULL) {
 				},	
 				x = reducable, paropts))
 	}
-	with(reducable[[1]], f(first, second))
+	with (reducable[[1]], f(first, second))
 }
