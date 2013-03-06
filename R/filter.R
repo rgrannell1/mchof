@@ -6,14 +6,15 @@
 #' @author Ryan Grannell
 #' 
 #' @export
-#' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
+#' @param f a unary function that returns a boolean value
 #' @param x a vector
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details mcFilter returns . NA values obtained during logical filtering
-#' are assumed to be FALSE, as with Filter. The user can modify this behaviour
-#' by making sure the argument f returns TRUE is a value is NA under coersion
+#' @details mcFilter returns the elements of x for which f returns TRUE. 
+#' NA values obtained during logical filtering
+#' are assumed to be FALSE, as with \code{Filter}. The user can modify this behaviour
+#' by making sure the argument f returns TRUE is a value is NA under coersion.
 #' 
 #' @seealso see \code{\link{Filter}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel

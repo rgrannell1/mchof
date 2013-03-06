@@ -5,8 +5,7 @@
   mcFilter(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a unary function that returns either \code{TRUE}
-  or \code{FALSE}}
+  \item{f}{a unary function that returns a boolean value}
 
   \item{x}{a vector}
 
@@ -18,10 +17,11 @@
   function \code{f} returns \code{TRUE}, in parallel
 }
 \details{
-  mcFilter returns . NA values obtained during logical
-  filtering are assumed to be FALSE, as with Filter. The
-  user can modify this behaviour by making sure the
-  argument f returns TRUE is a value is NA under coersion
+  mcFilter returns the elements of x for which f returns
+  TRUE. NA values obtained during logical filtering are
+  assumed to be FALSE, as with \code{Filter}. The user can
+  modify this behaviour by making sure the argument f
+  returns TRUE is a value is NA under coersion.
 }
 \examples{
 # remove NA values from a vector
