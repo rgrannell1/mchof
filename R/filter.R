@@ -47,6 +47,7 @@
 #'     }, 
 #'     x = apply(combn(8, 3), 2, list),
 #'     paropts = list(mc.cores = 2))  
+#' @keywords mcFilter
 
 mcFilter <- function (f, x, paropts = NULL) {
 	# multicore version of the Filter function

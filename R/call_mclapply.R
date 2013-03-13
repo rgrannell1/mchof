@@ -1,4 +1,4 @@
-#' @import multicore
+#' @import parallel
 
 call_mclapply <- function (f, x, paropts = NULL) {
 	# provides the interface to the parallel backend for 
@@ -28,6 +28,6 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	}
 	
 	do.call(
-		what = multicore::mclapply,
+		what = parallel::mclapply,
 		args = c(list(FUN = f, X = x), paropts))
 }

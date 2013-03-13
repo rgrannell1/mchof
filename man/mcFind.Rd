@@ -36,4 +36,5 @@ mcFind(
   this function, \code{\link{mclapply}} for more details
   about the parallel backend being employed.
 }
+\keyword{mcFind}
 

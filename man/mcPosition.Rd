@@ -37,4 +37,5 @@ mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))
   equivelant of this function, \code{\link{mclapply}} for
   more details about the parallel backend being employed.
 }
+\keyword{mcPosition}
 

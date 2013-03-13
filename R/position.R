@@ -23,6 +23,7 @@
 #' mcPosition(function(x) !is.na(x), c(10, NA, 11:20), paropts = list(mc.cores = 2))
 #' # get the index of the first value larger than five from the rightmost index of a vector
 #' mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))       
+#' @keywords mcPosition
 
 mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# multicore version of Position
@@ -98,7 +99,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #'         grepl('^[J].*$', x)
 #'     },
 #'     c('mark', 'sam', 'Jane', 'Peter'))
-#'
+#' @keywords mcFind
 
 mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	# multicore version of Find
