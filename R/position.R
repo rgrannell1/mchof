@@ -40,25 +40,24 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		paropts$mc.cores
 	} else 1
 	
-	# this matrix determines which tasks are done in parallel
+	steps_needed <- ceiling(length(x)/ncores)
 	
-	job_ind <- matrix(NA,
-		nrow = ncores,
-		ncol = ceiling(length(x)/ncores))
+	job_ind <- function (i) {
 	
-	job_ind[seq_along(x)] <- seq_along(x)
-	
-	job_ind <- if (right && ncores > 1) {
-		t(apply(job_ind, 2, rev))
-	} else t(job_ind)
-	
+		stopifnot(1 + ((i-1) * ncores) <= length(x))
+		
+		seq(
+	 		from = 1 + ((i-1) * ncores),
+	 		to = min((i * ncores), length(x)))
+		
+	}
 	job_direction <- if (right) {
-		nrow(job_ind):1
-	} else 1:nrow(job_ind)
+		steps_needed:1
+	} else 1:steps_needed
 	
 	for (i in job_direction) {
-		jobs <- job_ind[i,]
-		jobs <- jobs[!is.na(jobs)]
+
+		jobs <- job_ind(i)
 		
 		checked_ind <- unlist(call_mclapply(
 			f = function(j){
@@ -89,6 +88,9 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #'     \code{FALSE} element matching \code{f} be returned? Defaults to \code{FALSE}
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
+#' 
+#' @details as with mcFilter, NA's obtained after logical coercion are assumed to be
+#' FALSE.
 #' 
 #' @seealso see \code{\link{Find}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
