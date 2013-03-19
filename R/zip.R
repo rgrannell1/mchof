@@ -3,24 +3,24 @@ mcZip <- function (..., paropts = NULL) {
 	# takes n lists/vectors, return a list of n-tuples. 
 	# excess elements are discarded. 
 	
-	lists <- lapply (as.list(match.call())[-1], eval)
+	args <- lapply (as.list(match.call())[-1], eval)
 	
-	if (!is.null(names(lists)) && 'paropts' %in% names(lists)) {
-		lists$paropts <- NULL
+	if (length(args) == 0) return (NULL)
+	
+	if (!is.null(names(args)) && 'paropts' %in% names(args)) {
+		args$paropts <- NULL
 	}
-	if (length(lists) == 0) return(NULL)
 	
 	shortest <- min(sapply(lists, length))
-
-
 	
+	if (shortest == 0) return (NULL)
 	
+	to_join <- lapply (
+		lists, function (x) x[seq_len(shortest)] )
 	
-	return(lists)
+	call_mclapply (
+		function (ind) {
+			lapply (to_join, function (x) x[[ind]])
+		},	
+		seq_len(shortest), paropts)
 }
-d <- mcZip (
-	c(1,2,3),
-	c(2,3,4,5),
-	paropts = list(mc.cores = 2)
-)
-
