@@ -45,12 +45,11 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	job_ind <- function (i) {
 	
 		stopifnot(1 + ((i-1) * ncores) <= length(x))
-		
 		seq(
 	 		from = 1 + ((i-1) * ncores),
 	 		to = min((i * ncores), length(x)))
-		
 	}
+	
 	job_direction <- if (right) {
 		steps_needed:1
 	} else 1:steps_needed
@@ -67,10 +66,10 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 			},		
 			x = jobs, paropts = paropts))
 		
-		checked_ind <- checked_ind[!is.nan(checked_ind)]
+		matched_ind <- checked_ind[!is.nan(checked_ind)]
 		
-		if (length(checked_ind > 0)) {
-			return(if (right) max(checked_ind) else min(checked_ind))
+		if (length(matched_ind) > 0) {
+			return(if (right) max(matched_ind) else min(matched_ind))
 		}
 	}
 	integer(0)

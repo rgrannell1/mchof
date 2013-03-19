@@ -1,8 +1,7 @@
 #' @import parallel
 
 call_mclapply <- function (f, x, paropts = NULL) {
-	# provides the interface to the parallel backend for 
-	# other functions in mchof
+	# a wrapper segregating the parallel library from mchof code
 
 	if (!is.function(f)) stop('f is not a function')
 	if (!is.vector(x)) stop('x is not a vector')
@@ -10,6 +9,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	if (!is.null(paropts)) {
 		
 		arg_names <- names(paropts)
+		
 		invalid_args <- setdiff(
 			arg_names, 
 			names(formals(mclapply)))
