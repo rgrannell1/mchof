@@ -27,3 +27,4 @@ Collate:
     'call_mclapply.R'
     'reduce.R'
     'position.R'
+    'zip.R'

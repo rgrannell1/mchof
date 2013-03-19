@@ -4,6 +4,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 	
+	# list (x1, x2), list (y1, y2)  |-> list ( list(x1, y1), list(x2, y2) )
+	
 	args <- lapply (as.list(match.call())[-1], eval)
 	
 	if (length(args) == 0) return (NULL)

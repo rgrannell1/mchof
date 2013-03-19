@@ -1,9 +1,9 @@
 
 context("ensure that there is some speedup from the package")
 
-# aim for 60% speedup, outside of mcReduce
+# aim for 60% speedup, outside of mcReduce which had odd complexity
 
-test_that("speed tests", {
+test_that("find", {
 
 	expect_that(
 		mcFind(
@@ -14,7 +14,11 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 			takes_less_than(6) )
-		
+
+})
+
+test_that("position", {
+	
 	expect_that(
 		mcPosition(
 			function (x) {
@@ -24,7 +28,9 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
-		
+})
+
+test_that("filter", {
 	
 	expect_that(
 		mcFilter(
@@ -35,7 +41,8 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
-	
+})
+test_that("find", {
 	
 	expect_that(
 		mcFind(
@@ -46,7 +53,10 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
+})
 	
+test_that("position", {
+		
 	expect_that(
 		mcPosition(
 			function (x) {
@@ -56,8 +66,11 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
+
+})
 	
-	
+test_that("reduce", {
+		
 	expect_that(
 		mcReduce(
 			function (x, y) {
@@ -67,7 +80,11 @@ test_that("speed tests", {
 			x = seq_len(20),
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
-		
+
+})
+	
+test_that("zipwith", {
+	
 	expect_that(
 		mcZipWith(
 			function (x) {
@@ -75,8 +92,7 @@ test_that("speed tests", {
 				1				
 			}, 	
 			1:20, 1:20,
-			paropts = list(mc.cores = 2) )
-		),
+			paropts = list(mc.cores = 2) ),
 		takes_less_than(6) )
 	
 })

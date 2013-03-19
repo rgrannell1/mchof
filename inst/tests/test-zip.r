@@ -21,6 +21,14 @@ test_that("", {
 			list ("be")
 		) )	
 	
+	expect_equal(
+		mcZipWith (
+			function (v) sum(v),
+			list(list(), list()), list(list(), list())),	
+		list (
+			list (),	
+			list ()
+		) )	
 	
 	
 	
