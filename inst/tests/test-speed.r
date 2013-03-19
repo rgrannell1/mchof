@@ -68,7 +68,17 @@ test_that("speed tests", {
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
 		
-
-	
+	expect_that(
+		mcZipWith(
+			function (x) {
+				Sys.sleep(0.5)
+				1				
+			}, 	
+			1:20, 1:20,
+			paropts = list(mc.cores = 2) )
+		),
+		takes_less_than(6) )
 	
 })
+
+
