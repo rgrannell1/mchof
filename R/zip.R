@@ -1,4 +1,27 @@
 
+#' @description mcZipWith takes n lists/vectors, generates a list of n element lists,
+#' and returns the result of mapping f over this new list. 
+
+#' 
+#' @title mcZipWith
+#' @author Ryan Grannell
+#' 
+#' @export
+#' @param f a function that takes a single n-element list
+#' @param ... a list of vectors/lists of length > 0
+#' @param paropts a list of parameters to be handed to 
+#'    \code{mclapply} (see details)
+#'    
+#' @details mcZipWith discards excess elements without warning: for example 
+#' list (1, 2), list (3, 4, 5) becomes list (f( list(1, 3) ), f( list(2, 4) )). 
+#' 
+#' @seealso see \code{\link{mclapply}} for more details about the parallel
+#'     backend being employed. 
+#'    
+#' @examples
+#' 
+#' @keywords mcZipWith
+
 mcZipWith <- function (f, ..., paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
 	# returns the result of mapping f over this new list. 
@@ -36,5 +59,28 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 		x = zipped,
 		paropts )
 }
+
+
+#' @description mcZip takes n lists/vectors, and generates a list of n element lists.
+#' It is a special case of mcZipWith
+#' 
+#' @title mcZip
+#' @author Ryan Grannell
+#' 
+#' @export
+#' @param ... a list of vectors/lists of length > 0
+#' @param paropts a list of parameters to be handed to 
+#'    \code{mclapply} (see details)
+#'    
+#' @details mcZip discards excess elements without warning: for example 
+#' list (1, 2), list (3, 4, 5) becomes list (list(1, 3), list(2, 4)). 
+#' 
+#' @seealso see \code{\link{mclapply}} for more details about the parallel
+#'     backend being employed, and \code{\link{mcZipWith}} for a more general
+#'     version of this function 
+#'    
+#' @examples
+#' 
+#' @keywords mcZip
 
 mcZip <- function(..., paropts) mcZipWith (identity, ..., paropts)
