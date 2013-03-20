@@ -34,7 +34,7 @@ mcUnzip <- function (..., paropts) {
 	
 	shortest <- min(sapply(args, length))	
 	
-	# PATCH ME UP !!
+	# ensure that factors aren't accepted inappropriately
 	
 	to_unzip <- lapply (
 		args, function (x) x[seq_len(shortest)] )

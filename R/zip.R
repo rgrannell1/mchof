@@ -36,15 +36,26 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 		if ('f' %in% names(args)) args$f <- NULL
 
 	}
+	
+	invalid <- sapply (
+		args,
+		function (l) {
+			# ensure all 'lists' aren't factors
+			
+			if (inherits(l, 'factor') || 
+			!(inherits(l, 'list') || inherits(x, 'vector'))) {
+				
+				stop ('factor, non-vector or non-list passed as argument:', l)
+				
+			}
+			
+	} )
 
 	shortest <- min(sapply(args, length))
 		
 	to_zip <- lapply (
 		args, function (x) x[seq_len(shortest)] )
-	types <- lapply (
-		args,	
-		function (x) 1 )  
-	
+ 
 	zipped <- call_mclapply (
 		f = function (ind) {
 			lapply (to_zip, function (x) x[[ind]])
