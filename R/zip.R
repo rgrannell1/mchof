@@ -36,11 +36,14 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 		if ('f' %in% names(args)) args$f <- NULL
 
 	}
-	
+
 	shortest <- min(sapply(args, length))
 		
 	to_zip <- lapply (
 		args, function (x) x[seq_len(shortest)] )
+	types <- lapply (
+		args,	
+		function (x) 1 )  
 	
 	zipped <- call_mclapply (
 		f = function (ind) {
@@ -70,8 +73,9 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' list (1, 2), list (3, 4, 5) becomes list (list(1, 3), list(2, 4)). 
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed, and \code{\link{mcZipWith}} for a more general
-#'     version of this function 
+#'     backend being employed, \code{\link{mcUnzip}} for the inverse of 
+#'     this function, and \code{\link{mcZipWith}} for a more general version 
+#'     of this function. 
 #'    
 #' @keywords mcZip
 

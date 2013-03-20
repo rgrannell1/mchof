@@ -22,6 +22,7 @@ Functions included in the current release
 Functions in development
 * mcZipWith:
 * mcZip:
+* mcUnzip:
 
 
 
