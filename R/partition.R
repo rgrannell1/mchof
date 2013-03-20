@@ -26,4 +26,14 @@ mcPartition <- function (f, x, paropts) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 		
+	f <- match.fun(f)
+	if (is.null(x)) return(x)
+	if (is.factor(x)) stop('x may not be a factor')
+	
+	ind <- as.logical(call_mclapply(f, x, paropts))
+	
+	list (
+		x[!is.na(ind) & ind],
+		x[is.na(ind) || ind] )
+
 }
