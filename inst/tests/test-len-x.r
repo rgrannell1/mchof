@@ -3,6 +3,8 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
+## mchof 0.1 functions
+
 test_that("mcPosition length(0) |-> length(0)", {
 	
 	# [A](0) |-> integer(0)
@@ -16,6 +18,7 @@ test_that("mcPosition length(0) |-> length(0)", {
 		mcPosition(
 			true_fun, x = integer(0)),
 		integer(0))
+	
 	# list() |-> integer(0)
 	expect_equal(	
 		mcPosition(
@@ -79,13 +82,15 @@ test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
 		NULL)
 	# list() |-> list()
 	expect_equal(
-		mcReduce(get('+'), NULL),
+		mcReduce(get('+'), list()),
 		list())
 })
 
+## mchof 0.2 functions
+
 test_that("mcZipWith length(0) |-> length(0)", {
 	
-	#
+	# list() |-> 
 	expect_equal(
 		mcZipWith(
 			f = identity,	
@@ -93,18 +98,19 @@ test_that("mcZipWith length(0) |-> length(0)", {
 		)	
 		
 	)
+})
+
+test_that("mcZip length(0) |-> length(0)", {
+	
+	
+	
+	
 	
 	
 })
 
+test_that("mcUnzip length(0) |-> length(0)", {
+	
 
-
-
-
-
-
-
-
-
-
-
+	
+})

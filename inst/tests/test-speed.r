@@ -83,6 +83,8 @@ test_that("reduce", {
 
 })
 	
+### mchof 0.2 functions
+
 test_that("zipwith", {
 	
 	expect_that(
@@ -96,5 +98,12 @@ test_that("zipwith", {
 		takes_less_than(6) )
 	
 })
+
+
+
+
+
+
+
 
 

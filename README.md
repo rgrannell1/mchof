@@ -14,17 +14,14 @@ Filter or Reduce in their code.
    of running in parallel
    
 Functions included in the current release
+
 * mcFilter: 
 * mcReduce: 
 * mcFind: 
 * mcPosition: 
 
 Functions in development
+
 * mcZipWith:
 * mcZip:
 * mcUnzip:
-
-
-
-
-

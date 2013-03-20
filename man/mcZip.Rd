@@ -24,9 +24,10 @@
 }
 \seealso{
   see \code{\link{mclapply}} for more details about the
-  parallel backend being employed, and
+  parallel backend being employed, \code{\link{mcUnzip}}
+  for the inverse of this function, and
   \code{\link{mcZipWith}} for a more general version of
-  this function
+  this function.
 }
 \keyword{mcZip}
 
