@@ -51,6 +51,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	}
 
 	if (is.null(x)) return(NULL)
+	if (is.list(x) && length(x) == 0) return(list())
 	if (length(x) == 1) return(x)
 	if (is.factor(x)) stop('x may not be a factor')
 	

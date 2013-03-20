@@ -1,7 +1,6 @@
 
 #' @description mcZipWith takes n lists/vectors, generates a list of n element lists,
 #' and returns the result of mapping f over this new list. 
-
 #' 
 #' @title mcZipWith
 #' @author Ryan Grannell
