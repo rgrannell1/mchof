@@ -7,12 +7,12 @@
 #' 
 #' @export
 #' @param f a unary function that returns a boolean value
-#' @param x a vector
+#' @param x a list or vector
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, and returns the values
-#' for which f returns TRUE. NA values obtained during logical filter*ing
+#' for which f returns TRUE. NA values obtained during logical filtering
 #' are assumed to be FALSE, as with \code{Filter}. The user can modify this behaviour
 #' by making sure the argument f returns TRUE is a value is NA under coersion.
 #' 

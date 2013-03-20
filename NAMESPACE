@@ -1,5 +1,6 @@
 export(mcFilter)
 export(mcFind)
+export(mcPartition)
 export(mcPosition)
 export(mcReduce)
 export(mcUnzip)

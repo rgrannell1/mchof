@@ -29,3 +29,4 @@ Collate:
     'position.R'
     'zip.R'
     'unzip.R'
+    'partition.R'

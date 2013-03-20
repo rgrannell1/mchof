@@ -7,7 +7,7 @@
 \arguments{
   \item{f}{a unary function that returns a boolean value}
 
-  \item{x}{a vector}
+  \item{x}{a list or vector}
 
   \item{paropts}{a list of parameters to be handed to
   \code{mclapply} (see details)}
@@ -21,10 +21,9 @@
   mcFilter applies f to each element of x, coerces the
   result to a logical value, and returns the values for
   which f returns TRUE. NA values obtained during logical
-  filter*ing are assumed to be FALSE, as with
-  \code{Filter}. The user can modify this behaviour by
-  making sure the argument f returns TRUE is a value is NA
-  under coersion.
+  filtering are assumed to be FALSE, as with \code{Filter}.
+  The user can modify this behaviour by making sure the
+  argument f returns TRUE is a value is NA under coersion.
 }
 \examples{
 # remove NA values from a vector

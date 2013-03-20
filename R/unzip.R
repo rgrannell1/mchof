@@ -35,7 +35,7 @@ mcUnzip <- function (..., paropts) {
 	sapply (
 		args,
 		function (l) {
-			# ensure all 'lists' aren't factors
+				# ensure all 'lists' aren't factors
 			
 			if (inherits(l, 'factor') || 
 				!(inherits(l, 'list') || inherits(x, 'vector'))) {
