@@ -25,3 +25,5 @@ Functions in development
 * mcZipWith:
 * mcZip:
 * mcUnzip:
+* mcPartition:
+

@@ -110,8 +110,7 @@ test_that("mcpartition", {
 			1:20,
 			paropts = list(mc.cores = 2)
 		),	
-		takes_less_than(6)
-	)	
+		takes_less_than(6) )	
 	
 })
 
