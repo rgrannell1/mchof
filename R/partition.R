@@ -22,7 +22,7 @@
 #' @keywords mcPartition
 #' 
 
-mcPartition <- function (f, x, paropts) {
+mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 		
@@ -31,9 +31,9 @@ mcPartition <- function (f, x, paropts) {
 	if (is.factor(x)) stop('x may not be a factor')
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
-	
+
 	list (
 		x[!is.na(ind) & ind],
-		x[is.na(ind) || ind] )
+		x[is.na(ind) | !ind] )
 
 }
