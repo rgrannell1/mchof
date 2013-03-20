@@ -17,8 +17,6 @@
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
 #'    
-#' @examples
-#' 
 #' @keywords mcZipWith
 
 mcZipWith <- function (f, ..., paropts = NULL) {
@@ -57,7 +55,6 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 		paropts )
 }
 
-
 #' @description mcZip takes n lists/vectors, and generates a list of n element lists.
 #' It is a special case of mcZipWith
 #' 
@@ -76,8 +73,10 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #'     backend being employed, and \code{\link{mcZipWith}} for a more general
 #'     version of this function 
 #'    
-#' @examples
-#' 
 #' @keywords mcZip
 
-mcZip <- function(..., paropts) mcZipWith (identity, ..., paropts)
+mcZip <- function(..., paropts) {
+	# special case of mcZipWith: applies identity to result
+	
+	mcZipWith (identity, ..., paropts)
+}

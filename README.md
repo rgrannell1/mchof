@@ -11,4 +11,19 @@ Filter or Reduce in their code.
  * Special cases handled consistently with functions in base R.	
  * Built on the user-friendly `multicore` parallel library; all the user needs to 
    do is specify how many cores they would like to use to get 90% of the benefits 
-   of running in parallel.
+   of running in parallel
+   
+Functions included in the current release
+* mcFilter: 
+* mcReduce: 
+* mcFind: 
+* mcPosition: 
+
+Functions in development
+* mcZipWith:
+* mcZip:
+
+
+
+
+

@@ -1,7 +1,7 @@
 
 context ("test that mcZipWith is well behaves")
 
-test_that("", {
+test_that("test structure and values", {
 	
 	expect_equal(
 		mcZipWith (
@@ -14,7 +14,7 @@ test_that("", {
 
 	expect_equal(
 		mcZipWith (
-			function (v) sum(v),
+			function (v) list(paste0(v, collapse = '')),
 			list('a', 'b'), list('d', 'e', 'f')),	
 		list (
 			list ("ad"),	
@@ -66,4 +66,12 @@ test_that("normal cases", {
 			list(b=2,d=3)
 		) )
 	
+	expect_equal(
+		mcZip (
+			list( list(), list() ), 
+			list( list(), list() )),	
+		list (
+			list ( list (), list () ),	
+			list ( list (), list () )
+		) )
 })
