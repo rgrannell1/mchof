@@ -37,7 +37,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 
 	}
 	
-	invalid <- sapply (
+	sapply (
 		args,
 		function (l) {
 			# ensure all 'lists' aren't factors
