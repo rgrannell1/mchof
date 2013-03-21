@@ -28,15 +28,3 @@ test_that("normal tests for filter", {
 		list(list(2)))
 	
 })
-	
-	
-	
-	
-
-
-
-
-
-
-
-

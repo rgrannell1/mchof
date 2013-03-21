@@ -33,7 +33,7 @@ mcPartition <- function (f, x, paropts = NULL) {
 	ind <- as.logical(call_mclapply(f, x, paropts))
 
 	list (
-		true  = x[!is.na(ind) & ind],
-		false = x[is.na(ind) | !ind] )
+		x[!is.na(ind) & ind],
+		x[is.na(ind) | !ind] )
 
 }

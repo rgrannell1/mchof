@@ -51,6 +51,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			
 	} )
 
+	f <- match.fun(f)
+	
 	shortest <- min(sapply(args, length))
 		
 	to_zip <- lapply (
