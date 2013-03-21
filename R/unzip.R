@@ -1,5 +1,5 @@
 #' @description mcUnzip is the inverse function of mcZip; it takes a list 
-#' of n element vectors, and returns n lists
+#' of n element vectors, and returns n lists. 
 #' mcUnzip (mcZip (x)) |-> x
 #' 
 #' @title mcUnzip

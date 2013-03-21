@@ -45,7 +45,9 @@ test_that("errors thrown by all functions", {
 		),
 		'factor')
 	
-	
+	expect_error(
+		mcPartition(true_fun, test_factor),	
+		'factor')	
 	
 })
 
