@@ -17,10 +17,10 @@
 #'   
 #' @name mcReduce
 #' 
-#' @param f a binary function
 #' @param x a vector or list
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
+#' @param f a binary function
 #'
 #' @examples 
 #' mcReduce(get('+'), 1:10)
