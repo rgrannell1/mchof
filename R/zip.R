@@ -47,14 +47,14 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# excess elements are discarded. 
 	
 	# list (x1, x2), list (y1, y2)  |-> list ( list(x1, y1), list(x2, y2) )
+
+	f <- match.fun(f)
 	
 	args <- Map (eval, as.list(match.call())[-1]) # force evaluation
 
 	if (length(args) == 0) return (NULL)
 
 	lists <- lists_from_variadic(args)
-
-	f <- match.fun(f)
 	
 	shortest <- min(sapply(lists, length))
 		

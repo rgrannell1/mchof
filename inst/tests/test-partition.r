@@ -24,15 +24,17 @@ test_that ("", {
 	
 	expect_equal (
 		mcPartition (
-			function (x) ,
+			function (x) x,
 			list (
 				list (1), list (2), list (3)	
 			)),	
-		list (
-			true  = list (7hwsi8ii9z9ss99s990),io
-			o7
-			false = ,
-		)
+		list(
+			list(),
+			list(
+				list(1),
+				list(2),
+				list(3)
+		))
 	)
 	
 })
