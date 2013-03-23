@@ -11,7 +11,8 @@
   \code{mclapply} (see details)}
 }
 \description{
-  mcUnzip is the inverse function of mcZip. mcUnzip (mcZip
+  mcUnzip is the inverse function of mcZip; it takes a list
+  of n element vectors, and returns n lists. mcUnzip (mcZip
   (x)) |-> x
 }
 \details{

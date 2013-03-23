@@ -5,12 +5,12 @@
   mcReduce(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a binary function}
-
   \item{x}{a vector or list}
 
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see details and \code{\link{mclapply}})}
+
+  \item{f}{a binary function}
 }
 \description{
   \code{mcReduce} can be used as a parallel replacement for

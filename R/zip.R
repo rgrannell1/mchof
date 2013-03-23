@@ -34,11 +34,13 @@ lists_from_variadic <- function (args) {
 		function (arg) {
 			# ensure all 'lists' aren't factors
 			
-			if (inherits(arg, 'factor') || 
-				!(inherits(arg, 'list') || inherits(arg, 'vector'))) {
-					stop ('factor, non-vector or non-list passed as argument:', arg)	
+			if (inherits (arg, 'factor')) stop ('factors not allowed:', arg)
+			
+			if (!any( c('vector', 'list') %in% is(arg))) {
+				stop ('arguments must be vectors or list:', arg)	
 			}
 	} )
+	return (args)
 }
 
 mcZipWith <- function (f, ..., paropts = NULL) {

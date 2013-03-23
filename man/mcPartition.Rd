@@ -2,7 +2,7 @@
 \alias{mcPartition}
 \title{mcPartition}
 \usage{
-  mcPartition(f, x, paropts)
+  mcPartition(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value}
