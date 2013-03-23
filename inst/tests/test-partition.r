@@ -8,8 +8,8 @@ test_that ("", {
 			function (n) n %% 2,
 			seq_len(10)	),
 		list (
-			list (1,3,5,7,9),	
-			list (2,4,6,8,10) ) )	
+			c (1,3,5,7,9),	
+			c (2,4,6,8,10) ) )	
 	
 	expect_equal(
 		mcPartition (
@@ -18,8 +18,8 @@ test_that ("", {
 			paropts = list(mc.cores = 6)
 		),
 		list (
-			true = integer(0),	
-			false = seq_len(10)
+			integer(0),	
+			seq_len(10)
 		))
 	
 	expect_equal (
