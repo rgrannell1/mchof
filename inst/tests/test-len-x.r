@@ -109,7 +109,7 @@ test_that("mcZipWith length(0) |-> length(0)", {
 	expect_equal(
 		mcZipWith(
 			f = identity,	
-			list(), list(), list()
+			list(), list(), list(1:10)
 		), list(list(), list(), list())
 	)
 	
@@ -143,5 +143,31 @@ test_that("mcUnzip length(0) |-> length(0)", {
 test_that("mcPartition length(0) |-> length(0)", {
 	
 	
+	# list() |-> list( list(), list() )
+	
+	expect_equal(
+		mcPartition(
+			function (x) identity,
+			list()
+		),	
+		list(list(), list())
+	)
+	expect_equal(
+		mcPartition(
+			function(x) TRUE,
+			NULL
+		), NULL)
+	
+	expect_equal(
+		mcPartition(
+			function(x) T,
+			integer(0)
+		), 
+		list(integer(0), list()))
 	
 })
+
+
+
+
+
