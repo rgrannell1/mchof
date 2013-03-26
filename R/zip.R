@@ -28,7 +28,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	f <- match.fun(f)
 	
 	args <- Map (eval, as.list(match.call())[-1]) # force evaluation
-
+	
 	if (length(args) == 0) return (NULL)
 
 	lists <- (function (args) {
@@ -42,18 +42,28 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 		}
 		sapply (args, function (arg) {
 			# ensure all 'lists' aren't factors
-				
+			
+			if (is.null(arg)) return()
+			
 			if (inherits (arg, 'factor')) stop ('factors not allowed:', arg)
 				
 			if (!any( c('vector', 'list') %in% is(arg))) {
 				stop ('arguments must be vectors or list:', arg)	
 			}
 		} )
-		return (args)
+		return (unname(args))
 	})(args)	
-
+	
+	lists <- Filter(Negate(is.null), lists)
+	
+	if (length(lists) == 0) return (NULL)
+	
 	shortest <- min(sapply(lists, length))
-		
+	
+	if (shortest == 0) {
+		return (list(rep(list(), length(shortest))))
+	}
+	
 	to_zip <- lapply (
 		lists, function (x) x[seq_len(shortest)] )
  
