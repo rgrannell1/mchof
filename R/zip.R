@@ -1,4 +1,3 @@
-
 #' @description mcZipWith takes n lists/vectors, generates a list of n element lists,
 #' and returns the result of mapping f over this new list. 
 #' 
@@ -19,30 +18,6 @@
 #'    
 #' @keywords mcZipWith
 
-lists_from_variadic <- function (args) {
-	# extract
-	
-	if (!is.null(names(args))) {
-		
-		if ('paropts' %in% names(args)) args$paropts <- NULL
-		if ('f' %in% names(args)) args$f <- NULL
-		
-	}
-	
-	sapply (
-		args,
-		function (arg) {
-			# ensure all 'lists' aren't factors
-			
-			if (inherits (arg, 'factor')) stop ('factors not allowed:', arg)
-			
-			if (!any( c('vector', 'list') %in% is(arg))) {
-				stop ('arguments must be vectors or list:', arg)	
-			}
-	} )
-	return (args)
-}
-
 mcZipWith <- function (f, ..., paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
 	# returns the result of mapping f over this new list. 
@@ -56,8 +31,27 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 
 	if (length(args) == 0) return (NULL)
 
-	lists <- lists_from_variadic(args)
-	
+	lists <- (function (args) {
+			# extract lists from ellipses
+			
+		if (!is.null(args) && !is.null(names(args))) {
+				
+			if ('paropts' %in% names(args)) args$paropts <- NULL
+			if ('f' %in% names(args)) args$f <- NULL
+			
+		}
+		sapply (args, function (arg) {
+			# ensure all 'lists' aren't factors
+				
+			if (inherits (arg, 'factor')) stop ('factors not allowed:', arg)
+				
+			if (!any( c('vector', 'list') %in% is(arg))) {
+				stop ('arguments must be vectors or list:', arg)	
+			}
+		} )
+		return (args)
+	})(args)	
+
 	shortest <- min(sapply(lists, length))
 		
 	to_zip <- lapply (

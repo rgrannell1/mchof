@@ -90,13 +90,29 @@ test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
 
 test_that("mcZipWith length(0) |-> length(0)", {
 	
-	# list() |-> 
+	# NULL |-> NULL 
+	expect_equal(
+		mcZipWith(
+			f = identity,
+			NULL),	
+		NULL
+	)
+	
+	# list() |-> list()
 	expect_equal(
 		mcZipWith(
 			f = identity,	
 			list()
-		)	
-		
+		), list()
+	)
+	
+	# list(x1, x2, ...) |-> list( list(x1, x2, ...) )
+	expect_equal(
+		mcZipWith(
+			identity,	
+			list(1:10)
+		),
+		list(list(1:10))
 	)
 })
 
@@ -112,5 +128,11 @@ test_that("mcZip length(0) |-> length(0)", {
 test_that("mcUnzip length(0) |-> length(0)", {
 	
 
+	
+})
+
+test_that("mcPartition length(0) |-> length(0)", {
+	
+	
 	
 })

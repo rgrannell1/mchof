@@ -19,8 +19,7 @@
 #' backend being employed, and \code{\link{mcFilter}} for a function that returns
 #' only the values for which f returns TRUE.
 #'    
-#' @keywords mcPartition
-#' 
+#' @keywords mcPartition 
 
 mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
@@ -34,6 +33,8 @@ mcPartition <- function (f, x, paropts = NULL) {
 
 	list (
 		x[!is.na(ind) & ind],
-		x[is.na(ind) | !ind] )
-
+		x[is.na(ind) | !ind]
+	)
 }
+
+

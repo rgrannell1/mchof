@@ -20,7 +20,7 @@ test_that ("", {
 		list (
 			integer(0),	
 			seq_len(10)
-		))
+	))
 	
 	expect_equal (
 		mcPartition (
@@ -35,6 +35,27 @@ test_that ("", {
 				list(2),
 				list(3)
 		))
+	)
+	
+	expect_equal (
+		mcPartition(
+			function (x) x %% 2, 
+			1:10,
+			list(mc.cores = 12) ), 	
+			list (
+				c(1,3,5,7,9),
+				c(2,4,6,8,10)
+	) )
+	
+	expect_equal (
+		mcPartition (
+			function (x) unlist(x) == 0,
+			list (
+				list (1), list (0), list (1), list (0)	
+			) ),
+		list (
+			list ( list (0), list (0) ),	
+			list ( list (1), list (1)) )	
 	)
 	
 })
