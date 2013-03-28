@@ -6,16 +6,16 @@ test_that("test structure and values", {
 	expect_equal(
 		mcZipWith (
 			function (p) paste0(p, collapse = ''),
-			list('a', 'b'), list('d', 'e', 'f')),	
+			list( list('a', 'b'), list('d', 'e', 'f') ) ),	
 		list (
 			c ("ad"),	
 			c ("be")
 		) )	
-
+	
 	expect_equal(
 		mcZipWith (
 			function (v) list(paste0(v, collapse = '')),
-			list('a', 'b'), list('d', 'e', 'f')),	
+			list( list('a', 'b'), list('d', 'e', 'f') ) ),	
 		list (
 			list ("ad"),	
 			list ("be")
@@ -24,12 +24,13 @@ test_that("test structure and values", {
 	expect_equal(
 		mcZipWith (
 			identity,
+			list(
+				list( list(), list() ), 
+				list( list(), list() ) )),	
+		list(
 			list( list(), list() ), 
-			list( list(), list() )),	
-		list (
-			list ( list (), list () ),	
-			list ( list (), list () )
-		) )	
+			list( list(), list() ) )
+		)
 })
 
 

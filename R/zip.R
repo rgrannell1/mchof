@@ -6,11 +6,14 @@
 #' 
 #' @export
 #' @param f a function that takes a single n-element list
-#' @param ... a list of vectors/lists of length > 0
+#' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details mcZipWith discards excess elements without warning: for example 
+#' @details mcZipWith does not use ellipses (...) as it is more inconvenient to
+#' dynamically adjust the amount of lists the function would take.
+#' 
+#' mcZipWith discards excess elements without warning: for example 
 #' list (1, 2), list (3, 4, 5) becomes list (f( list(1, 3) ), f( list(2, 4) )). 
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
@@ -18,61 +21,25 @@
 #'    
 #' @keywords mcZipWith
 
-mcZipWith <- function (f, ..., paropts = NULL) {
+mcZipWith <- function (f, x, paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 	
-	# list (x1, x2), list (y1, y2)  |-> list ( list(x1, y1), list(x2, y2) )
+	# list (x1, x2), list (y1, y2)  |-> 
+	# list ( list(x1, y1), list(x2, y2) )
 
 	f <- match.fun(f)
-	
-	args <- Map (eval, as.list(match.call())[-1]) # force evaluation
-	
-	if (length(args) == 0) return (NULL)
+	x <- Filter(Negate(is.null), x)
 
-	lists <- (function (args) {
-			# extract lists from ellipses
-			
-		if (!is.null(args) && !is.null(names(args))) {
-				
-			if ('paropts' %in% names(args)) args$paropts <- NULL
-			if ('f' %in% names(args)) args$f <- NULL
-			
-		}
-		sapply (args, function (arg) {
-			# ensure all 'lists' aren't factors
-			
-			if (is.null(arg)) return()
-			
-			if (inherits (arg, 'factor')) stop ('factors not allowed:', arg)
-				
-			if (!any( c('vector', 'list') %in% is(arg))) {
-				stop ('arguments must be vectors or list:', arg)	
-			}
-		} )
-		return (unname(args))
-	})(args)	
-	
-	lists <- Filter(Negate(is.null), lists)
-	
-	if (length(lists) == 0) return (NULL)
-	
-	shortest <- min(sapply(lists, length))
-	
-	if (shortest == 0) {
-		return (Map(function(x) list(), seq_len(length(lists))))
-	}
-	
-	to_zip <- lapply (
-		lists, function (x) x[seq_len(shortest)] )
- 
+	to_zip <- lapply (x, function (li) li[seq_len(shortest)] )
+
 	zipped <- call_mclapply (
 		f = function (ind) {
 			lapply (to_zip, function (x) x[[ind]])
 		},	
 		x = seq_len(shortest), 
-		paropts)
+		paropts )
 	
 	call_mclapply (
 		f = f,	
@@ -104,6 +71,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 mcZip <- function(..., paropts) {
 	# special case of mcZipWith: applies identity to result
 	
-	mcZipWith (identity, ..., paropts)
+	mcZipWith (f = identity, ..., paropts = paropts)
 
 }
+
+

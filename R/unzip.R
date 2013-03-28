@@ -17,7 +17,7 @@
 #'    
 #' @keywords mcUnzip
  
-mcUnzip <- function (..., paropts) {
+mcUnzip <- function (x, paropts) {
 	# rough inverse of mcZip: mcUnzip ( mcZip (x) ) |-> x 
 	
 	# list ( list(x1, y1), list(x2, y2) ) |-> list ( list (x1, x2), list (y1, y2) )
