@@ -11,14 +11,21 @@
 #'    \code{mclapply} (see details)
 #'    
 #' @details mcZipWith does not use ellipses (...) as it is more inconvenient to
-#' dynamically adjust the amount of lists the function would take.
+#' dynamically adjust the amount of lists the function would take. Names are 
+#' dropped without warning during zipping; named outputs are given in the example below
 #' 
 #' mcZipWith discards excess elements without warning: for example 
 #' list (1, 2), list (3, 4, 5) becomes list (f( list(1, 3) ), f( list(2, 4) )). 
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
-#'    
+#' @examples 
+#' mcZipWith (
+#'     function (x) {
+#'         list(id = x[[1]] , name = x[[2]])
+#'     }, 
+#'     list ( list('001', '002', '003'),
+#'     list('John', 'Jane', 'Jill')))   
 #' @keywords mcZipWith
 
 mcZipWith <- function (f, x, paropts = NULL) {
@@ -35,9 +42,10 @@ mcZipWith <- function (f, x, paropts = NULL) {
 
 			if (inherits(li, 'factor')) stop('factors are not allowed')
 			
-			!is.null(li) && (inherits(li, 'list') ||
-			inherits(li, 'vector'))
+			!is.null(li) && any(c('list', 'vector') %in% is(li))
+
 		}, x)
+
 	shortest <- min(sapply (lists, length))
 
 	to_zip <- Map (
