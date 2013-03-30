@@ -28,11 +28,21 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
-
+	
 	f <- match.fun(f)
-	x <- Filter(Negate(is.null), x)
+	lists <- Filter(
+		function (li) {
 
-	to_zip <- lapply (x, function (li) li[seq_len(shortest)] )
+			if (inherits(li, 'factor')) stop('factors are not allowed')
+			
+			!is.null(li) && (inherits(li, 'list') ||
+			inherits(li, 'vector'))
+		}, x)
+	shortest <- min(sapply (lists, length))
+
+	to_zip <- Map (
+		function (li) li[seq_len(shortest)], 
+		lists)
 
 	zipped <- call_mclapply (
 		f = function (ind) {
@@ -68,10 +78,10 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #'    
 #' @keywords mcZip
 
-mcZip <- function(..., paropts) {
+mcZip <- function(x, paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
 	
-	mcZipWith (f = identity, ..., paropts = paropts)
+	mcZipWith (f = identity, x, paropts = paropts)
 
 }
 

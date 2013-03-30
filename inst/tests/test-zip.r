@@ -21,15 +21,16 @@ test_that("test structure and values", {
 			list ("be")
 		) )	
 	
-	expect_equal(
+	expect_equal(info='',
 		mcZipWith (
 			identity,
 			list(
 				list( list(), list() ), 
-				list( list(), list() ) )),	
+				list( list(), list() ),
+				list( list(), list() ))),	
 		list(
-			list( list(), list() ), 
-			list( list(), list() ) )
+			list( list(), list(), list() ), 
+			list( list(), list(), list() ) )
 		)
 })
 
@@ -39,7 +40,7 @@ context ("test that mcZip is well behaved for normal cases")
 test_that("normal cases", {
 	
 	expect_equal(
-		mcZip (c(1, 2, 3), c(2, 3, 4)),
+		mcZip (list(c(1, 2, 3), c(2, 3, 4))),
 		list (
 			list (1:2), 
 			list (2:3),
