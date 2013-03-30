@@ -20,39 +20,15 @@
 mcUnzip <- function (x, paropts) {
 	# rough inverse of mcZip: mcUnzip ( mcZip (x) ) |-> x 
 	
-	# list ( list(x1, y1), list(x2, y2) ) |-> list ( list (x1, x2), list (y1, y2) )
-	
-	args <- lapply (as.list(match.call())[-1], eval)
-	
-	if (length(args) == 0) return (NULL)
-	
-	if (!is.null(names(args))) {
-		
-		if ('paropts' %in% names(args)) args$paropts <- NULL
-		if ('f' %in% names(args)) args$f <- NULL
-		
-	}
-	
-	sapply (
-		args,
-		function (l) {
-			# ensure all 'lists' aren't factors
+	lists <- Filter(
+		function (li) {
 			
-			if (inherits(l, 'factor') || 
-				!(inherits(l, 'list') || inherits(x, 'vector'))) {
-				
-				stop ('factor, non-vector or non-list passed as argument:', l)
-				
-			}		
-	} )
+			if (inherits(li, 'factor')) stop('factors are not allowed')
+			
+			!is.null(li) && any(c('list', 'vector') %in% is(li))
+			
+		}, x)
 	
-	shortest <- min(sapply(args, length))	
-	
-	# ensure that factors aren't accepted inappropriately
-	
-	to_unzip <- lapply (
-		args, function (x) x[seq_len(shortest)] )
-
 	call_mclapply (
 		f = function (ind) {
 			lapply (to_zip, function (x) x[[ind]])
