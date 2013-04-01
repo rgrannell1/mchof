@@ -57,8 +57,8 @@ mcZipWith <- function (f, x, paropts = NULL) {
 
 	shortest <- min(sapply (lists, length))
 
-	if (length(shortest) == 0) {
-		return (Map (function(x) list(), seq_along(lists)))
+	if (shortest == 0) {
+		return (list(Map (function(x) list(), seq_along(lists))))
 	}
 	
 	to_zip <- Map (

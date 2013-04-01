@@ -128,11 +128,33 @@ test_that("mcZipWith length(0) |-> length(0)", {
 })
 
 test_that("mcZip length(0) |-> length(0)", {
+
+	expect_equal(
+		mcZip (
+			list (
+				list(),		
+				list(1),
+				list(1,2,3)
+			),
+			paropts = list(mc.cores = 5)	
+		),	
+		
+	)
 	
+	expect_equal(
+		
+		
+	)
 	
+	expect_equal(
+		
+		
+	)
 	
-	
-	
+	expect_equal(
+		
+		
+	)
 	
 })
 
