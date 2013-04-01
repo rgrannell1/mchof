@@ -18,10 +18,9 @@
 #' this function and \code{\link{mcUnzip}} for a variant of this function.
 #' 
 #' @keywords mcUnzipWith
-#'
 
-mcUnzipWith <- function (f, x, paropts=NULL) {
-	# rough inverse of mcZip: mcUnzip ( mcZip (x) ) |-> x 
+mcUnzipWith <- function (f, x, paropts = NULL) {
+	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
 	
 	lists <- Filter(
 		function (li) {
@@ -64,3 +63,10 @@ mcUnzipWith <- function (f, x, paropts=NULL) {
 #' \code{\link{mclapply}} for more details about the parallel backend being employed. 
 #'    
 #' @keywords mcUnzip
+
+mcUnzip <- function (x, paropts) {
+	# inverse of mcZip
+
+	mcZipWith(f = identity, x, paropts = paropts)
+	
+}
