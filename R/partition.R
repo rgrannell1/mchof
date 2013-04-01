@@ -19,6 +19,19 @@
 #' backend being employed, and \code{\link{mcFilter}} for a function that returns
 #' only the values for which f returns TRUE.
 #'    
+#' @examples
+#' # partition a set into even and odd numbers
+#' mcPartition ( function (x) x %% 2, 1:10, paropts = list(mc.cores = 2))
+#' 
+#' divide a set of combinations into two based on a predicate
+#' mcPartition(
+#      f = function(pair){
+#'	      val <- sum(unlist(pair))
+#'	      if(val > 8) TRUE else FALSE
+#'     },
+#'     x = apply(combn(8, 3), 2, list),
+#'     paropts = list(mc.cores = 2))
+#' 
 #' @keywords mcPartition 
 
 mcPartition <- function (f, x, paropts = NULL) {
@@ -33,8 +46,5 @@ mcPartition <- function (f, x, paropts = NULL) {
 
 	list (
 		x[!is.na(ind) & ind],
-		x[is.na(ind) | !ind]
-	)
+		x[is.na(ind) | !ind])
 }
-
-

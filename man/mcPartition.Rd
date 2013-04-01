@@ -23,6 +23,10 @@
   user can modify this behaviour by making sure the
   argument f returns TRUE is a value is NA under coersion.
 }
+\examples{
+# partition a set into even and odd numbers
+mcPartition ( function (x) x \%\% 2, 1:10, paropts = list(mc.cores = 2))
+}
 \author{
   Ryan Grannell
 }

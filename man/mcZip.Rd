@@ -2,7 +2,7 @@
 \alias{mcZip}
 \title{mcZip}
 \usage{
-  mcZip(..., paropts)
+  mcZip(x, paropts = NULL)
 }
 \arguments{
   \item{...}{a list of vectors/lists of length > 0}

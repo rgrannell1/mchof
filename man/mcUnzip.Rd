@@ -2,7 +2,7 @@
 \alias{mcUnzip}
 \title{mcUnzip}
 \usage{
-  mcUnzip(..., paropts)
+  mcUnzip(x, paropts = NULL)
 }
 \arguments{
   \item{...}{a list of vectors/lists of length > 0}

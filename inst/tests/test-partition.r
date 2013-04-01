@@ -3,23 +3,15 @@ context ("test that mcPartition is well behaved for normal cases")
 
 test_that ("", {
 	
-	expect_equal (
-		mcPartition (
-			function (n) n %% 2,
-			seq_len(10)	),
-		list (
-			c (1,3,5,7,9),	
-			c (2,4,6,8,10) ) )	
-	
 	expect_equal(
 		mcPartition (
-			function (x) FALSE,	
-			1:10,
+			function (x) x %% 2,	
+			list(1,2,3,4,5),
 			paropts = list(mc.cores = 6)
 		),
 		list (
-			integer(0),	
-			seq_len(10)
+			list(1, 3, 5),	
+			list(2, 4)
 	))
 	
 	expect_equal (

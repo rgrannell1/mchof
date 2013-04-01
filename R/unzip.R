@@ -17,7 +17,7 @@
 #'    
 #' @keywords mcUnzip
  
-mcUnzip <- function (x, paropts) {
+mcUnzip <- function (x, paropts=NULL) {
 	# rough inverse of mcZip: mcUnzip ( mcZip (x) ) |-> x 
 	
 	lists <- Filter(
@@ -31,7 +31,7 @@ mcUnzip <- function (x, paropts) {
 	
 	call_mclapply (
 		f = function (ind) {
-			lapply (to_zip, function (x) x[[ind]])
+			lapply (to_unzip, function (x) x[[ind]])
 		},	
 		x = seq_len(shortest), 
 		paropts)

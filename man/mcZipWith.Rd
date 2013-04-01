@@ -2,12 +2,12 @@
 \alias{mcZipWith}
 \title{mcZipWith}
 \usage{
-  mcZipWith(f, ..., paropts = NULL)
+  mcZipWith(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a function that takes a single n-element list}
 
-  \item{...}{a list of vectors/lists of length > 0}
+  \item{x}{a list of lists}
 
   \item{paropts}{a list of parameters to be handed to
   \code{mclapply} (see details)}
@@ -18,9 +18,31 @@
   this new list.
 }
 \details{
+  mcZipWith does not use ellipses (...) as it is more
+  inconvenient to dynamically adjust the amount of lists
+  the function would take. Names are dropped without
+  warning during zipping; named outputs are given in the
+  example below
+
   mcZipWith discards excess elements without warning: for
   example list (1, 2), list (3, 4, 5) becomes list (f(
   list(1, 3) ), f( list(2, 4) )).
+}
+\examples{
+# adding indices to a list
+mcZipWith (
+    function (x) {
+        list(x[[2]], ind = x[[1]])
+    }, list (list(1:10), list(letters[1:10]))
+)
+
+# adding names to output
+mcZipWith (
+    function (x) {
+        list(id = x[[1]] , name = x[[2]])
+    },
+    list ( list('001', '002', '003'),
+    list('John', 'Jane', 'Jill')))
 }
 \author{
   Ryan Grannell

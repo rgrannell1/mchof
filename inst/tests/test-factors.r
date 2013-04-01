@@ -27,21 +27,19 @@ test_that("errors thrown by all functions", {
 	expect_error(
 		mcZipWith(
 			function (...) TRUE,
-			factor(1:10),
-			factor(11:20)
+			list(factor(1:10), factor(11:20))
 		),
 		'factor')
 	
 	expect_error(
 		mcZip(
-			factor(1:4),
-			factor(5:8)
+			list(factor(1:4), factor(5:8))
 		),
 		'factor')
 	
 	expect_error(
 		mcUnzip(
-			
+			list(factor(1:5))	
 		),
 		'factor')
 	

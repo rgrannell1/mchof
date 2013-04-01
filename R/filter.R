@@ -43,7 +43,7 @@
 #' mcFilter(
 #'     f = function(pair){
 #'         val <- sum(unlist(pair))
-#'  	   if(val > 2 && val < 10) TRUE else FALSE
+#'  	   if(val > 8) TRUE else FALSE
 #'     }, 
 #'     x = apply(combn(8, 3), 2, list),
 #'     paropts = list(mc.cores = 2))  

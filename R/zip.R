@@ -20,6 +20,14 @@
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
 #' @examples 
+#' # adding indices to a list
+#' mcZipWith (
+#'     function (x) {
+#'         list(x[[2]], ind = x[[1]])
+#'     }, list (list(1:10), list(letters[1:10]))
+#' )
+#' 
+#' # adding names to output
 #' mcZipWith (
 #'     function (x) {
 #'         list(id = x[[1]] , name = x[[2]])
@@ -37,17 +45,22 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	# list ( list(x1, y1), list(x2, y2) )
 	
 	f <- match.fun(f)
+	if (is.null(x)) return (NULL)
+	
 	lists <- Filter(
 		function (li) {
 
 			if (inherits(li, 'factor')) stop('factors are not allowed')
-			
 			!is.null(li) && any(c('list', 'vector') %in% is(li))
 
 		}, x)
 
 	shortest <- min(sapply (lists, length))
 
+	if (length(shortest) == 0) {
+		return (Map (function(x) list(), seq_along(lists)))
+	}
+	
 	to_zip <- Map (
 		function (li) li[seq_len(shortest)], 
 		lists)

@@ -87,6 +87,8 @@ test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
 })
 
 ## mchof 0.2 functions
+#=#=#=#=#=#=#=#=#=#=#=#
+#=#=#=#=#=#=#=#=#=#=#=#
 
 test_that("mcZipWith length(0) |-> length(0)", {
 	
@@ -102,15 +104,15 @@ test_that("mcZipWith length(0) |-> length(0)", {
 	expect_equal(
 		mcZipWith(
 			f = identity,	
-			list()
+			list(list())
 		), list(list())
 	)
 	# list() |-> list() |-> list(list(), list())
 	expect_equal(
 		mcZipWith(
 			f = identity,	
-			list(), list(), list(1:10)
-		), list(list(), list(), list())
+			list(list(), list(), list(1:10))
+		), list(list(list(), list(), list()))
 	)
 	
 	# list(x1, x2, ...) |-> list( list(x1, x2, ...) )
@@ -161,13 +163,15 @@ test_that("mcPartition length(0) |-> length(0)", {
 	expect_equal(
 		mcPartition(
 			function(x) T,
-			integer(0)
+			list(integer(0))
 		), 
-		list(integer(0), list()))
+		list(list(integer(0)), list()))
 	
+	expect_equal(
+		mcPartition(
+			function(x) T,	
+			list(1:10)),
+		list(list(1:10), list())
+	)
 })
-
-
-
-
 
