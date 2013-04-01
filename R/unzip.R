@@ -30,18 +30,22 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 			!is.null(li) && any(c('list', 'vector') %in% is(li))
 		}, x)
 	
-	shortest_tuple <- sapply(x, length)
+	shortest_tuple <- min(sapply(x, length))
 	
-	call_mclapply (
+	to_unzip <- Map (
+		function (li) li[seq_len(shortest_tuple)], 
+		lists)
+	
+	unzipped <- call_mclapply (
 		f = function (ind) {
 			lapply (to_unzip, function (x) x[[ind]])
-		},	
-		x = seq_len(shortest), 
+		},
+		x = seq_len(shortest_tuple), 
 		paropts)
 	
 	call_mclapply (
 		f = f,	
-		x = zipped,
+		x = unzipped,
 		paropts )
 }
 
@@ -64,9 +68,9 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #'    
 #' @keywords mcUnzip
 
-mcUnzip <- function (x, paropts) {
+mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip
 
-	mcZipWith(f = identity, x, paropts = paropts)
+	mcUnzipWith(f = identity, x, paropts = paropts)
 	
 }

@@ -160,8 +160,7 @@ test_that("mcZip length(0) |-> length(0)", {
 		mcZip(
 			NULL
 		),	
-		NULL)
-	
+		NULL)	
 })
 
 test_that("mcUnzip length(0) |-> length(0)", {
