@@ -1,5 +1,5 @@
 
-context ("test that mcZipWith is well behaves")
+context ("test that mcZipWith is well behaved")
 
 test_that("test structure and values", {
 	

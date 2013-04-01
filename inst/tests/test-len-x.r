@@ -129,6 +129,7 @@ test_that("mcZipWith length(0) |-> length(0)", {
 
 test_that("mcZip length(0) |-> length(0)", {
 
+	# 0-elements |-> list()
 	expect_equal(
 		mcZip (
 			list (
@@ -137,31 +138,34 @@ test_that("mcZip length(0) |-> length(0)", {
 				list(1,2,3)
 			),
 			paropts = list(mc.cores = 5)	
+		),
+		list())
+	
+	# list() |-> list()
+	expect_equal(
+		mcZip(
+			list (),
+			paropts = list(mc.cores = 1)),
+		list())
+	
+	# one-list |-> one-list
+	expect_equal(
+		mcZip(
+			list(list(1:5))	
+		),
+		list(list(1:5)))
+	
+	# NULL |-> NULL
+	expect_equal(
+		mcZip(
+			NULL
 		),	
-		
-	)
-	
-	expect_equal(
-		
-		
-	)
-	
-	expect_equal(
-		
-		
-	)
-	
-	expect_equal(
-		
-		
-	)
+		NULL)
 	
 })
 
 test_that("mcUnzip length(0) |-> length(0)", {
-	
-
-	
+		
 })
 
 test_that("mcPartition length(0) |-> length(0)", {

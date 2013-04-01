@@ -48,7 +48,7 @@ even_ints(c(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L))
 mcFilter(
     f = function(pair){
         val <- sum(unlist(pair))
- 	   if(val > 2 && val < 10) TRUE else FALSE
+ 	   if(val > 8) TRUE else FALSE
     },
     x = apply(combn(8, 3), 2, list),
     paropts = list(mc.cores = 2))
