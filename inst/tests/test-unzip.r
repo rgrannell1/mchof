@@ -10,13 +10,23 @@ test_that ("verify that is a rough inverse of mcZip", {
 	
 	expect_equal(
 		cancelled( list(
-			list('a', 1),		
-			list('b', 2),
-			list('c', 3)
+			list ('a', 'b', 'c'),
+			list(1, 2, 3)
 		)),
 	list (
 		list('a', 'b', 'c'),
 		list(1, 2, 3)
+	))
+	
+	# trimming works correctly
+	expect_equal(
+		cancelled(list(
+			list('c', 'b', 'a'),
+			list(1, 2, 3, 4)
+		)),	
+		list (
+			list('c', 'b', 'a'),
+			list(1, 2, 3)
 	))
 	
 })
