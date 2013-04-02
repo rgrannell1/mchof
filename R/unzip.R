@@ -11,7 +11,9 @@
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details 
+#' @details Names are 
+#' dropped without warning during unzipping; named outputs are given in the 
+#' example below
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #' backend being employed, \code{\link{mcZipWith}} for the inverse of 
@@ -21,6 +23,10 @@
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
+	
+	f <- match.fun(f)
+	if (is.null(x)) return (NULL)
+	if (is.list(x) && length(x) == 0) return (list())
 	
 	lists <- Filter(
 		function (li) {

@@ -10,8 +10,7 @@
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details mcZipWith does not use ellipses (...) as it is more inconvenient to
-#' dynamically adjust the amount of lists the function would take. Names are 
+#' @details Names are 
 #' dropped without warning during zipping; named outputs are given in the example below
 #' 
 #' mcZipWith discards excess elements without warning: for example 

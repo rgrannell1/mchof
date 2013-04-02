@@ -18,11 +18,8 @@
   this new list.
 }
 \details{
-  mcZipWith does not use ellipses (...) as it is more
-  inconvenient to dynamically adjust the amount of lists
-  the function would take. Names are dropped without
-  warning during zipping; named outputs are given in the
-  example below
+  Names are dropped without warning during zipping; named
+  outputs are given in the example below
 
   mcZipWith discards excess elements without warning: for
   example list (1, 2), list (3, 4, 5) becomes list (f(

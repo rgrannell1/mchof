@@ -42,17 +42,22 @@ test_that ("verify that is a rough inverse of mcZip", {
 
 })
 
-test_that ("normal testing", {
+test_that ("normal testing of unzip", {
 	
 	expect_equal(
 		mcUnzip(
 			list(
 				list('a', 1),
 				list('b', 2, 3)
-		)),
-		list (
-			list('a', 1),
-			list('b', 2))
-	)	
+			)),
+		list(
+			list("a", "b"),
+			list(1, 2)))
 	
+	expect_equal(
+		mcUnzip(
+			list()	
+		),	
+		list ()
+	)
 })

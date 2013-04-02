@@ -100,28 +100,28 @@ test_that("mcZipWith length(0) |-> length(0)", {
 		NULL
 	)
 	
-	# list() |-> list(list())
+	# list() |-> list()
 	expect_equal(
 		mcZipWith(
 			f = identity,	
 			list(list())
-		), list(list())
+		), list()
 	)
-	# list() |-> list() |-> list(list(), list())
+	# list(..., list(), ...) |-> list()
 	expect_equal(
 		mcZipWith(
 			f = identity,	
 			list(list(), list(), list(1:10))
-		), list(list(list(), list(), list()))
+		), list()
 	)
 	
 	# list(x1, x2, ...) |-> list( list(x1, x2, ...) )
 	expect_equal(
 		mcZipWith(
 			identity,	
-			list(1:10)
+			list(1:3)
 		),
-		list(list(1:10))
+		list(list(1), list(2), list(3))
 	)
 	
 	
