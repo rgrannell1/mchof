@@ -93,7 +93,7 @@ test_that("zipwith", {
 				Sys.sleep(0.5)
 				1				
 			}, 	
-			1:20, 1:20,
+			list(list(1:20), list(1:20)),
 			paropts = list(mc.cores = 2) ),
 		takes_less_than(6) )
 	
