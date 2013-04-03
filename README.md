@@ -20,7 +20,7 @@ Functions included in the current release
 * **mcFind:** get the first element in a list matching a predicate
 * **mcPosition:** find the first element in a list matching a predicate
 
-Functions in development (ETA > May 15th 2012)
+Functions in development (April 30th < ETA < May 15th 2012)
 
 * **mcZipWith:** combine n lists into a list of n-tuples, apply a function to result
 * **mcZip:** combine n lists into a list of n-tuples
