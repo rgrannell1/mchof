@@ -27,3 +27,9 @@ Functions in development (April 30th < ETA < May 15th 2013)
 * **mcUnzip:** split a list of n-tuples into n lists
 * **mcUnzipWith:** split a list of n-tuples into n lists, apply a function to the results
 * **mcPartition:** split a list into values that return TRUE and FALSE
+
+Functions planned for a future release
+
+* **mcGroupBy:**
+* **mcOrderBy:**
+* **mcSortBy:**
