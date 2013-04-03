@@ -173,9 +173,8 @@ test_that("mcUnzip length(0) |-> length(0)", {
 				list (),
 				list ('c', 'd')
 		)),
-		list (
-			list ()		
-	))
+		list()	
+	)
 	
 	# list() |-> list()
 	expect_equal(
@@ -207,7 +206,7 @@ test_that("mcUnzipWith length(0) |-> length(0)", {
 				list ('c', 'd')
 			)),
 		list (
-			list ()		
+			
 		))
 	
 	# list() |-> list()
@@ -226,7 +225,8 @@ test_that("mcUnzipWith length(0) |-> length(0)", {
 		NULL)
 	
 	expect_equal(
-		mcUnzipWith(	
+		mcUnzipWith(
+			function (x) x,
 			list(list(1:5))	
 		),
 		list(list(1:5))	)
