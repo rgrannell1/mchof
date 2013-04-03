@@ -61,8 +61,10 @@ test_that ("", {
 	expect_equal (
 		mcZipWith (
 			'identity', 
-			list(1:3),	   
-			list(4:6) ),
+			list(
+				c(1:3),	   
+				c(4:6)) 
+		),
 		list (
 			list(1,4),	
 			list(2,5),

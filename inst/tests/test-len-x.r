@@ -164,7 +164,73 @@ test_that("mcZip length(0) |-> length(0)", {
 })
 
 test_that("mcUnzip length(0) |-> length(0)", {
-		
+	
+	# 0-elements |-> list()
+	expect_equal(
+		mcUnzip(
+			list (
+				list ('a', 'b'),
+				list (),
+				list ('c', 'd')
+		)),
+		list (
+			list ()		
+	))
+	
+	# list() |-> list()
+	expect_equal(
+		mcUnzip(list ()),
+		list (
+			
+		))
+	
+	expect_equal(
+		mcUnzip(NULL),
+		NULL)
+	
+	expect_equal(
+		mcUnzip(	
+			list(list(1:5))	
+		),
+		list(list(1:5))	)
+})
+
+test_that("mcUnzipWith length(0) |-> length(0)", {
+	
+	# 0-elements |-> list()
+	expect_equal(
+		mcUnzipWith(
+			function (x) x,
+			list (
+				list ('a', 'b'),
+				list (),
+				list ('c', 'd')
+			)),
+		list (
+			list ()		
+		))
+	
+	# list() |-> list()
+	expect_equal(
+		mcUnzipWith(
+		function (x) x,
+		list ()),
+		list (
+			
+		))
+	
+	expect_equal(
+		mcUnzipWith(
+		function (li) if (is.null(li)) stop ('too damn far!'),		
+		NULL),
+		NULL)
+	
+	expect_equal(
+		mcUnzipWith(	
+			list(list(1:5))	
+		),
+		list(list(1:5))	)
+	
 })
 
 test_that("mcPartition length(0) |-> length(0)", {

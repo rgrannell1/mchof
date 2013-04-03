@@ -39,3 +39,12 @@ test_that("check that everything's running quick", {
 
 })
 
+test_that("check that the options mechanism works for parallel backend", {
+	options(mch_cores = 2)
+	
+	expect_that(
+		system.time(call_mclapply(
+			function(x) Sys.sleep(0.5), 1:10))[3],	
+		takes_less_than(3)) # at least 60% speedup
+	
+})

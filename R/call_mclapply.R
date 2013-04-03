@@ -25,6 +25,10 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			stop('x or X may not be specified in paropts')
 		}	
 		
+	} else {
+		if (!is.null(getOption('mch_cores'))) {
+			paropts <- list(mc.cores = getOption('mch_cores'))
+		}	
 	}
 	
 	do.call(

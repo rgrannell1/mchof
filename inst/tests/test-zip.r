@@ -21,7 +21,7 @@ test_that("test structure and values", {
 			list ("be")
 		) )	
 	
-	expect_equal(info='',
+	expect_equal(info='empty lists',
 		mcZipWith (
 			identity,
 			list(
@@ -46,12 +46,12 @@ test_that("normal cases", {
 			list ('b', 'e')
 		) )
 	
-	expect_equal(
-		mcZip (list(1:3, 4:6), paropts = list (mc.cores = 2)),	
+	expect_equal(info = 'zips numbers',
+		mcZip (list(2:4, 5:7), paropts = list (mc.cores = 2)),	
 			list (
-				list(1,4),
 				list(2,5),
-				list(3,6)
+				list(3,6),
+				list(4,7)
 			) )
 	
 	expect_equal(
@@ -71,4 +71,5 @@ test_that("normal cases", {
 		list(
 			list(list(), list()),
 			list(list(), list())) )
+	
 })
