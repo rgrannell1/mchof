@@ -30,6 +30,12 @@ Functions in development (April 30th < ETA < May 15th 2013)
 
 Functions planned for a future release
 
+* **mcFoldl** [1]
+* **mcFoldr**
+* **mcFold**
+
 * **mcGroupBy:**
 * **mcOrderBy:**
 * **mcSortBy:**
+
+[1] *only if parallelisation is efficient*
