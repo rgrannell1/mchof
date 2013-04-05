@@ -4,7 +4,6 @@ context("special length cases of x handled consistently")
 true_fun <- function(x) TRUE
 
 ## mchof 0.1 functions
-
 test_that("mcPosition length(0) |-> length(0)", {
 	
 	# [A](0) |-> integer(0)
@@ -156,11 +155,8 @@ test_that("mcZip length(0) |-> length(0)", {
 		list(list(1:5)))
 	
 	# NULL |-> NULL
-	expect_equal(
-		mcZip(
-			NULL
-		),	
-		NULL)	
+	expect_equal(mcZip(NULL), NULL)
+	
 })
 
 test_that("mcUnzip length(0) |-> length(0)", {
@@ -265,4 +261,3 @@ test_that("mcPartition length(0) |-> length(0)", {
 		list(list(1:10), list())
 	)
 })
-

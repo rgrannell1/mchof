@@ -85,7 +85,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' @author Ryan Grannell
 #' 
 #' @export
-#' @param ... a list of vectors/lists of length > 0
+#' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
@@ -96,7 +96,10 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #'     backend being employed, \code{\link{mcUnzip}} for the inverse of 
 #'     this function, and \code{\link{mcZipWith}} for a more general version 
 #'     of this function. 
-#'    
+#' @examples 
+#' # zip a name list and an id list into name:id pairs
+#' mcZip (list( list('Jack', 'Jane', 'Joe'), list(1, 2, 3)))
+#' 
 #' @keywords mcZip
 
 mcZip <- function(x, paropts = NULL) {

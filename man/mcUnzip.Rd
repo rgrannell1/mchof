@@ -5,7 +5,7 @@
   mcUnzip(x, paropts = NULL)
 }
 \arguments{
-  \item{...}{a list of vectors/lists of length > 0}
+  \item{x}{a list of lists}
 
   \item{paropts}{a list of parameters to be handed to
   \code{mclapply} (see details)}

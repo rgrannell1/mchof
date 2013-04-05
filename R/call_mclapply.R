@@ -26,8 +26,8 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		}	
 		
 	} else {
-		if (!is.null(getOption('mch_cores'))) {
-			paropts <- list(mc.cores = getOption('mch_cores'))
+		if (!is.null(getOption('mc.cores'))) {
+			paropts <- list(mc.cores = getOption('mc.cores'))
 		}	
 	}
 	

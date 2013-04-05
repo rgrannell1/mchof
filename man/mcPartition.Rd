@@ -26,14 +26,14 @@
 \examples{
 # partition a set into even and odd numbers
 mcPartition ( function (x) x \%\% 2, 1:10, paropts = list(mc.cores = 2))
-
 # divide a set of combinations into two based on a predicate
 mcPartition(
-	      val <- sum(unlist(pair))
-	      if(val > 8) TRUE else FALSE
-    },
-    x = apply(combn(8, 3), 2, list),
-    paropts = list(mc.cores = 2))
+	f = function(pair){
+		val <- sum(unlist(pair))
+		if (val > 8) TRUE else FALSE
+	},
+	x = apply(combn(8, 3), 2, list),
+	paropts = list(mc.cores = 2))
 }
 \author{
   Ryan Grannell

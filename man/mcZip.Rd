@@ -5,7 +5,7 @@
   mcZip(x, paropts = NULL)
 }
 \arguments{
-  \item{...}{a list of vectors/lists of length > 0}
+  \item{x}{a list of lists}
 
   \item{paropts}{a list of parameters to be handed to
   \code{mclapply} (see details)}
@@ -18,6 +18,10 @@
   mcZip discards excess elements without warning: for
   example list (1, 2), list (3, 4, 5) becomes list (list(1,
   3), list(2, 4)).
+}
+\examples{
+# zip a name list and an id list into name:id pairs
+mcZip (list( list('Jack', 'Jane', 'Joe'), list(1, 2, 3)))
 }
 \author{
   Ryan Grannell

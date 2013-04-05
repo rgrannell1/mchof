@@ -37,6 +37,8 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	}
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
+	} else if (!is.null(getOption('mc.cores')))  {
+		abs(getOption('mc.cores'))
 	} else 1
 	
 	steps_needed <- ceiling(length(x)/ncores)

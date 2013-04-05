@@ -63,7 +63,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @author Ryan Grannell
 #' 
 #' @export
-#' @param ... a list of vectors/lists of length > 0
+#' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
 #' \code{mclapply} (see details)
 #'    
