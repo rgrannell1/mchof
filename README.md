@@ -30,6 +30,11 @@ Functions in development (April 30th < ETA < May 15th 2013)
 
 Functions planned for a future release
 
+* **mcUnfold:**
+* **mcSplit:**
+* **mcDropWhile:** drop values off a list until a predicate is met
+* **mcTakeWhile:** return values until a predicate is met
+* **mcPartitionBy:** partition a list into groups defined by the return value of a function
 * **mcGroupBy:**
 * **mcOrderBy:**
 * **mcSortBy:**
