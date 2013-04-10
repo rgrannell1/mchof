@@ -10,11 +10,11 @@
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details Names are 
-#' dropped without warning during zipping; named outputs are given in the example below
-#' 
+#' @details Names are dropped without warning during zipping; 
+#' named outputs are given in the example below. 
 #' mcZipWith discards excess elements without warning: for example 
-#' list (1, 2), list (3, 4, 5) becomes list (f( list(1, 3) ), f( list(2, 4) )). 
+#' \code{list (1, 2), list (3, 4, 5)} becomes 
+#' \code{list (f( list(1, 3) ), f( list(2, 4) ))}. 
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
