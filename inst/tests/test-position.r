@@ -33,7 +33,19 @@ test_that("test that the answer is invariant under mc.cores and right", {
 	
 })
 
+test_that("test that the answer is invariant under mc.cores and right", {
 
-
-
-
+	assert ('', 
+		always = function (func, x, is.right, cores) {
+			
+			mcPosition (func, x, is.right, list(mc.cores = cores)) == 
+			which (x == 1) 
+			
+		},
+		where = list (
+			x = Collection(50),
+			is.right = c(TRUE, FALSE),
+			cores = seq_len(10))
+	)
+	
+})
