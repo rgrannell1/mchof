@@ -143,19 +143,36 @@ hr {
 <body>
 <h1>mchof - MultiCore Higher-Order Functions</h1>
 
-<p>mchof provides convenient, consistent parallel implementations of several 
+<p>mchof (read: mc&#39;hoff) provides convenient, consistent parallel implementations of several 
 commonly used higher-order functions found in base R. Excellent parallel 
-implementations of map-like functions exist in packages such as plyr and
-multicore, giving users better efficiency with little work on their part. 
+implementations of map-like functions exist in packages such as <code>plyr</code> and
+<code>multicore</code>, giving users better efficiency with little work on their part. 
 This package aims to extend this speedup to people who use functions like 
 Filter or Reduce in their code.</p>
 
-<p>* Special cases handled consistently with functions in base R.<br/>
- * Built on the user-friendly <code>multicore</code> parallel library; all the user needs to do is 
- specify how many cores they would like to use to get 90% of the benefits of 
- running in parallel. </p>
+<ul>
+<li>Special cases handled consistently with functions in base R. </li>
+<li>Built on the user-friendly <code>multicore</code> parallel library; all the user needs to 
+do is specify how many cores they would like to use to get 90% of the benefits 
+of running in parallel</li>
+</ul>
 
-<p>as</p>
+<p>Functions included in the current release</p>
+
+<ul>
+<li>mcFilter: </li>
+<li>mcReduce: </li>
+<li>mcFind: </li>
+<li>mcPosition: </li>
+</ul>
+
+<p>Functions in development</p>
+
+<ul>
+<li>mcZipWith:</li>
+<li>mcZip:</li>
+<li>mcUnzip:</li>
+</ul>
 
 </body>
 
