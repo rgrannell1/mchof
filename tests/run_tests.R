@@ -7,7 +7,8 @@ library(testthat)
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
 
 assert <- function (info = '', always, where, unless = function (...) FALSE) {
-	# check that a condition is true over a range of value, unless...
+	# check that a condition is true over a range of value, so long as the
+	# unless predicate isn't met
 	
 	combos <- do.call (
 		expand.grid,
@@ -28,14 +29,30 @@ assert <- function (info = '', always, where, unless = function (...) FALSE) {
 Collection <- function (n) {
 	# unconstrained collection generators
 	
-}
-List <- function (n) {
-	# returns a list of lists, including the empty
-	# list and non-flatlists
-}
-Vector <- function (n) {
-	# returns a list of vectors of many types
+	replicate (n, ( function () {
+		
+		sample (
+			list (
+				list(),
+				seq_len(100), as.list(seq_len(100)),
+				paste0(seq_len(100)), as.list(paste0(seq_len(100)))
+
+			), size = 1)
+		
+	} )(), simplify = FALSE)
 	
+}
+
+List <- function (n) {
+	# returns lists (some nested), and the empty list
+	
+	Filter( function (e) is.list(e), Collection(n))
+}
+
+Vector <- function (n) {
+	# returns only vector elements (length > 1)
+	
+	Filter( function (e) is.vector(e), Collection(n))
 }
 
 ###=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
