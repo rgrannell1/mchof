@@ -1,7 +1,6 @@
 
 context("check that assertion-based checking actually works")
 
-
 test_that('exception-free axioms should hold', {
 	
 	assert (
