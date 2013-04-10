@@ -19,11 +19,10 @@
 }
 \details{
   Names are dropped without warning during zipping; named
-  outputs are given in the example below
-
-  mcZipWith discards excess elements without warning: for
-  example list (1, 2), list (3, 4, 5) becomes list (f(
-  list(1, 3) ), f( list(2, 4) )).
+  outputs are given in the example below. mcZipWith
+  discards excess elements without warning: for example
+  \code{list (1, 2), list (3, 4, 5)} becomes \code{list (f(
+  list(1, 3) ), f( list(2, 4) ))}.
 }
 \examples{
 # adding indices to a list

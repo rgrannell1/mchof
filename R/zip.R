@@ -108,5 +108,3 @@ mcZip <- function(x, paropts = NULL) {
 	mcZipWith (f = identity, x, paropts = paropts)
 
 }
-
-

@@ -10,7 +10,6 @@ test_that ("", {
 		1:10 )
 })
 
-
 test_that ("", {
 	
 	expect_equal (
@@ -20,7 +19,6 @@ test_that ("", {
 		1 )	
 })
 
-
 test_that ("", {
 	
 	expect_equal (
@@ -28,7 +26,6 @@ test_that ("", {
 		55 )
 	
 })
-
 
 test_that ("", {
 	
@@ -39,7 +36,6 @@ test_that ("", {
 		'a')
 	
 })
-
 
 test_that ("", {
 	
@@ -69,5 +65,21 @@ test_that ("", {
 			list(1,4),	
 			list(2,5),
 			list(3,6)) )
+	
+})
+
+test_that ("", {
+	
+	expect_equal (
+		mcUnzipWith (
+			'identity', 
+			list (
+				list(1,4),	
+				list(2,5),
+				list(3,6))
+		),
+		list(
+			list(1, 2, 3),	   
+			list(4, 5, 6))  )
 	
 })

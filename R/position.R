@@ -117,9 +117,3 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	}
 	else integer(0)
 }
-
-
-
-
-
-
