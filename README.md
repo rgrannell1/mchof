@@ -16,7 +16,7 @@ Filter or Reduce in their code.
 Functions included in the current release
 
 * **mcFilter**: get the elements of a list matching a predicate
-* **mcReduce:** applies an associative binary operator to a list (eg. +, -, rbind)
+* **mcReduce:** applies an associative binary operator to a list (eg. +, *, rbind)
 * **mcFind:** get the first element in a list matching a predicate
 * **mcPosition:** find the first element in a list matching a predicate
 
@@ -27,14 +27,3 @@ Functions in development (April 30th < ETA < May 15th 2013)
 * **mcUnzip:** split a list of n-tuples into n lists
 * **mcUnzipWith:** split a list of n-tuples into n lists, apply a function to the results
 * **mcPartition:** split a list into values that return TRUE and FALSE
-
-Functions planned for a future release
-
-* **mcUnfold:**
-* **mcSplit:**
-* **mcDropWhile:** drop values off a list until a predicate is met
-* **mcTakeWhile:** return values until a predicate is met
-* **mcPartitionBy:** partition a list into groups defined by the return value of a function
-* **mcGroupBy:**
-* **mcOrderBy:**
-* **mcSortBy:**
