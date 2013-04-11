@@ -11,19 +11,7 @@ test_that("mcPosition length(0) |-> length(0)", {
 		mcPosition(
 			true_fun, x = character(0)),
 		integer(0))
-	
-	assert ('[A](0) |-> integer(0)'
-		function (zero, is.right, cores) {
-			mcPosition(
-				true_fun, zero, is.right, list(mc.cores = cores)	
-			),
-			where = list (
-				zero = Zeros(),
-				is.right = c(TRUE, FALSE),
-				cores = seq_len(5))	
-		}	
-	)
-	
+
 	# NULL |-> integer(0)
 	expect_equal(	
 		mcPosition(

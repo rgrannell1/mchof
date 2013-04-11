@@ -31,3 +31,4 @@ Collate:
     'zip.R'
     'unzip.R'
     'partition.R'
+    'mchof.R'

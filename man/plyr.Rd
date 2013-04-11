@@ -1,7 +1,7 @@
 \docType{package}
-\name{mchof}
-\alias{mchof}
-\alias{mchof-package}
+\name{plyr}
+\alias{plyr}
+\alias{plyr-package}
 \title{mchof: multicore higher-order-functions}
 \description{
   mchof: multicore higher-order-functions
