@@ -1,39 +1,52 @@
 
-Axiom <- function (info = '', expr, unless = TRUE, where) {
-
-	test_case <- function (fits_rule, is_exception, case) {
+Axiom <- function (info = '', always, unless = TRUE, where) {
+	# asdfbi
+	
+	test_all_cases <- function (rule, cases) {
+		# check that the rules hold for all 	
 		
-		if (!is_exception && !fits_rule(case)) stop(case)	
+		combos <- do.call (
+			expand.grid,
+			Map (seq_len, Map (length, cases)))
+		
+		Map (rule, combos)	
 	}
 	
-	Function <- function (args = alist(), body = {}) {
+	Function <- function (parametres = alist(), body = {}) {
 		# a dynamic form of function that assumes it's inputs 
 		# are arguments to be substituted as variables
 
 		tmp <- function () {}
-		formals(tmp) <-  match.call()$args
+		formals(tmp) <- parametres
 		body(tmp) <- match.call()$body		
 		tmp
 	}
 	
-	args <- structure (
-		# create an alist for unless and expr
+	parametres <- structure (
+		# create an alist for unless and always
+		
 		Map( function (x) NULL, seq_along(where)),	
 		names = Map(
 			function (name) as.symbol(name),	
 			as.list(names(where))
 	))
 
-	is_exception <- Function (args, { unless })
-	check_case <- Function (args, { expr })
-
-	# NOW MAP OVER ALL CASES
-	
+	test_all_cases(
+		Function (parametres, {
+			
+			if (!Function (parametres, { unless }) &&
+				Function (parametres, { always })) {
+				
+				stop (info, 'ghastly error')
+				
+			}
+		}), where
+	)
 }
 
-Axiom (
-	a + b + c > max(a, b, c),	
-	min(a, b, c) == 0,
+Axiom ('',
+	always = a + b + c > max(a, b, c),	
+	unless = min(a, b, c) == 0,
 	where = list (
 		a = seq_len(5),		
 		b = seq_len(5),
