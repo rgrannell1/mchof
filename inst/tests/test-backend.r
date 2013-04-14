@@ -2,7 +2,11 @@
 context("parallel backend checks")
 
 test_that("errors aren't hidden", {
-	
+	expect_error(
+		call_mclapply(
+			function (x){stop('a useful error');1},		
+			1:10, list(mc.cores = 2)),
+			regexp = "a useful error")
 })
 
 test_that("error when given bad arguments", {
