@@ -2,7 +2,7 @@
 
 call_mclapply <- function (f, x, paropts = NULL) {
 	# a wrapper segregating the parallel library from mchof code
-
+	
 	if (!is.function(f)) stop('f is not a function')
 	if (!is.vector(x)) stop('x is not a vector')
 	
@@ -12,7 +12,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		
 		invalid_args <- setdiff(
 			arg_names, 
-			names(formals(mclapply)))
+			names(formals(parallel::mclapply)))
 		
 		if (length(invalid_args) > 0) {
 			stop('invalid arguments given to paropts: ', 
@@ -30,8 +30,20 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			paropts <- list(mc.cores = getOption('mc.cores'))
 		}	
 	}
-	
-	do.call(
-		what = parallel::mclapply,
-		args = c(list(FUN = f, X = x), paropts))
+
+	tryCatch({
+		val <- do.call(
+			what = parallel::mclapply,
+			args = c(list(FUN = f, X = x), paropts))
+		},
+		warning = function (w) {
+			warning ('warnings encountered', val)
+		},
+		error = function (e) {
+			stop ('errors encountered while running a task', val)
+		}
+	)
+	val
 }
+
+
