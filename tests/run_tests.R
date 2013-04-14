@@ -17,17 +17,32 @@ assert <- function (info = '', rule, given = function (...) TRUE,
 			if (!fits_rule) stop (info, ': a case did not meet the rule', args)
 		}		
 	}
-
+	return(TRUE)
 }
-
-Functions <- list(
-	list(name = 'zip', mcZip),
-	list(name = 'unzip', mcUnzip),
-	list(name = 'reduce', mcReduce),
-	list(name = 'position', mcPosition),
-	list(name = 'partition', mcPartition),
-	list(name = 'filter', mcFilter),
-	list(name = 'find', mcFind)
-)
+Paropts <- function () {
+	list(
+		list(mc.cores = 1),
+		list(mc.cores = 2),
+		list(mc.cores = 5),
+		list(mc.cores = 10)
+	)
+}
+Booleans <- function () list(TRUE, FALSE)
+LibFunctions <- function () {
+	list(
+		list(name = 'zip', f = mcZip),
+		list(name = 'unzip', f = mcUnzip),
+		list(name = 'reduce', f = mcReduce),
+		list(name = 'position', f = mcPosition),
+		list(name = 'partition', f = mcPartition),
+		list(name = 'filter', f = mcFilter),
+		list(name = 'find', f = mcFind)
+	)
+}
+Functions <- function () {
+	list(
+		list(name = '', f = function (el) el )	
+	)
+}
 
 test_dir('/home/rgrannell1/Dropbox/R directory/mchof/inst/tests/', rep ='stop')

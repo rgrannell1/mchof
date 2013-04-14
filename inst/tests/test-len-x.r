@@ -3,23 +3,72 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
-assert('NULL |-> NULL', 
-	rule = function (libfn_, fn_, x_, paropts_) {
-		is.null(
-			libfn_(fn_, x_, paropts_)	
+test_that('NULL behaviour is correct', {
+	
+	assert('Zipwith, Unzipwith, Reduce, Filter,
+			Partition, Find NULL |-> NULL', 
+		rule = function (libfn_, fn_, paropts_) {
+			is.null(libfn_$f(fn_$f, NULL, paropts_))
+		},
+		unless = function (libfn_, fn_, x_, paropts_) {
+			libfn$name = 'mcPosition' ||
+			libfn$name = 'mcZip' || libfn$name = 'mcUnzip'
+		},
+		where = list(
+			libfn = LibFunctions(),	
+			fn_ = Functions(),
+			paropts_ = Paropts()
 		)
-	},
-	given = function (libfn_, fn_, x_, paropts_) {
-		
-	},
-	unless = function (libfn_, fn_, x_, paropts_) {
-		
-	}
-	where = list(
-		libfunc,	
-		
 	)
-)
+	
+	assert('mcPosition NULL |-> integer(0)',
+		rule = function (fn_, right_, paropts_) {
+			res <- mcPosition(fn_, NULL, right_, paropts_)
+			is.integer(res) && length(res) == 0
+		},
+		where = list(
+			fn_ = Functions(),
+			right_ = Booleans(),
+			paropts_ = Paropts()
+		)
+	)
+	
+})
+
+test_that('list() behaviour is correct', {
+	
+	assert('mcFind, mcFilter, mcReduce, mcZipWith,
+		mcZip, mcUnzip, mcUnzipWith list() |-> list()',
+		rule = function (libfn_, fn_, paropts_) {
+			
+			if (libfn_$name == 'mcZip' || libfn_$name == 'mcUnzip') {
+				res <- libfn_$f(list(), paropts_)
+				is.list(res) && length(res) == list()		
+			} else {
+				res <- libfn_$f(fn_$f, list(), paropts_)
+				is.list(res) && length(res) == list()	
+			}
+		},
+		where = list(
+			libfn_ = LibFunctions(),
+			fn_ = Functions(),
+			paropts_ = Paropts()
+		)
+	)
+	
+	assert('mcPosition list() |-> integer(0)', 
+		rule = function (fn_, right_, paropts_) {
+			mcPosition(fn_, list(), right_, paropts_)
+		},	   
+		where = list (
+			fn_ = Functions(),
+			right_ Booleans(),
+			paropts_ = Paropts()	
+		)
+	)
+
+})
+
 
 
 
@@ -213,7 +262,7 @@ test_that("mcUnzip length(0) |-> length(0)", {
 
 test_that("mcUnzipWith length(0) |-> length(0)", {
 	
-	# 0-elements |-> list()
+	# 0-elements |-> 
 	expect_equal(
 		mcUnzipWith(
 			function (x) x,
