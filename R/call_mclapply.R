@@ -25,35 +25,27 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			stop('x or X may not be specified in paropts')
 		}	
 		
-	} else {
-		if (!is.null(getOption('mc.cores'))) {
-			paropts <- list(mc.cores = getOption('mc.cores'))
-		}	
-	}
-	status <- list (value = '')
+	} else if (!is.null(getOption('mc.cores'))) {
+		paropts <- list(mc.cores = getOption('mc.cores'))
+	}	
 	
-	output <- withCallingHandlers({
+	status <- ''	
+	output <- withCallingHandlers({	
 		do.call(
 			what = parallel::mclapply,
 			args = c(list(FUN = f, X = x), paropts))	
 		},
 		warning = function (w) {
-			status <<- list (value = 'warning')
+			status <<- 'warning'
 		}, error = function (e) {
-			status <<- list (value = 'error')
+			status <<- 'error'
 	})
 
-	if (status$value == 'warning') {
-		stop ('an mchof function encountered errors:\n', 
-			output)
+	if (status == 'warning') {
+		stop ('an mchof function encountered errors:\n', output)
 	}
-	if (status$value == 'error') {
-		stop ('an mchof function encountered errors:\n', 
-			  output)
+	if (status == 'error') {
+		stop ('an mchof function encountered errors:\n', output)
 	}
-	output
-	
+	output	
 }
-
-
-
