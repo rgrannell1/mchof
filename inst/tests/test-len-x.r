@@ -3,6 +3,27 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
+assert('NULL |-> NULL', 
+	rule = function (libfn_, fn_, x_, paropts_) {
+		is.null(
+			libfn_(fn_, x_, paropts_)	
+		)
+	},
+	given = function (libfn_, fn_, x_, paropts_) {
+		
+	},
+	unless = function (libfn_, fn_, x_, paropts_) {
+		
+	}
+	where = list(
+		libfunc,	
+		
+	)
+)
+
+
+
+
 ## mchof 0.1 functions
 test_that("mcPosition length(0) |-> length(0)", {
 	

@@ -2,11 +2,6 @@
 context("parallel backend checks")
 
 test_that("errors aren't hidden", {
-
-	assert(
-		
-		
-	)
 	
 })
 
