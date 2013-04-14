@@ -62,25 +62,27 @@ test_that('list() behaviour is correct', {
 		},	   
 		where = list (
 			fn_ = Functions(),
-			right_ Booleans(),
+			right_ = Booleans(),
 			paropts_ = Paropts()	
 		)
 	)
-
+	
+	assert('mcPartition list() |-> list( list(), list() )', 
+		rule = function (fn_, paropts_) {
+			identical(
+				mcPartition(fn_, list(), paropts_),
+				list( list(), list() )
+			)
+		},
+		where = list (
+		   	fn_ = Functions(),
+		   	paropts_ = Paropts()
+		)
+	)
 })
-
-
-
-
 
 ## mchof 0.1 functions
 test_that("mcPosition length(0) |-> length(0)", {
-	
-	# [A](0) |-> integer(0)
-	expect_equal(	
-		mcPosition(
-			true_fun, x = character(0)),
-		integer(0))
 
 	# NULL |-> integer(0)
 	expect_equal(	
@@ -129,13 +131,7 @@ test_that("mcFilter length(0) |-> length(0)", {
 			function(x) T,
 			list()
 		), list())
-	
-	# [A](0) |-> [A](0)
-	expect_equal(
-		mcFilter(
-			function(x) T,
-			integer(0)
-		), integer(0))
+
 })
 
 test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
