@@ -30,20 +30,18 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			paropts <- list(mc.cores = getOption('mc.cores'))
 		}	
 	}
-
-	tryCatch({
-		val <- do.call(
+	status <- 1
+	val <- tryCatch ({
+		do.call(
 			what = parallel::mclapply,
-			args = c(list(FUN = f, X = x), paropts))
-		},
-		warning = function (w) {
-			warning ('warnings encountered', val)
-		},
-		error = function (e) {
-			stop ('errors encountered while running a task', val)
-		}
-	)
-	val
+			args = c(list(FUN = f, X = x), paropts))		
+		
+	}, warning = function (w) {
+		status <<- -1
+	}, error = function (e) {
+		status <<- -1
+	})
+	if (status == -1) stop (val)
+
+
 }
-
-
