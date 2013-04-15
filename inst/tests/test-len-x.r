@@ -3,48 +3,32 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
-all_acounted_for <- function (used) {
-	
-	to_account_for <- tolower(c(
-		'mcZipwith', ',mcUnzipWith',
-		'mcReduce', ',mcFilter', 'mcPartition',
-		'mcFind', 'mcZip', 'mcUnzip','mcPosition'))
-	
-	expect_true(all(to_account_for %in% tolower(used)))
-}
-
-
 test_that('NULL behaviour is correct', {
-	
-	all_acounted_for (
-		c('mcZipwith', 'mcUnzipWith', 'mcReduce', 'mcFilter',
-		'mcPartition', 'mcFind', 'mcPosition'))
-	
+
 	assert('Zipwith, UnzipWith, Reduce, Filter,
 			Partition, Find NULL |-> NULL', 
+
 		rule = function (libfn_, fn_, paropts_) {
-			is.null(libfn_$f(fn_$f, NULL, paropts_))
+			func = libfn_$f
+			is.null(func(fn_$f, NULL, paropts_))
 		},
 		unless = function (libfn_, fn_, x_, paropts_) {
 			libfn$name = 'mcPosition' ||
 			libfn$name = 'mcZip' || libfn$name = 'mcUnzip'
 		},
 		where = list(
-			libfn = LibFunctions(),	
-			fn_ = Functions(),
-			paropts_ = Paropts()
+			libfn = LibFunctions(),	fn_ = Functions(), paropts_ = Paropts()
 		)
 	)
 	
 	assert('mcPosition NULL |-> integer(0)',
+
 		rule = function (fn_, right_, paropts_) {
 			res <- mcPosition(fn_, NULL, right_, paropts_)
 			is.integer(res) && length(res) == 0
 		},
 		where = list(
-			fn_ = Functions(),
-			right_ = Booleans(),
-			paropts_ = Paropts()
+			fn_ = Functions(), right_ = Booleans(), paropts_ = Paropts()
 		)
 	)
 	
@@ -54,31 +38,33 @@ test_that('list() behaviour is correct', {
 	
 	assert('mcFind, mcFilter, mcReduce, mcZipWith,
 		mcZip, mcUnzip, mcUnzipWith list() |-> list()',
+
 		rule = function (libfn_, fn_, paropts_) {
 			
+			func = libfn_$f
+
 			if (libfn_$name == 'mcZip' || libfn_$name == 'mcUnzip') {
-				res <- libfn_$f(list(), paropts_)
+
+				res <- func(list(), paropts_)
 				is.list(res) && length(res) == list()		
 			} else {
-				res <- libfn_$f(fn_$f, list(), paropts_)
+
+				res <- func(fn_$f, list(), paropts_)
 				is.list(res) && length(res) == list()	
 			}
 		},
 		where = list(
-			libfn_ = LibFunctions(),
-			fn_ = Functions(),
-			paropts_ = Paropts()
+			libfn_ = LibFunctions(), fn_ = Functions(), paropts_ = Paropts()
 		)
 	)
 	
-	assert('mcPosition list() |-> integer(0)', 
+	assert('mcPosition list() |-> integer(0)',
+
 		rule = function (fn_, right_, paropts_) {
 			mcPosition(fn_, list(), right_, paropts_)
 		},	   
 		where = list (
-			fn_ = Functions(),
-			right_ = Booleans(),
-			paropts_ = Paropts()	
+			fn_ = Functions(), right_ = Booleans(), paropts_ = Paropts()	
 		)
 	)
 	
@@ -89,12 +75,45 @@ test_that('list() behaviour is correct', {
 				list( list(), list() )
 			)
 		},
-		where = list (
-		   	fn_ = Functions(),
-		   	paropts_ = Paropts()
-		)
+		where = list (fn_ = Functions(), paropts_ = Paropts())
 	)
+
+	assert('mcUnzip list (..., list(), ...) |-> list()', 
+		rule = function () {
+			res <- mcUnzip (x_, paropts_)
+			is.list(res) && length(res) == 0
+		},
+		given = function (x_, paropts_) {
+			is.list(x) && min(sapply(x_, length)) == 0
+		}
+		where = list(x_ = stop('add'), paropts_ = Paropts)
+	)
+
 })
+
+
+
+
+	# 0-elements |-> list()
+	expect_equal(
+		mcUnzip(
+			list (
+				list ('a', 'b'),
+				list (),
+				list ('c', 'd')
+		)),
+		list()	
+	)
+	
+
+
+
+
+
+
+
+
+
 
 ## mchof 0.1 functions
 test_that("mcPosition length(0) |-> length(0)", {
