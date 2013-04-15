@@ -3,9 +3,24 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
+all_acounted_for <- function (used) {
+	
+	to_account_for <- tolower(c(
+		'mcZipwith', ',mcUnzipWith',
+		'mcReduce', ',mcFilter', 'mcPartition',
+		'mcFind', 'mcZip', 'mcUnzip','mcPosition'))
+	
+	expect_true(all(to_account_for %in% tolower(used)))
+}
+
+
 test_that('NULL behaviour is correct', {
 	
-	assert('Zipwith, Unzipwith, Reduce, Filter,
+	all_acounted_for (
+		c('mcZipwith', 'mcUnzipWith', 'mcReduce', 'mcFilter',
+		'mcPartition', 'mcFind', 'mcPosition'))
+	
+	assert('Zipwith, UnzipWith, Reduce, Filter,
 			Partition, Find NULL |-> NULL', 
 		rule = function (libfn_, fn_, paropts_) {
 			is.null(libfn_$f(fn_$f, NULL, paropts_))
