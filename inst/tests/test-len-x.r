@@ -85,7 +85,7 @@ test_that('list() behaviour is correct', {
 		},
 		given = function (x_, paropts_) {
 			is.list(x) && min(sapply(x_, length)) == 0
-		}
+		},
 		where = list(x_ = stop('add'), paropts_ = Paropts)
 	)
 

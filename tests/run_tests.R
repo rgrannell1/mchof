@@ -17,6 +17,9 @@ assert <- function (info = '', rule, given = function (...) TRUE,
 			if (!fits_rule) stop (info, ': a case did not meet the rule', args)
 		}		
 	}
+	
+	combos <- 
+	
 	return(TRUE)
 }
 Paropts <- function () {

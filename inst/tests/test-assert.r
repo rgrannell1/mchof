@@ -15,10 +15,17 @@ assert ('the sum of terms is larger than the terms,
 	},
 	given = function (a_, b_, c_) {
 		length(which(c(a_, b_, c_) == 0)) < 2
-	}
+	},
 	where = list(
 		a_ = 0:100,
 		b_ = 0:100,
 		c_ = 0:100)
 )
 
+expect_error (
+	assert ('error for true != true',
+		
+		rule = function (tr, tr) tr != tr,
+		where = list(tr = TRUE, tr = TRUE)
+	)
+)
