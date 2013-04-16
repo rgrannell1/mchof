@@ -56,43 +56,21 @@ test_that('list() behaviour is defined', {
 	expect_equal(mcZipWith(identity,	list(list(), list(), list(1:10))), list())		
 })
 
-test_that("mcPosition length(0) |-> length(0)", {
+test_that("[A](0) |-> ...", {
 	
-	# [A](0) |-> integer(0)
-	expect_equal(	
-		mcPosition(
-			true_fun, x = character(0)),
-		integer(0))
+	# ... integer(0)
+	expect_equal(	mcPosition(true_fun, x = character(0)), integer(0))
 	
+	#...[A](0)
+	expect_equal(length(mcFind(function(x) FALSE, character(0))), 0)
+	expect_equal(mcFilter(function(x) T, integer(0)), integer(0))
 
-	
 })
 
-test_that("mcFind length(0) |-> length(0)", {
+test_that("mcReduce length(1) |-> 1", {
 	
-	expect_equal(
-		length(mcFind(
-			function(x) FALSE, 
-			character(0)
-		)),	0)
-	
-})
-
-test_that("mcFilter length(0) |-> length(0)", {
-
-	# [A](0) |-> [A](0)
-	expect_equal(
-		mcFilter(
-			function(x) T,
-			integer(0)
-		), integer(0))
-})
-
-test_that("mcReduce length(0) |-> length(0) & length(1) |-> 1", {
-	
-	# len(x) == 1 |-> 1
 	expect_equal(mcReduce(get('+'), c(1)), 1)
-	
+
 })
 
 test_that("mcPartition length(0) |-> length(0)", {
