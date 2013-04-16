@@ -1,7 +1,24 @@
-
 context("parallel backend checks")
 
-test_that("errors aren't hidden", {
+test_that("errors are reported", {
+	
+	suppressWarnings ({
+	
+		errfunc_1 <- function (x) stop('do you see me?') 
+		errfunc_2 <- function (x, y) stop('do you see me, monoid?') 
+		
+		expect_error(mcFilter(errfunc_1, 1:10, list(mc.cores = 4)), 'see me?')
+		expect_error(mcPartition(errfunc_1, 1:10), 'see me?')
+		
+		expect_error(mcPosition(errfunc_1, 1:10), 'see me?')
+		expect_error(mcFind(errfunc_1, 1:10), 'see me?')
+		
+		expect_error(mcReduce(errfunc_2, 1:10), 'see me?')
+	
+		expect_error(mcUnzipWith(errfunc_1, 1:10), 'see me?')	
+		expect_error(mcZipWith(errfunc_1, 1:10), 'see me?')
+		
+	})
 	
 })
 
