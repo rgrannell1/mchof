@@ -18,7 +18,15 @@ assert <- function (info = '', rule, given = function (...) TRUE,
 		}		
 	}
 	
-	combos <- 
+	combos <- do.call(expand.grid, sapply(
+		where,
+		function (x) seq_len(length(x))))
+	
+	cases <- apply (combos, 1, function (indices) {
+		Map (function (i, x) {
+			where [[i]] [[x]]
+		}, seq_len(indices), indices)
+	})
 	
 	return(TRUE)
 }
