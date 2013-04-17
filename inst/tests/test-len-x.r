@@ -19,7 +19,7 @@ test_that('NULL handling behaviour is as expected', {
 	expect_equal(mcUnzip(NULL), NULL)
 	
 	expect_equal(mcUnzipWith(mean, NULL), NULL)
-	expect_equal(mcZipWith(mean, NULL),	NULL)
+	expect_equal(mcZipWith(mean, NULL), NULL)
 })
 
 test_that('list() behaviour is defined', {
@@ -53,7 +53,7 @@ test_that('list() behaviour is defined', {
 	expect_equal(mcZipWith(identity, list(list())), list())
 	
 	# list(..., list(), ...) |-> list()
-	expect_equal(mcZipWith(identity,	list(list(), list(), list(1:10))), list())		
+	expect_equal(mcZipWith(identity, list(list(), list(), list(1:10))), list())		
 })
 
 test_that("[A](0) |-> ...", {
