@@ -3,18 +3,16 @@ Version 1.1 (2013-04-21)
 
 New Functions:
 
-* mcPartition
-* mcUnzipWith/mcUnzip
-* mcZipWIth/mcZip
+* mcPartition: split a list into two lists based on a predicate
+* mcZipWIth/mcZip: takes n lists/vectors, generates a list of n-tuples.
+* mcUnzipWith/mcUnzip: takes a list of n-tuples, returns n lists
 
-New Features
-* options mechanism for setting core number
-* 
-* 
+New Features:
+
+* options mechanism for setting the number of cores to be used: 
+options(mc.cores) <- 2
 
 Bug Fixes:
 
 * error reporting improved
 * 
-*
-
