@@ -1,0 +1,20 @@
+Version 1.1 (2013-04-21)
+------------------------------------------------------------------------------
+
+New Functions:
+
+* mcPartition
+* mcUnzipWith/mcUnzip
+* mcZipWIth/mcZip
+
+New Features
+* options mechanism for setting core number
+* 
+* 
+
+Bug Fixes:
+
+* error reporting improved
+* 
+*
+
