@@ -15,4 +15,3 @@ options(mc.cores) <- 2
 Bug Fixes:
 
 * error reporting improved
-* 

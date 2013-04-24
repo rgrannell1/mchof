@@ -1,14 +1,15 @@
 #' @title mcReduce
 #' 
 #' @export
-#' @description \code{mcReduce} can be used as a parallel replacement for a 
+#' @description mcReduce applies an associative binary function to a list,
+#' returning a single value
+#' 
+#' @details \code{mcReduce} can be used as a parallel replacement for a 
 #' subclass of problems that can be solved with \code{Reduce} ; parallelising 
 #' \code{Reduce} is only possible when the function f is associative; in infix 
-#' notation that is
-#' 
-#' \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f x3)}. In practicality
-#' this means that the order in which the Reduce is carried out isn't important,
-#' so several tasks can be carried out in parallel.
+#' notation that is \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f x3)}. 
+#' In practicality this means that the order in which the reduce is carried out isn't 
+#' important, so several tasks can be carried out in parallel.
 #'  
 #'  A binary function with associativity is the plus operator;
 #'  \code{1 + (2 + 3) == (1 + 2) + 3}.

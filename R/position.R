@@ -17,7 +17,8 @@
 #' @seealso see \code{\link{Position}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed. 
-#'     
+#' 
+#' @examples
 #' # find the index of the first position of the first non-NA value in a vector
 #' mcPosition(function(x) !is.na(x), c(10, NA, 11:20), paropts = list(mc.cores = 2))
 #' # get the index of the first value larger than five from the rightmost index of a vector

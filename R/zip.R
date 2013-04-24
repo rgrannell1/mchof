@@ -17,7 +17,8 @@
 #' \code{list (f( list(1, 3) ), f( list(2, 4) ))}. 
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed. 
+#'     backend being employed, \code{\link{mcZip}} for a varient of this function
+#'     and \code{\link{mcUnzipWith}} for the inverse of this function. 
 #' @examples 
 #' # adding indices to a list
 #' mcZipWith (

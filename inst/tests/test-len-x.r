@@ -76,7 +76,7 @@ test_that("mcReduce length(1) |-> 1", {
 test_that("mcPartition length(0) |-> length(0)", {
 	
 	expect_equal(
-		mcPartition(function(x) T, list(integer(0))), 
+		mcPartition(function(x) TRUE, list(integer(0))), 
 		list(list(integer(0)), list()))
 	
 	expect_equal(

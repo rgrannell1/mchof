@@ -23,8 +23,9 @@
 }
 \seealso{
   see \code{\link{mcZip}} for the inverse of this function,
-  and \code{\link{mclapply}} for more details about the
-  parallel backend being employed.
+  \code{\link{mcUnzipWith}} for a more general version of
+  this function and \code{\link{mclapply}} for more details
+  about the parallel backend being employed.
 }
 \keyword{mcUnzip}
 

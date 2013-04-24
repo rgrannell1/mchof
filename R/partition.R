@@ -1,6 +1,6 @@
 
-#' @description mcPartition takes n lists/vectors, generates a list of n element lists,
-#' and returns the result of mapping f over this new list. 
+#' @description mcPartition returns a list of two lists; a list for which a predicate 
+#' returns true, and a list for which a predicate returns false
 #' 
 #' @title mcPartition
 #' @author Ryan Grannell

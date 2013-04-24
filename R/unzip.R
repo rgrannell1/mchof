@@ -69,7 +69,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #'    
 #' @details mcUnzip discards excess elements, as with mcZip. 
 #' 
-#' @seealso see \code{\link{mcZip}} for the inverse of this function, and 
+#' @seealso see \code{\link{mcZip}} for the inverse of this function, 
+#' \code{\link{mcUnzipWith}} for a more general version of this function and 
 #' \code{\link{mclapply}} for more details about the parallel backend being employed. 
 #'    
 #' @keywords mcUnzip

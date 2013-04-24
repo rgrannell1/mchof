@@ -45,7 +45,9 @@ mcZipWith (
 }
 \seealso{
   see \code{\link{mclapply}} for more details about the
-  parallel backend being employed.
+  parallel backend being employed, \code{\link{mcZip}} for
+  a varient of this function and \code{\link{mcUnzipWith}}
+  for the inverse of this function.
 }
 \keyword{mcZipWith}
 
