@@ -2,12 +2,8 @@ Package: mchof
 Type: Package
 Title: mchof: multicore higher-order-functions
 Description: mchof (read: mac'hoff) provides convenient, consistent parallel
-    implementations of several commonly used higher-order functions found in
-    base R. Excellent parallel implementations of map-like functions exist in
-    packages such as plyr and parallel, giving users better efficiency with
-    little work on their part. This package aims to extend this speedup to
-    people who use functions like Filter or Reduce in their code, as well as
-    providing new  higher-order functions not found in base R.
+    implementations of higher-order functions commonly found in languages like
+    clojure and haskell. 
 Version: 1.1
 Depends:
     R (>= 2.14.0)
