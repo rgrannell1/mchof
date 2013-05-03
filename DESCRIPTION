@@ -1,10 +1,14 @@
 Package: mchof
 Type: Package
-Title: mchof: multicore higher-order-functions
-Description: mchof (read: mac'hoff) provides convenient, consistent parallel
-    implementations of higher-order functions commonly found in languages like
-    clojure and haskell. 
-Version: 1.1
+Title: multicore higher-order functions
+Description: mchof (read: mc'hoff) provides convenient, consistent parallel
+    implementations of several commonly used higher-order functions found in
+    base R. Excellent parallel implementations of map-like functions exist in
+    packages such as plyr and parallel, giving users better efficiency with
+    little work on their part. This package aims to extend this speedup to
+    people who use functions like Filter or Reduce in their code, as well as
+    adding new functions such as Zipwith and Partition to the useRs toolchain.
+Version: 0.2
 Depends:
     R (>= 2.14.0)
 Date: 2013-02-03
@@ -20,11 +24,11 @@ License: GPL-2
 SystemRequirements: POSIX-compliant OS (not Windows)
 OS_type: unix
 Collate:
-    'filter.R'
     'call_mclapply.R'
-    'reduce.R'
-    'position.R'
-    'zip.R'
-    'unzip.R'
-    'partition.R'
+    'filter.R'
     'mchof.R'
+    'partition.R'
+    'position.R'
+    'reduce.R'
+    'unzip.R'
+    'zip.R'

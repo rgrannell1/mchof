@@ -1,7 +1,7 @@
 #' @title mcPosition
 #' 
-#' @description Returns the index of the first (or last) position in a vector or list matching 
-#' a predicate function, in parallel. 
+#' @description Returns the index of the first (or last) position in a vector or 
+#' list matching a predicate function, in parallel. 
 #'  
 #' @export
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
