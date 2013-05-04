@@ -13,15 +13,13 @@ Filter or Reduce in their code.
    do is specify how many cores they would like to use to get 90% of the benefits 
    of running in parallel
    
-Functions included in the current release
+Functions included in the current release (0.2)
 
 * **mcFilter**: get the elements of a list matching a predicate
 * **mcReduce:** applies an associative binary operator to a list (eg. +, *, rbind)
 * **mcFind:** get the first element in a list matching a predicate
 * **mcPosition:** find the first element in a list matching a predicate
-
-Functions in development (April 30th < ETA < May 15th 2013)
-
+ 
 * **mcZipWith:** combine n lists into a list of n-tuples, apply a function to result
 * **mcZip:** combine n lists into a list of n-tuples
 * **mcUnzip:** split a list of n-tuples into n lists
