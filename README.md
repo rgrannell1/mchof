@@ -1,5 +1,6 @@
 mchof - MultiCore Higher-Order Functions
 ===
+Version 0.2
 
 mchof (read: mc'hoff) provides convenient, consistent parallel implementations of several 
 commonly used higher-order functions found in base R. Excellent parallel 
@@ -19,9 +20,10 @@ Functions included in the current release (0.2)
 * **mcReduce:** applies an associative binary operator to a list (eg. +, *, rbind)
 * **mcFind:** get the first element in a list matching a predicate
 * **mcPosition:** find the first element in a list matching a predicate
- 
 * **mcZipWith:** combine n lists into a list of n-tuples, apply a function to result
 * **mcZip:** combine n lists into a list of n-tuples
 * **mcUnzip:** split a list of n-tuples into n lists
 * **mcUnzipWith:** split a list of n-tuples into n lists, apply a function to the results
 * **mcPartition:** split a list into values that return TRUE and FALSE
+
+Functions in development
