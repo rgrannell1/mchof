@@ -27,3 +27,8 @@ Functions included in the current release (0.2)
 * **mcPartition:** split a list into values that return TRUE and FALSE
 
 Functions in development (0.3)
+
+* **mcAny**: check if a predicate is true for at least one element in a list
+* **mcAll**: check if a predicate is true for all elements in a list
+* **mcOne**: check if a predicate is true for one element in a list
+* **mcHalf**: check if a predicate is true for exactly half the elements in a list
