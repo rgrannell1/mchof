@@ -53,7 +53,14 @@ test_that('list() behaviour is defined', {
 	expect_equal(mcZipWith(identity, list(list())), list())
 	
 	# list(..., list(), ...) |-> list()
-	expect_equal(mcZipWith(identity, list(list(), list(), list(1:10))), list())		
+	expect_equal(mcZipWith(identity, list(list(), list(), list(1:10))), list())
+	
+	# quantify list() -> list()
+	expect_equal(mcAll(mean, list()), list())
+	expect_equal(mcAny(mean, list()), list())
+	expect_equal(mcHalf(mean, list()), list())
+	expect_equal(mcOne(mean, list()), list())
+	
 })
 
 test_that("[A](0) |-> ...", {

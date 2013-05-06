@@ -54,6 +54,7 @@ mcFilter <- function (f, x, paropts = NULL) {
 	
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
+	if (is.list(x) && length(x) == 0) return(list())
 	if (is.factor(x)) stop('x may not be a factor')
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
