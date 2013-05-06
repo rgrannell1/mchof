@@ -47,4 +47,25 @@ test_that("errors thrown by all functions", {
 	
 	expect_error(
 		mcPartition(true_fun, test_factor),	'factor')		
+	
+	### mchof 0.3 functions ###
+	#-#-#-#-#-#-#-#-#-#-#-#-#-#
+	
+	expect_error(
+		mcAll(true_fun, test_factor), 'factor'	
+	)
+	
+	expect_error(
+		mcAny(true_fun, test_factor), 'factor'	
+	)
+	
+	expect_error(
+		mcHalf(true_fun, test_factor), 'factor'	
+	)
+	
+	expect_error(
+		mcOne(true_fun, test_factor), 'factor'	
+	)
+	
+	
 })

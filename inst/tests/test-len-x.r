@@ -20,6 +20,11 @@ test_that('NULL handling behaviour is as expected', {
 	
 	expect_equal(mcUnzipWith(mean, NULL), NULL)
 	expect_equal(mcZipWith(mean, NULL), NULL)
+	
+	expect_equal(mcAll(mean, NULL), NULL)
+	expect_equal(mcAny(mean, NULL), NULL)
+	expect_equal(mcHalf(mean, NULL), NULL)
+	expect_equal(mcOne(mean, NULL), NULL)
 })
 
 test_that('list() behaviour is defined', {

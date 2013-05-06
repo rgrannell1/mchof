@@ -128,6 +128,8 @@ mcHalf <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return(list())
 	if (is.factor(x)) stop('x may not be a factor')
 	
+	if (length(x) %% 2) return(FALSE)
+	
 	bools <- as.logical(call_mclapply(f, x, paropts))
 	bools[is.na(bools)] <- FALSE
 	
