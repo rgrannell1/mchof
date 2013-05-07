@@ -32,3 +32,4 @@ Collate:
     'reduce.R'
     'unzip.R'
     'zip.R'
+    'quantify.R'
