@@ -135,15 +135,6 @@ test_that("quantifiers", {
 	)
 	
 	expect_that(
-		mcHalf(
-			function (x) {
-				Sys.sleep(0.5)
-				TRUE
-			}, 1:20
-		), takes_less_than(6)
-	)
-	
-	expect_that(
 		mcOne(
 			function (x) {
 				Sys.sleep(0.5)

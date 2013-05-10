@@ -23,7 +23,6 @@ test_that('NULL handling behaviour is as expected', {
 	
 	expect_equal(mcAll(mean, NULL), NULL)
 	expect_equal(mcAny(mean, NULL), NULL)
-	expect_equal(mcHalf(mean, NULL), NULL)
 	expect_equal(mcOne(mean, NULL), NULL)
 })
 
@@ -63,7 +62,6 @@ test_that('list() behaviour is defined', {
 	# quantify list() -> list()
 	expect_equal(mcAll(mean, list()), list())
 	expect_equal(mcAny(mean, list()), list())
-	expect_equal(mcHalf(mean, list()), list())
 	expect_equal(mcOne(mean, list()), list())
 	
 })
