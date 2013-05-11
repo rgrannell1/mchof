@@ -33,5 +33,5 @@ Functions in development (0.3) eta June 15th - July 1st
 * **mcOne**: check if a predicate is true for one element in a list
 * **mcFold**: applies an associative binary operator to a list, with an initial value
 * **mcUnfold**: corecursively apply a function f to a list 
-
+* **mcReject**: get the elements of a list not matching a predicate
 
