@@ -26,7 +26,7 @@ Functions included in the current release (0.2)
 * **mcUnzipWith:** split a list of n-tuples into n lists, apply a function to the results
 * **mcPartition:** split a list into values that return TRUE and FALSE
 
-Functions in development (0.3)
+Functions in development (0.3) eta June 15th - July 1st
 
 * **mcAny**: check if a predicate is true for at least one element in a list
 * **mcAll**: check if a predicate is true for all elements in a list
