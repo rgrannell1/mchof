@@ -33,3 +33,4 @@ Collate:
     'unzip.R'
     'zip.R'
     'quantify.R'
+    'reject.R'

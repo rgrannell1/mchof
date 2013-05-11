@@ -1,8 +1,9 @@
+#'
+#' @title mcFilter
 #' 
 #' @description mcFilter extracts the elements of a vector or list for 
-#' which the function \code{f} returns \code{TRUE}, in parallel.
+#' which the function \code{f} returns \code{TRUE}.
 #' 
-#' @title mcFilter
 #' @author Ryan Grannell
 #' 
 #' @export
@@ -13,7 +14,7 @@
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, and returns the values
 #' for which f returns TRUE. NA values obtained during logical filtering
-#' are assumed to be FALSE, as with \code{Filter}. The user can modify this behaviour
+#' are assumed to be FALSE. The user can modify this behaviour
 #' by making sure the argument f returns TRUE is a value is NA under coersion.
 #' 
 #' @seealso see \code{\link{Filter}} for a non-parallel equivelant of this 

@@ -61,7 +61,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		jobs <- job_ind(i)
 		
 		checked_ind <- unlist(call_mclapply(
-			f = function(j){
+			f = function (j){
 				
 				is_match <- as.logical(f(x[[j]]))
 				if (!is.na(is_match) && is_match) j else NaN	
