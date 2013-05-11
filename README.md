@@ -26,10 +26,12 @@ Functions included in the current release (0.2)
 * **mcUnzipWith:** split a list of n-tuples into n lists, apply a function to the results
 * **mcPartition:** split a list into values that return TRUE and FALSE
 
-Functions in development (0.3)
+Functions in development (0.3) eta June 15th - July 1st
 
 * **mcAny**: check if a predicate is true for at least one element in a list
 * **mcAll**: check if a predicate is true for all elements in a list
 * **mcOne**: check if a predicate is true for one element in a list
-* **mcHalf**: check if a predicate is true for exactly half the elements in a list
 * **mcFold**: applies an associative binary operator to a list, with an initial value
+* **mcUnfold**: corecursively apply a function f to a list 
+* **mcReject**: get the elements of a list not matching a predicate
+
