@@ -25,8 +25,8 @@ mcReject <- function (f, x, paropts = NULL) {
 	# multicore version of the Filter function
 	
 	f <- match.fun(f)
-	f <- function (...) {
-		res <- f(...)
+	g <- function (...) {
+		res <- as.logical(f(...))
 		is.na(res) || !res
 	}
 	
@@ -34,6 +34,6 @@ mcReject <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return(list())
 	if (is.factor(x)) stop('x may not be a factor')
 	
-	ind <- as.logical(call_mclapply(f, x, paropts))
-	x[!is.na(ind) & ind]
+	ind <- unlist(call_mclapply(g, x, paropts))
+	x[ind]
 }
