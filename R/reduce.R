@@ -37,8 +37,9 @@ mcReduce <- function (f, x, paropts = NULL) {
 		# [ [x1, x2], ..., [x(n-1), xn || NULL] ]. If flatlist is odd length 
 		# the last element in the last list is NULL.
 			
-		Map( function(i) {
-			
+		Map ( 
+			function(i) {
+				
 				if (i == length(flatlist)) {
 					list(
 						first = flatlist[[i]],
@@ -46,9 +47,11 @@ mcReduce <- function (f, x, paropts = NULL) {
 				} else {
 					list(
 						first = flatlist[[i]],
-						second = flatlist[[i+1]])
+						second = flatlist[[i+1]] )
 				}
-			}, seq(from = 1, by = 2, len = ceiling(length(flatlist) / 2)))
+			},
+			seq(from=1, by=2, len=ceiling(length(flatlist) / 2))
+		)
 	}
 
 	if (is.null(x)) return(NULL)

@@ -22,7 +22,7 @@
 #'
 
 mcReject <- function (f, x, paropts = NULL) {
-	# multicore version of the Filter function
+	# returns x[i] such that f(x[i]) is false
 	
 	f <- match.fun(f)
 	g <- function (...) {

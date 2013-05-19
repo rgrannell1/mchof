@@ -74,11 +74,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		]
 		
 		if (length(matched_indices) > 0) {
-			return (if (right) {
-				max(matched_indices)
-			} else {
-				min(matched_indices)
-			})
+			return (if (right) max(matched_indices) else min(matched_indices))
 		}
 	}
 	integer(0)

@@ -61,6 +61,11 @@ mcAny <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return(list())
 	if (is.factor(x)) stop('x may not be a factor')
 	
+	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
+		abs(paropts$mc.cores)
+	} else if (!is.null(getOption('mc.cores')))  {
+		abs(getOption('mc.cores'))
+	} else 1
 
 	job_indices <- ihasNext(
 		ichunk(
