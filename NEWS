@@ -5,6 +5,12 @@ New Functions:
 
 * mcReject: split a list into two lists based on a predicate
 
+API changes:
+
+Bug Fixes:
+
+* errors in documentation fixed
+
 Version 0.2 (2013-05-03)
 ------------------------------------------------------------------------------
 

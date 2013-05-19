@@ -1,5 +1,5 @@
 
-context("test that reject is well-behaved")
+context("test that reject is well behaved")
 
 test_that("normal tests for mcReject", {
 	

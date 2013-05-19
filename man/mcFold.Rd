@@ -7,6 +7,9 @@
 \arguments{
   \item{f}{a binary function}
 
+  \item{first}{an initial value for the first position of
+  f}
+
   \item{x}{a vector or list}
 
   \item{paropts}{paropts a list of parameters to be handed
