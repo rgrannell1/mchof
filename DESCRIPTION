@@ -35,3 +35,4 @@ Collate:
     'zip.R'
     'quantify.R'
     'reject.R'
+    'fold.R'

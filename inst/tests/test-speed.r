@@ -83,6 +83,21 @@ test_that("reduce", {
 
 })
 	
+test_that("fold", {
+	
+	expect_that(
+		mcFold(
+			function (x, y) {
+				Sys.sleep(0.5)
+				1
+			},	
+			0,
+			x = seq_len(19),
+			paropts = list(mc.cores = 2) ),		
+		takes_less_than(6) )
+	
+})
+
 ### mchof 0.2 functions
 
 test_that("zipwith", {

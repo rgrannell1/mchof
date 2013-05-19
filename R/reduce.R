@@ -10,18 +10,21 @@
 #' notation that is \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f x3)}. 
 #' In practicality this means that the order in which the reduce is carried out isn't 
 #' important, so several tasks can be carried out in parallel.
+#' 
+#' A binary function with associativity is the plus operator;
+#' \code{1 + (2 + 3) == (1 + 2) + 3}.
+#' Subtraction does not have this property \code{1 - (2 - 3) != (1 - 2) - 3},
+#' so it should not be used as a binary function for \code{mcReduce} 
 #'  
-#'  A binary function with associativity is the plus operator;
-#'  \code{1 + (2 + 3) == (1 + 2) + 3}.
-#'  Subtraction does not have this property \code{1 - (2 - 3) != (1 - 2) - 3},
-#'  so it should not be used as a binary function for \code{mcReduce} 
+#' When x only has one element it is returned immediately, as there is no way
+#' to apply a binary function to a length-one list.
 #'   
 #' @name mcReduce
 #' 
+#' @param f a binary function
 #' @param x a vector or list
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see details and \code{\link{mclapply}})
-#' @param f a binary function
 #'
 #' @examples 
 #' mcReduce(get('+'), 1:10)
@@ -30,7 +33,7 @@
 #' @keywords mcReduce
 
 mcReduce <- function (f, x, paropts = NULL) {
-	# multicore associative f only version of Reduce
+	# multicore associative-only version of Reduce
 	
 	to_pairs <- function (flatlist) {
 		# takes a list [x1, ..., xn], returns a list of pairs

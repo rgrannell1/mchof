@@ -5,12 +5,12 @@
   mcReduce(f, x, paropts = NULL)
 }
 \arguments{
+  \item{f}{a binary function}
+
   \item{x}{a vector or list}
 
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see details and \code{\link{mclapply}})}
-
-  \item{f}{a binary function}
 }
 \description{
   mcReduce applies an associative binary function to a
@@ -28,10 +28,14 @@
   parallel.
 
   A binary function with associativity is the plus
-  operator; \code{1 + (2 + 3) == (1 + 2) + 3}.  Subtraction
+  operator; \code{1 + (2 + 3) == (1 + 2) + 3}. Subtraction
   does not have this property \code{1 - (2 - 3) != (1 - 2)
   - 3}, so it should not be used as a binary function for
   \code{mcReduce}
+
+  When x only has one element it is returned immediately,
+  as there is no way to apply a binary function to a
+  length-one list.
 }
 \examples{
 mcReduce(get('+'), 1:10)

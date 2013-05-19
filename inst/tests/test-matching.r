@@ -29,6 +29,14 @@ test_that ("", {
 
 test_that ("", {
 	
+	expect_equal (
+		mcFold ("+", 0, 1:10),
+		55 )
+
+})
+
+test_that ("", {
+	
 	expect_equal(
 		mcFind (
 			truefun,	
