@@ -26,7 +26,8 @@
 #' @keywords mcPosition
 
 mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
-	# multicore version of Position
+	# returns the first (or last) index in x that matches
+	# the predicate f
 	
 	f <- match.fun(f)
 
@@ -42,36 +43,42 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		abs(getOption('mc.cores'))
 	} else 1
 	
-	steps_needed <- ceiling(length(x)/ncores)
-	
-	job_ind <- function (i) {
-	
-		stopifnot(1 + ((i-1) * ncores) <= length(x))
-		seq(
-	 		from = 1 + ((i-1) * ncores),
-	 		to = min((i * ncores), length(x)))
-	}
-	
-	job_direction <- if (right) {
-		steps_needed:1
-	} else 1:steps_needed
-	
-	for (i in job_direction) {
+	job_indices <- ihasNext(
+		ichunk(
+			iterable = if (right) {
+				rev(seq_along(x)) 
+			} else {
+				seq_along(x)
+			},
+			chunkSize = ncores
+	))
 
-		jobs <- job_ind(i)
+	while (hasNext(job_indices)) {
 		
+		indices_to_check <- unlist(nextElem(job_indices))
+	
 		checked_ind <- unlist(call_mclapply(
-			f = function (j){
+			f = function (ind) {
+				# returns indices satisfying f
 				
-				is_match <- as.logical(f(x[[j]]))
-				if (!is.na(is_match) && is_match) j else NaN	
-			},		
-			x = jobs, paropts = paropts))
+				is_match <- as.logical(f( x[[ind]] ))	
+				if (isTRUE(is_match)) ind else NaN
+
+			},
+			x = indices_to_check,
+			paropts
+		))
 		
-		matched_ind <- checked_ind[!is.nan(checked_ind)]
+		matched_indices <- checked_ind[
+			!is.nan(checked_ind) & checked_ind
+		]
 		
-		if (length(matched_ind) > 0) {
-			return(if (right) max(matched_ind) else min(matched_ind))
+		if (length(matched_indices) > 0) {
+			return (if (right) {
+				max(matched_indices)
+			} else {
+				min(matched_indices)
+			})
 		}
 	}
 	integer(0)
@@ -105,7 +112,8 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #' @keywords mcFind
 
 mcFind <- function (f, x, right = FALSE, paropts = NULL) {
-	# multicore version of Find
+	# returns the first (or last) element in x that matches
+	# the predicate f
 
 	if (is.null(x)) return(NULL)
 	if (length(x) == 0) return(x)

@@ -12,7 +12,8 @@
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
 #'    
-#' @details mcFilter applies f to each element of x, coerces the result to a logical value, and returns the values
+#' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
+#' and returns the values
 #' for which f returns TRUE. NA values obtained during logical filtering
 #' are assumed to be FALSE. The user can modify this behaviour
 #' by making sure the argument f returns TRUE is a value is NA under coersion.
@@ -51,7 +52,7 @@
 #' @keywords mcFilter
 
 mcFilter <- function (f, x, paropts = NULL) {
-	# multicore version of the Filter function
+	# returns x[i] such that f(x[i]) is true
 	
 	f <- match.fun(f)
 	if (is.null(x)) return(x)

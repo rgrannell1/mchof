@@ -27,7 +27,7 @@ mcReject <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	g <- function (...) {
 		res <- as.logical(f(...))
-		is.na(res) || !res
+		!isTRUE(res)
 	}
 	
 	if (is.null(x)) return(x)

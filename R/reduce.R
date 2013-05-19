@@ -48,7 +48,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 						first = flatlist[[i]],
 						second = flatlist[[i+1]])
 				}
-			}, seq(from = 1, by = 2, len = ceiling(length(flatlist)/2)))
+			}, seq(from = 1, by = 2, len = ceiling(length(flatlist) / 2)))
 	}
 
 	if (is.null(x)) return(NULL)

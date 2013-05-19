@@ -1,10 +1,17 @@
+Version 0.3
+------------------------------------------------------------------------------
+
+New Functions:
+
+* mcReject: split a list into two lists based on a predicate
+
 Version 0.2 (2013-05-03)
 ------------------------------------------------------------------------------
 
 New Functions:
 
 * mcPartition: split a list into two lists based on a predicate
-* mcZipWIth/mcZip: takes n lists/vectors, generates a list of n-tuples.
+* mcZipWith/mcZip: takes n lists/vectors, generates a list of n-tuples.
 * mcUnzipWith/mcUnzip: takes a list of n-tuples, returns n lists
 
 New Features:

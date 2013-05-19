@@ -1,3 +1,4 @@
+
 #' @title mcAll
 #' 
 #' @export
@@ -60,10 +61,38 @@ mcAny <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return(list())
 	if (is.factor(x)) stop('x may not be a factor')
 	
-	bools <- as.logical(call_mclapply(f, x, paropts))
-	bools[is.na(bools)] <- FALSE
+
+	job_indices <- ihasNext(
+		ichunk(
+			iterable = x,
+			chunkSize = ncores
+	))
 	
-	any(bools)
+	while (hasNext(job_indices)) {
+		
+		indices_to_check <- unlist(nextElem(job_indices))
+		
+		checked_ind <- unlist(call_mclapply(
+			f = function (ind) {
+				# returns indices satisfying f
+				
+				is_match <- as.logical(f( x[[ind]] ))	
+				if (isTRUE(is_match)) ind else NaN
+				
+			},
+			x = indices_to_check,
+			paropts
+		))
+		
+		matched_indices <- checked_ind[
+			!is.nan(checked_ind) & checked_ind
+		]
+		
+		if (any(matched_indices)) {
+			return (TRUE)
+		}
+	}
+	FALSE
 }
 
 #' @title mcOne
