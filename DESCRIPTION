@@ -8,7 +8,7 @@ Description: mchof (read: mc'hoff) provides convenient, consistent parallel
     little work on their part. This package aims to extend this speedup to
     people who use functions like Filter or Reduce in their code, as well as
     adding new functions such as Zipwith and Partition to the useRs toolchain.
-Version: 0.2
+Version: 0.3
 Depends:
     R (>= 2.14.0),
     itertools
@@ -36,4 +36,3 @@ Collate:
     'quantify.R'
     'reject.R'
     'fold.R'
-    'unfold.R'

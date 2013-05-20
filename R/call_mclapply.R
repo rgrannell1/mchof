@@ -1,18 +1,25 @@
 #' @import parallel
 
 call_mclapply <- function (f, x, paropts = NULL) {
-	# a wrapper segregating the parallel library from mchof code
-	
+	# a wrapper that maps f over x in parallel, and 
+	# returns the results. OS-specific implementation.
+
 	if (!is.function(f)) stop('f is not a function')
 	if (!is.vector(x)) stop('x is not a vector')
 	
+	if (.Platform$OS.type == 'windows') {
+		message(
+			'parallel execution is not currently supported on windows',
+			'; executing sequentially')
+		return (Map(f,x))
+	}
+	
 	if (!is.null(paropts)) {
 		
-		arg_names <- names(paropts)
-		
-		invalid_args <- setdiff(
-			arg_names, 
-			names(formals(parallel::mclapply)))
+		arg_names <- names(paropts)		
+		valid_formals <- names(formals(parallel::mclapply))
+
+		invalid_args <- setdiff(arg_names, valid_formals)
 		
 		if (length(invalid_args) > 0) {
 			stop('invalid arguments given to paropts: ', 
