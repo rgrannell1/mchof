@@ -3,7 +3,6 @@
 #' these lists before returning these lists
 #'
 #' @title mcUnzipWith
-#' @author Ryan Grannell
 #' 
 #' @export
 #' @param f a function that takes a single n-element list

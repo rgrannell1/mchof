@@ -4,12 +4,10 @@
 #' @description mcFilter extracts the elements of a vector or list for 
 #' which the function \code{f} returns \code{TRUE}.
 #' 
-#' @author Ryan Grannell
-#' 
 #' @export
 #' @param f a unary function that returns a boolean value
 #' @param x a list or vector
-#' @param paropts a list of parameters to be handed to 
+#' @param paropts a list of parameters to be handed to
 #'    \code{mclapply} (see details)
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, 

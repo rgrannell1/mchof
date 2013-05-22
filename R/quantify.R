@@ -124,6 +124,7 @@ mcOne <- function (f, x, paropts = NULL) {
 	# for any x
 	
 	f <- match.fun(f)
+	
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stop ('x may not be a factor')

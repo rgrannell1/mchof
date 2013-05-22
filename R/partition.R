@@ -1,9 +1,7 @@
-
 #' @description mcPartition returns a list of two lists; a list for which a predicate 
 #' returns true, and a list for which a predicate returns false
 #' 
 #' @title mcPartition
-#' @author Ryan Grannell
 #' 
 #' @export
 #' @param f a unary function that returns a boolean value
