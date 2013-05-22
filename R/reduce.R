@@ -44,7 +44,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 
 	to_pairs <- function (x) {
 		# chunk x into lists of two, where possible
-		
+	
 		as.list(ichunk(x, 2))
 	}
 	pair_fmap <- function (f) {
@@ -52,7 +52,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 		# g(a, b) |-> f(a, b), g(a) |-> a
 		
 		function (x) {
-			if (length(x) == 2) f(x[[1]], x[[2]]) else x	
+			if (length(x) == 2) f(x[[1]], x[[2]]) else x[[1]]	
 		}	
 	}
 	iterateWhile <- function (f, p, x) {
@@ -63,13 +63,14 @@ mcReduce <- function (f, x, paropts = NULL) {
 		x
 	} 
 	
-	iterateWhile (
+	reduced <- iterateWhile (
 		function (reducable) {
 			to_pairs(call_mclapply(pair_fmap(f), reducable, paropts))
 		},
 		function (reducable) {
 			length(reducable) == 1
 		},
-		to_pairs(x)
-	)
+		to_pairs(x))
+	
+	pair_fmap(f)(reduced[[1]])
 }
