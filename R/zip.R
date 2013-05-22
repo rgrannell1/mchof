@@ -51,7 +51,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	lists <- Filter(
 		function (li) {
 
-			if (inherits(li, 'factor')) stop('factors are not allowed')
+			inherits(li, 'factor') %throws% stop('factors are not allowed')
 			!is.null(li) && any(c('list', 'vector') %in% is(li))
 
 		}, x)

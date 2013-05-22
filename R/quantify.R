@@ -25,7 +25,7 @@ mcAll <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	bools <- as.logical(call_mclapply(f, x, paropts))
 	bools[is.na(bools)] <- FALSE
@@ -59,7 +59,7 @@ mcAny <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
@@ -126,7 +126,7 @@ mcOne <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	bools <- as.logical(call_mclapply(f, x, paropts))
 	bools[is.na(bools)] <- FALSE

@@ -32,11 +32,12 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	f <- match.fun(f)
 
 	if (is.null(x) || length(x) == 0) return(integer(0))
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
-	if (!is.logical(right) || is.na(right)) {
-		stop('right must be TRUE or FALSE')
-	}
+	!is.logical(right) || is.na(right) %throws% stop (
+		'right must be TRUE or FALSE'
+	)
+	
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
 	} else if (!is.null(getOption('mc.cores')))  {
@@ -113,7 +114,7 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 
 	if (is.null(x)) return(NULL)
 	if (length(x) == 0) return(x)
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	

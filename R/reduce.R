@@ -60,7 +60,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(list())
 	if (length(x) == 1) return(x)
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	f <- match.fun(f)
 	reducable <- to_pairs(x)
@@ -82,3 +82,4 @@ mcReduce <- function (f, x, paropts = NULL) {
 	}
 	with (reducable[[1]], f(first, second))
 }
+

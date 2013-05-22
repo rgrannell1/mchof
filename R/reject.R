@@ -32,7 +32,7 @@ mcReject <- function (f, x, paropts = NULL) {
 	
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	if (is.factor(x)) stop('x may not be a factor')
+	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	ind <- unlist(call_mclapply(g, x, paropts))
 	x[ind]
