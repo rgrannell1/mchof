@@ -4,8 +4,8 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	if (!is.function(f)) stop('f is not a function')
-	if (!is.vector(x)) stop('x is not a vector')
+	!is.function(f) %throws% stop('f is not a function')
+	!is.vector(x) %throws% stop('x is not a vector')
 	
 	if (.Platform$OS.type == 'windows') {
 		message(
@@ -21,17 +21,16 @@ call_mclapply <- function (f, x, paropts = NULL) {
 
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
-		if (length(invalid_args) > 0) {
-			stop('invalid arguments given to paropts: ', 
+		length(invalid_args) > 0 %throws% stop(
+			'invalid arguments given to paropts: ', 
 				 paste(invalid_args, collapse = ','))
-		}
-		if (any(c('f', 'FUN') %in% names(paropts))) {
-			stop('f or FUN may not be specified in paropts')
-		}
-		if (any(c('x', 'X') %in% names(paropts))) {
-			stop('x or X may not be specified in paropts')
-		}	
 		
+		any(c('f', 'FUN') %in% names(paropts)) %throws%
+			stop('f or FUN may not be specified in paropts')
+	
+		any(c('x', 'X') %in% names(paropts)) %throws%
+			stop('x or X may not be specified in paropts')
+	
 	} else if (!is.null(getOption('mc.cores'))) {
 		paropts <- list(mc.cores = getOption('mc.cores'))
 	}	
@@ -48,11 +47,11 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			status <<- 'error'
 	})
 
-	if (status == 'warning') {
+	status == 'warning' %throws%
 		stop ('an mchof function encountered errors:\n', output)
-	}
-	if (status == 'error') {
+	
+	status == 'error' %throws%
 		stop ('an mchof function encountered errors:\n', output)
-	}
+	
 	output	
 }
