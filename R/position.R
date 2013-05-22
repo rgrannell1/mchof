@@ -34,9 +34,8 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	if (is.null(x) || length(x) == 0) return(integer(0))
 	is.factor(x) %throws% stop ('x may not be a factor')
 	
-	!is.logical(right) || is.na(right) %throws% stop (
-		'right must be TRUE or FALSE'
-	)
+	(!is_boolean(right)) %throws% stop (
+		'right must be TRUE or FALSE')
 	
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)

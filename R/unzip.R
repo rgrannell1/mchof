@@ -29,9 +29,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return (list())
 	
 	lists <- Filter(
-		function (li) {
-			
-			inherits(li, 'factor') %throws% stop ('factors are not allowed')
+		function (li) {			
+			inherits(li, 'factor') %throws% stop('factors are not allowed')
 			
 			!is.null(li) && any(c('list', 'vector') %in% is(li))
 		}, x)
