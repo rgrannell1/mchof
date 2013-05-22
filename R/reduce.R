@@ -62,15 +62,16 @@ mcReduce <- function (f, x, paropts = NULL) {
 		while( !p(x) ) x <- f(x)
 		x
 	} 
-	
+	g <- pair_fmap(f)
+
 	reduced <- iterateWhile (
 		function (reducable) {
-			to_pairs(call_mclapply(pair_fmap(f), reducable, paropts))
+			to_pairs(call_mclapply(g, reducable, paropts))
 		},
 		function (reducable) {
 			length(reducable) == 1
 		},
 		to_pairs(x))
 	
-	pair_fmap(f)(reduced[[1]])
+	g(reduced[[1]])
 }
