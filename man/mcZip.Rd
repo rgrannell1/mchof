@@ -8,7 +8,7 @@
   \item{x}{a list of lists}
 
   \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  mclapply (see \link{mchof}).}
 }
 \value{
   returns a list of n element lists.
@@ -23,18 +23,38 @@
   3), list(2, 4)).
 }
 \examples{
-# zip a name list and an id list into name:id pairs
-mcZip (list( list('Jack', 'Jane', 'Joe'), list(1, 2, 3)))
+
+# zip two vectors into a list of 2-element lists
+
+mcZip(
+	list(
+		1:5, letters[1:5]	
+))
+
+# zip three lists togerther
+
+mcZip(
+	list(
+		list('R', 'Matlab', 'SAS'),
+		list('language', 'language', 'languge'),
+		list('GNU', 'not GNU', 'not GNU')
+))
+
+# zip two lists, with some elements discarded
+
+mcZip(
+	list(
+		1:10,
+		letters[1:4]
+))
 }
 \author{
   Ryan Grannell
 }
 \seealso{
-  see \code{\link{mclapply}} for more details about the
-  parallel backend being employed, \code{\link{mcUnzip}}
-  for the inverse of this function, and
-  \code{\link{mcZipWith}} for a more general version of
-  this function.
+  see \code{\link{mcUnzip}} for the inverse of this
+  function, and \code{\link{mcZipWith}} for a more general
+  version of this function.
 }
 \keyword{mcZip}
 

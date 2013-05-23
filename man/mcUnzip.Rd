@@ -27,8 +27,7 @@
 \seealso{
   see \code{\link{mcZip}} for the inverse of this function,
   \code{\link{mcUnzipWith}} for a more general version of
-  this function and \code{\link{mclapply}} for more details
-  about the parallel backend being employed.
+  this function.
 }
 \keyword{mcUnzip}
 

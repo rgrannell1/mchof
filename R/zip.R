@@ -5,7 +5,8 @@
 #' 
 #' @export
 #' 
-#' @param f a function that takes a single n-element list
+#' @param f a function that takes a single n-element list, or a string
+#' giving the name of such a function.
 #' @param x a list or vector. Vectors are converted to lists internally.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
@@ -20,22 +21,7 @@
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed, \code{\link{mcZip}} for a varient of this function
-#'     and \code{\link{mcUnzipWith}} for the inverse of this function. 
-#' @examples 
-#' # adding indices to a list
-#' mcZipWith (
-#'     function (x) {
-#'         list(x[[2]], ind = x[[1]])
-#'     }, list (list(1:10), list(letters[1:10]))
-#' )
-#' 
-#' # adding names to output
-#' mcZipWith (
-#'     function (x) {
-#'         list(id = x[[1]] , name = x[[2]])
-#'     }, 
-#'     list ( list('001', '002', '003'),
-#'     list('John', 'Jane', 'Jill')))   
+#'     and \code{\link{mcUnzipWith}} for the inverse of this function.
 #' @keywords mcZipWith
 #' @example inst/examples/examples-zipwith.r
 
@@ -91,20 +77,16 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' @export
 #' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
-#'    \code{mclapply} (see details)
-#'    
+#' mclapply (see \link{mchof}).
+#' 
 #' @return returns a list of n element lists.
 #'    
 #' @details mcZip discards excess elements without warning: for example 
 #' list (1, 2), list (3, 4, 5) becomes list (list(1, 3), list(2, 4)). 
 #' 
-#' @seealso see \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed, \code{\link{mcUnzip}} for the inverse of 
+#' @seealso see \code{\link{mcUnzip}} for the inverse of 
 #'     this function, and \code{\link{mcZipWith}} for a more general version 
-#'     of this function. 
-#' @examples 
-#' # zip a name list and an id list into name:id pairs
-#' mcZip (list( list('Jack', 'Jane', 'Joe'), list(1, 2, 3)))
+#'     of this function.
 #' 
 #' @keywords mcZip
 #' @example inst/examples/examples-zip.r

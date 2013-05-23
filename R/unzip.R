@@ -26,6 +26,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
 	
 	f <- match.fun(f)
+	
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 	
@@ -70,8 +71,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @details mcUnzip discards excess elements, as with mcZip. 
 #' 
 #' @seealso see \code{\link{mcZip}} for the inverse of this function, 
-#' \code{\link{mcUnzipWith}} for a more general version of this function and 
-#' \code{\link{mclapply}} for more details about the parallel backend being employed. 
+#' \code{\link{mcUnzipWith}} for a more general version of this function.
 #'    
 #' @keywords mcUnzip
 #' @example inst/examples/examples-unzip.r
