@@ -52,10 +52,10 @@ mcAny(
 mcAny(
 	function (x) mean(x) > 0,
 	list(
-		c(1,2,3),
-		c(4,4,4),
-		c(-10, 6)
-	))
+		1:3,
+		6:2,
+		-2:6
+))
 }
 \keyword{mcAny}
 

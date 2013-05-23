@@ -25,16 +25,36 @@
 #' \item \code{\link{mcReject}}: get the elements of a list not matching a predicate.
 #' }
 #' 
-#' @section Paropts
+#' @section NA handling:
+#'
+#' many functions in mchof take a TRUE/FALSE value. If a user's function returns NA this will be converted 
+#' internally to either TRUE or false. Users can override this behaviour by converting the return values:
+#'
+#' # TRUE -> TRUE, FALSE -> FALSE, NA -> FALSE 
 #' 
-#'
-#' @section NA handling
-#'
-#'
-#'
-#'
-#'
-#'
+#' \code{as_boolean_one <- function (x) {
+#'     
+#'     isTRUE(x)
+#' 
+#' }}
+#' 
+#' # TRUE -> TRUE, FALSE -> FALSE, NA -> TRUE
+#' 
+#' \code{as_boolean_two <- function (x) {
+#' 
+#'    isTRUE(x) || is.na(x)
+#' 
+#' }}
+#' 
+#' or alternatively the higher-order functions
+#' 
+#' f <- function (func) {
+#'     function (...) as_boolean_one(...)
+#' }
+#' g <- function (func) {
+#'     function (...) as_boolean_two(...)
+#' }
+#' 
 #' @docType package
 #' @name mchof
 

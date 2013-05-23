@@ -1,9 +1,9 @@
 
 #' @title mcReject
 
-#' @description mcReject extracts the elements of a vector or list for 
-#' which the function \code{f} returns \code{FALSE}.
-
+#' @description mcReject extracts the elements of a vector or list for  which the function 
+#' \code{f} returns \code{FALSE}.
+#' 
 #' @export
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of a function.
@@ -14,10 +14,12 @@
 #' @return returns a list of elements for which f returned FALSE or NA.
 
 #' @details mcReject applies f to each element of x, coerces the result to a logical value,
-#' and returns the values for which f returns FALSE. 
-
-#' elements for which f returned NA are included, 
-#, so that concatenating the results of mcFilter and 
+#' and returns the values for which f returns FALSE.
+#' 
+#' mcReject is more useful for filtering out NULL or NA values in a list that mcFilter,
+#' as is demonstrated in the examples below.
+#' 
+#' elements for which f returned NA are included, so that concatenating the results of mcFilter and 
 #' mcReject will give you the original set x (though unordered). The user can
 #' modify this behaviour by making sure the argument f returns TRUE is a value 
 #' is NA under coersion, as described in \link{mchof}.
