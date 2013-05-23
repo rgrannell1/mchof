@@ -1,4 +1,64 @@
 
+
+# a placeholder testing function, until I write something 
+# better. Used to test properties & lack of errors. Not very elegant, so
+# I don't recommend that you use this code yourself. 
+
+forall <- function (
+	cases, expect, given = function (...) TRUE,
+	opts = list(time = 2), info = '') {
+	# a lightweight quickcheck function
+	
+	stopwatch <- function (seconds) {
+		# returns a function with Sys.time( ) 
+		# captured in a closure
+		
+		( function () {
+			start_time <- Sys.time()
+			function () {
+				time_passed <- as.numeric(difftime( Sys.time(), start_time ))
+				time_passed < seconds
+			}		
+		} )()
+	}
+	
+	testargs_iter <- ihasNext(do.call(product, cases))
+	
+	predicate <- function (args) {
+		if (do.call(given, args)) do.call(expect, args) else TRUE
+	}
+	
+	res <- c()
+	time_left <- stopwatch(opts$time)
+	while (hasNext(testargs_iter) && time_left()) {
+		
+		args <- nextElem(testargs_iter)
+		test_res <- predicate(args)
+		
+		if (!is_boolean(test_res)) {
+			stop(args, " didn't return t / f: actual value was ", test_res)
+		}
+		res <- c(
+			res,
+			list(list(
+				passed = test_res,
+				args = args
+			)))
+		
+	}
+	
+	Map(
+		function (test) {			
+			(!test$passed) %throws% stop(
+				'failed!\n',
+				info, '\n',
+				'the assertion ', deparse(expect), " wasn't true when ",
+				names(formals(expect)), ' was ', test$args, call. = FALSE)	
+		},
+		res)
+	NULL
+}
+
 library(mchof)
 library(testthat)
 

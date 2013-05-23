@@ -20,7 +20,7 @@
 }
 \examples{
 
-# unzip two lists
+# unzip three lists of 2-elements into two 3-element lists
 
 mcUnzip(
 	list(
