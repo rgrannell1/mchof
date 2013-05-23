@@ -15,6 +15,11 @@
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see details and \code{\link{mclapply}})}
 }
+\value{
+  returns the result of x1 f x2 f x3 f x4 f ... xn, the
+  value of which is dependent on the function f, and the
+  contents of x.
+}
 \description{
   mcFold applies an associative binary function to a list,
   returning a single value. The difference between mcFold &
@@ -39,5 +44,8 @@
   have an identity element of list() when concatenated, and
   integers have an identity of 0 under addition. This is
   shown below in the example programs given
+}
+\examples{
+
 }
 

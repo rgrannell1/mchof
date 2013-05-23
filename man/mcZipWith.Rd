@@ -7,13 +7,18 @@
 \arguments{
   \item{f}{a function that takes a single n-element list}
 
-  \item{x}{a list of lists}
+  \item{x}{a list or vector. Vectors are converted to lists
+  internally.}
 
   \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  mclapply (see \link{mchof}).}
+}
+\value{
+  returns the result of mapping f over a list of n element
+  lists.
 }
 \description{
-  mcZipWith takes n lists/vectors, generates a list of n
+  mcZipWith takes n lists or vectors, generates a list of n
   element lists, and returns the result of mapping f over
   this new list.
 }

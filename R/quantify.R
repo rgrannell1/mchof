@@ -16,6 +16,7 @@
 #'    mclapply (see \link{mchof}).
 #'    
 #' @keywords mcAll
+#' @example inst/examples/examples-all.r
 #' 
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
@@ -54,6 +55,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #'    mclapply (see \link{mchof}).
 #'    
 #' @keywords mcAny
+#' @example inst/examples/examples-any.r
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
@@ -129,6 +131,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
 #' empty list an empty list is returned.
 #'
+#' @example inst/examples/examples-one.r
 #' @keywords mcOne
 #' 
 

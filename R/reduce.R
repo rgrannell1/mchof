@@ -31,9 +31,7 @@
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x.
 #'
-#' @examples 
-#' mcReduce(get('+'), 1:10)
-#' mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6)))
+#' @example inst/examples/examples-reduce.r
 #' @seealso \code{\link{Reduce}}
 #' @keywords mcReduce
 

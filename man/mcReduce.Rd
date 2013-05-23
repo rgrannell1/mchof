@@ -13,6 +13,11 @@
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see \link{mchof}).}
 }
+\value{
+  returns the result of x1 f x2 f x3 f x4 f ... xn, the
+  value of which is dependent on the function f, and the
+  contents of x.
+}
 \description{
   mcReduce applies an associative binary function to a
   list, returning a single value
@@ -38,8 +43,7 @@
   length-one list.
 }
 \examples{
-mcReduce(get('+'), 1:10)
-mcReduce(rbind, list(c(1, 2), c(3, 4), c(5, 6)))
+
 }
 \seealso{
   \code{\link{Reduce}}

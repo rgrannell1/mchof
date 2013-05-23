@@ -18,6 +18,9 @@
 \details{
   mcUnzip discards excess elements, as with mcZip.
 }
+\examples{
+
+}
 \author{
   Ryan Grannell
 }

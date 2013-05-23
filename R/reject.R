@@ -25,6 +25,7 @@
 #' @seealso see \code{mcFilter} for a complementary function to this, and 
 #' \code{mcPartition} for a function that combines mcFilter and mcReject
 #'
+#' @example inst/examples/examples-reject.r
 
 mcReject <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is false

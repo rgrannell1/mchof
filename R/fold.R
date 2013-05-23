@@ -34,7 +34,8 @@
 #'
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x.
-
+#'
+#' @example inst/examples/examples-fold.r
 
 mcFold <- function (f, first, x, paropts = NULL) {
 	# swaps the commas in first, x1, x2, ..., xn with

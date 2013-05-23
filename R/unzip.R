@@ -19,6 +19,7 @@
 #' this function and \code{\link{mcUnzip}} for a variant of this function.
 #' 
 #' @keywords mcUnzipWith
+#' @example inst/examples/examples-unzipwith.r
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
@@ -72,6 +73,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' \code{\link{mclapply}} for more details about the parallel backend being employed. 
 #'    
 #' @keywords mcUnzip
+#' @example inst/examples/examples-unzip.r
 
 mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip

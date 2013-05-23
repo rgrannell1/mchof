@@ -1,12 +1,13 @@
-#' @description mcZipWith takes n lists/vectors, generates a list of n element lists,
+#' @description mcZipWith takes n lists or vectors, generates a list of n element lists,
 #' and returns the result of mapping f over this new list. 
 #'  
 #' @title mcZipWith
 #' 
 #' @export
+#' 
 #' @param f a function that takes a single n-element list
 #' @param x a list or vector. Vectors are converted to lists internally.
-#' @param paropts paropts a list of parameters to be handed to 
+#' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
 #' @return returns the result of mapping f over a list of n element lists.

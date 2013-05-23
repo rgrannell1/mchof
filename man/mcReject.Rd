@@ -31,6 +31,9 @@
   making sure the argument f returns TRUE is a value is NA
   under coersion, as described in \link{mchof}.
 }
+\examples{
+
+}
 \seealso{
   see \code{mcFilter} for a complementary function to this,
   and \code{mcPartition} for a function that combines

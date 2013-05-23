@@ -10,6 +10,9 @@
   \item{paropts}{a list of parameters to be handed to
   \code{mclapply} (see details)}
 }
+\value{
+  returns a list of n element lists.
+}
 \description{
   mcZip takes n lists/vectors, and generates a list of n
   element lists. It is a special case of mcZipWith

@@ -29,6 +29,7 @@
 #'	x = apply(combn(8, 3), 2, list),
 #'	paropts = list(mc.cores = 2))
 #' @keywords mcPartition 
+#' @example inst/examples/examples-partition.r
 
 mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
