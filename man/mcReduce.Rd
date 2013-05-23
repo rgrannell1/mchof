@@ -41,9 +41,41 @@
   When x only has one element it is returned immediately,
   as there is no way to apply a binary function to a
   length-one list.
+
+  mcReduce is most useful when used with mathematical
+  operators such as plus, or max; mcFold is more apt at
+  accumulating data since the first option simplifies the f
+  function.
 }
 \examples{
 
+# reduce integer operations over a list
+
+mcReduce('+', 1:10)
+mcReduce('*', 1:6)
+
+# find the maximum value in a vector
+
+mcReduce(max, sample(1:10))
+
+# find the maximum value in a list, with 
+# a custom max function
+
+max_matrix <- function (A, B) {
+
+	size_one <- prod(dim(A)) * prod(A)
+	size_two <- prod(dim(B)) * prod(B)
+	
+	if (size_one > size_two) A else B 
+}
+
+mcReduce(
+	max_matrix,
+	list(
+		matrix(1:6, 2, 3),
+		matrix(1:4, 2, 2),
+		matrix(1:16,4, 4)
+))
 }
 \seealso{
   \code{\link{Reduce}}

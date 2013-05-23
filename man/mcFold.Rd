@@ -44,15 +44,28 @@
   have an identity element of list() when concatenated, and
   integers have an identity of 0 under addition. This is
   shown below in the example programs given
+
+  mcFold is more apt than mcReduce for accumulating data as
+  the actual data x will always be taken in by the second
+  parameter of f.
 }
 \examples{
 
 # fold over a vector, finding the largest value
 
-mcFold( 
+# accumulate a list of employees who have worked for
+# over 2 years
+
+mcFold(
 	function (acc, new) {
-		if (new > acc) new else acc	
-	}, 
-	0, sample(1:10))
+		print(acc)
+		if (new$years >= 1) c(acc, new$name)
+	}, NULL,
+	list(
+		list(name = 'Turing', years = 2),
+		list(name = 'Leibniz', years = 1),
+		list(name = 'Faraday', years = 10),
+		list(name = 'Church', years = 4))
+)
 }
 
