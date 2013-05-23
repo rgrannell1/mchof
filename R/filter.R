@@ -12,14 +12,12 @@
 #'    mclapply (see \link{mchof}).
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
-#' and returns the values
-#' for which f returns TRUE. NA values obtained during logical filtering
-#' are assumed to be FALSE. The user can modify this behaviour
-#' by making sure the argument f returns TRUE is a value is NA under coersion.
+#' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
+#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
+#' if necessary (see \link{mchof}).
 #' 
-#' @seealso see \code{\link{Filter}} for a non-parallel equivelant of this 
-#'     function, \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed. 
+#' @seealso see \code{\link{mcReject}} for a counterpart to this function, and
+#' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject
 #'    
 #' @examples
 #' # remove NA values from a vector 
@@ -54,10 +52,15 @@ mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
 	
 	f <- match.fun(f)
+	g <- function (...) {
+		res <- as.logical(f(...))
+		isTRUE(res)
+	}
+
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stop('x may not be a factor')
 	
-	ind <- as.logical(call_mclapply(f, x, paropts))
-	x[!is.na(ind) & ind]
+	x[ unlist(call_mclapply(g, x, paropts)) ]
+	
 }

@@ -4,17 +4,19 @@
 #' @description mcReduce applies an associative binary function to a list,
 #' returning a single value
 #' 
-#' @details \code{mcReduce} can be used as a parallel replacement for a 
-#' subclass of problems that can be solved with \code{Reduce} ; parallelising 
-#' \code{Reduce} is only possible when the function f is associative; in infix 
-#' notation that is \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f x3)}. 
-#' In practicality this means that the order in which the reduce is carried out isn't 
-#' important, so several tasks can be carried out in parallel.
+#' @details mcReduce can be used as a parallel alternative to Reduce if
+#' and only if the function f is associative; that is
 #' 
-#' A binary function with associativity is the plus operator;
-#' \code{1 + (2 + 3) == (1 + 2) + 3}.
-#' Subtraction does not have this property \code{1 - (2 - 3) != (1 - 2) - 3},
-#' so it should not be used as a binary function for \code{mcReduce} 
+#' \code{(a f b) f c == a f (b f c)}, 
+#' 
+#' where a, b or c are values that f takes. For example, plus is an associative 
+#' binary operator, since
+#' 
+#' \code{(a + b) + c == a + (b + c)}
+#' 
+#' for any number a, b or c. Minus does not have this property, so it is not 
+#' suitable for use with mcFold. Only associative binary functions can be folded 
+#' or reduced in parallel. 
 #'  
 #' When x only has one element it is returned immediately, as there is no way
 #' to apply a binary function to a length-one list.
@@ -22,9 +24,12 @@
 #' @name mcReduce
 #' 
 #' @param f a binary function
-#' @param x a vector or list
+#' @param x a list or vector. Vectors are converted to lists internally.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#'    mclapply (see \link{mchof}).
+#'    
+#' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
+#' is dependent on the function f, and the contents of x.
 #'
 #' @examples 
 #' mcReduce(get('+'), 1:10)
@@ -33,7 +38,8 @@
 #' @keywords mcReduce
 
 mcReduce <- function (f, x, paropts = NULL) {
-	# multicore associative-only version of Reduce
+	# swaps the commas in x1, x2, x3, ..., xn with
+	# the function f.
 
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(list())

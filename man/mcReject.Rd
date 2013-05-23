@@ -14,6 +14,10 @@
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see \link{mchof}).}
 }
+\value{
+  returns a list of elements for which f returned FALSE or
+  NA.
+}
 \description{
   mcReject extracts the elements of a vector or list for
   which the function \code{f} returns \code{FALSE}.
@@ -21,12 +25,11 @@
 \details{
   mcReject applies f to each element of x, coerces the
   result to a logical value, and returns the values for
-  which f returns FALSE. NA values obtained during logical
-  filtering are assumed to be FALSE, so that concatenating
-  the results of mcFilter and mcReject will give you the
-  original set x (though unordered). The user can modify
-  this behaviour by making sure the argument f returns TRUE
-  is a value is NA under coersion.
+  which f returns FALSE. elements for which f returned NA
+  are included, mcReject will give you the original set x
+  (though unordered). The user can modify this behaviour by
+  making sure the argument f returns TRUE is a value is NA
+  under coersion, as described in \link{mchof}.
 }
 \seealso{
   see \code{mcFilter} for a complementary function to this,

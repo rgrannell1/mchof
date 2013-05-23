@@ -5,12 +5,14 @@
   mcFilter(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a unary function that returns a boolean value}
+  \item{f}{a unary function that returns a boolean value,
+  or a string giving the name of a function.}
 
-  \item{x}{a list or vector}
+  \item{x}{a list or vector. Vectors are converted to lists
+  internally.}
 
-  \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  \item{paropts}{paropts a list of parameters to be handed
+  to mclapply (see \link{mchof}).}
 }
 \description{
   mcFilter extracts the elements of a vector or list for
@@ -19,10 +21,9 @@
 \details{
   mcFilter applies f to each element of x, coerces the
   result to a logical value, and returns the values for
-  which f returns TRUE. NA values obtained during logical
-  filtering are assumed to be FALSE. The user can modify
-  this behaviour by making sure the argument f returns TRUE
-  is a value is NA under coersion.
+  which f returns TRUE. NA's obtained while applying f to x
+  will be assumed to be FALSE. the user can sidestep this
+  behaviour easily, if necessary (see \link{mchof}).
 }
 \examples{
 # remove NA values from a vector
@@ -53,9 +54,9 @@ mcFilter(
     paropts = list(mc.cores = 2))
 }
 \seealso{
-  see \code{\link{Filter}} for a non-parallel equivelant of
-  this function, \code{\link{mclapply}} for more details
-  about the parallel backend being employed.
+  see \code{\link{mcReject}} for a counterpart to this
+  function, and \code{\link{mcPartition}} for a function
+  that combines mcFilter and mcReject
 }
 \keyword{mcFilter}
 

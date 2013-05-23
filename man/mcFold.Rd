@@ -17,28 +17,27 @@
 }
 \description{
   mcFold applies an associative binary function to a list,
-  returning a single. The difference between mcFold &
+  returning a single value. The difference between mcFold &
   mcReduce is that an initial value can be supplied to
   mcFold, making certain tasks easier (see examples).
 }
 \details{
-  \code{mcFold} can be used as a parallel replacement for a
-  subclass of problems that can be solved with folds in
-  general; parallelising mcFold is only possible when the
-  function f is associative; in infix notation that is
-  \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f
-  x3)}. In practicality this means that the order in which
-  the fold is carried out isn't important, so several tasks
-  can be carried out in parallel.
+  mcFold can be used as a parallel alternative to Fold if
+  and only if the function f is associative; that is
 
-  A binary function with associativity is the plus
-  operator; \code{1 + (2 + 3) == (1 + 2) + 3}. Subtraction
-  does not have this property \code{1 - (2 - 3) != (1 - 2)
-  - 3}, so it should not be used as a binary function for
-  \code{mcFold}
+  \code{(a f b) f c == a f (b f c)},
 
-  it is often useful to set first to be the identity of the
-  data type x; for addition this is 0, for character
-  concatentation '' and for list concatenation list()
+  where a, b or c are values that f takes. For example,
+  plus is an associative binary operator, since \code{(a +
+  b) + c == a + (b + c)} for any number a, b or c. Minus
+  does not have this property, so it is not suitable for
+  use with mcFold. Only associative binary functions can be
+  folded or reduced in parallel.
+
+  it is often useful to use the identity of f as first, as
+  it can make it possible to simplify f. For example, lists
+  have an identity element of list() when concatenated, and
+  integers have an identity of 0 under addition. This is
+  shown below in the example programs given
 }
 

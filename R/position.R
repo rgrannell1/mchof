@@ -8,7 +8,7 @@
 
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
 #' @param x a list or vector. Vectors are converted to lists internally.
-#' @right a boolean value. Should the list be searched from the start or end first?
+#' @param right a boolean value. Should the list be searched from the start or end first?
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
     
