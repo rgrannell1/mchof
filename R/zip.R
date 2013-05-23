@@ -37,6 +37,7 @@
 #'     list ( list('001', '002', '003'),
 #'     list('John', 'Jane', 'Jill')))   
 #' @keywords mcZipWith
+#' @example inst/examples/examples-zipwith.r
 
 mcZipWith <- function (f, x, paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
@@ -106,6 +107,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' mcZip (list( list('Jack', 'Jane', 'Joe'), list(1, 2, 3)))
 #' 
 #' @keywords mcZip
+#' @example inst/examples/examples-zip.r
 
 mcZip <- function(x, paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
