@@ -5,9 +5,11 @@
 #' 
 #' @export
 #' @param f a function that takes a single n-element list
-#' @param x a list of lists
-#' @param paropts a list of parameters to be handed to 
-#'    \code{mclapply} (see details)
+#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'    
+#' @return returns the result of mapping f over a list of n element lists.
 #'    
 #' @details Names are dropped without warning during zipping; 
 #' named outputs are given in the example below. 
@@ -88,6 +90,8 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
 #'    \code{mclapply} (see details)
+#'    
+#' @return returns a list of n element lists.
 #'    
 #' @details mcZip discards excess elements without warning: for example 
 #' list (1, 2), list (3, 4, 5) becomes list (list(1, 3), list(2, 4)). 
