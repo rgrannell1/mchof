@@ -3,22 +3,29 @@ Version 0.3
 
 New Functions:
 
-* mcReject: split a list into two lists based on a predicate
+* mcReject: split a list into two lists based on a predicate.
+* mcFold: applies an associative binary operator 
+ to a list (eg. +, *, rbind) with an initial value, returning a single element. 
+
+Improvements:
+
+* significant improvements made to the documentation.
+* code internally rewritten with the itertools library
 
 API changes:
 
 Bug Fixes:
 
-* errors in documentation fixed
+* errors in documentation fixed.
 
 Version 0.2 (2013-05-03)
 ------------------------------------------------------------------------------
 
 New Functions:
 
-* mcPartition: split a list into two lists based on a predicate
+* mcPartition: split a list into two lists based on a predicate.
 * mcZipWith/mcZip: takes n lists/vectors, generates a list of n-tuples.
-* mcUnzipWith/mcUnzip: takes a list of n-tuples, returns n lists
+* mcUnzipWith/mcUnzip: takes a list of n-tuples, returns n lists.
 
 New Features:
 
@@ -27,5 +34,5 @@ options(mc.cores) <- 2
 
 Bug Fixes:
 
-* error reporting improved
-* errors in documentation fixed
+* error reporting improved.
+* errors in documentation fixed.

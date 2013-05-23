@@ -1,5 +1,4 @@
 
-
 # a placeholder testing function, until I write something 
 # better. Used to test properties & lack of errors. Not very elegant, so
 # I don't recommend that you use this code yourself. 
