@@ -9,7 +9,7 @@
 #' \item \code{\link{mcFilter}}: get the elements of a list matching a predicate.
 #' \item \code{\link{mcReduce}}: applies an associative binary operator 
 #' to a list (eg. +, *, rbind), returning a single element.
-#' #' \item \code{\link{mcFold}}: applies an associative binary operator 
+#' \item \code{\link{mcFold}}: applies an associative binary operator 
 #' to a list (eg. +, *, rbind) with an initial value, returning a single element. 
 #' \item \code{\link{mcFind}}: get the first element in a list matching a predicate.
 #' \item \code{\link{mcPosition}}: find the first element in a list matching a predicate.

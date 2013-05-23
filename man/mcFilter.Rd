@@ -6,7 +6,7 @@
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,
-  or a string giving the name of a function.}
+  or a string giving the name of such a function.}
 
   \item{x}{a list or vector. Vectors are converted to lists
   internally.}

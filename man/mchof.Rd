@@ -14,7 +14,7 @@
   of a list matching a predicate. \item
   \code{\link{mcReduce}}: applies an associative binary
   operator to a list (eg. +, *, rbind), returning a single
-  element. #' \item \code{\link{mcFold}}: applies an
+  element. \item \code{\link{mcFold}}: applies an
   associative binary operator to a list (eg. +, *, rbind)
   with an initial value, returning a single element. \item
   \code{\link{mcFind}}: get the first element in a list

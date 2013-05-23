@@ -5,37 +5,43 @@
   mcPosition(f, x, right = FALSE, paropts = NULL)
 }
 \arguments{
-  \item{f}{a unary function that returns either \code{TRUE}
-  or \code{FALSE}}
+  \item{f}{a unary function that returns a boolean value,
+  or a string giving the name of such a function.}
 
   \item{x}{a list or vector. Vectors are converted to lists
   internally.}
 
-  \item{right}{a boolean value. Should the list be searched
-  from the start or end first?}
+  \item{right}{a boolean value. Should the first TRUE or
+  last FALSE element matching f be returned? Defaults to
+  FALSE.}
 
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see \link{mchof}).}
 }
+\value{
+  returns an integer. If no match is found, x is null or of
+  length(0) integer(0) is returned. This is consistent with
+  the behaviour of which()
+}
 \description{
   Returns the index of the first (or last) position in a
-  vector or list matching a predicate function, in
-  parallel.
+  vector or list matching a predicate function.
 }
 \details{
-  mcPosition returns integer(0) if no match is found, in
-  much the same way that which(0 == 1) returns integer(0)
+  mcPosition can be used as a functional alternative to
+  which, that works well in combination with other
+  functionals in base R and this library. NA's obtained
+  while applying f to x will be assumed to be FALSE. the
+  user can sidestep this behaviour easily, if necessary
+  (see \link{mchof}).
 }
 \examples{
-# find the index of the first position of the first non-NA value in a vector
-mcPosition(function(x) !is.na(x), c(10, NA, 11:20), paropts = list(mc.cores = 2))
-# get the index of the first value larger than five from the rightmost index of a vector
-mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))
+
 }
 \seealso{
-  see \code{\link{Position}} for the non-parallel
-  equivelant of this function, \code{\link{mclapply}} for
-  more details about the parallel backend being employed.
+  see \link{which} for an alternate indexing function, and
+  \link{mcFind} for a function which returns the first (or
+  last) element in a list matching a predicate.
 }
 \keyword{mcPosition}
 

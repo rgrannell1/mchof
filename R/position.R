@@ -2,28 +2,30 @@
 #' @title mcPosition
 #' 
 #' @description Returns the index of the first (or last) position in a vector or 
-#' list matching a predicate function, in parallel.
+#' list matching a predicate function.
 #'  
 #' @export
 
-#' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
 #' @param x a list or vector. Vectors are converted to lists internally.
-#' @param right a boolean value. Should the list be searched from the start or end first?
+#' @param right a boolean value. Should the first TRUE or last 
+#' FALSE element matching f be returned? Defaults to FALSE.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
-    
-#' @details mcPosition returns integer(0) if no match is found, in much the same
-#' way that which(0 == 1) returns integer(0)
-#'    
-#' @seealso see \code{\link{Position}} for the non-parallel equivelant of this 
-#'     function, \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed.
-#' 
-#' @examples
-#' # find the index of the first position of the first non-NA value in a vector
-#' mcPosition(function(x) !is.na(x), c(10, NA, 11:20), paropts = list(mc.cores = 2))
-#' # get the index of the first value larger than five from the rightmost index of a vector
-#' mcPosition(function(x) x > 5, 1:10, right=TRUE, paropts=list(mc.cores = 2))       
+#'
+#' @return returns an integer. If no match is found, x is null or of length(0)
+#' integer(0) is returned. This is consistent with the behaviour of which()
+
+#' @details mcPosition can be used as a functional alternative to which, that works well in 
+#' combination with other functionals in base R and this library.
+#' NA's obtained while applying f to x will 
+#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
+#' if necessary (see \link{mchof}).
+#'
+#' @seealso see \link{which} for an alternate indexing function, and \link{mcFind} for
+#' a function which returns the first (or last) element in a list matching a predicate.
+#'   
 #' @example inst/examples/examples-position.r
 #' @keywords mcPosition
 
@@ -65,7 +67,6 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 				
 				is_match <- as.logical(f( x[[ind]] ))	
 				if (isTRUE(is_match)) ind else NaN
-
 			},
 			x = indices_to_check,
 			paropts
@@ -74,7 +75,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		matched_indices <- checked_ind[
 			!is.nan(checked_ind) & checked_ind
 		]
-		
+
 		if (length(matched_indices) > 0) {
 			return (if (right) max(matched_indices) else min(matched_indices))
 		}
@@ -87,25 +88,26 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #' @title mcFind
 #' 
 #' @export
-#' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
-#' @param x a vector
-#' @param right a boolean value. Should the first \code{TRUE} or last 
-#'     \code{FALSE} element matching \code{f} be returned? Defaults to \code{FALSE}
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param right a boolean value. Should the first TRUE or last 
+#' FALSE element matching f be returned? Defaults to FALSE.
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #' 
-#' @details as with mcFilter, NA's obtained after logical coercion are assumed to be
-#' FALSE.
+#' @return returns an element from x. If x is NULL, NULL is returned. If
+#' x is the empty list, the empty list is returned.
 #' 
-#' @seealso see \code{\link{Find}} for the non-parallel equivelant of this 
-#'     function, \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed. 
+#' @details mcFind applies f to each element of x, coerces the result 
+#' to a logical value, and returns the first value for which f returns TRUE. 
+#' NA's obtained while applying f to x will 
+#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
+#' if necessary (see \link{mchof}).
+#' 
+#' @seealso see \code{mcPosition} to return the index of the first element
+#' matching f.
 #'
-#' @examples mcFind(
-#'     function(x){
-#'         grepl('^[J].*$', x)
-#'     },
-#'     c('mark', 'sam', 'Jane', 'Peter'))
 #' @example inst/examples/examples-find.r
 #' @keywords mcFind
 
@@ -114,7 +116,7 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	# the predicate f
 
 	if (is.null(x)) return(NULL)
-	if (length(x) == 0) return(x)
+	if (is.list(x) && length(x) == 0) return(x)
 	is.factor(x) %throws% stop ('x may not be a factor')
 	
 	first_match <- mcPosition (f, x, right, paropts)

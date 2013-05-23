@@ -1,34 +1,24 @@
 #' @description mcPartition returns a list of two lists; a list for which a predicate 
-#' returns true, and a list for which a predicate returns false
+#' returns true, and a list for which a predicate returns false.
 #' 
 #' @title mcPartition
 #' 
 #' @export
-#' @param f a unary function that returns a boolean value
-#' @param x a vector or list
-#' @param paropts a list of parameters to be handed to 
-#'    \code{mclapply} (see details)
-#'    
-#' @details NA values obtained during logical filtering are assumed to be FALSE,
-#' as with other functions in this package. The user can modify this behaviour
-#' by making sure the argument f returns TRUE is a value is NA under coersion. 
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'
+#' @return returns a list of two lists; the first list contains the values 
+#' for which f returned true, the other contains values that returned false or NA.
 #' 
-#' @seealso see \code{\link{mclapply}} for more details about the parallel
-#' backend being employed, and \code{\link{mcFilter}} for a function that returns
-#' only the values for which f returns TRUE.
-#'    
-#' @examples
-#' # partition a set into even and odd numbers
-#' mcPartition ( function (x) x %% 2, 1:10, paropts = list(mc.cores = 2)) 
-#' # divide a set of combinations into two based on a predicate
-#' mcPartition(
-#'	f = function(pair){
-#'		val <- sum(unlist(pair))
-#'		if (val > 8) TRUE else FALSE
-#'	},
-#'	x = apply(combn(8, 3), 2, list),
-#'	paropts = list(mc.cores = 2))
-#' @keywords mcPartition 
+#' @seealso see \code{\link{mcReject}} for a function that returns the values for 
+#' which f returns false or NA, and
+#' \code{\link{mcFilter}} for a function that returns the values for 
+#' which f returns true.
+#'
+#' @keywords mcPartition
 #' @example inst/examples/examples-partition.r
 
 mcPartition <- function (f, x, paropts = NULL) {

@@ -5,18 +5,19 @@
 #' @title mcUnzipWith
 #' 
 #' @export
-#' @param f a function that takes a single n-element list
-#' @param x a list of lists
-#' @param paropts a list of parameters to be handed to 
-#'    \code{mclapply} (see details)
+#' @param f a function that takes a single n-element list, or a string
+#' giving the name of such a function.
+#' @param x a list of lists or vectors
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'    
 #' @details Names are 
 #' dropped without warning during unzipping; named outputs are given in the 
 #' example below
 #' 
-#' @seealso see \code{\link{mclapply}} for more details about the parallel
-#' backend being employed, \code{\link{mcZipWith}} for the inverse of 
-#' this function and \code{\link{mcUnzip}} for a variant of this function.
+#' @seealso see \code{\link{mcZipWith}} for the inverse of 
+#' this function and \code{\link{mcUnzip}} for a shorthand variant of this function with
+#' f set to identity.
 #' 
 #' @keywords mcUnzipWith
 #' @example inst/examples/examples-unzipwith.r
@@ -62,9 +63,9 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @author Ryan Grannell
 #' 
 #' @export
-#' @param x a list of lists
-#' @param paropts a list of parameters to be handed to 
-#' \code{mclapply} (see details)
+#' @param x a list of lists or vectors
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'    
 #' @details mcUnzip discards excess elements, as with mcZip. 
 #' 

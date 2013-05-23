@@ -5,12 +5,13 @@
   mcUnzipWith(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a function that takes a single n-element list}
+  \item{f}{a function that takes a single n-element list,
+  or a string giving the name of such a function.}
 
-  \item{x}{a list of lists}
+  \item{x}{a list of lists or vectors}
 
-  \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  \item{paropts}{paropts a list of parameters to be handed
+  to mclapply (see \link{mchof}).}
 }
 \description{
   mcUnzipWith is the inverse function of mcZipWith; it
@@ -26,10 +27,9 @@
 
 }
 \seealso{
-  see \code{\link{mclapply}} for more details about the
-  parallel backend being employed, \code{\link{mcZipWith}}
-  for the inverse of this function and
-  \code{\link{mcUnzip}} for a variant of this function.
+  see \code{\link{mcZipWith}} for the inverse of this
+  function and \code{\link{mcUnzip}} for a shorthand
+  variant of this function with f set to identity.
 }
 \keyword{mcUnzipWith}
 

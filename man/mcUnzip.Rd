@@ -5,10 +5,10 @@
   mcUnzip(x, paropts = NULL)
 }
 \arguments{
-  \item{x}{a list of lists}
+  \item{x}{a list of lists or vectors}
 
-  \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  \item{paropts}{paropts a list of parameters to be handed
+  to mclapply (see \link{mchof}).}
 }
 \description{
   mcUnzip is the inverse function of mcZip; it takes a list

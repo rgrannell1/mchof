@@ -5,37 +5,41 @@
   mcFind(f, x, right = FALSE, paropts = NULL)
 }
 \arguments{
-  \item{f}{a unary function that returns either \code{TRUE}
-  or \code{FALSE}}
+  \item{f}{a unary function that returns a boolean value,
+  or a string giving the name of such a function.}
 
-  \item{x}{a vector}
+  \item{x}{a list or vector. Vectors are converted to lists
+  internally.}
 
-  \item{right}{a boolean value. Should the first
-  \code{TRUE} or last \code{FALSE} element matching
-  \code{f} be returned? Defaults to \code{FALSE}}
+  \item{right}{a boolean value. Should the first TRUE or
+  last FALSE element matching f be returned? Defaults to
+  FALSE.}
 
-  \item{paropts}{a list of parameters to be handed to
-  mclapply (see details and \code{\link{mclapply}})}
+  \item{paropts}{paropts a list of parameters to be handed
+  to mclapply (see \link{mchof}).}
+}
+\value{
+  returns an element from x. If x is NULL, NULL is
+  returned. If x is the empty list, the empty list is
+  returned.
 }
 \description{
   Returns the value of the first element of x that meets
   the predicate f.
 }
 \details{
-  as with mcFilter, NA's obtained after logical coercion
-  are assumed to be FALSE.
+  mcFind applies f to each element of x, coerces the result
+  to a logical value, and returns the first value for which
+  f returns TRUE. NA's obtained while applying f to x will
+  be assumed to be FALSE. the user can sidestep this
+  behaviour easily, if necessary (see \link{mchof}).
 }
 \examples{
-mcFind(
-    function(x){
-        grepl('^[J].*$', x)
-    },
-    c('mark', 'sam', 'Jane', 'Peter'))
+
 }
 \seealso{
-  see \code{\link{Find}} for the non-parallel equivelant of
-  this function, \code{\link{mclapply}} for more details
-  about the parallel backend being employed.
+  see \code{mcPosition} to return the index of the first
+  element matching f.
 }
 \keyword{mcFind}
 
