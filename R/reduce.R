@@ -20,6 +20,10 @@
 #'  
 #' When x only has one element it is returned immediately, as there is no way
 #' to apply a binary function to a length-one list.
+#' 
+#' mcReduce is most useful when used with mathematical operators such as plus, or
+#' max; mcFold is more apt at accumulating data since the first option simplifies the
+#' f function.
 #'   
 #' @name mcReduce
 #' 

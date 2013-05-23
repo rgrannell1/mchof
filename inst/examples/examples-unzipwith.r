@@ -18,3 +18,13 @@ mcUnzipWith(
 		list(0.5, 0.02),
 		list(12.2, 0.2)
 ))
+
+# name the unzipped output
+
+mcUnzipWith(
+	function (x) list(ind_1 = x[1], ind_2 = x[2], ind_3 = x[3]),
+	list(
+		list('FORTRAN', 'no'),
+		list('HASKELL', 'yes')
+		list('CLOJURE', 'yes')
+))
