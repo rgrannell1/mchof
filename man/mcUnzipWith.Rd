@@ -22,9 +22,6 @@
   Names are dropped without warning during unzipping; named
   outputs are given in the example below
 }
-\author{
-  Ryan Grannell
-}
 \seealso{
   see \code{\link{mclapply}} for more details about the
   parallel backend being employed, \code{\link{mcZipWith}}

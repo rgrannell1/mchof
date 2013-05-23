@@ -1,7 +1,7 @@
 
 '%throws%' <- function (bool, expr) {
 	# general function, but used specifically for 
-	# throwing exceptions
+	# throwing exceptions. beware operator presidence
 	
 	if (bool) expr
 }

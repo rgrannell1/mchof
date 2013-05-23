@@ -1,22 +1,25 @@
-
 #' @title mcAll
 #' 
 #' @export
-#' @description mcAll checks if a predicate f is true for all values in x
+#' @description mcAny checks if a predicate function f is true for all 
+#' elements in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can modify this behaviour by making sure the argument f returns 
-#' TRUE is a value is NA under coersion.
+#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}). 
 #' 
 #' @name mcAll
 #' 
-#' @param f a unary function that returns a boolean value
-#' @param x a list or vector
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#'    mclapply (see \link{mchof}).
 #'    
 #' @keywords mcAll
 #' 
+#' @return returns TRUE if f is true for one element in x, 
+#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
+#' empty list an empty list is returned.
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -36,21 +39,26 @@ mcAll <- function (f, x, paropts = NULL) {
 #' @title mcAny
 #' 
 #' @export
-#' @description mcAny checks if a predicate f is true for one or more values in x
+#' @description mcAny checks if a predicate function f is true for one or more 
+#' elements in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can modify this behaviour by making sure the argument f returns 
-#' TRUE is a value is NA under coersion.
+#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
 #' 
 #' @name mcAny
 #' 
-#' @param f a unary function that returns a boolean value
-#' @param x a list or vector
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#'    mclapply (see \link{mchof}).
 #'    
 #' @keywords mcAny
-#' 
+#'
+#' @return returns TRUE if f is true for one element in x, 
+#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
+#' empty list an empty list is returned.
+#'
 
 mcAny <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -103,25 +111,30 @@ mcAny <- function (f, x, paropts = NULL) {
 #' @title mcOne
 #' 
 #' @export
-#' @description mcOne checks if a predicate f is true for exactly one value in x
+#' @description mcOne checks if a predicate function f is true for exactly one 
+#' element in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can modify this behaviour by making sure the argument f returns 
-#' TRUE is a value is NA under coersion.
+#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
 #' 
 #' @name mcOne
 #' 
-#' @param f a unary function that returns a boolean value
-#' @param x a list or vector
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
-#'    
+#'    mclapply (see \link{mchof}).
+#'
+#' @return returns TRUE if f is true for one element in x, 
+#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
+#' empty list an empty list is returned.
+#'
 #' @keywords mcOne
 #' 
 
 mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
-	# for any x
+	# for one x
 	
 	f <- match.fun(f)
 	

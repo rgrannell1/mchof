@@ -40,9 +40,6 @@ mcZipWith (
     list ( list('001', '002', '003'),
     list('John', 'Jane', 'Jill')))
 }
-\author{
-  Ryan Grannell
-}
 \seealso{
   see \code{\link{mclapply}} for more details about the
   parallel backend being employed, \code{\link{mcZip}} for

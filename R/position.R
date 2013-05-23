@@ -1,22 +1,23 @@
+
 #' @title mcPosition
 #' 
 #' @description Returns the index of the first (or last) position in a vector or 
-#' list matching a predicate function, in parallel. 
+#' list matching a predicate function, in parallel.
 #'  
 #' @export
+
 #' @param f a unary function that returns either \code{TRUE} or \code{FALSE}
-#' @param x a vector or list
-#' @param right a boolean value. Should the first \code{TRUE} or last 
-#'     \code{FALSE} element matching \code{f} be returned? Defaults to \code{FALSE}
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
-#'    
+#' @param x a list or vector. Vectors are converted to lists internally.
+#' @right a boolean value. Should the list be searched from the start or end first?
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+    
 #' @details mcPosition returns integer(0) if no match is found, in much the same
 #' way that which(0 == 1) returns integer(0)
 #'    
 #' @seealso see \code{\link{Position}} for the non-parallel equivelant of this 
 #'     function, \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed. 
+#'     backend being employed.
 #' 
 #' @examples
 #' # find the index of the first position of the first non-NA value in a vector
@@ -82,7 +83,6 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 
 #' @description Returns the value of the first element of x that meets the predicate f.  
 #'
-#' @author Ryan Grannell
 #' @title mcFind
 #' 
 #' @export

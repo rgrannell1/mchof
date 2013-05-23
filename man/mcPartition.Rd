@@ -35,9 +35,6 @@ mcPartition(
 	x = apply(combn(8, 3), 2, list),
 	paropts = list(mc.cores = 2))
 }
-\author{
-  Ryan Grannell
-}
 \seealso{
   see \code{\link{mclapply}} for more details about the
   parallel backend being employed, and

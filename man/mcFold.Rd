@@ -23,13 +23,13 @@
 }
 \details{
   \code{mcFold} can be used as a parallel replacement for a
-  subclass of problems that can be solved with the Fold
-  function; parallelising Fold is only possible when the
+  subclass of problems that can be solved with folds in
+  general; parallelising mcFold is only possible when the
   function f is associative; in infix notation that is
   \code{(x1 f x2) f x3} is equivalent to \code{x1 f (x2 f
   x3)}. In practicality this means that the order in which
-  the reduce is carried out isn't important, so several
-  tasks can be carried out in parallel.
+  the fold is carried out isn't important, so several tasks
+  can be carried out in parallel.
 
   A binary function with associativity is the plus
   operator; \code{1 + (2 + 3) == (1 + 2) + 3}. Subtraction
@@ -40,21 +40,5 @@
   it is often useful to set first to be the identity of the
   data type x; for addition this is 0, for character
   concatentation '' and for list concatenation list()
-}
-\examples{
-mcFold(
-	function (acc, new) {
-		if (new$age > 18) {
-			c( acc, list(name = new$name) )
-		} else acc
-	},
-	NULL,
-	list(
-		list(name = 'John', age = 12),
-		list(name = 'Daniel', age = 55),
-		list(name = 'Sasha', age = 24)
-	),
-	paropts = list(mc.cores = 2)
-)
 }
 

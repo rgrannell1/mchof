@@ -5,10 +5,11 @@
 #' which the function \code{f} returns \code{TRUE}.
 #' 
 #' @export
-#' @param f a unary function that returns a boolean value
-#' @param x a list or vector
-#' @param paropts a list of parameters to be handed to
-#'    \code{mclapply} (see details)
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of a function.
+#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param paropts paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
 #' and returns the values

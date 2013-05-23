@@ -5,12 +5,14 @@
   mcReject(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a unary function that returns a boolean value}
+  \item{f}{a unary function that returns a boolean value,
+  or a string giving the name of a function.}
 
-  \item{x}{a list or vector}
+  \item{x}{a list or vector. Vectors are converted to lists
+  internally.}
 
-  \item{paropts}{a list of parameters to be handed to
-  \code{mclapply} (see details)}
+  \item{paropts}{paropts a list of parameters to be handed
+  to mclapply (see \link{mchof}).}
 }
 \description{
   mcReject extracts the elements of a vector or list for

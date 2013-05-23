@@ -25,6 +25,16 @@
 #' \item \code{\link{mcReject}}: get the elements of a list not matching a predicate.
 #' }
 #' 
+#' @section Paropts
+#' 
+#'
+#' @section NA handling
+#'
+#'
+#'
+#'
+#'
+#'
 #' @docType package
 #' @name mchof
 
