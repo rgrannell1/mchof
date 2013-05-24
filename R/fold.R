@@ -44,6 +44,6 @@ mcFold <- function (f, first, x, paropts = NULL) {
 	# swaps the commas in first, x1, x2, ..., xn with
 	# the function f.
 	
-	mcReduce(f, c(first,x), paropts)
+	mcReduce(f, c(list(first), x), paropts)
 	
 }

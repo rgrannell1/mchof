@@ -37,6 +37,14 @@
   matching a predicate. }
 }
 
+\section{Parallel Options (Paropts)}{
+  As of version 0.3 mchof is build on top of the parallel
+  library.
+
+  The most important option is probably mc.cores, which
+  sets the number of processes to start.
+}
+
 \section{NA handling}{
   many functions in mchof take a TRUE/FALSE value. If a
   user's function returns NA this will be converted

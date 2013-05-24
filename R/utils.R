@@ -9,5 +9,5 @@
 is_boolean <- function (x) {
 	# is the value true or false
 	
-	is.logical(x) && !is.na(x)
+	length(x) > 0 && is.logical(x) && !is.na(x)
 }

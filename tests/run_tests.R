@@ -12,6 +12,8 @@ forall <- function (
 		# returns a function with Sys.time( ) 
 		# captured in a closure
 		
+		stopifnot (is.numeric(seconds) && seconds < 0)
+		
 		( function () {
 			start_time <- Sys.time()
 			function () {
@@ -29,20 +31,21 @@ forall <- function (
 	
 	res <- c()
 	time_left <- stopwatch(opts$time)
+	
 	while (hasNext(testargs_iter) && time_left()) {
 		
 		args <- nextElem(testargs_iter)
 		test_res <- predicate(args)
 		
 		if (!is_boolean(test_res)) {
-			stop(args, " didn't return t / f: actual value was ", test_res)
+			stop(args, " didn't return t/f: actual value was ", test_res)
 		}
 		res <- c(
 			res,
 			list(list(
 				passed = test_res,
 				args = args
-			)))
+		)))
 		
 	}
 	
