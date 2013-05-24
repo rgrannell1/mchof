@@ -1,4 +1,4 @@
-
+ 
 context("normal case testing for position")
 
 test_that("test that the answer is invariant under mc.cores and right", {
