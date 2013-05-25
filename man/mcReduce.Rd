@@ -7,8 +7,7 @@
 \arguments{
   \item{f}{a binary function}
 
-  \item{x}{a list or vector. Vectors are converted to lists
-  internally.}
+  \item{x}{a list or vector.}
 
   \item{paropts}{paropts a list of parameters to be handed
   to mclapply (see \link{mchof}).}

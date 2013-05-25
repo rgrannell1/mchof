@@ -8,8 +8,7 @@
   \item{f}{a function that takes a single n-element list,
   or a string giving the name of such a function.}
 
-  \item{x}{a list or vector. Vectors are converted to lists
-  internally.}
+  \item{x}{a list or vector.}
 
   \item{paropts}{a list of parameters to be handed to
   mclapply (see \link{mchof}).}

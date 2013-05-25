@@ -39,10 +39,47 @@
 
 \section{Parallel Options (Paropts)}{
   As of version 0.3 mchof is build on top of the parallel
-  library.
+  library, which employs forking to create parallel
+  processes. Forking is not possible on windows.
 
-  The most important option is probably mc.cores, which
-  sets the number of processes to start.
+  The most important option is mc.cores, which sets the
+  number of processes to spawn. See \link{mclapply} in the
+  parallel library for a more complete description of the
+  options that can be used with mchof.
+
+  Note; for obvious reasons FUN or X cannot be set in
+  paropts in case they conflict with f and x (arguments
+  available to most mchof functions).
+}
+
+\section{Multiple Argument Functions}{
+  sometimes it is necessary to set optional parameters for
+  a function. However, most mchof functions take a fixed
+  number of arguments. There are several ways to set
+  optional arguments despite this fact.
+
+  take, for example, the one-parameter function mcFilter.
+  If we want to see if an element is in a set we can use
+  the two-element function is.element.
+
+  the easiest way to add the second parameter is to wrap
+  the function in an anonymous function & add the second
+  parameter inside the anonymous function.
+
+  \code{mcFilter(\n function (el) { lang_set <-
+  list('adda', 'erlang', 'javascript', 'R') is.element(el,
+  lang_set) }, list('adda', 'matlab', 'R', 'java') )}
+
+  it is also useful to create a curried function (a
+  function with some parameters substituted) in cases where
+  the code is likely to be re-used
+
+  \code{in_lang_set <- function (el) { # check if an
+  element is in a particular set
+
+  is.element(el, list('adda', 'matlab', 'R', 'java')) }}
+  \code{mcFilter(in_lang_set, list('adda', 'matlab', 'R',
+  'java'))}
 }
 
 \section{NA handling}{

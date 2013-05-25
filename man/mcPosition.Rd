@@ -8,8 +8,7 @@
   \item{f}{a unary function that returns a boolean value,
   or a string giving the name of such a function.}
 
-  \item{x}{a list or vector. Vectors are converted to lists
-  internally.}
+  \item{x}{a list or vector.}
 
   \item{right}{a boolean value. Should the first TRUE or
   last FALSE element matching f be returned? Defaults to

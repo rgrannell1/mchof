@@ -41,7 +41,7 @@
 
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
-	# the function f.
+	# the infix function f.
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	
@@ -85,5 +85,5 @@ mcReduce <- function (f, x, paropts = NULL) {
 		},
 		to_pairs(x))
 	
-	g(reduced[[1]])
+	g( reduced[[1]] )
 }
