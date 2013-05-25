@@ -24,10 +24,12 @@
 mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
-		
+	
+	func_call <- paste0( deparse(match.call()), ':' )
+
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
-	is.factor(x) %throws% stop ('x may not be a factor')
+	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
 

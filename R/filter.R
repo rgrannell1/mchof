@@ -25,6 +25,8 @@
 mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
 	
+	func_call <- paste0( deparse(match.call()), ':' )
+	
 	f <- match.fun(f)
 	g <- function (...) {
 		res <- as.logical(f(...))
@@ -33,7 +35,7 @@ mcFilter <- function (f, x, paropts = NULL) {
 
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	is.factor(x) %throws% stop('x may not be a factor')
+	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
 	
 	x[ unlist(call_mclapply(g, x, paropts)) ]
 	

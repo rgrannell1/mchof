@@ -33,13 +33,15 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
 	
+	func_call <- paste0( deparse(match.call()), ':' )
+	
 	f <- match.fun(f)
 
 	if (is.null(x) || length(x) == 0) return(integer(0))
-	is.factor(x) %throws% stop ('x may not be a factor')
+	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
 	
-	(!is_boolean(right)) %throws% stop (
-		'right must be TRUE or FALSE')
+	(!is_boolean(right)) %throws% stopf (
+		'right must be TRUE or FALSE', func_call)
 	
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
@@ -115,9 +117,11 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
+	func_call <- paste0( deparse(match.call()), ':' )
+
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(x)
-	is.factor(x) %throws% stop ('x may not be a factor')
+	is.factor(x) %throws% stopf ('x may not be a factor', func_call)
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	

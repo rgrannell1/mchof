@@ -42,11 +42,13 @@
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the function f.
+	
+	func_call <- paste0( deparse(match.call()), ':' )
 
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(list())
 	if (length(x) == 1) return(x)
-	is.factor(x) %throws% stop ('x may not be a factor')
+	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
 	
 	f <- match.fun(f)
 

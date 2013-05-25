@@ -4,8 +4,15 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	(!is.function(f)) %throws% stop('f is not a function')
-	(!is.vector(x)) %throws% stop('x is not a vector')
+	func_call <- if (exists('func_call')) func_call else ''
+	
+	(!is.function(f)) %throws% stopf (
+		'%s f is not a function: actual value was %s (%s)',
+		func_call, deparse(f), class(f))
+
+	(!is.vector(x)) %throws% stopf (
+		'%s x is not a vector: actual value was %s (%s)',
+		func_call, deparse(x), class(x))
 	
 	if (.Platform$OS.type == 'windows') {
 		message(
@@ -47,11 +54,11 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			status <<- 'error'
 	})
 
-	(status == 'warning') %throws%
-		stop ('an mchof function encountered errors:\n', output)
+	(status == 'warning') %throws% stopf (
+		c('%s', '%s'), func_call, output)
 	
-	(status == 'error') %throws%
-		stop ('an mchof function encountered errors:\n', output)
+	(status == 'error') %throws% stopf (
+		c('%s', '%s'), func_call, output)
 	
 	output	
 }

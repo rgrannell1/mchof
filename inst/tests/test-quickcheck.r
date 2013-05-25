@@ -36,6 +36,7 @@ forall(
 			mcPartition(Negate(is.null), x_, paropts_) [[1]],
 			NULL_free
 		)
+
 		all_equal(results)
 	}
 )

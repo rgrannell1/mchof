@@ -25,22 +25,25 @@
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
 	
+	func_call <- deparse(match.call())
+
 	f <- match.fun(f)
 	
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 	
 	lists <- Filter(
-		function (li) {			
-			inherits(li, 'factor') %throws% stop('factors are not allowed')
+		function (elem) {			
+			inherits(elem, 'factor') %throws% stopf (
+				'%s factors are not allowed', func_call)
 			
-			!is.null(li) && any(c('list', 'vector') %in% is(li))
+			!is.null(elem) && any(c('list', 'vector') %in% is(elem))
 		}, x)
 	
 	shortest_tuple <- min(sapply(x, length))
 	
 	to_unzip <- Map (
-		function (li) li[seq_len(shortest_tuple)], 
+		function (elem) elem[seq_len(shortest_tuple)], 
 		lists)
 	
 	unzipped <- call_mclapply (

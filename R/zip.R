@@ -33,27 +33,28 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
 	
+	func_call <- deparse(match.call())
+	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 	
 	lists <- Filter(
-		function (li) {
+		function (el) {
 
-			inherits(li, 'factor') %throws% stop('factors are not allowed')
-			!is.null(li) && any(c('list', 'vector') %in% is(li))
+			inherits(el, 'factor') %throws% stopf (
+				'%s factors are not allowed', func_call)
+			!is.null(el) && any(c('list', 'vector') %in% is(el))
 
 		}, x)
 
 	shortest <- min(sapply (lists, length))
 
-	if (shortest == 0) {
-		return(list())
-	}
-	
+	if (shortest == 0) return(list())
+
 	to_zip <- Map (
-		function (li) li[seq_len(shortest)], 
-		lists)
+		function (el) el[seq_len(shortest)], 
+		lists) 
 
 	zipped <- call_mclapply (
 		f = function (ind) {

@@ -11,3 +11,24 @@ is_boolean <- function (x) {
 	
 	length(x) > 0 && is.logical(x) && !is.na(x)
 }
+
+stopf <- function (fmt, ...) {
+	# combines stop, paste0 and sprintf
+	
+	stop (sprintf(
+		paste0(fmt, collapse = "/n"),...), call. = FALSE)
+}
+
+warningf <- function (fmt, ..., call. = FALSE) {
+	# combines stop, paste0 and sprintf
+	
+	warning (sprintf(
+		paste0(fmt, collapse = "/n"),...), call.)
+}
+
+messagef <- function (fmt, ...) {
+	# combines message, paste0 & sprintf
+	
+	message (sprintf(
+		paste0(fmt, collapse = "/n"),...))
+}

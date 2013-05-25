@@ -55,7 +55,7 @@ forall <- function (
 				'failed!\n',
 				info, '\n',
 				'the assertion ', deparse(expect), " wasn't true when ",
-				names(formals(expect)), ' was ', test$args, call. = TRUE)	
+				names(formals(expect)), ' was ', test$args, call. = TRU)	
 		},
 		results)
 	NULL
