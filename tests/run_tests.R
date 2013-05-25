@@ -51,11 +51,14 @@ forall <- function (
 	
 	Map(
 		function (test) {			
-			(!test$passed) %throws% stop(
-				'failed!\n',
-				info, '\n',
-				'the assertion ', deparse(expect), " wasn't true when ",
-				names(formals(expect)), ' was ', test$args, call. = TRU)	
+			(!test$passed) %throws% stopf(
+				c(
+					'failed!',
+				  	'%s',
+					"the assertion wasn't true when %s were equal to %s"),
+				info, 
+				paste0(names(formals(expect)), collapse = ', '),
+				deparse(test$args))	
 		},
 		results)
 	NULL

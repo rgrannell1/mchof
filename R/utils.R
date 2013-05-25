@@ -16,19 +16,19 @@ stopf <- function (fmt, ...) {
 	# combines stop, paste0 and sprintf
 	
 	stop (sprintf(
-		paste0(fmt, collapse = "/n"),...), call. = FALSE)
+		paste0(fmt, collapse = "\n"),...), call. = FALSE)
 }
 
 warningf <- function (fmt, ..., call. = FALSE) {
 	# combines stop, paste0 and sprintf
 	
 	warning (sprintf(
-		paste0(fmt, collapse = "/n"),...), call.)
+		paste0(fmt, collapse = "\n"),...), call.)
 }
 
 messagef <- function (fmt, ...) {
 	# combines message, paste0 & sprintf
 	
 	message (sprintf(
-		paste0(fmt, collapse = "/n"),...))
+		paste0(fmt, collapse = "\n"),...))
 }

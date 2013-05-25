@@ -1,19 +1,19 @@
 
-context('quickcheck ')
+context('quickcheck functions where possible')
 
-test_that('', {
+test_that('check that filtering works consistently', {
 	
 	rand_paropts <- list(
 		list(mc.cores = 1), list(mc.cores = 2), 
-		list(mc.cores = 3), list(mc.cores = 4)	
-	)
+		list(mc.cores = 3), list(mc.cores = 4))
+	
 	rand_lists_with_null <- function () {
 		# generate random lists, maybe with some null elements	
 		
 		list_size <- sample(1:100, size = 1)
-		sample(
-			list(NULL, 101, 312.2, 'cat', matrix(0,2,2)),
-			size = list_size, replace = TRUE)
+		as.list(sample(
+			list(NULL, 101, 312.2, 'cat'),
+			size = list_size, replace = TRUE))
 		
 	}
 	all_equal <- function (list) {
@@ -29,7 +29,9 @@ test_that('', {
 			
 			to_exclude <- sapply(x_, is.null)
 			
-			NULL_free <- if (length(to_exclude) > 0) x_[-to_exclude] else x_ 
+			NULL_free <- if (length(to_exclude) > 0) {
+				as.list(x_[-to_exclude])
+			} else x_ 
 			
 			results <- list(
 				mcFilter(Negate(is.null), x_, paropts_),
@@ -37,11 +39,8 @@ test_that('', {
 				mcPartition(is.null, x_, paropts_) [[2]],
 				mcPartition(Negate(is.null), x_, paropts_) [[1]],
 				NULL_free
-			)
-			
+			)		
 			all_equal(results)
-		}
-	)
+	})
 	
-
 })
