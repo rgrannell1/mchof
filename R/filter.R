@@ -7,7 +7,7 @@
 #' @export
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
-#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
@@ -36,7 +36,7 @@ mcFilter <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
-	
+
 	x[ unlist(call_mclapply(g, x, paropts)) ]
 	
 }

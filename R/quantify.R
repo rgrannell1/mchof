@@ -11,7 +11,7 @@
 #' 
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of a function.
-#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
@@ -52,7 +52,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #' 
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of a function.
-#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
@@ -74,7 +74,7 @@ mcAny <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stopf ('x may not be a factor', func_call)
-	
+
 	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
 	} else if (!is.null(getOption('mc.cores')))  {
@@ -127,7 +127,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #' 
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of a function.
-#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'

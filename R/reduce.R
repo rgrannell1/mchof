@@ -28,7 +28,7 @@
 #' @name mcReduce
 #' 
 #' @param f a binary function
-#' @param x a list or vector. Vectors are converted to lists internally.
+#' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
@@ -44,13 +44,13 @@ mcReduce <- function (f, x, paropts = NULL) {
 	# the function f.
 	
 	func_call <- paste0( deparse(match.call()), ':' )
-
+	
+	f <- match.fun(f)
+	
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(list())
 	if (length(x) == 1) return(x)
 	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
-	
-	f <- match.fun(f)
 
 	to_pairs <- function (x) {
 		# chunk x into lists of two, where possible

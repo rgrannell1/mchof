@@ -31,7 +31,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
-	
+
 	lists <- Filter(
 		function (elem) {			
 			inherits(elem, 'factor') %throws% stopf (
