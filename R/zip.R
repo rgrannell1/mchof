@@ -13,11 +13,12 @@
 #'    
 #' @return returns the result of mapping f over a list of n element lists.
 #'    
-#' @details Names are dropped without warning during zipping; 
-#' named outputs are given in the example below. 
-#' mcZipWith discards excess elements without warning: for example 
-#' \code{list (1, 2), list (3, 4, 5)} becomes 
-#' \code{list (f( list(1, 3) ), f( list(2, 4) ))}. 
+#' @details list names are dropped without warning during zipping; an example below shows how to add
+#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
+#' removed in order act as a 'zero' to preserve useful structural identities.
+#' 
+#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
+#' without warning.
 #' 
 #' @seealso see \code{\link{mclapply}} for more details about the parallel
 #'     backend being employed, \code{\link{mcZip}} for a varient of this function
@@ -40,16 +41,13 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return (list())
 
 	lists <- Filter(
-		function (el) {
+		function (elem) {
 
-			inherits(el, 'factor') %throws% stopf (
+			inherits(elem, 'factor') %throws% stopf (
 				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
-				func_call,
-				deparse(el),
-				class(el))
-
-			!is.null(el) && any(c('list', 'vector') %in% is(el))
-
+				func_call, deparse(elem), class(elem))
+			
+			!is.null(elem)
 		}, x)
 
 	shortest <- min(sapply (lists, length))
@@ -86,8 +84,12 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' 
 #' @return returns a list of n element lists.
 #'    
-#' @details mcZip discards excess elements without warning: for example 
-#' list (1, 2), list (3, 4, 5) becomes list (list(1, 3), list(2, 4)). 
+#' @details list names are dropped without warning during zipping; an example below shows how to add
+#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
+#' removed in order act as a 'zero' to preserve useful structural identities.
+#' 
+#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
+#' without warning.
 #' 
 #' @seealso see \code{\link{mcUnzip}} for the inverse of 
 #'     this function, and \code{\link{mcZipWith}} for a more general version 

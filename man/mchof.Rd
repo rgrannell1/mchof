@@ -66,9 +66,9 @@
   the function in an anonymous function & add the second
   parameter inside the anonymous function.
 
-  \code{mcFilter(\n function (el) { lang_set <-
-  list('adda', 'erlang', 'javascript', 'R') is.element(el,
-  lang_set) }, list('adda', 'matlab', 'R', 'java') )}
+  \code{mcFilter( function (el) { lang_set <- list('adda',
+  'erlang', 'javascript', 'R') is.element(el, lang_set) },
+  list('adda', 'matlab', 'R', 'java') )}
 
   it is also useful to create a curried function (a
   function with some parameters substituted) in cases where

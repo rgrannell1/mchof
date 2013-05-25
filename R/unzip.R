@@ -11,9 +11,12 @@
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
-#' @details Names are 
-#' dropped without warning during unzipping; named outputs are given in the 
-#' example below
+#' @details list names are dropped without warning during unzipping; an example below shows how to add
+#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
+#' removed in order act as a 'zero' to preserve useful structural identities.
+#' 
+#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
+#' without warning.
 #' 
 #' @seealso see \code{\link{mcZipWith}} for the inverse of 
 #' this function and \code{\link{mcUnzip}} for a shorthand variant of this function with
@@ -33,16 +36,13 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return (list())
 
 	lists <- Filter(
-		function (el) {
+		function (elem) {
 			
-			inherits(el, 'factor') %throws% stopf (
+			inherits(elem, 'factor') %throws% stopf (
 				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
-				func_call,
-				deparse(el),
-				class(el))
+				func_call, deparse(elem), class(elem))
 			
-			!is.null(el) && any(c('list', 'vector') %in% is(el))
-			
+			!is.null(elem)
 		}, x)
 	
 	shortest_tuple <- min(sapply(x, length))
@@ -75,8 +75,13 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @param x a list of lists or vectors
 #' @param paropts paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
-#'    
-#' @details mcUnzip discards excess elements, as with mcZip. 
+#' 
+#' @details list names are dropped without warning during unzipping; an example below shows how to add
+#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
+#' removed in order act as a 'zero' to preserve useful structural identities.
+#' 
+#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
+#' without warning.
 #' 
 #' @seealso see \code{\link{mcZip}} for the inverse of this function, 
 #' \code{\link{mcUnzipWith}} for a more general version of this function.

@@ -23,11 +23,15 @@
   this new list.
 }
 \details{
-  Names are dropped without warning during zipping; named
-  outputs are given in the example below. mcZipWith
-  discards excess elements without warning: for example
-  \code{list (1, 2), list (3, 4, 5)} becomes \code{list (f(
-  list(1, 3) ), f( list(2, 4) ))}.
+  list names are dropped without warning during zipping; an
+  example below shows how to add names to the output list.
+  NULL elements in x are automatically removed from x. The
+  empty list is not removed in order act as a 'zero' to
+  preserve useful structural identities.
+
+  the input lists are assumed to be of equal length; if
+  they are not excess elements are discarded without
+  warning.
 }
 \examples{
 
