@@ -46,22 +46,20 @@ forall <- function (
 				passed = test_return_value,
 				args = args
 		)))
-		
 	}
 	
 	Map(
 		function (test) {			
 			(!test$passed) %throws% stopf(
 				c(
-					'failed!',
-				  	'%s',
+					'failed! %s',
 					"the assertion wasn't true when %s were equal to %s"),
 				info, 
 				paste0(names(formals(expect)), collapse = ', '),
-				deparse(test$args))	
+				paste0(deparse(test$args), collapse = ', '))
 		},
 		results)
-	NULL
+	messagef('okay, passed %s tests', length(results))
 }
 
 library(mchof)
