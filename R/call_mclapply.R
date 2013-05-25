@@ -8,11 +8,11 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	
 	(!is.function(f)) %throws% stopf (
 		'%s f is not a function: actual value was %s (%s)',
-		func_call, deparse(f), class(f))
+		func_call, deparse(f), paste0(class(x), collapse = ', '))
 
 	(!is.vector(x)) %throws% stopf (
 		'%s x is not a vector: actual value was %s (%s)',
-		func_call, deparse(x), class(x))
+		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	if (.Platform$OS.type == 'windows') {
 		message(

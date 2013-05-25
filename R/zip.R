@@ -43,7 +43,11 @@ mcZipWith <- function (f, x, paropts = NULL) {
 		function (el) {
 
 			inherits(el, 'factor') %throws% stopf (
-				'%s factors are not allowed', func_call)
+				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
+				func_call,
+				deparse(el),
+				class(el))
+
 			!is.null(el) && any(c('list', 'vector') %in% is(el))
 
 		}, x)

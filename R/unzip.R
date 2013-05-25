@@ -33,11 +33,16 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	if (is.list(x) && length(x) == 0) return (list())
 
 	lists <- Filter(
-		function (elem) {			
-			inherits(elem, 'factor') %throws% stopf (
-				'%s factors are not allowed', func_call)
+		function (el) {
 			
-			!is.null(elem) && any(c('list', 'vector') %in% is(elem))
+			inherits(el, 'factor') %throws% stopf (
+				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
+				func_call,
+				deparse(el),
+				class(el))
+			
+			!is.null(el) && any(c('list', 'vector') %in% is(el))
+			
 		}, x)
 	
 	shortest_tuple <- min(sapply(x, length))

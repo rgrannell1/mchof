@@ -38,7 +38,9 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	f <- match.fun(f)
 
 	if (is.null(x) || length(x) == 0) return(integer(0))
-	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
+	is.factor(x) %throws% stopf (
+		'%s x may not be a factor; actual value was %s (%s)',
+		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	(!is_boolean(right)) %throws% stopf (
 		'right must be TRUE or FALSE', func_call)
@@ -121,7 +123,9 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(x)
-	is.factor(x) %throws% stopf ('x may not be a factor', func_call)
+	is.factor(x) %throws% stopf (
+		'%s x may not be a factor; actual value was %s (%s)',
+		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	

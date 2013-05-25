@@ -29,7 +29,9 @@ mcPartition <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
-	is.factor(x) %throws% stopf ('%s x may not be a factor', func_call)
+	is.factor(x) %throws% stopf (
+		'%s x may not be a factor; actual value was %s (%s)',
+		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
 
