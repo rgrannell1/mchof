@@ -2,33 +2,33 @@
 repl <- function (f, n) {
 	Map(f, seq_len(n))
 }
-pick_len <- function (n) {
+pick_len <- function (n=1000) {
 	sample(seq_len(n), size = 1)
 }
 
 #+# generator functions #+# #+#
 #+# #+# #+# #+# (ascii art) #+#
 
-r_integers <- function (n) {
+r_integers <- function (n=1000) {
 	sample(-100:100, size = n, replace = TRUE)
 }
-r_letters <- function (n) {
+r_letters <- function (n=1000) {
 	letters[r_integers(n) %% 26]
 }
-r_words <- function (n) {
+r_words <- function (n=1000) {
 	repl(
 		function (...) {
 			size <- sample(1:20, size = 1)
 			paste0(r_letters(size), collapse = '')
 		}, n)
 }
-r_null <- function (n) {
+r_null <- function (n=1000) {
 	NULL
 }
-r_null_list <- function (n) {
+r_null_list <- function (n=1000) {
 	Map(function(...) NULL, seq_len(n))
 }
-r_flatlist <- function (n) {
+r_flatlist <- function (n=1000) {
 	Map(
 		function (...) {
 
@@ -37,7 +37,7 @@ r_flatlist <- function (n) {
 
 		}, seq_len(n))
 }
-r_flat_no_null <- function (n) {
+r_flat_no_null <- function (n=1000) {
 	Map(
 		function (...) {
 
@@ -46,13 +46,13 @@ r_flat_no_null <- function (n) {
 
 		}, seq_len(n))	
 }
-r_paropts <- function (n) {
+r_paropts <- function (n=1000) {
 	list(
 		list(mc.cores = 1), list(mc.cores = 2), list(mc.cores = 3),
 		list(mc.cores = 4), list(mc.cores = 5), list(mc.cores = 6),
 		list(mc.cores = 7), list(mc.cores = 8), list(mc.cores = 9))
 }
-r_tuple_list <- function (n) {
+r_tuple_list <- function (n=1000) {
 	tuple_length <- pick_len(20)
 	
 	Map(
@@ -61,17 +61,9 @@ r_tuple_list <- function (n) {
 		},
 		seq_len(n))
 }
-r_seq_len <- function (n) {
+r_seq_len <- function (n=1000) {
 	repl(
 		function (...) 1:pick_len(20),
 	n)
 }
-
-
-
-
-
-
-
-
-
+`
