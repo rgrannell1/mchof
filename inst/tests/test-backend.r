@@ -9,13 +9,18 @@ if (exists('call_mclapply')) {
 			errfunc_1 <- function (x) stop('do you see me?') 
 			errfunc_2 <- function (x, y) stop('do you see me, monoid?') 
 			
+			expect_error(mcReject(errfunc_1, 1:10, list(mc.cores = 4)), 'see me?')
 			expect_error(mcFilter(errfunc_1, 1:10, list(mc.cores = 4)), 'see me?')
 			expect_error(mcPartition(errfunc_1, 1:10), 'see me?')
 			
 			expect_error(mcPosition(errfunc_1, 1:10), 'see me?')
 			expect_error(mcFind(errfunc_1, 1:10), 'see me?')
-			
+			expect_error(mcAll(errfunc_1, 1:10), 'see me?')
+			expect_error(mcAny(errfunc_1, 1:10), 'see me?')
+			expect_error(mcOne(errfunc_1, 1:10), 'see me?')
+
 			expect_error(mcReduce(errfunc_2, 1:10), 'see me?')
+			expect_error(mcFold(errfunc_2, 0,1:10), 'see me?')
 		
 			expect_error(mcUnzipWith(errfunc_1, 1:10), 'see me?')	
 			expect_error(mcZipWith(errfunc_1, 1:10), 'see me?')

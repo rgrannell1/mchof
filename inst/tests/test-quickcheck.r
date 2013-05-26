@@ -28,20 +28,6 @@ forall(
 
 forall(
 	list(x_ = r_integers(1000), paropts_ = r_paropts(4)),
-	info = 'reduce & fold addition over integers works',
-	function (x_, paropts_) {
-		
-		res_0 <- sum(x_)
-		res_1 <- mcFold('+', 0, x_, paropts_)
-		res_2 <- mcReduce('+', x_, paropts_)
-
-		length(unique(res_0, res_1, res_2)) == 1
-	
-	}, opts = list(time = 2)
-)
-
-forall(
-	list(x_ = r_integers(1000), paropts_ = r_paropts(4)),
 	info = 'reduce & fold multiplication over integers works',
 	function (x_, paropts_) {
 		
@@ -68,22 +54,6 @@ forall(
 		all_equal(sapply(x_, length))
 	}
 )
-
-forall(
-	list(x_ = r_seq_len(1000), paropts = r_paropts(4)),
-	info = 'mcPartition contains all else',
-	function (x_, paropts_) {
-			
-		res <- mcPartition(x %% 2, x_, paropts_)
-
-	},
-	given = function (x_, paropts_) {
-		all_equal(sapply(x_, length))
-	}
-)
-
-
-
 
 
 
