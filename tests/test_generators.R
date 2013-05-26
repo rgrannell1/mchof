@@ -52,3 +52,26 @@ r_paropts <- function (n) {
 		list(mc.cores = 4), list(mc.cores = 5), list(mc.cores = 6),
 		list(mc.cores = 7), list(mc.cores = 8), list(mc.cores = 9))
 }
+r_tuple_list <- function (n) {
+	tuple_length <- pick_len(20)
+	
+	Map(
+		function (...) {
+			r_flatlist(tuple_length)
+		},
+		seq_len(n))
+}
+r_seq_len <- function (n) {
+	repl(
+		function (...) 1:pick_len(20),
+	n)
+}
+
+
+
+
+
+
+
+
+

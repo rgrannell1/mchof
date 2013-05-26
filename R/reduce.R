@@ -21,9 +21,9 @@
 #' When x only has one element it is returned immediately, as there is no way
 #' to apply a binary function to a length-one list.
 #' 
-#' mcReduce is most useful when used with mathematical operators such as plus, or
+#' mcReduce is useful when used with mathematical operators such as plus, or
 #' max; mcFold is more apt at accumulating data since the first option simplifies the
-#' f function.
+#' f function. Both mcReduce and mcFold may be used to emulate tail recursion over a list.
 #'   
 #' @name mcReduce
 #' 

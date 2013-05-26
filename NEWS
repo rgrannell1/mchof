@@ -10,12 +10,15 @@ New Functions:
 Improvements:
 
 * significant improvements made to the documentation.
-* code internally rewritten with the itertools library
+* error reporting improved; data that triggered the fail and its class now alway
+displayed.
+* itertools now used as a dependency, to help speed up the development. User-visible
+changes should be minimal.
 
 API changes:
 
 Bug Fixes:
-
+* bug with option handling fixed.
 * errors in documentation fixed.
 
 Version 0.2 (2013-05-03)
