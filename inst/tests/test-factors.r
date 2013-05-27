@@ -14,13 +14,13 @@ test_that("errors thrown by all functions", {
 	
 	expect_error(mcFilter(true_fun, test_factor), 'factor')	
 	
-	expect_error(mcZipWith(truefun, list(test_factor, test_factor)), 'factor')
+	expect_error(mcZipWith(true_fun, list(test_factor, test_factor)), 'factor')
 	
 	expect_error(mcZip(list(test_factor, test_factor)), 'factor')
 	
 	expect_error(mcUnzip(list(test_factor)), 'factor')
 	
-	expect_error(mcUnzipWith(truefun, list(test_factor)), 'factor')
+	expect_error(mcUnzipWith(true_fun, list(test_factor)), 'factor')
 	
 	expect_error(mcPartition(true_fun, test_factor), 'factor')		
 	
