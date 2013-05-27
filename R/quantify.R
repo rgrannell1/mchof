@@ -87,7 +87,7 @@ mcAny <- function (f, x, paropts = NULL) {
 
 	job_indices <- ihasNext(
 		ichunk(
-			iterable = x,
+			iterable = seq_along(x),
 			chunkSize = ncores
 	))
 	
