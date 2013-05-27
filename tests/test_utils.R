@@ -61,3 +61,7 @@ forall <- function (
 		results)
 	messagef('okay, passed %s tests', length(results))
 }
+
+all_equal <- function (x) {
+	length(unique(x)) == 1	
+}
