@@ -14,7 +14,7 @@ closure_over_multiplication <- function (set) {
 }
 
 forall(info = 'any is true when all is true', 
-	list(x_ = r_int_vectors(), paropts_ = r_paropts())
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) mcAny(prime_property, x_, paropts_),
 	given = function (x_, paropts_) {
 		mcAll(prime_property, x_, paropts_)
@@ -22,10 +22,10 @@ forall(info = 'any is true when all is true',
 )
 
 forall(info = 'any is true when one is true & when all is false', 
-	list(x_ = r_int_vectors(), paropts_ = r_paropts())
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		mcOne(prime_property, x_, paropts_)
-	}
+	},
 	given = function (x_, paropts_) {
 		!mcAll(prime_property, x_, paropts_) &&
 		mcAny(prime_property, x_, paropts_)
@@ -33,10 +33,10 @@ forall(info = 'any is true when one is true & when all is false',
 )
 
 forall(info = 'any is true when all is true', 
-	list(x_ = r_int_vectors(), paropts_ = r_paropts())
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) mcAny(prime_property, x_, paropts_),
-		given = function (x_, paropts_) {
-		mcAll(prime_property, x_, paropts_)
+	given = function (x_, paropts_) {
+			mcAll(prime_property, x_, paropts_)
 	}
 )
 

@@ -1,47 +1,11 @@
 
 context("check that Find's normal cases work")
 
-test_that("variety of cases", {
-	
-	expect_equal(
-		mcFind(
-			f = function (x){
-				x == 'c'
-			},	
-			x = c('a', 'b', 'c', 'd'),
-			right = FALSE,
-			paropts = list(mc.cores = 2) ), 'c')
-	
-	expect_equal(
-		mcFind(
-			f = function (x) x == 'c',	
-			x = c('a', 'b', 'c', 'd'),
-			right = TRUE,
-			paropts = list(mc.cores = 10) ), 'c')
-	
-	expect_equal(
-		mcFind(
-			f = function (x) x > 5,	
-			x = 1:10,
-			right = TRUE,
-			paropts = list(mc.cores = 20) ), 10)
-	
-	expect_equal(
-		mcFind(
-			f = function (x) x > 5 && x < 8,	
-			x = 1:10,
-			right = FALSE,
-			paropts = list(mc.cores = 5) ), 6)
-	
-	expect_equal(
-		mcFind(
-			f = function (x) x > 5 && x < 8,	
-			x = 1:10,
-			right = TRUE,
-			paropts = list(mc.cores = 5) ), 7)
-
-})
-
-
-
-
+forall(info = "in the sequence 1...n, the nth element is n",
+	list(n_ = r_integers(), x_ = r_seq_len(), paropts_ = r_paropts()),
+	function (n_, x_, paropts_) {
+		mcFind(function (y) y == n_, x_, FALSE, paropts_) &&
+		mcFind(function (y) y == n_, rev(x_), right = TRUE, paropts_)	
+	},
+	given = function (n_, x_, paropts_) n_ %in% x_
+)
