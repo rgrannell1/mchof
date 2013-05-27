@@ -1,9 +1,8 @@
 
 context("zip: normal cases")
 
-forall(
+forall(	info = 'zip <-> unzip ~ original',
 	list(x_ = r_tuple_list(), paropts_ = r_paropts()),
-	info = 'zip <-> unzip ~ original',
 	function (x_, paropts_) {
 		
 		identity_2 <- mcUnzip %of% mcZip
@@ -16,3 +15,8 @@ forall(
 	}
 )
 
+context("unzip: normal cases")
+
+context("zipwith: normal cases")
+
+context("unzipwith: normal cases")

@@ -12,10 +12,8 @@ Improvements:
 * significant improvements made to the documentation.
 * error reporting improved; data that triggered the fail and its class now alway
 displayed.
-* itertools now used as a dependency, to help speed up the development. User-visible
-changes should be minimal.
-
-API changes:
+* itertools now used as a dependency, to help speed up the development of new
+functions. User-visible changes as a result of this should be minimal.
 
 Bug Fixes:
 * bug with option handling fixed.
