@@ -66,6 +66,11 @@ r_seq_len <- function (n=100) {
 		function (...) 1:pick_len(20),
 	n)
 }
+r_int_vectors <- function (n=100) {
+	repl(
+		function(...) r_integers(pick_len(20))	
+	n)
+}
 r_small_named_list <- function (n=100) {
 	repl(
 		function (...) {

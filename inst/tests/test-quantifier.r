@@ -9,6 +9,9 @@ prime_property <- function (n) {
 	}
 	is_prime(n) && is_prime(n^2 - 1)
 }
+closure_over_multiplication <- function (set) {
+	is.numeric(prod(set))
+}
 
 forall(info = 'any is true when all is true', 
 	list(x_ = r_int_vectors(), paropts_ = r_paropts())
@@ -27,4 +30,19 @@ forall(info = 'any is true when one is true & when all is false',
 		!mcAll(prime_property, x_, paropts_) &&
 		mcAny(prime_property, x_, paropts_)
 	}
+)
+
+forall(info = 'any is true when all is true', 
+	list(x_ = r_int_vectors(), paropts_ = r_paropts())
+	function (x_, paropts_) mcAny(prime_property, x_, paropts_),
+		given = function (x_, paropts_) {
+		mcAll(prime_property, x_, paropts_)
+	}
+)
+
+forall(info = 'a x b is an integer',
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		mcAll(closure_over_multiplication, x_, paropts_)
+	}	
 )
