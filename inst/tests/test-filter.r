@@ -1,5 +1,5 @@
 
-context("filter: normal-cases")
+context("filter: normal cases")
 
 forall(info = 'reject falsefun == x_',
 	   list(x_ = r_seq_len(), paropts_ = r_paropts()),
