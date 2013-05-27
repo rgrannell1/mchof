@@ -6,14 +6,12 @@ context("ensure that there is some speedup from the package")
 test_that("find", {
 
 	expect_that(
-		mcFind(
-			function (x) {
-				Sys.sleep(0.5)
-				FALSE
-			},	
-			x = seq_len(20),
-			paropts = list(mc.cores = 2) ),		
-			takes_less_than(6) )
+		mcFind(function (x) {
+			Sys.sleep(0.5)
+			FALSE
+		},	
+		x = seq_len(20), paropts = list(mc.cores = 2) ),		
+		takes_less_than(6) )
 
 })
 
@@ -42,6 +40,19 @@ test_that("filter", {
 			paropts = list(mc.cores = 2) ),		
 		takes_less_than(6) )
 })
+test_that("reject", {
+	
+	expect_that(
+		mcReject(
+			function (x) {
+				Sys.sleep(0.5)
+				FALSE
+			},	
+			x = seq_len(20),
+			paropts = list(mc.cores = 2) ),		
+		takes_less_than(6) )
+})
+
 test_that("find", {
 	
 	expect_that(
@@ -97,8 +108,6 @@ test_that("fold", {
 		takes_less_than(6) )
 	
 })
-
-### mchof 0.2 functions
 
 test_that("zipwith", {
 	
