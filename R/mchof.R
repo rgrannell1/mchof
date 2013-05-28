@@ -97,6 +97,13 @@
 #'     function (...) as_boolean_two(...)
 #' }
 #' 
+#' @section Strings as Function Names:
+#' 
+#' It is possible to call functions by passing there name to an mchof function as a string;
+#' this is useful for calling operators such as plus and minus. For example;
+#' 
+#' \code{mcReduce('+', 1:10)}
+#' 
 #' @docType package
 #' @name mchof
 

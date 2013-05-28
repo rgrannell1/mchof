@@ -25,6 +25,6 @@ mcUnzipWith(
 	function (x) list(ind_1 = x[1], ind_2 = x[2], ind_3 = x[3]),
 	list(
 		list('FORTRAN', 'no'),
-		list('HASKELL', 'yes')
+		list('HASKELL', 'yes'),
 		list('CLOJURE', 'yes')
 ))

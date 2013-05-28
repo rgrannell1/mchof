@@ -9,6 +9,7 @@ prime_property <- function (n) {
 	}
 	is_prime(n) && is_prime(n^2 - 1)
 }
+
 closure_over_multiplication <- function (set) {
 	is.numeric(prod(set))
 }
