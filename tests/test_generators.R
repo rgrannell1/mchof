@@ -78,3 +78,12 @@ r_small_named_list <- function (n=100) {
 		}, n
 	)
 }
+r_empty_lists <- function (n=100) {
+	tuple_length <- pick_len(20)
+	
+	Map(
+		function (...) {
+			repl(function (...) list(), tuple_length)
+		},
+		seq_len(pick_len(n)))
+}
