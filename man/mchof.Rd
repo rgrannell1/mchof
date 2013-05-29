@@ -90,19 +90,12 @@
 
   # TRUE -> TRUE, FALSE -> FALSE, NA -> FALSE
 
-  \code{as_boolean_one <- function (x) {
-
-  isTRUE(x)
-
-  }}
+  \code{as_boolean_one <- function (x) { isTRUE(x) }}
 
   # TRUE -> TRUE, FALSE -> FALSE, NA -> TRUE
 
-  \code{as_boolean_two <- function (x) {
-
-  isTRUE(x) || is.na(x)
-
-  }}
+  \code{as_boolean_two <- function (x) { isTRUE(x) ||
+  is.na(x) }}
 
   or alternatively the higher-order functions
 

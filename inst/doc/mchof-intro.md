@@ -1,0 +1,72 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Functional Programming with mchof}
+-->
+
+Functional Programming with mchof
+=================================
+
+## 1 Introduction
+
+## 2 Installation
+
+You have presumably installed mchof if you are reading this vignette; if not
+you can simply type
+````
+install.packages('mchof')
+```
+Into the console. It is also possible to install the 
+development version of mchof by using `install_github('mchof', 'rgrannell1)`, 
+though this is not recommended; the development version is usually unstable. 
+Updates will be released roughly every month, for the first few releases.
+
+## 3 Functional Programming Basics
+
+
+
+
+## 4 Using `mchof`
+
+### 4.1 Parallel Options
+
+### 4.2 Multiple Argument Functions
+
+### 4.3 NA Handling
+
+### 4.4 Strings as Function Names
+
+Functions like mcFold and mcReduce take binary functions such as plus or multiply.
+It would be frustrating to have to write `get('+')` every time you wanted to call
+a built in infix operator, so all mchof functions also accept a function name
+in place of an actual function. Here's how you would sum the vector 
+1,...,10 with mcReduce and mcFold respectively.
+
+
+```r
+mcReduce("+", seq_len(10))
+```
+
+```
+## Error: could not find function "mcReduce"
+```
+
+```r
+
+mcFold("+", 0, seq_len(10), list(mc.cores = 2))
+```
+
+```
+## Error: could not find function "mcFold"
+```
+
+
+
+
+
+
+
+```r
+options(markdown.HTML.stylesheet = system.file("misc", "vignette.css", package = "knitr"))
+```
+
+
