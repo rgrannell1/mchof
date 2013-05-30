@@ -49,7 +49,7 @@ pair_fmap <- function (f) {
 	# g(a, b) |-> f(a, b), g(a) |-> a
 	
 	function (x) {
-		if (length(x) == 2) f(x[[1]], x[[2]]) else x[[1]]	
+		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
 	}	
 }
 iterateWhile <- function (f, p, x) {
