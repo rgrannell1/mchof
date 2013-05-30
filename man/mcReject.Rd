@@ -11,7 +11,7 @@
   \item{x}{a list or vector.}
 
   \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see \link{mchof}).}
+  to mclapply (see the vignette).}
 }
 \value{
   returns a list of elements for which f returned FALSE or
@@ -35,7 +35,7 @@
   give you the original set x (though unordered). The user
   can modify this behaviour by making sure the argument f
   returns TRUE is a value is NA under coersion, as
-  described in \link{mchof}.
+  described in the vignette.
 }
 \examples{
 # remove NA values from a vector 

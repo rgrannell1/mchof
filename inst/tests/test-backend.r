@@ -36,7 +36,7 @@ if (exists('call_mclapply')) {
 		
 		expect_equal(
 			call_mclapply(function(x) !is.na(x),
-						  c(1, 2, 3, NA, 4, 5)), list(TRUE, TRUE, TRUE, FALSE, TRUE, TRUE))
+			c(1, 2, 3, NA, 4, 5)), list(TRUE, TRUE, TRUE, FALSE, TRUE, TRUE))
 		
 	})
 	

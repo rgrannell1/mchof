@@ -8,7 +8,7 @@
   \item{x}{a list of lists or vectors}
 
   \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see \link{mchof}).}
+  to mclapply (see the vignette).}
 }
 \description{
   mcUnzip is the inverse function of mcZip; it takes a list

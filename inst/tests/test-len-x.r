@@ -2,6 +2,8 @@ context("special length cases of x handled consistently")
 
 true_fun <- function(x) TRUE
 
+FLAG()
+
 test_that('NULL handling behaviour is as expected', {
 	
 	# NULL |-> integer(0)

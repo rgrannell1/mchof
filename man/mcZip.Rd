@@ -8,7 +8,7 @@
   \item{x}{a list of lists}
 
   \item{paropts}{a list of parameters to be handed to
-  mclapply (see \link{mchof}).}
+  mclapply (see the vignette).}
 }
 \value{
   returns a list of n element lists.

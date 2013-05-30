@@ -12,7 +12,7 @@ Functional Programming with mchof
 
 You have presumably installed mchof if you are reading this vignette; if not
 you can simply type
-````
+```
 install.packages('mchof')
 ```
 Into the console. It is also possible to install the 
@@ -48,6 +48,7 @@ This can be a problem when you want to set optional parameters for the input fun
 Take for example, if you want to concatenate the elements of a vector with commas
 seperating each element you could use;
 
+
 ```r
 comma_paste <- function(vector) {
     paste0(vector, collapse = ", ")
@@ -66,10 +67,12 @@ Map(comma_paste, list(c("a", "b", "c"), c("1", "2", "3"), c("do", "ray", "me")))
 ## [1] "do, ray, me"
 ```
 
+
 Before handing the multi-parameter paste0 function to `Map( )` it is transformed
 into a one-parameter function `comma_paste( )`. This type of transformation is 
 known as *currying*. Generally it is more convenient to do this kind of transformation
 using an anonymous function.
+
 
 ```r
 pasted_vectors <- Map(comma_paste, list(c("a", "b", "c"), c("1", "2", "3"), 
@@ -83,6 +86,7 @@ mcFilter(function(vector) {
 ```
 ## Error: could not find function "mcFilter"
 ```
+
 
 ### 4.3 NA Handling
 
@@ -164,7 +168,9 @@ mcReduce("+", seq_len(10))
 ## Error: could not find function "mcReduce"
 ```
 
+
 or
+
 
 ```r
 mcFold("+", 0, seq_len(10), list(mc.cores = 2))
@@ -173,8 +179,6 @@ mcFold("+", 0, seq_len(10), list(mc.cores = 2))
 ```
 ## Error: could not find function "mcFold"
 ```
-
-
 
 
 

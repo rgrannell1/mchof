@@ -30,7 +30,7 @@
 #' @param f a binary function
 #' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'    
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x.

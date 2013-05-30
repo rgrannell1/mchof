@@ -1,7 +1,7 @@
 
 context("zip & unzip: normal cases")
 
-forall(info = 'zip <-> unzip ~ original',
+forall(info = "zip is an approximate inverse of unzip",
 	list(x_ = c(r_tuple_list(), r_empty_lists()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		
@@ -15,7 +15,7 @@ forall(info = 'zip <-> unzip ~ original',
 	}
 )
 
-forall(info = "output length is uniform", 
+forall(info = "the length of the outputted tuples is uniform", 
 	list(x_ = r_flat_no_null(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		all_equal(sapply(mcZip(x_, paropts_), length)) &&
@@ -23,12 +23,26 @@ forall(info = "output length is uniform",
 	}
 )
 
+forall(info = "the order of the tuples is as expected",
+	list(x_ = r_flat_no_null(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+	
+	}
+)
+
+forall(info = "structure of the output is preserved for list( )",
+	list(x_ = r_flat_no_null(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		
+	}
+)
+
 context("zipwith & unzipwith: normal cases")
 
-forall(info = "check that functions are being applied to tuples",
+forall(info = "check that the function is mapped over the tuples",
 	list(x_ = r_tuple_list(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		mcUnzipWith(
-			function (n) list(unlist(n)^2), x_, paropts_)
+			function (n) list(unlist(n^2)), x_, paropts_)
 	}
 )

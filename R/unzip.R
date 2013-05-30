@@ -9,7 +9,7 @@
 #' giving the name of such a function.
 #' @param x a list of lists or vectors
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'    
 #' @details list names are dropped without warning during unzipping; an example below shows how to add
 #' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
@@ -74,7 +74,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @export
 #' @param x a list of lists or vectors
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #' 
 #' @details list names are dropped without warning during unzipping; an example below shows how to add
 #' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 

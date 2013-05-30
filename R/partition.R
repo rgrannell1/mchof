@@ -8,7 +8,7 @@
 #' giving the name of such a function.
 #' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'
 #' @return returns a list of two lists; the first list contains the values 
 #' for which f returned true, the other contains values that returned false or NA.

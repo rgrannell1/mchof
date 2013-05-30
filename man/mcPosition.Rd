@@ -15,7 +15,7 @@
   FALSE.}
 
   \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see \link{mchof}).}
+  to mclapply (see the vignette).}
 }
 \value{
   returns an integer. If no match is found, x is null or of
@@ -32,7 +32,7 @@
   functionals in base R and this library. NA's obtained
   while applying f to x will be assumed to be FALSE. the
   user can sidestep this behaviour easily, if necessary
-  (see \link{mchof}).
+  (see the vignette).
 }
 \examples{
 

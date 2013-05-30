@@ -11,7 +11,7 @@
   \item{x}{a list or vector.}
 
   \item{paropts}{a list of parameters to be handed to
-  mclapply (see \link{mchof}).}
+  mclapply (see the vignette).}
 }
 \value{
   returns the result of mapping f over a list of n element

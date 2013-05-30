@@ -11,7 +11,7 @@
   \item{x}{a list or vector.}
 
   \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see \link{mchof}).}
+  to mclapply (see the vignette).}
 }
 \value{
   returns a list of two lists; the first list contains the

@@ -11,7 +11,7 @@
   \item{x}{a list or vector.}
 
   \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see \link{mchof}).}
+  to mclapply (see the vignette).}
 }
 \value{
   returns TRUE if f is true for one element in x, otherwise
@@ -25,7 +25,7 @@
 \details{
   NA's obtained while applying f to x will be assumed to be
   FALSE. the user can sidestep this behaviour easily, if
-  necessary (see \link{mchof}).
+  necessary (see the vignette).
 }
 \examples{
 

@@ -9,7 +9,7 @@
 #' giving the name of such a function.
 #' @param x a list or vector.
 #' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'    
 #' @return returns the result of mapping f over a list of n element lists.
 #'    
@@ -80,7 +80,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' @export
 #' @param x a list of lists
 #' @param paropts a list of parameters to be handed to 
-#' mclapply (see \link{mchof}).
+#' mclapply (see the vignette).
 #' 
 #' @return returns a list of n element lists.
 #'    

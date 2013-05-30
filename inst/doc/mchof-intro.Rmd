@@ -47,6 +47,7 @@ This can be a problem when you want to set optional parameters for the input fun
 
 Take for example, if you want to concatenate the elements of a vector with commas
 seperating each element you could use;
+
 ```{r}
 comma_paste <- function (vector) {
 	paste0(vector, collapse = ", ")
@@ -59,10 +60,12 @@ Map(
 		c("do", "ray", "me")
 	))
 ```
+
 Before handing the multi-parameter paste0 function to `Map( )` it is transformed
 into a one-parameter function `comma_paste( )`. This type of transformation is 
 known as *currying*. Generally it is more convenient to do this kind of transformation
 using an anonymous function.
+
 ```{r}
 pasted_vectors <- Map(
 	comma_paste, 
@@ -82,6 +85,7 @@ mcFilter(
 		c("do", "ray", "me"))
 )
 ```
+
 ### 4.3 NA Handling
 
 This package is composed of many small, composable functions as opposed to larger 
@@ -147,7 +151,9 @@ in place of an actual function. For example, if you wanted to sum the vector
 ```{r}
 mcReduce('+', seq_len(10))
 ```
+
 or
+
 ```{r}
 mcFold('+', 0, seq_len(10), list(mc.cores = 2))
 ```

@@ -59,7 +59,7 @@ forall <- function (
 				paste0(deparse(test$args), collapse = ', '))
 		},
 		results)
-	messagef('okay, passed %s tests', length(results))
+	messagef('%s:\n\t true, passed %s tests', info, length(results))
 }
 
 all_equal <- function (x) {

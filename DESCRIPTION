@@ -26,7 +26,6 @@ VignetteBuilder: knitr
 Collate:
     'call_mclapply.R'
     'filter.R'
-    'mchof.R'
     'partition.R'
     'position.R'
     'reduce.R'

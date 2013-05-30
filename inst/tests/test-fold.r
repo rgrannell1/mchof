@@ -19,8 +19,8 @@ forall(
 	info = "check that small named list concatenation works",
 	list(x_ = r_letters(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
-		concat <- c(x_)
-		identical( mcFold(c, NULL, x_, paropts_), concat )
+	
 	}
 )
 
+FLAG()

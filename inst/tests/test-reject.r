@@ -1,14 +1,14 @@
 
 context("reject: normal cases")
 
-forall(info = 'reject falsefun == x_',
+forall(info = 'reject FALSE x -> x',
 	list(x_ = r_seq_len(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		identical(
 			mcReject(function (...) FALSE, x_, paropts_), x_)
 	}
 )
-forall(info = 'reject should select odd numbers',
+forall(info = 'given a function that returns true for odd ints, returns evn ints',
 	   list(x_ = r_seq_len(), paropts_ = r_paropts()),
 	   function (x_, paropts_) {
 	   	

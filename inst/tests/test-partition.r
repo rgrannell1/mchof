@@ -1,7 +1,7 @@
 
-context ("test that mcPartition is well behaved for normal cases")
+context("mcPartition: normal cases")
 
-forall(info = "true cases first, then false cases",
+forall(info = "partition (a -> true) -> x is equal to x",
 	list(x_ = r_seq_len(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		res <- mcPartition(function (x) TRUE, x_)

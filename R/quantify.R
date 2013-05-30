@@ -5,7 +5,7 @@
 #' elements in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}). 
+#' the user can sidestep this behaviour easily, if necessary (see the vignette). 
 #' 
 #' @name mcAll
 #' 
@@ -13,7 +13,7 @@
 #' giving the name of a function.
 #' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'    
 #' @keywords mcAll
 #' @example inst/examples/examples-all.r
@@ -48,7 +48,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #' elements in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
+#' the user can sidestep this behaviour easily, if necessary (see the vignette).
 #' 
 #' @name mcAny
 #' 
@@ -56,7 +56,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #' giving the name of a function.
 #' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'    
 #' @keywords mcAny
 #' @example inst/examples/examples-any.r
@@ -125,7 +125,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #' element in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
+#' the user can sidestep this behaviour easily, if necessary (see the vignette).
 #' 
 #' @name mcOne
 #' 
@@ -133,7 +133,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #' giving the name of a function.
 #' @param x a list or vector.
 #' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'    mclapply (see the vignette).
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an

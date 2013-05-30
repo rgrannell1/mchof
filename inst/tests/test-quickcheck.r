@@ -1,6 +1,8 @@
 
 context('quickcheck functions where possible')
 
+FLAG("need to remove this file")
+
 denullify <- function (x) {
 	# remove the null values from x
 	
@@ -13,7 +15,7 @@ all_equal <- function (x) {
 
 forall(
 	list(x_ = r_flat_no_null(1000), paropts_ = r_paropts(4)),
-	info = 'mcFilter, !mcReject & mcPartition & which are equivelent',
+	info = 'mcFilter, !mcReject, mcPartition & a nullless list which are equivelent',
 	function (x_, paropts_) {
 		
 		res_0 <- denullify(x_)
@@ -28,7 +30,7 @@ forall(
 
 forall(
 	list(x_ = r_integers(1000), paropts_ = r_paropts(4)),
-	info = 'reduce & fold multiplication over integers works',
+	info = 'reduce * [1...n] is fold * [1...n] is [1 * 2 * ... * n]',
 	function (x_, paropts_) {
 		
 		res_0 <- prod(x_)
@@ -54,23 +56,3 @@ forall(
 		all_equal(sapply(x_, length))
 	}
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

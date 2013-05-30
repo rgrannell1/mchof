@@ -1,5 +1,5 @@
 
-context("test that quantifiers work for normal cases")
+context("quantifiers: normal cases")
 
 prime_property <- function (n) {
 	# a property not true of most numbers
@@ -14,7 +14,7 @@ closure_over_multiplication <- function (set) {
 	is.numeric(prod(set))
 }
 
-forall(info = 'any is true when all is true', 
+forall(info = 'all is true implies any is true', 
 	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) mcAny(prime_property, x_, paropts_),
 	given = function (x_, paropts_) {
@@ -22,7 +22,7 @@ forall(info = 'any is true when all is true',
 	}
 )
 
-forall(info = 'any is true when one is true & when all is false', 
+forall(info = 'one is true implies all is false and any is true', 
 	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		mcOne(prime_property, x_, paropts_)
@@ -33,7 +33,7 @@ forall(info = 'any is true when one is true & when all is false',
 	}
 )
 
-forall(info = 'any is true when all is true', 
+forall(info = "all is true implies any is true", 
 	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) mcAny(prime_property, x_, paropts_),
 	given = function (x_, paropts_) {
@@ -41,7 +41,7 @@ forall(info = 'any is true when all is true',
 	}
 )
 
-forall(info = 'a x b is an integer',
+forall(info = "a x b always yields an integer",
 	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		mcAll(closure_over_multiplication, x_, paropts_)
