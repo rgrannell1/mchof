@@ -92,7 +92,8 @@ dframe_func_times$id <- 1:7
 ggplot(data = dframe_func_times) + 
 geom_point(aes(x = id, y = value, color = variable)) +
 geom_line(aes(x = id, y = value, color = variable), alpha = 1/2) +	
-geom_text(aes(x = id, y = value, color = variable, label = variable)) +
+geom_text(aes(x = id, y = value, color = variable, label = variable), 
+	position = position_jitter(width = 0.5, height = 0.5)) +
 xlab("a x n") + 
 ylab("seconds") + 
 ggtitle("mchof benchmarks vs control benchmark")
