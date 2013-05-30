@@ -206,17 +206,117 @@ Updates will be released roughly every month, for the first few releases.</p>
 
 <h3>4.1 Parallel Options</h3>
 
+<p>Mchof currently uses mclapply from the parallel library for its parallel backend. 
+<code>mclapply( )</code> works with very little effort on the part of the user, but unfortunately
+it doesn&#39;t work on windows (since windows does not allow forking). </p>
+
+<p>It is likely that this will change in upcoming versions in order to add support for windows;
+as of now the most important option is mc.cores, which sets the number of 
+processes to spawn. </p>
+
+<p>For further details see <code>mclapply( )</code> in the parallel library for a more complete 
+description of the options that can be used with mchof. </p>
+
+<p>Note that for obvious reasons FUN or X cannot be set in paropts in case they
+conflict with f and x (arguments available to most mchof functions).</p>
+
 <h3>4.2 Multiple Argument Functions</h3>
 
+<p>Most functions used with higher-order functions take a fixed number of arguments.
+This can be a problem when you want to set optional parameters for the input function.</p>
+
+<p>Take for example, if you want to concatenate the elements of a vector with commas
+seperating each element you could use;</p>
+
+<pre><code class="r">comma_paste &lt;- function(vector) {
+    paste0(vector, collapse = &quot;, &quot;)
+}
+Map(comma_paste, list(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;), c(&quot;do&quot;, &quot;ray&quot;, &quot;me&quot;)))
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;a, b, c&quot;
+## 
+## [[2]]
+## [1] &quot;1, 2, 3&quot;
+## 
+## [[3]]
+## [1] &quot;do, ray, me&quot;
+</code></pre>
+
+<p>Before handing the multi-parameter paste0 function to <code>Map( )</code> it is transformed
+into a one-parameter function <code>comma_paste( )</code>. This type of transformation is 
+known as <em>currying</em>. Generally it is more convenient to do this kind of transformation
+using an anonymous function.</p>
+
+<pre><code class="r">pasted_vectors &lt;- Map(comma_paste, list(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;), 
+    c(&quot;do&quot;, &quot;ray&quot;, &quot;me&quot;)))
+
+mcFilter(function(vector) {
+    paste0(vector, collapse = &quot;, &quot;) == &quot;a, b, c&quot;
+}, list(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;), c(&quot;do&quot;, &quot;ray&quot;, &quot;me&quot;)))
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;mcFilter&quot;
+</code></pre>
+
 <h3>4.3 NA Handling</h3>
+
+<p>This package is composed of many small, composable functions as opposed to larger 
+functions with many optional parameters. </p>
+
+<p>Several functions (including mcFilter, mcReject) take a function that returns
+TRUE or FALSE. R uses three-value logic (TRUE, FALSE, NA), so NA must be converted
+either TRUE or FALSE internally. Users can control which value
+NA is converted to by <em>composing</em> their original function with one of these 
+three functions;</p>
+
+<pre><code class="r">na_as_true &lt;- function(f) {
+    function(...) {
+        logical &lt;- as.logical(f(...))
+        is.na(logical) || logical
+    }
+}
+</code></pre>
+
+<pre><code class="r">na_as_false &lt;- function(f) {
+    function(...) {
+        logical &lt;- as.logical(f(...))
+        isTRUE(logical)
+    }
+}
+</code></pre>
+
+<pre><code class="r">na_as_error &lt;- function(f) {
+    function(...) {
+        logical &lt;- as.logical(f(...))
+        if (is.na(logical)) {
+            stop(&quot;NA produced&quot;, call. = FALSE)
+        }
+    }
+}
+</code></pre>
+
+<p>Each of these functions returns a new, modified function with the appropriate
+error handling behaviour.</p>
+
+<p>For example, mcFilter assumes that NA means FALSE. If we were trying to get every
+value divisible by two but we also wanted to keep values that produced NA, we 
+could use the following</p>
+
+<pre><code class="r">mcFilter(na_as_true(function(x) x%%2), c(1:10, NA))
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;mcFilter&quot;
+</code></pre>
 
 <h3>4.4 Strings as Function Names</h3>
 
 <p>Functions like mcFold and mcReduce take binary functions such as plus or multiply.
 It would be frustrating to have to write <code>get(&#39;+&#39;)</code> every time you wanted to call
-a built in infix operator, so all mchof functions also accept a function name
-in place of an actual function. Here&#39;s how you would sum the vector 
-1,&hellip;,10 with mcReduce and mcFold respectively.</p>
+an infix operator, so all mchof functions also accept a function name
+in place of an actual function. For example, if you wanted to sum the vector 
+1..10 you might write something like; </p>
 
 <pre><code class="r">mcReduce(&quot;+&quot;, seq_len(10))
 </code></pre>
@@ -224,8 +324,9 @@ in place of an actual function. Here&#39;s how you would sum the vector
 <pre><code>## Error: could not find function &quot;mcReduce&quot;
 </code></pre>
 
-<pre><code class="r">
-mcFold(&quot;+&quot;, 0, seq_len(10), list(mc.cores = 2))
+<p>or</p>
+
+<pre><code class="r">mcFold(&quot;+&quot;, 0, seq_len(10), list(mc.cores = 2))
 </code></pre>
 
 <pre><code>## Error: could not find function &quot;mcFold&quot;
