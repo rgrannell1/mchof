@@ -54,6 +54,9 @@ test_one <- function (x) {
 test_position <- function (x) {
 	mcPosition(function (y) FALSE, x)
 }
+test_old_position <-  function (x) {
+	Position(function (y) FALSE, x)
+}
 test_find <- function (x) {
 	mcFind(function (y) FALSE, x)
 }
@@ -78,23 +81,27 @@ timing <- Map(
 			any = run_test(test_any(x)),
 			one = run_test(test_one(x)),
 			position = run_test(test_position(x)),
+			old_position = run_test(test_old_position(x)),
 			find = run_test(test_find(x)))
 	},
-	round(seq(1, 100000, len = 6), 0)
+	round(seq(1, 20000, len = 6), 0)
 )
 
 func_times <- structure(
 	Map(unlist, mcUnzip(timing)),
 	names =  c(
 		"reduce", "fold", "old_reduce", "zip", "unzip", "zipwith", "unzipwith",
-		"filter", "partition", "reject", "all", "any", "one", "position",
+		"filter", "partition", "reject", "all", "any", "one", "position", "old_position",
 		"find")
 )
 dframe_func_times <- cbind(ind = 1:6, melt(as.data.frame(func_times)))
 
 ggplot(data = dframe_func_times) + 
-geom_line(aes(x = ind, y = value, color = variable)) +
-xlab("a x n") + ylab("seconds") + ggtitle("mchof benchmarks")
+geom_point(aes(x = ind, y = value, color = variable)) +
+geom_line(aes(x = ind, y = value, color = variable), alpha = 1/2) +	
+geom_text(aes(x = ind, y = value, color = variable, label = variable)) +
+	
+xlab("a x n") + ylab("seconds") + ggtitle("mchof benchmarks vs control benchmarks")
 
 
 
