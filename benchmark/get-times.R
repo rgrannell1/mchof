@@ -27,38 +27,30 @@ test_unzip <- function (x) {
 			tail(x, ceiling(length(x)/2)))
 	)
 }
-test_zipwith <- function (x) {
-	mcZipWith(paste0, x)
-}
-test_unzipwith <- function (x) {
-	mcUnzipWith(paste0, x)
-}
-test_filter <- function (x) {
-	mcFilter(function (y) FALSE, x)
-}
-test_partition <- function (x) {
-	mcPartition(function (y) FALSE, x)
-}
-test_reject <- function (x) {
-	mcReject(function (y) FALSE, x)
-}
-test_all <- function (x) {
-	mcAll(function (y) TRUE, x)
-}
-test_any <- function (x) {
-	mcAny(function (y) TRUE, x)
-}
-test_one <- function (x) {
-	mcOne(function (y) TRUE, x)
-}
+test_zipwith <- function (x) mcZipWith(paste0, x)
+
+test_unzipwith <- function (x) mcUnzipWith(paste0, x)
+
+test_filter <- function (x) mcFilter(function (y) FALSE, x)
+
+test_partition <- function (x) mcPartition(function (y) FALSE, x)
+
+test_reject <- function (x) mcReject(function (y) FALSE, x)
+
+test_all <- function (x) mcAll(function (y) TRUE, x)
+
+test_any <- function (x) mcAny(function (y) TRUE, x)
+
+test_one <- function (x) mcOne(function (y) TRUE, x)
+
 test_position <- function (x) {
-	mcPosition(function (y) FALSE, x)
+	#mcPosition(function (y) FALSE, x)
 }
-test_old_position <-  function (x) {
-	Position(function (y) FALSE, x)
-}
+
+test_old_position <-  function (x) Position(function (y) FALSE, x)
+
 test_find <- function (x) {
-	mcFind(function (y) FALSE, x)
+	#mcFind(function (y) FALSE, x)
 }
 
 timing <- Map(
@@ -84,7 +76,7 @@ timing <- Map(
 			old_position = run_test(test_old_position(x)),
 			find = run_test(test_find(x)))
 	},
-	round(seq(1, 20000, len = 6), 0)
+	c(1, 10, 100, 1000, 10000, 100000)
 )
 
 func_times <- structure(
@@ -94,14 +86,13 @@ func_times <- structure(
 		"filter", "partition", "reject", "all", "any", "one", "position", "old_position",
 		"find")
 )
-dframe_func_times <- cbind(ind = 1:6, melt(as.data.frame(func_times)))
+dframe_func_times <- melt(as.data.frame(func_times))
+dframe_func_times$id <- 1:7
 
 ggplot(data = dframe_func_times) + 
-geom_point(aes(x = ind, y = value, color = variable)) +
-geom_line(aes(x = ind, y = value, color = variable), alpha = 1/2) +	
-geom_text(aes(x = ind, y = value, color = variable, label = variable)) +
-	
-xlab("a x n") + ylab("seconds") + ggtitle("mchof benchmarks vs control benchmarks")
-
-
-
+geom_point(aes(x = id, y = value, color = variable)) +
+geom_line(aes(x = id, y = value, color = variable), alpha = 1/2) +	
+geom_text(aes(x = id, y = value, color = variable, label = variable)) +
+xlab("a x n") + 
+ylab("seconds") + 
+ggtitle("mchof benchmarks vs control benchmark")

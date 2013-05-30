@@ -2,7 +2,7 @@
 \alias{mcReduce}
 \title{mcReduce}
 \usage{
-  mcReduce(f, x, paropts = NULL)
+  to_pairs(x)
 }
 \arguments{
   \item{f}{a binary function}

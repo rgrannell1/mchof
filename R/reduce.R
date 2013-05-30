@@ -39,6 +39,27 @@
 #' @seealso \code{\link{Reduce}}
 #' @keywords mcReduce
 
+to_pairs <- function (x) {
+	# chunk x into lists of two, where possible
+	
+	as.list(ichunk(x, 2))
+}
+pair_fmap <- function (f) {
+	# returns a function that applies f to pairs:
+	# g(a, b) |-> f(a, b), g(a) |-> a
+	
+	function (x) {
+		if (length(x) == 2) f(x[[1]], x[[2]]) else x[[1]]	
+	}	
+}
+iterateWhile <- function (f, p, x) {
+	# pipe the output x of f into f, 
+	# until p(x) is true
+	
+	while( !p(x) ) x <- f(x)
+	x
+} 
+
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
@@ -53,27 +74,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
-
-	to_pairs <- function (x) {
-		# chunk x into lists of two, where possible
 	
-		as.list(ichunk(x, 2))
-	}
-	pair_fmap <- function (f) {
-		# returns a function that applies f to pairs:
-		# g(a, b) |-> f(a, b), g(a) |-> a
-		
-		function (x) {
-			if (length(x) == 2) f(x[[1]], x[[2]]) else x[[1]]	
-		}	
-	}
-	iterateWhile <- function (f, p, x) {
-		# pipe the output x of f into f, 
-		# until p(x) is true
-		
-		while( !p(x) ) x <- f(x)
-		x
-	} 
 	g <- pair_fmap(f)
 
 	reduced <- iterateWhile (
