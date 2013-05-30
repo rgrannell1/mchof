@@ -1,13 +1,13 @@
 context("special length cases of x handled consistently")
 
-true_fun <- function(x) TRUE
+true_fun <- function (x) TRUE
 
-FLAG()
+FLAG("special cases need to be nailed down for 0.3")
 
 test_that('NULL handling behaviour is as expected', {
 	
 	# NULL |-> integer(0)
-	expect_equal(mcPosition(true_fun, integer(0)), integer(0))
+	expect_equal(mcPosition(true_fun, NULL), integer(0))
 
 	# NULL |-> NULL
 	expect_equal(mcFind(true_fun, NULL), NULL)	

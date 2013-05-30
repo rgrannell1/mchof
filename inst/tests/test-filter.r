@@ -8,7 +8,7 @@ forall(info = "mcFilter (a -> TRUE) -> x is equal to x",
 	   		mcFilter(function (...) TRUE, x_, paropts_), x_)
 	   }
 )
-forall(info = 'given a function that returns true for odd ints, returns odd ints',
+forall(info = "mcFilter (int -> TRUE) -> x is equal to the odds in x",
 	   list(x_ = r_seq_len(), paropts_ = r_paropts()),
 	   function (x_, paropts_) {
 	   	
