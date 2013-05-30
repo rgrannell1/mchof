@@ -26,9 +26,13 @@ forall <- function (
 	testargs_iter <- ihasNext(do.call(product, cases))
 	
 	predicate <- function (args) {
-		if (do.call(given, args)) do.call(expect, args) else TRUE
+		if (do.call(given, args)) {
+			tests_ran <<- tests_ran + 1
+			do.call(expect, args)
+		} else TRUE
 	}
 	
+	tests_ran <- 0 # side-effectfully updated
 	results <- c()
 	time_left <- stopwatch(opts$time)
 	
@@ -59,7 +63,9 @@ forall <- function (
 				paste0(deparse(test$args), collapse = ', '))
 		},
 		results)
-	messagef('%s:\n\t true, passed %s tests', info, length(results))
+	messagef(
+		'%s:\n\t true, passed %s tests (%s tests ran)',
+		info, length(results), tests_ran)
 }
 
 all_equal <- function (x) {
