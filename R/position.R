@@ -28,12 +28,13 @@
 #'   
 #' @example inst/examples/examples-position.r
 #' @keywords mcPosition
-
-FLAG("need to optimise code")
+#' 
 
 mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
+	
+	FLAG("need to improve performance")
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	

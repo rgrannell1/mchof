@@ -1,4 +1,11 @@
 
+FLAG <- function (fmt = "still need to work on this feature", ...) {
+	# a defensive function to prevent an unfinished file being shipped
+	
+	warning (sprintf(
+		paste0(fmt, collapse = "\n"),...), call. = FALSE)
+}
+
 '%of%' <- function (f, g) {
 	function (...) f(g(...))
 }
@@ -6,6 +13,8 @@
 '%throws%' <- function (bool, expr) {
 	# general function, but used specifically for 
 	# throwing exceptions. beware operator presidence
+	
+	stopifnot(is.logical(bool))
 	
 	if (bool) expr
 }
@@ -20,12 +29,6 @@ stopf <- function (fmt, ...) {
 	# combines stop, paste0 and sprintf
 	
 	stop (sprintf(
-		paste0(fmt, collapse = "\n"),...), call. = FALSE)
-}
-FLAG <- function (fmt = "still need to work on this feature", ...) {
-	# a defensive function to prevent an unfinished file being shipped
-	
-	warning (sprintf(
 		paste0(fmt, collapse = "\n"),...), call. = FALSE)
 }
 

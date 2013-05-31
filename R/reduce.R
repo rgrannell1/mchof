@@ -63,6 +63,8 @@ iterateWhile <- function (f, p, x) {
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
+
+	FLAG("need to optimise code")
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	
@@ -88,5 +90,3 @@ mcReduce <- function (f, x, paropts = NULL) {
 	
 	g( reduced[[1]] )
 }
-
-FLAG("need to optimise code")

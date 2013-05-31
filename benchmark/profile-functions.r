@@ -1,70 +1,50 @@
 
-library (digest)
-library (ggplot2)
-library (reshape2)
 library (microbenchmark)
 
-test_all_functions <- function (n = 5, times = 2) {
+profile_mchof <- function (len = 10, times = 1) {
 	# return time data for every function in mchof,
 	# for one value of n
 	
-	run_test <- function (which, n) {
-		stopifnot(n > 1)
+	run_test <- function (which, len) {
+		stopifnot(len > 1)
 		
 		ziplist <- list(
-			seq_len(floor(n/2)),
-			( ceiling(floor(n/2)) + 1):n)
+			seq_len(floor(len / 2)),
+			(ceiling(floor(len / 2)) + 1):len)
 		
 		switch (which, 
-			"mcAll" = mcAll(function (y) TRUE, seq_len(n)),
-			"mcAny" = mcAny(function (y) FALSE, seq_len(n)),
-			"mcFilter" = mcFilter(function (y) TRUE, seq_len(n)),
-			"mcFind" = mcFind(function (y) FALSE, seq_len(n)),
-			"mcFold" = mcFold(function (...) 1, 0, seq_len(n)),
-			"mcOne" = mcOne(function (y) FALSE, seq_len(n)),
-			"mcPartition" = mcPartition(function (y) TRUE, seq_len(n)),
-			"mcPosition" = mcPosition(function (y) FALSE, seq_len(n)),
-			"mcReduce" = mcReduce(function (...) 1, seq_len(n)),
-			"mcReject" = mcReject(function (y) FALSE, seq_len(n)),
+			"mcAll" = mcAll(function (y) TRUE, seq_len()),
+			"mcAny" = mcAny(function (y) FALSE, seq_len(len)),
+			"mcFilter" = mcFilter(function (y) TRUE, seq_len(len)),
+			"mcFind" = mcFind(function (y) FALSE, seq_len(len)),
+			"mcFold" = mcFold(function (...) 1, 0, seq_len(len)),
+			"mcOne" = mcOne(function (y) FALSE, seq_len(len)),
+			"mcPartition" = mcPartition(function (y) TRUE, seq_len(len)),
+			"mcPosition" = mcPosition(function (y) FALSE, seq_len(len)),
+			"mcReduce" = mcReduce(function (...) 1, seq_len(len)),
+			"mcReject" = mcReject(function (y) FALSE, seq_len(len)),
 			"mcZipWith" = mcZipWith(function (y) TRUE, ziplist),
 			"mcUnzipWith" = mcUnzipWith(function (y) TRUE, ziplist)
 		)
 	}
 	
-	timing <- list(
-		funcs = list(
-			mcAll, mcAny,
-			mcFilter, mcFind, mcFold,
-			mcOne, mcPartition, mcPosition,
-			mcReduce, mcReject, mcUnzip,
-			mcUnzipWith, mcZip, mcZipWith),
-		times = summary(microbenchmark(
-			run_test("mcAll", n), run_test("mcAny", n),
-			run_test("mcFilter", n), run_test("mcFind", n),
-			run_test("mcFold", n), run_test("mcOne", n),
-			run_test("mcPartition", n), run_test("mcPosition", n),
-			run_test("mcReduce", n), run_test("mcReject", n),
-			run_test("mcUnzip", n), run_test("mcUnzipWith", n),
-			run_test("mcZip", n), run_test("mcZipWith", n),
-			times = times
-		))	
-	)
-	timing$digests <- Map(
-		function (f) {
-			digest( paste0(deparse(f), collapse = "\n") )
-		},
-		timing$funcs
-	)
-	timing
+	cbind(
+		summary(microbenchmark(
+		run_test("mcAll", len), run_test("mcAny", len),
+		run_test("mcFilter", len), run_test("mcFind", len),
+		run_test("mcFold", len), run_test("mcOne", len),
+		run_test("mcPartition", len), run_test("mcPosition", len),
+		run_test("mcReduce", len), run_test("mcReject", len),
+		run_test("mcUnzip", len), run_test("mcUnzipWith", len),
+		run_test("mcZip", len), run_test("mcZipWith", len),
+		times = times)), data_length = len, date = date(),
+		funcs = sapply(
+			list(
+				mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, 
+				mcPartition, mcPosition, mcReduce, mcReject, 
+				mcUnzip, mcUnzipWith, mcZip, mcZipWith),
+				function (f) {
+					paste0(deparse(f), collapse = "\n")
+				}
+	))
 }
-
-diff <- function (f, g) {
-	f <- strsplit( paste0(deparse(f), collapse = "\n"), split = "")[[1]]
-	g <- strsplit( paste0(deparse(g), collapse = "\n"), split = "")[[1]]
-	
-}
-
-
-
-
-FLAG("need to add a diff tool for functions, and a persistent database")
