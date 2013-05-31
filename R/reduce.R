@@ -88,3 +88,5 @@ mcReduce <- function (f, x, paropts = NULL) {
 	
 	g( reduced[[1]] )
 }
+
+FLAG("need to optimise code")

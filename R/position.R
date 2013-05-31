@@ -29,6 +29,8 @@
 #' @example inst/examples/examples-position.r
 #' @keywords mcPosition
 
+FLAG("need to optimise code")
+
 mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
