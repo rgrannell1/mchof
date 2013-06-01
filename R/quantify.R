@@ -79,42 +79,8 @@ mcAny <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 
-	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
-		abs(paropts$mc.cores)
-	} else if (!is.null(getOption('mc.cores')))  {
-		abs(getOption('mc.cores'))
-	} else 1
-
-	job_indices <- ihasNext(
-		ichunk(
-			iterable = seq_along(x),
-			chunkSize = ncores
-	))
 	
-	while (hasNext(job_indices)) {
-		
-		indices_to_check <- unlist(nextElem(job_indices))
-		
-		checked_ind <- unlist(call_mclapply(
-			f = function (ind) {
-				# returns indices satisfying f
-				
-				is_match <- as.logical(f( x[[ind]] ))	
-				if (isTRUE(is_match)) ind else NaN
-				
-			},
-			x = indices_to_check,
-			paropts
-		))
-		
-		matched_indices <- checked_ind[
-			!is.nan(checked_ind) & checked_ind
-		]
-		
-		if (any(matched_indices)) {
-			return (TRUE)
-		}
-	}
+	
 	FALSE
 }
 
