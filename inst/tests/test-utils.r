@@ -4,7 +4,7 @@ context ("check that forall works (Quis custodiet ipsos custodes?)")
 	test_that("simple laws hold when tested with forall", {
 		
 		forall(
-			info = "integer addition is commutative"
+			info = "integer addition is commutative",
 			list(x = 1:10, y = 1:10),
 			function (x, y) x + y == y + x
 		)

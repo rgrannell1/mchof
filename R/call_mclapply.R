@@ -4,9 +4,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	func_call <- if (exists('func_call')) {
-		func_call
-	} else ''
+	func_call <- if (exists('func_call')) func_call else ''
 	par_mclapply <- parallel::mclapply
 	
 	(!is.function(f)) %throws% stopf (

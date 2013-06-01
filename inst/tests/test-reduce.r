@@ -15,10 +15,3 @@ forall(
 		mcReduce(paste0, x_, paropts_) == paste0(x_, collapse = '')
 	}
 )
-forall(
-	info = "check that list accumulation works properly",
-	list(x_ = r_letters(), paropts_ = r_paropts()),
-	function (x_, paropts_) {
-
-	}
-)

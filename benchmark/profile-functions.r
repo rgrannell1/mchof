@@ -77,28 +77,30 @@ report_mchof_performance <- function (len, times) {
 				"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
 	}
 	
-	timing_map <- microbenchmark(
-		Map(identity, seq_len(n)),
-		times = times
-	)$time
-	timing_mclapply <- microbenchmark(
-		parallel::mclapply(seq_len(n), identity),
-		times = times
-	)$time
-	timing_call_mclapply <- microbenchmark(
-		call_mclapply(identity, seq_len(n)),
-		times = times
-	)$time
-	timing_lapply <- microbenchmark(
-		lapply(seq_len(n), identity),
-		times = times
-	)$time
+	timing <- list(
+		map = microbenchmark(
+			Map(identity, seq_len(len)),
+			times = times
+		)$time,	
+		call_mclapply = microbenchmark(
+			call_mclapply(identity, seq_len(len)),
+			times = times
+		)$time,
+		mclapply = microbenchmark(
+			call_mclapply(identity, seq_len(len)),
+			times = times
+		)$time,
+		lapply = microbenchmark(
+			lapply(seq_len(len), identity),
+			times = times
+		)$time)
 
 	medians <- c(
-		map = median(timing_map),
-		mclapply = median(timing_mclapply),
-		call_mclapply = median(timing_call_mclapply),
-		lapply = median(timing_lapply))
+		map = median(timing$map),
+		mclapply = median(timing$mclapply),
+		call_mclapply = median(timing$call_mclapply),
+		lapply = median(timing$lapply))
+
 	messagef(
 		"call_mclapply was %s times slower than mclapply( ), 
 		%s times slower than Map( ) and %s times slower than lapply( )",
@@ -106,21 +108,17 @@ report_mchof_performance <- function (len, times) {
 		round(medians["call_mclapply"]/ medians["map"], 2),
 		round(medians["call_mclapply"]/ medians["lapply"], 2))
 	
-	mchof_data <- profile_mchof(n)[1,]
-	control_data <- profile_controls(n)[1,]
+	mchof_data <- profile_mchof(len)[1,]
+	control_data <- profile_controls(len)[1,]
 	
 	messagef(c(unlist(Map(
 		function (name, multipier, speed) {
 			sprintf("%s was %s times slower than the control (%s seconds)",
-				name, multipier, speed
-			)
+				name, multipier, speed)
 		},
 		names(mchof_data),
 		round(mchof_data / control_data, 0),
-		round(mchof_data, 0))))
-	)
-	
-	profile_backend()
+		round(mchof_data, 0)))))
 }
 
-report_mchof_performance(5000, 100)
+report_mchof_performance(1000, 100)
