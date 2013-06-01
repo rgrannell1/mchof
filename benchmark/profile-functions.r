@@ -1,6 +1,8 @@
 
 library (microbenchmark)
 
+options(mc.cores = 1)
+
 report_mchof_performance <- function (len, times) {
 	# summarise the current performance of mchof,
 	# including the performance of the backend

@@ -38,9 +38,9 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	
 	} else if (!is.null(getOption('mc.cores'))) {
 		paropts <- list(mc.cores = getOption('mc.cores'))
-	}	
-	
-	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {	
+	}
+
+	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {
 		lapply(x, f)
 	} else {
 		status <- ''	
