@@ -89,18 +89,22 @@ report_mchof_performance <- function (len, times) {
 		call_mclapply(identity, seq_len(n)),
 		times = times
 	)$time
-	
+	timing_lapply <- microbenchmark(
+		lapply(seq_len(n), identity),
+		times = times
+	)$time
+
 	medians <- c(
 		map = median(timing_map),
 		mclapply = median(timing_mclapply),
-		call_mclapply = median(timing_call_mclapply))
+		call_mclapply = median(timing_call_mclapply),
+		lapply = median(timing_lapply))
 	messagef(
-		"call_mclapply was %s times slower than mclapply( ) and 
-		%s times slower than Map( )",
-		round(medians["call_mclapply"]/ medians["mclapply"], 3),
-		round(medians["call_mclapply"]/ medians["map"], 3))
-	
-	cat("\n\n\n")
+		"call_mclapply was %s times slower than mclapply( ), 
+		%s times slower than Map( ) and %s times slower than lapply( )",
+		round(medians["call_mclapply"]/ medians["mclapply"], 2),
+		round(medians["call_mclapply"]/ medians["map"], 2),
+		round(medians["call_mclapply"]/ medians["lapply"], 2))
 	
 	mchof_data <- profile_mchof(n)[1,]
 	control_data <- profile_controls(n)[1,]
@@ -119,21 +123,4 @@ report_mchof_performance <- function (len, times) {
 	profile_backend()
 }
 
-profile_backend <- function (times = 10) {
-	# plot the speed of the backend
-	
-	Map(
-		function (n) {
-			
-		},
-		10^(1:7))
-}
-
-report_mchof_performance(10000, 1)
-
-
-
-
-
-
-
+report_mchof_performance(5000, 100)

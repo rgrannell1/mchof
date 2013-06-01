@@ -46,15 +46,7 @@ if (exists('call_mclapply')) {
 		    expect_error(
 		    	call_mclapply("cat", 1:10, list(mc.cores = 2)),
 		    	regexp = "f is not")
-		    
-		    expect_error(
-		    	call_mclapply(function(x) x, factor(1), list(mc.cores = 2)),
-		    	regexp = "x is not")
-		    
-		    expect_error(
-		    	call_mclapply(function(x) x, 1:10, list(FUN = identity)),
-		    	regexp = "FUN may not")
-		    
+
 		    expect_error(
 		    	call_mclapply(function(x) x, 1:10, list(monkey = identity)),
 		    	regexp = "invalid")
