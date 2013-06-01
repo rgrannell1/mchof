@@ -3,8 +3,6 @@
 # better. Used to test properties & lack of errors. Not very elegant, so
 # I don't recommend that you use this code yourself. 
 
-
-
 forall <- function (
 	cases, expect, given = function (...) TRUE,
 	opts = list(time = 2), info = '') {

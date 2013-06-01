@@ -5,46 +5,89 @@ profile_mchof <- function (len = 10, times = 1) {
 	# return time data for every function in mchof,
 	# for one value of n
 	
-	run_test <- function (which, len) {
-		stopifnot(len > 1)
-		
-		ziplist <- list(
-			seq_len(floor(len / 2)),
-			(ceiling(floor(len / 2)) + 1):len)
-		
-		switch (which, 
-			"mcAll" = mcAll(function (y) TRUE, seq_len()),
-			"mcAny" = mcAny(function (y) FALSE, seq_len(len)),
-			"mcFilter" = mcFilter(function (y) TRUE, seq_len(len)),
-			"mcFind" = mcFind(function (y) FALSE, seq_len(len)),
-			"mcFold" = mcFold(function (...) 1, 0, seq_len(len)),
-			"mcOne" = mcOne(function (y) FALSE, seq_len(len)),
-			"mcPartition" = mcPartition(function (y) TRUE, seq_len(len)),
-			"mcPosition" = mcPosition(function (y) FALSE, seq_len(len)),
-			"mcReduce" = mcReduce(function (...) 1, seq_len(len)),
-			"mcReject" = mcReject(function (y) FALSE, seq_len(len)),
-			"mcZipWith" = mcZipWith(function (y) TRUE, ziplist),
-			"mcUnzipWith" = mcUnzipWith(function (y) TRUE, ziplist)
-		)
-	}
-	
-	cbind(
-		summary(microbenchmark(
-		run_test("mcAll", len), run_test("mcAny", len),
-		run_test("mcFilter", len), run_test("mcFind", len),
-		run_test("mcFold", len), run_test("mcOne", len),
-		run_test("mcPartition", len), run_test("mcPosition", len),
-		run_test("mcReduce", len), run_test("mcReject", len),
-		run_test("mcUnzip", len), run_test("mcUnzipWith", len),
-		run_test("mcZip", len), run_test("mcZipWith", len),
-		times = times)), data_length = len, date = date(),
-		funcs = sapply(
+	test_vector <- seq_len(len)
+	true_func <- function (x) TRUE
+	false_func <- Negate(true_func)
+
+	ziplist <- list(
+		seq_len(floor(len / 2)),
+		(ceiling(floor(len / 2)) + 1):len)
+
+	as.data.frame(structure(
+		Map(
+			function (test) {
+				timing <- microbenchmark(test())$time
+				c(
+					median = median(timing),
+					iqr = IQR(timing),
+					iqr_coeff = round(IQR(timing)/median(timing), 2))
+			},
 			list(
-				mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, 
-				mcPartition, mcPosition, mcReduce, mcReject, 
-				mcUnzip, mcUnzipWith, mcZip, mcZipWith),
-				function (f) {
-					paste0(deparse(f), collapse = "\n")
-				}
-	))
+				function () mcAll(true_func, test_vector),
+				function () mcAny(false_func, test_vector),
+				function () mcFilter(true_func, test_vector),
+				function () mcFind(false_func, test_vector),
+				function () mcFold(function (a, b) 1, 0, test_vector),
+				function () mcOne(false_func, test_vector),
+				function () mcPartition(true_func, test_vector),
+				function () mcPosition(false_func, test_vector),
+				function () mcReduce(function (a, b) 1, test_vector),
+				function () mcReject(false_func, test_vector),
+				function () mcZipWith(true_func, ziplist),
+				function () mcUnzipWith(true_func, ziplist))
+		),
+		names = c("mcAll", "mcAny", "mcFilter", "mcFind", 
+			"mcFold", "mcOne", "mcPartition", "mcPosition",
+			"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
 }
+
+profile_controls <- function (len = 10, times = 1) {
+	# return time data for similar functions, for one
+	# value of n
+
+	test_vector <- seq_len(len)
+	true_func <- function (x) TRUE
+	false_func <- Negate(true_func)
+	
+	as.data.frame(structure(
+		Map(
+			function (test, profile_func) {
+				timing <- microbenchmark(test())$time
+				c(
+					median = median(timing),
+					iqr = IQR(timing),
+					iqr_coeff = round(IQR(timing)/median(timing), 2))	
+			},
+			list(
+				function () Map(function (x) TRUE, test_vector),
+				function () Map(function (x) TRUE, test_vector),
+				function () Filter(true_func, test_vector),
+				function () Find(false_func, test_vector),
+				function () Reduce(function (a, b) 1, test_vector),
+				function () Map(function (x) TRUE, test_vector),
+				function () Filter(true_func, test_vector),
+				function () Position(false_func, test_vector),
+				function () Reduce(function (a, b) 1, test_vector),
+				function () Filter(true_func, test_vector),
+				function () Map(function (x) TRUE, test_vector),
+				function () Map(function (x) TRUE, test_vector)	
+			)),
+		names = c("mcAll", "mcAny", "mcFilter", "mcFind", 
+			"mcFold", "mcOne", "mcPartition", "mcPosition",
+			"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
+}
+
+n <- 1000
+mchof_data <- profile_mchof(n)[1,]
+control_data <- profile_controls(n)[1,]
+
+messagef(c(unlist(Map(
+	function (name, multipier, speed) {
+		sprintf("%s was %s times slower than the control (%s seconds)",
+			name, multipier, speed
+		)
+	},
+	names(mchof_data),
+	round(mchof_data / control_data, 0),
+	round(mchof_data, 0))))
+)
