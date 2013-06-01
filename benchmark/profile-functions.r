@@ -1,9 +1,10 @@
 
 library (microbenchmark)
 
-
 report_mchof_performance <- function (len, times) {
-
+	# summarise the current performance of mchof,
+	# including the performance of the backend
+	
 	test_vector <- seq_len(len)
 	true_func <- function (x) TRUE
 	false_func <- Negate(true_func)
@@ -76,6 +77,31 @@ report_mchof_performance <- function (len, times) {
 				"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
 	}
 	
+	timing_map <- microbenchmark(
+		Map(identity, seq_len(n)),
+		times = times
+	)$time
+	timing_mclapply <- microbenchmark(
+		parallel::mclapply(seq_len(n), identity),
+		times = times
+	)$time
+	timing_call_mclapply <- microbenchmark(
+		call_mclapply(identity, seq_len(n)),
+		times = times
+	)$time
+	
+	medians <- c(
+		map = median(timing_map),
+		mclapply = median(timing_mclapply),
+		call_mclapply = median(timing_call_mclapply))
+	messagef(
+		"call_mclapply was %s times slower than mclapply( ) and 
+		%s times slower than Map( )",
+		round(medians["call_mclapply"]/ medians["mclapply"], 3),
+		round(medians["call_mclapply"]/ medians["map"], 3))
+	
+	cat("\n\n\n")
+	
 	mchof_data <- profile_mchof(n)[1,]
 	control_data <- profile_controls(n)[1,]
 	
@@ -89,6 +115,18 @@ report_mchof_performance <- function (len, times) {
 		round(mchof_data / control_data, 0),
 		round(mchof_data, 0))))
 	)
+	
+	profile_backend()
+}
+
+profile_backend <- function (times = 10) {
+	# plot the speed of the backend
+	
+	Map(
+		function (n) {
+			
+		},
+		10^(1:7))
 }
 
 report_mchof_performance(10000, 1)
