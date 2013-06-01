@@ -7,11 +7,17 @@ report_mchof_performance <- function (len, times) {
 	
 	test_vector <- seq_len(len)
 	true_func <- function (x) TRUE
+	one_func <- function (...) 1
+	null_func <- function (...) NULL
 	false_func <- Negate(true_func)
 	
 	ziplist <- list(
 		seq_len(floor(len / 2)),
 		(ceiling(floor(len / 2)) + 1):len)
+	
+	func_names <- c("mcAll", "mcAny", "mcFilter", "mcFind", 
+		"mcFold", "mcOne", "mcPartition", "mcPosition",
+		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
 	
 	profile_mchof <- function (len = 10, times = 1) {
 		# return time data for every function in mchof,
@@ -22,8 +28,7 @@ report_mchof_performance <- function (len, times) {
 				function (test) {
 					timing <- microbenchmark(test())$time
 					c(
-						median = median(timing),
-						iqr = IQR(timing),
+						median = median(timing), iqr = IQR(timing),
 						iqr_coeff = round(IQR(timing)/median(timing), 2))
 				},
 				list(
@@ -31,18 +36,16 @@ report_mchof_performance <- function (len, times) {
 					function () mcAny(false_func, test_vector),
 					function () mcFilter(true_func, test_vector),
 					function () mcFind(false_func, test_vector),
-					function () mcFold(function (a, b) 1, 0, test_vector),
+					function () mcFold(one_func, 0, test_vector),
 					function () mcOne(false_func, test_vector),
 					function () mcPartition(true_func, test_vector),
 					function () mcPosition(false_func, test_vector),
-					function () mcReduce(function (a, b) 1, test_vector),
+					function () mcReduce(one_func, test_vector),
 					function () mcReject(false_func, test_vector),
 					function () mcZipWith(true_func, ziplist),
 					function () mcUnzipWith(true_func, ziplist))
 			),
-			names = c("mcAll", "mcAny", "mcFilter", "mcFind", 
-				"mcFold", "mcOne", "mcPartition", "mcPosition",
-				"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
+			names = func_names))
 	}
 	
 	profile_controls <- function (len = 10, times = 1) {
@@ -54,45 +57,37 @@ report_mchof_performance <- function (len, times) {
 				function (test, profile_func) {
 					timing <- microbenchmark(test())$time
 					c(
-						median = median(timing),
-						iqr = IQR(timing),
+						median = median(timing), iqr = IQR(timing),
 						iqr_coeff = round(IQR(timing)/median(timing), 2))	
 				},
 				list(
-					function () Map(function (x) TRUE, test_vector),
-					function () Map(function (x) TRUE, test_vector),
+					function () Map(true_func, test_vector),
+					function () Map(true_func, test_vector),
 					function () Filter(true_func, test_vector),
 					function () Find(false_func, test_vector),
-					function () Reduce(function (a, b) 1, test_vector),
-					function () Map(function (x) TRUE, test_vector),
+					function () Reduce(one_func, test_vector),
+					function () Map(true_func, test_vector),
 					function () Filter(true_func, test_vector),
 					function () Position(false_func, test_vector),
-					function () Reduce(function (a, b) 1, test_vector),
+					function () Reduce(one_func, test_vector),
 					function () Filter(true_func, test_vector),
-					function () Map(function (x) TRUE, test_vector),
-					function () Map(function (x) TRUE, test_vector)	
-				)),
-			names = c("mcAll", "mcAny", "mcFilter", "mcFind", 
-				"mcFold", "mcOne", "mcPartition", "mcPosition",
-				"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")))
+					function () Map(true_func, test_vector),
+					function () Map(true_func, test_vector)	)),
+			names = func_names))
 	}
 	
 	timing <- list(
 		map = microbenchmark(
-			Map(identity, seq_len(len)),
-			times = times
+			Map(null_func, seq_len(len)), times = times
 		)$time,	
 		call_mclapply = microbenchmark(
-			call_mclapply(identity, seq_len(len)),
-			times = times
+			call_mclapply(null_func, seq_len(len)), times = times
 		)$time,
 		mclapply = microbenchmark(
-			call_mclapply(identity, seq_len(len)),
-			times = times
+			call_mclapply(null_func, seq_len(len)), times = times
 		)$time,
 		lapply = microbenchmark(
-			lapply(seq_len(len), identity),
-			times = times
+			lapply(seq_len(len), null_func), times = times
 		)$time)
 
 	medians <- c(
@@ -121,4 +116,4 @@ report_mchof_performance <- function (len, times) {
 		round(mchof_data, 0)))))
 }
 
-report_mchof_performance(1000, 100)
+report_mchof_performance(20, 1)
