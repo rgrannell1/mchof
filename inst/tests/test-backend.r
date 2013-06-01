@@ -69,6 +69,7 @@ if (exists('call_mclapply')) {
 					function(x) Sys.sleep(0.5), 1:10))[3],	
 				takes_less_than(3)) # at least 60% speedup
 			
+			options(mc.cores = NULL)
 		})
 	}
 }

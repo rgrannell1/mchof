@@ -1,7 +1,7 @@
 
 library (microbenchmark)
 
-options(mc.cores = 1)
+options(mc.cores = NULL)
 
 report_mchof_performance <- function (len, times) {
 	# summarise the current performance of mchof,
@@ -28,7 +28,7 @@ report_mchof_performance <- function (len, times) {
 		as.data.frame(structure(
 			Map(
 				function (test) {
-					timing <- microbenchmark(test())$time
+					timing <- microbenchmark(test(), times = times)$time
 					c(
 						median = median(timing), iqr = IQR(timing),
 						iqr_coeff = round(IQR(timing)/median(timing), 2))
@@ -54,27 +54,38 @@ report_mchof_performance <- function (len, times) {
 		# return time data for similar functions, for one
 		# value of len
 		
+		c("mcAll", "mcAny", "mcFilter", "mcFind", 
+		"mcFold", "mcOne", "mcPartition", "mcPosition",
+		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
+		
+		control_quantifier <- function (f, x) {
+			Map(f, x)
+		}
+		control_zip <- function (f, x) {
+			Map(f, x)
+		}
+		
 		as.data.frame(structure(
 			Map(
 				function (test, profile_func) {
-					timing <- microbenchmark(test())$time
+					timing <- microbenchmark(test(), times = times)$time
 					c(
 						median = median(timing), iqr = IQR(timing),
 						iqr_coeff = round(IQR(timing)/median(timing), 2))	
 				},
 				list(
-					function () Map(true_func, test_vector),
-					function () Map(true_func, test_vector),
+					function () control_quantifier(true_func, test_vector),
+					function () control_quantifier(true_func, test_vector),
 					function () Filter(true_func, test_vector),
 					function () Find(false_func, test_vector),
 					function () Reduce(one_func, test_vector),
-					function () Map(true_func, test_vector),
+					function () control_quantifier(true_func, test_vector),
 					function () Filter(true_func, test_vector),
 					function () Position(false_func, test_vector),
 					function () Reduce(one_func, test_vector),
 					function () Filter(true_func, test_vector),
-					function () Map(true_func, test_vector),
-					function () Map(true_func, test_vector)	)),
+					function () control_zip(true_func, test_vector),
+					function () control_zip(true_func, test_vector)	)),
 			names = func_names))
 	}
 	
@@ -111,11 +122,12 @@ report_mchof_performance <- function (len, times) {
 	messagef(c(unlist(Map(
 		function (name, multipier, speed) {
 			sprintf("%s was %s times slower than the control (%s seconds)",
-				name, multipier, speed)
+				name, multipier, speed/10^9)
 		},
 		names(mchof_data),
 		round(mchof_data / control_data, 0),
 		round(mchof_data, 0)))))
 }
 
-report_mchof_performance(20, 1)
+report_mchof_performance(10000, 30)
+
