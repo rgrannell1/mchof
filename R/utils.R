@@ -25,6 +25,21 @@ is_boolean <- function (x) {
 	length(x) > 0 && is.logical(x) && !is.na(x)
 }
 
+group_into <- function (x, size) {
+	# groups x into chucks of size,
+	# unless too few elements are left
+	
+	if (size == 1) {
+		list(x)
+	} else {	
+		lapply(
+			seq(from = 1, to = length(x), by = size),
+			function (lower) {
+				x[ lower:min(length(x), lower + size - 1) ]
+		})
+	}
+}
+
 stopf <- function (fmt, ...) {
 	# combines stop, paste0 and sprintf
 	

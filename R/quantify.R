@@ -78,10 +78,27 @@ mcAny <- function (f, x, paropts = NULL) {
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	
+	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
+		abs(paropts$mc.cores)
+	} else if (!is.null(getOption('mc.cores')))  {
+		abs(getOption('mc.cores'))
+	} else 1
 
-	
-	
-	FALSE
+	results <- call_mclapply(
+		f = function (sublist) {
+			
+			for (i in seq_along(sublist)) {
+				res <- as.logical(f( sublist[[i]] ))
+				if (isTRUE(res)) return (TRUE)
+			}
+			FALSE
+		},
+		x = group_into(x, cores),
+		paropts
+	)
+	any(unlist(results))
+
 }
 
 #' @title mcOne
