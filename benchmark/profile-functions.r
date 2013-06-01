@@ -129,5 +129,5 @@ report_mchof_performance <- function (len, times) {
 		round(mchof_data, 0)))))
 }
 
-report_mchof_performance(100000, 30)
+report_mchof_performance(1000000, 30)
 

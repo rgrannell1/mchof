@@ -42,7 +42,7 @@
 to_pairs <- function (x) {
 	# chunk x into lists of two, where possible
 	
-	as.list(group_into(x, 2))
+	group_into(x, 2)
 }
 pair_fmap <- function (f) {
 	# returns a function that applies f to pairs:

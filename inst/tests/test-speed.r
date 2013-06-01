@@ -47,7 +47,7 @@ test_that("find", {
 test_that("position", {
 		
 	expect_that(
-		mcPosition(slow_falsefunc, seq_len(20), list(mc.cores = 2)),		
+		mcPosition(slow_falsefunc, seq_len(20), right=FALSE, list(mc.cores = 2)),		
 		takes_less_than(6))
 
 })

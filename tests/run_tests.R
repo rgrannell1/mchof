@@ -1,5 +1,6 @@
 
 library(mchof)
+library(itertools)
 library(testthat)
 
 source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_utils.R')

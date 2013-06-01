@@ -53,17 +53,15 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	} else 1
 	
 	job_indices <- if (right) {
-		group_into(x, cores) 
+		group_into(seq_along(x), cores) 
 	} else {
-		Map(rev, group_into(x, cores))
+		Map(rev, group_into(seq_along(x), cores))
 	}
 
 	FLAG("need to fix this code...")
 	
-	while (hasNext(job_indices)) {
+	for (i in seq_along(job_indices)) {
 		
-		indices_to_check <- unlist(nextElem(job_indices))
-	
 		checked_ind <- unlist(call_mclapply(
 			f = function (ind) {
 				# returns indices satisfying f
@@ -71,14 +69,14 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 				is_match <- as.logical(f( x[[ind]] ))	
 				if (isTRUE(is_match)) ind else NaN
 			},
-			x = indices_to_check,
+			x = job_indices[[i]],
 			paropts
 		))
 		
 		matched_indices <- checked_ind[
 			!is.nan(checked_ind) & checked_ind
 		]
-
+		
 		if (length(matched_indices) > 0) {
 			return (if (right) max(matched_indices) else min(matched_indices))
 		}
