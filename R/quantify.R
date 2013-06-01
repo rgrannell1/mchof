@@ -140,6 +140,8 @@ mcOne <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
+	FLAG("need to optimise")
+	
 	bools <- as.logical(call_mclapply(f, x, paropts))
 	bools[is.na(bools)] <- FALSE
 	

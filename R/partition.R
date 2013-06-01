@@ -34,7 +34,9 @@ mcPartition <- function (f, x, paropts = NULL) {
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	ind <- as.logical(call_mclapply(f, x, paropts))
-
+	
+	FLAG("need to fix, since the first set of values gives the second...")
+	
 	list (
 		x[!is.na(ind) & ind],
 		x[is.na(ind) | !ind])
