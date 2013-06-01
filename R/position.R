@@ -33,9 +33,7 @@
 mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
-	
-	FLAG("need to improve performance")
-	
+		
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
@@ -48,22 +46,20 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	(!is_boolean(right)) %throws% stopf (
 		'right must be TRUE or FALSE', func_call)
 	
-	ncores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
+	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
 	} else if (!is.null(getOption('mc.cores')))  {
 		abs(getOption('mc.cores'))
 	} else 1
 	
-	job_indices <- ihasNext(
-		ichunk(
-			iterable = if (right) {
-				rev(seq_along(x)) 
-			} else {
-				seq_along(x)
-			},
-			chunkSize = ncores
-	))
+	job_indices <- if (right) {
+		group_into(x, cores) 
+	} else {
+		Map(rev, group_into(x, cores))
+	}
 
+	FLAG("need to fix this code...")
+	
 	while (hasNext(job_indices)) {
 		
 		indices_to_check <- unlist(nextElem(job_indices))
