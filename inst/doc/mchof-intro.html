@@ -173,10 +173,6 @@ hljs.initHighlightingOnLoad();
 </script>
 
 
-<!-- MathJax scripts -->
-<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
 
 
 </head>
@@ -236,7 +232,8 @@ returning a new set composed only of prime numbers.</p>
 </code></pre>
 
 <p>Similarily, mcPartition divides the set 1&hellip;20 into a two sets; the prime numbers and the 
-composite numbers</p>
+composite numbers. Although this function is essentially mcFilter paired with mcReject,
+it is useful in its own right for recursively partitioning a list in a tree-like manner.</p>
 
 <pre><code class="r">mcPartition(is_prime, 1:20)
 </code></pre>
@@ -248,7 +245,7 @@ composite numbers</p>
 ##  [1]  1  2  4  6  8  9 10 12 14 15 16 18 20
 </code></pre>
 
-<p>And mcReject returns only the composite numbers</p>
+<p>mcReject returns only the composite numbers</p>
 
 <pre><code class="r">mcReject(is_prime, 1:20)
 </code></pre>
@@ -258,46 +255,43 @@ composite numbers</p>
 
 <h3>3.2 Solving Linear Equations</h3>
 
-<p>A slightly tougher problem is finding the smallest coefficients that solve a quadratic equation for a given value of x. </p>
+<p>A slightly tougher problem is finding the smallest coefficients that solve a polynomial equation
+for a given value of x. </p>
 
 <pre><code class="r">is_solved &lt;- function (a, b, c, x) {
+    # is the quadratic equation solved?
     (a * x^2 + b * x + c) == 0
 }
+smallest_quadratic &lt;- function (x, range = c(rev(-seq_len(20)), seq_len(20))) {
+    # get the cartesian product of the set
+    tmp &lt;- expand.grid(range, range, range)
 
-smallest_quadratic &lt;- function (x) {
+    # get the columns in tmp, zip them into tuples, and
+    # unlist tuples into vectors
+    product_set &lt;- mcUnzipWith(
+        function (x) unlist(x),
+        list(tmp[,1], tmp[,2], tmp[,3]))
 
-    # get the cartesian product of (-50...50) by itself, three times
-    product_set &lt;- apply(   
-        expand.grid(-50:50, -50:50, -50:50), 1, list)
-
-    mcFold(
+    mcReduce(
         function (smallest, new) {
-            # pick the set of coefficients with the minimum summed absolute values
-
-            if ( sum(abs(new)) &lt; sum(abs(smallest)) ) new else smallest
-
-        }, first = NULL, 
+        # pick the set of coefficients with the
+        # minimum summed absolute values
+        if ( sum(abs(new)) &lt; sum(abs(smallest)) ) new else smallest
+        },
         # return the coefficients that solve the equation
-        mcFilter(is_solved, product_set))
-
+        mcFilter(
+            function (coef) is_solved(coef[1], coef[2], coef[3], x),
+            product_set))
 }
-smallest_quadratic(120)
+smallest_quadratic(5)
 </code></pre>
 
-<pre><code>## Error: &#39;x&#39; is missing
+<pre><code>## Warning: reduce&#39;s parallel algorithm can be rewritten in terms of several
+## foldrs
 </code></pre>
 
-<p>mcReduce and mcFold are ideal for implementing greedy algorithms, such as finding the smallest 
-number in a vector.</p>
-
-<pre><code class="r">set_product &lt;- function(...) {
-    apply(as.data.frame(expand.grid(...)), 1, function(x) {
-        list(unname(x))
-    })
-}
+<pre><code>## [1]  1 -4 -5
 </code></pre>
-
-<p>\( 0:10 \times 0:10 \)</p>
 
 <h2>4 Appendices</h2>
 

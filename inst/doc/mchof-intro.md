@@ -58,7 +58,8 @@ mcFilter(is_prime, 1:20)
 ```
 
 Similarily, mcPartition divides the set 1...20 into a two sets; the prime numbers and the 
-composite numbers
+composite numbers. Although this function is essentially mcFilter paired with mcReject,
+it is useful in its own right for recursively partitioning a list in a tree-like manner.
 
 ```r
 mcPartition(is_prime, 1:20)
@@ -72,7 +73,7 @@ mcPartition(is_prime, 1:20)
 ##  [1]  1  2  4  6  8  9 10 12 14 15 16 18 20
 ```
 
-And mcReject returns only the composite numbers
+mcReject returns only the composite numbers
 
 ```r
 mcReject(is_prime, 1:20)
@@ -85,55 +86,47 @@ mcReject(is_prime, 1:20)
 
 ### 3.2 Solving Linear Equations
 
-A slightly tougher problem is finding the smallest coefficients that solve a quadratic equation for a given value of x. 
+A slightly tougher problem is finding the smallest coefficients that solve a polynomial equation
+for a given value of x. 
 
 
 ```r
 is_solved <- function (a, b, c, x) {
+	# is the quadratic equation solved?
 	(a * x^2 + b * x + c) == 0
 }
-
-smallest_quadratic <- function (x) {
+smallest_quadratic <- function (x, range = c(rev(-seq_len(20)), seq_len(20))) {
+	# get the cartesian product of the set
+	tmp <- expand.grid(range, range, range)
 	
-	# get the cartesian product of (-50...50) by itself, three times
-	product_set <- apply(	
-		expand.grid(-50:50, -50:50, -50:50), 1, list)
+	# get the columns in tmp, zip them into tuples, and
+	# unlist tuples into vectors
+	product_set <- mcUnzipWith(
+		function (x) unlist(x),
+		list(tmp[,1], tmp[,2], tmp[,3]))
 	
-	mcFold(
+	mcReduce(
 		function (smallest, new) {
-			# pick the set of coefficients with the minimum summed absolute values
-
-			if ( sum(abs(new)) < sum(abs(smallest)) ) new else smallest
-
-		}, first = NULL, 
+		# pick the set of coefficients with the
+		# minimum summed absolute values
+		if ( sum(abs(new)) < sum(abs(smallest)) ) new else smallest
+		},
 		# return the coefficients that solve the equation
-		mcFilter(is_solved, product_set))
-
+		mcFilter(
+			function (coef) is_solved(coef[1], coef[2], coef[3], x),
+			product_set))
 }
-smallest_quadratic(120)
+smallest_quadratic(5)
 ```
 
 ```
-## Error: 'x' is missing
+## Warning: reduce's parallel algorithm can be rewritten in terms of several
+## foldrs
 ```
 
-
-mcReduce and mcFold are ideal for implementing greedy algorithms, such as finding the smallest 
-number in a vector.
-
-
-```r
-set_product <- function(...) {
-    apply(as.data.frame(expand.grid(...)), 1, function(x) {
-        list(unname(x))
-    })
-}
 ```
-
-
-$0:10 \times 0:10$
-
-
+## [1]  1 -4 -5
+```
 
 
 
