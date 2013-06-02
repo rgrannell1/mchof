@@ -88,36 +88,40 @@ report_mchof_performance <- function (len, times) {
 					function () control_zip(true_func, test_vector)	)),
 			names = func_names))
 	}
+	profile_backend <- function (len = 10, times = 1) {
+		timing_apply <- list(
+			map = microbenchmark(
+				Map(null_func, seq_len(len)), times = times
+			)$time,	
+			call_mclapply = microbenchmark(
+				call_mclapply(null_func, seq_len(len)), times = times
+			)$time,
+			mclapply = microbenchmark(
+				parallel::mclapply(seq_len(len), null_func), times = times
+			)$time,
+			lapply = microbenchmark(
+				lapply(seq_len(len), null_func), times = times
+			)$time)
 	
-	timing <- list(
-		map = microbenchmark(
-			Map(null_func, seq_len(len)), times = times
-		)$time,	
-		call_mclapply = microbenchmark(
-			call_mclapply(null_func, seq_len(len)), times = times
-		)$time,
-		mclapply = microbenchmark(
-			call_mclapply(null_func, seq_len(len)), times = times
-		)$time,
-		lapply = microbenchmark(
-			lapply(seq_len(len), null_func), times = times
-		)$time)
-
-	medians <- c(
-		map = median(timing$map),
-		mclapply = median(timing$mclapply),
-		call_mclapply = median(timing$call_mclapply),
-		lapply = median(timing$lapply))
-
-	messagef(
-		"call_mclapply was %s times slower than mclapply( ), 
-		%s times slower than Map( ) and %s times slower than lapply( )",
-		round(medians["call_mclapply"]/ medians["mclapply"], 2),
-		round(medians["call_mclapply"]/ medians["map"], 2),
-		round(medians["call_mclapply"]/ medians["lapply"], 2))
+		medians <- c(
+			map = median(timing_apply$map),
+			mclapply = median(timing_apply$mclapply),
+			call_mclapply = median(timing_apply$call_mclapply),
+			lapply = median(timing_apply$lapply))
 	
-	mchof_data <- profile_mchof(len)[1,]
-	control_data <- profile_controls(len)[1,]
+		messagef(
+			"call_mclapply was %s times slower than mclapply( ), 
+			%s times slower than Map( ) and %s times slower than lapply( )",
+			round(medians["call_mclapply"]/ medians["mclapply"], 2),
+			round(medians["call_mclapply"]/ medians["map"], 2),
+			round(medians["call_mclapply"]/ medians["lapply"], 2))
+		medians
+	}
+	
+	
+	mchof_data <- profile_mchof(len, times)[1,]
+	backend_data <- profile_backend(len, times)
+	control_data <- profile_controls(len, times)[1,]
 	
 	messagef(c(unlist(Map(
 		function (name, multipier, speed) {
@@ -127,7 +131,9 @@ report_mchof_performance <- function (len, times) {
 		names(mchof_data),
 		round(mchof_data / control_data, 0),
 		round(mchof_data, 0)))))
+	
+	list(
+		mchof = mchof_data,
+		backend = backend_data,
+		control = control_data)
 }
-
-report_mchof_performance(1000000, 30)
-

@@ -30,10 +30,17 @@ forall(info = "the order of the tuples is as expected",
 	}
 )
 
-forall(info = "structure of the output is preserved for list( )",
-	list(x_ = r_flat_no_null(), paropts_ = r_paropts()),
+forall(info = "structure of the output is preserved for tuples of list( )",
+	list(x_ = r_empty_list_tuples(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		
+		f <- mcUnzip %of% mcZip
+		g <- mcZip %of% mcUnzip	
+		
+		all_equal(list(
+			f(x_, paropts_),
+			g(x_, paropts_),
+			x_))
 	}
 )
 
