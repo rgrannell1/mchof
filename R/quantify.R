@@ -94,7 +94,7 @@ mcAny <- function (f, x, paropts = NULL) {
 			}
 			FALSE
 		},
-		x = group_into(x, cores),
+		group_into(x, cores),
 		paropts
 	)
 	any(unlist(results))
