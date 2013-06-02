@@ -23,33 +23,16 @@ forall(info = "the length of the outputted tuples is uniform",
 	}
 )
 
-forall(info = "the order of the tuples is as expected",
-	list(x_ = r_flat_no_null(), paropts_ = r_paropts()),
-	function (x_, paropts_) {
-	
-	}
-)
-
 forall(info = "structure of the output is preserved for tuples of list( )",
 	list(x_ = r_empty_list_tuples(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		
 		f <- mcUnzip %of% mcZip
-		g <- mcZip %of% mcUnzip	
+		g <- mcZip %of% mcUnzip
 		
 		all_equal(list(
+			x_,
 			f(x_, paropts_),
-			g(x_, paropts_),
-			x_))
-	}
-)
-
-context("zipwith & unzipwith: normal cases")
-
-forall(info = "check that the function is mapped over the tuples",
-	list(x_ = r_tuple_list(), paropts_ = r_paropts()),
-	function (x_, paropts_) {
-		mcUnzipWith(
-			function (n) list(unlist(n^2)), x_, paropts_)
+			g(x_, paropts_) ))
 	}
 )

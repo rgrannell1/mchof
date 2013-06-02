@@ -12,7 +12,7 @@ slow_falsefunc <- Negate(slow_truefunc)
 test_that("find", {
 
 	expect_that(
-		mcFind(slow_falsefunc, seq_len(20), list(mc.cores = 2)),		
+		mcFind(slow_falsefunc, seq_len(20), right = TRUE, list(mc.cores = 2)),		
 		takes_less_than(6))
 
 })
@@ -20,7 +20,7 @@ test_that("find", {
 test_that("position", {
 	
 	expect_that(
-		mcPosition(slow_falsefunc,	seq_len(20), list(mc.cores = 2)),		
+		mcPosition(slow_falsefunc,	seq_len(20), right = TRUE, list(mc.cores = 2)),		
 		takes_less_than(6) )
 })
 
@@ -37,21 +37,6 @@ test_that("reject", {
 		takes_less_than(6) )
 })
 
-test_that("find", {
-	
-	expect_that(
-		mcFind(slow_falsefunc, seq_len(20), list(mc.cores = 2)),		
-		takes_less_than(6) )
-})
-	
-test_that("position", {
-		
-	expect_that(
-		mcPosition(slow_falsefunc, seq_len(20), right=FALSE, list(mc.cores = 2)),		
-		takes_less_than(6))
-
-})
-	
 test_that("reduce", {
 		
 	expect_that(

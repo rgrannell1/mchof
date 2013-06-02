@@ -61,22 +61,30 @@ r_tuple_list <- function (n=100) {
 		},
 		seq_len(n))
 }
+r_int_tuples <- function (n=100) {
+	
+	tuple_length <- pick_len(20)
+	
+	Map(
+		function (...) {
+			list(repl(function (...) r_integers(tuple_length), tuple_length))
+		
+		},
+		seq_len(n))
+}
 r_seq_len <- function (n=100) {
 	repl(
-		function (...) 1:pick_len(20),
-	n)
+		function (...) 1:pick_len(20), n)
 }
 r_int_vectors <- function (n=100) {
 	repl(
-		function(...) r_integers(pick_len(20)),
-	n)
+		function(...) r_integers(pick_len(20)), n)
 }
 r_small_named_list <- function (n=100) {
 	repl(
 		function (...) {
 			structure(list(r_integers(10)), names = r_letters(1))
-		}, n
-	)
+		}, n)
 }
 r_empty_list_tuples <- function (n=100) {
 	tuple_length <- pick_len(20)

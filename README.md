@@ -2,14 +2,13 @@ mchof - MultiCore Higher-Order Functions
 ===
 Version 0.2
 
-mchof (read: mc'hoff) provides convenient, consistent parallel implementations of several 
-commonly used higher-order functions found in base R. Excellent parallel 
-implementations of map-like functions exist in packages such as plyr and
-multicore, giving users better efficiency with little work on their part. 
-This package aims to extend this speedup to people who use functions like 
-Filter or Reduce in their code.
+mchof (read: mac'hoff) is a utility library that provides
+composable, consistent parallel implementations of higher-order
+functions such as Filter, Fold, ZipWith and more. This package aims to 
+make writing functional programs in R more rewarding, with the added benifit
+of parallelism.
 
- * Special cases handled consistently with functions in base R.	
+ * Special cases handled consistently between functions to allow composabililty.	
  * Built on the user-friendly multicore parallel library; all the user needs to 
    do is specify how many cores they would like to use to get 90% of the benefits 
    of running in parallel
@@ -33,4 +32,3 @@ Functions in development (0.3) eta June 15th - July 1st
 * **mcOne**: check if a predicate is true for one element in a list
 * **mcFold**: applies an associative binary operator to a list, with an initial value
 * **mcReject**: get the elements of a list not matching a predicate
-

@@ -2,10 +2,10 @@ Package: mchof
 Type: Package
 Title: multicore higher-order functions
 Description: mchof (read: mac'hoff) is a utility library that provides
-    convenient, consistent parallel implementations of useful higher-order
-    functions such as Filter, Fold, ZipWith and more. This package aims to let
-    the user write terse, powerful functional programs that work the first time
-    they are run.
+    composable, consistent parallel implementations of higher-order
+    functions such as Filter, Fold, ZipWith and more. This package aims to 
+    make writing functional programs in R more rewarding, with the added benifit
+    of parallelism.
 Version: 0.3
 Depends:
     R (>= 2.14.0)

@@ -10,10 +10,9 @@ New Functions:
 Improvements:
 
 * significant improvements made to the documentation.
-* error reporting improved; data that triggered the fail and its class now alway
-displayed.
-* itertools now used as a dependency, to help speed up the development of new
-functions. User-visible changes as a result of this should be minimal.
+* error reporting improved; data that triggered the fail and its class now displayed
+for all internally-triggered errors.
+* performance improved significantly for mc.cores = 1
 
 Bug Fixes:
 * bug with option handling fixed.

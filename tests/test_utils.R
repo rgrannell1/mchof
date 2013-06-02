@@ -5,7 +5,7 @@
 
 forall <- function (
 	cases, expect, given = function (...) TRUE,
-	opts = list(time = 2), info = '') {
+	opts = list(time = 4), info = '') {
 	# a lightweight quickcheck function
 	
 	stopwatch <- function (seconds) {

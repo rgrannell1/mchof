@@ -8,7 +8,7 @@ report_mchof_performance <- function (len, times) {
 	# including the performance of the backend
 	
 	test_vector <- seq_len(len)
-	true_func <- function (x) TRUE
+	true_func <- function (...) TRUE
 	one_func <- function (...) 1
 	null_func <- function (...) NULL
 	false_func <- Negate(true_func)
