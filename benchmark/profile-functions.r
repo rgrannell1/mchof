@@ -120,8 +120,6 @@ report_mchof_performance <- function (len, times) {
 	backend_data <- profile_backend(len, times)
 	control_data <- profile_controls(len, times)
 	
-	
-	
 	messagef(
 		"call_mclapply was %s times slower than mclapply( ), 
 		%s times slower than Map( ) and %s times slower than lapply( )",
