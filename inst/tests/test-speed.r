@@ -72,15 +72,12 @@ test_that("mcpartition", {
 test_that("quantifiers", {
 
 	expect_that(
-		mcAll(slow_truefunc, 1:20, list(mc.cores = 2)), takes_less_than(6)
-	)
+		mcAll(slow_truefunc, 1:20, list(mc.cores = 2)), takes_less_than(6))
 
 	expect_that(
-		mcAny(slow_falsefunc, 1:20, list(mc.cores = 2)), takes_less_than(6)
-	)
+		mcAny(slow_falsefunc, 1:20, list(mc.cores = 2)), takes_less_than(6))
 	
 	expect_that(
-		mcOne(slow_truefunc, 1:20, list(mc.cores = 2)), takes_less_than(6)
-	)
+		mcOne(slow_truefunc, 1:20, list(mc.cores = 2)), takes_less_than(6))
 	
 })

@@ -6,9 +6,6 @@ pick_len <- function (n=100) {
 	sample(seq_len(n), size = 1)
 }
 
-#+# generator functions #+# #+#
-#+# #+# #+# #+# (ascii art) #+#
-
 r_integers <- function (n=100) {
 	sample(-100:100, size = n, replace = TRUE)
 }
@@ -68,7 +65,6 @@ r_int_tuples <- function (n=100) {
 	Map(
 		function (...) {
 			list(repl(function (...) r_integers(tuple_length), tuple_length))
-		
 		},
 		seq_len(n))
 }

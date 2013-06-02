@@ -6,47 +6,117 @@
 Functional Programming with mchof
 =================================
 
-## 1 Introduction
+Author: Ryan Grannell
 
 ## 2 Installation
 
-You have presumably installed mchof if you are reading this vignette; if not
-you can simply type
+You have presumably installed mchof if you are reading this vignette; if not you can simply type
 ```
-install.packages('mchof')
+install.packages("mchof")
 ```
-Into the console. It is also possible to install the 
-development version of mchof by using `install_github('mchof', 'rgrannell1)`, 
-though this is not recommended; the development version is usually unstable. 
-Updates will be released roughly every month, for the first few releases.
+into the console. It is also possible to install the development version of mchof by using `install_github('mchof', 'rgrannell1)`, though this is not recommended; the development version is usually unstable. Updates will be released frequently, with an release date being given in the README.
 
-## 3 Functional Programming Basics
+To load the package, use
+```{r}
+require(mchof)
+```
 
-## 4 Using `mchof`
+## 3 Functional Programs
+
+### 3.1 Enumerating the Prime Numbers
+
+Many programs involve finding correct solutions from a set of candidate solutions; for example enumerating prime numbers, finding the solution to a linear equation, or finding cycle-free paths in a graph. These tasks can be easily expressed in terms of `mcFilter`, `mcReject`, or `mcPartition`.
+
+A simple algorithm for finding all the primes in the set 1, 2,..., n is to use the sieve of Eratosthenes, which excludes values that are are divisible by any number smaller than that value (excluding one).
+
+First, we need to create a function that return TRUE is a number n is prime, otherwise returning FALSE.
+```{r}
+is_prime <- function (n) {
+	if (n == 1) FALSE else {
+		all( as.logical(n %% 2:(n-1)) )
+	}
+}
+```
+Now we can filter out the elements of the set 1...20 that do not return true for `is_prime`,
+returning a new set composed only of prime numbers.
+```{r}
+mcFilter(is_prime, 1:20)
+```
+Similarily, mcPartition divides the set 1...20 into a two sets; the prime numbers and the 
+composite numbers
+```{r}
+mcPartition(is_prime, 1:20)
+```
+And mcReject returns only the composite numbers
+```{r}
+mcReject(is_prime, 1:20)
+```
+
+### 3.2 Solving Linear Equations
+
+A slightly tougher problem is finding the smallest coefficients that solve a quadratic equation for a given value of x. 
+
+```{r}
+is_solved <- function (a, b, c, x) {
+	(a * x^2 + b * x + c) == 0
+}
+
+smallest_quadratic <- function (x) {
+	
+	# get the cartesian product of (-50...50) by itself, three times
+	product_set <- apply(	
+		expand.grid(-50:50, -50:50, -50:50), 1, list)
+	
+	mcFold(
+		function (smallest, new) {
+			# pick the set of coefficients with the minimum summed absolute values
+
+			if ( sum(abs(new)) < sum(abs(smallest)) ) new else smallest
+
+		}, first = NULL, 
+		# return the coefficients that solve the equation
+		mcFilter(is_solved, product_set))
+
+}
+smallest_quadratic(120)
+
+```
+
+mcReduce and mcFold are ideal for implementing greedy algorithms, such as finding the smallest 
+number in a vector.
+
+```{r}
+set_product <- function (...) {
+	apply(  as.data.frame(expand.grid(...)), 1, function (x) {
+		list(unname(x))
+	})
+}
+```
+
+$0:10 \times 0:10$
+
+
+
+
+
+
+## 4 Appendices
 
 ### 4.1 Parallel Options
 
-Mchof currently uses mclapply from the parallel library for its parallel backend. 
-`mclapply( )` works with very little effort on the part of the user, but unfortunately
-it doesn't work on windows (since windows does not allow forking). 
+Mchof currently uses mclapply from the parallel library for its parallel backend. `mclapply( )` works with very little effort on the part of the user, but unfortunately it doesn't work on windows (since windows does not allow forking). 
 
-It is likely that this will change in upcoming versions in order to add support for windows;
-as of now the most important option is mc.cores, which sets the number of 
-processes to spawn. 
+It is likely that this will change in upcoming versions in order to add support for windows; as of now the most important option is mc.cores, which sets the number of processes to spawn. 
 
-For further details see `mclapply( )` in the parallel library for a more complete 
-description of the options that can be used with mchof. 
+For further details see `mclapply( )` in the parallel library for a more complete description of the options that can be used with mchof. 
 
-Note that for obvious reasons FUN or X cannot be set in paropts in case they
-conflict with f and x (arguments available to most mchof functions).
+Note that for obvious reasons FUN or X cannot be set in paropts in case they conflict with f and x (arguments available to most mchof functions).
 
 ### 4.2 Multiple Argument Functions
 
-Most functions used with higher-order functions take a fixed number of arguments.
-This can be a problem when you want to set optional parameters for the input function.
+Most functions used with higher-order functions take a fixed number of arguments.This can be a problem when you want to set optional parameters for the input function.
 
-Take for example, if you want to concatenate the elements of a vector with commas
-seperating each element you could use;
+Take for example, if you want to concatenate the elements of a vector with commas seperating each element you could use;
 
 ```{r}
 comma_paste <- function (vector) {
@@ -158,6 +228,4 @@ or
 mcFold('+', 0, seq_len(10), list(mc.cores = 2))
 ```
 
-```{r css}
-options(markdown.HTML.stylesheet = system.file('misc','vignette.css', package='knitr'))
-```
+<link rel="stylesheet" href="vignette.css">
