@@ -26,19 +26,16 @@ mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
 	
 	func_call <- paste0( deparse(match.call()), ':' )
-	
-	f <- match.fun(f)
-	g <- function (...) {
-		res <- as.logical(f(...))
-		isTRUE(res)
-	}
 
+	f <- match.fun(f)
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	x[ unlist(call_mclapply(g, x, paropts)) ]
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts)))
+	true_ind <- !is.na(ind) & ind
 	
+	x[true_ind]	
 }
