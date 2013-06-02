@@ -29,9 +29,7 @@ report_mchof_performance <- function (len, times) {
 			Map(
 				function (test) {
 					timing <- microbenchmark(test(), times = times)$time
-					c(
-						mean = mean(timing), sd = sd(timing),
-						sd = round( sd(timing) / mean(timing), 2 ))
+					c(mean = mean(timing), sd = sd(timing))
 				},
 				list(
 					function () mcAll(true_func, test_vector),
@@ -69,9 +67,7 @@ report_mchof_performance <- function (len, times) {
 			Map(
 				function (test, profile_func) {
 					timing <- microbenchmark(test(), times = times)$time
-					c(
-						mean = mean(timing), sd = sd(timing),
-						sd = round(sd(timing)/mean(timing), 2))	
+					c(mean = mean(timing), sd = sd(timing))	
 				},
 				list(
 					function () control_quantifier(true_func, test_vector),
@@ -120,11 +116,11 @@ report_mchof_performance <- function (len, times) {
 	}
 	
 	
-	mchof_data <- profile_mchof(len, times)[1,]
+	mchof_data <- profile_mchof(len, times)
 	backend_data <- profile_backend(len, times)
-	control_data <- profile_controls(len, times)[1,]
+	control_data <- profile_controls(len, times)
 	
-	print(backend_data[1, "call_mclapply"])
+	
 	
 	messagef(
 		"call_mclapply was %s times slower than mclapply( ), 
