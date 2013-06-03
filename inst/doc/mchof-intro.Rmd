@@ -6,8 +6,6 @@
 Mchof Vignette
 =================================
 
-<h2 align = "center">Ryan Grannell</h2>
-
 ## 2 Installation
 
 You have presumably installed mchof if you are reading this vignette; if not you can simply type
