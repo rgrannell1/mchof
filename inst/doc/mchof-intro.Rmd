@@ -104,6 +104,11 @@ the second set of coefficients is smaller then these are assumed to be the small
 and so on for the rest of the list. This ultimately returns the smallest set of coefficients
 that solve the equation.
 
+This program shows some of the main uses of mchof; using the zip family of functions to 
+reshape data from a "column" format to a "list of rows" format before applying some function
+to them, the filter family of functions to return a subset of a list matching some function,
+and mcReduce to greedily find a value in a list.
+
 ## 4 Appendices
 
 ### 4.1 Parallel Options

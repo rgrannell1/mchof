@@ -108,18 +108,38 @@ smallest_quadratic <- function(x, range = c(rev(-seq_len(20)), seq_len(20))) {
         # pick the set of coefficients with the minimum summed absolute values
         if (sum(abs(new)) < sum(abs(smallest))) 
             new else smallest
-    }, mcFilter(function(coef) is_solved(coef[1], coef[2], coef[3], x), product_set))
+    }, mcSelect(function(coef) is_solved(coef[1], coef[2], coef[3], x), product_set))
 }
 smallest_quadratic(5)
 ```
 
 ```
-## [1]  1 -4 -5
+## Error: could not find function "mcSelect"
 ```
 
 
-There are three main steps in this program; first
+There are three main steps in this program:
 
+* 1 the set product of range (the candidate values of the coefficient) is computed.
+The data is stored as a data frame, in which column one represents values of 
+a, column two represents values of b, and column three represents values
+of c. Each row in the dataframe gives a combination a, b, c. 
+
+mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts
+each row to a vector by applying unlist to them.
+
+* 2 mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic
+equation for a given value of x.
+
+* 3 mcReduce assumes the first set of coefficients are the smallest in the list. If 
+the second set of coefficients is smaller then these are assumed to be the smallest,
+and so on for the rest of the list. This ultimately returns the smallest set of coefficients
+that solve the equation.
+
+This program shows some of the main uses of mchof; using the zip family of functions to 
+reshape data from a "column" format to a "list of rows" format before applying some function
+to them, the filter family of functions to return a subset of a list matching some function,
+and mcReduce to greedily find a value in a list.
 
 ## 4 Appendices
 
