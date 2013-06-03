@@ -6,13 +6,19 @@ New Functions:
 * mcReject: split a list into two lists based on a predicate.
 * mcFold: applies an associative binary operator 
  to a list (eg. +, *, rbind) with an initial value, returning a single element. 
+* mcOne: applies a predicate to a list, count the number of matches,
+ returns true if only one match was found.
+mcAll: applies a predicate to a list, count the number of matches,
+ returns true if every element matched.
+mcAny: applies a predicate to a list, count the number of matches,
+ returns true if one or more elements were matched.
 
 Improvements:
 
 * significant improvements made to the documentation.
 * error reporting improved; data that triggered the fail and its class now displayed
 for all internally-triggered errors.
-* performance improved significantly for mc.cores = 1
+* performance improved significantly, particularily for small lists when mc.cores = 1
 
 Bug Fixes:
 * bug with option handling fixed.

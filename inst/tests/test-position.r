@@ -11,4 +11,4 @@ forall(info = "position always returns a single integer, or none",
 	}
 )
 
-FLAG("add more tests to position")
+FLAG("add more tests to position; probably failing at the moment")
