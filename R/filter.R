@@ -23,7 +23,7 @@
 #' @example inst/examples/examples-filter.r 
 #' @keywords mcFilter mcSelect
 
-mcFilter <- mcSelect <- function (f, x, paropts = NULL) {
+mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
 	
 	func_call <- paste0( deparse(match.call()), ':' )
@@ -40,3 +40,7 @@ mcFilter <- mcSelect <- function (f, x, paropts = NULL) {
 	
 	x[true_ind]	
 }
+
+#' @export
+
+mcSelect <- mcFilter

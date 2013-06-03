@@ -19,6 +19,7 @@ Improvements:
 * error reporting improved; data that triggered the fail and its class now displayed
 for all internally-triggered errors.
 * performance improved significantly, particularily for small lists when mc.cores = 1
+* added an alias mcSelect for mcFilter, to complement mcReject
 
 Bug Fixes:
 * bug with option handling fixed.
