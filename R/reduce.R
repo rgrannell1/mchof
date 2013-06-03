@@ -90,3 +90,57 @@ mcReduce <- function (f, x, paropts = NULL) {
 		to_pairs(x)) [[1]] )
 
 }
+
+
+mcReduce <- function (f, x, paropts = NULL) {
+	# swaps the commas in x1, x2, x3, ..., xn with
+	# the infix function f.
+	
+	func_call <- paste0( deparse(match.call()), ':' )
+	
+	f <- match.fun(f)
+	
+	FLAG("reduce's parallel algorithm can be rewritten in terms of 
+		several foldrs")
+	
+	if (is.null(x)) return(NULL)
+	if (is.list(x) && length(x) == 0) return(list())
+	if (length(x) == 1) return(x)
+	is.factor(x) %throws% stopf (
+		'%s x may not be a factor; actual value was %s (%s)',
+		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	
+	call_mclapply(
+		f = function (sublist) {
+			iterateWhile(
+				function (reducable) {
+					# reduce one step here
+				}, 
+				function (x) length(x) == 1,
+				sublist
+			)
+		},
+		x = x,
+		paropts)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

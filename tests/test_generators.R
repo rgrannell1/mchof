@@ -45,6 +45,7 @@ r_flat_no_null <- function (n=100) {
 }
 r_paropts <- function (n=100) {
 	list(
+		list(),
 		list(mc.cores = 1), list(mc.cores = 2), list(mc.cores = 3),
 		list(mc.cores = 4), list(mc.cores = 5), list(mc.cores = 6),
 		list(mc.cores = 7), list(mc.cores = 8), list(mc.cores = 9))

@@ -14,7 +14,7 @@ quantifier_control <- filter_control <-
 	parallel::mclapply(x, null_func)
 }
 
-tests <- mcZipWith(
+mchof_tests <- mcZipWith(
 	function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	},
@@ -50,6 +50,27 @@ tests <- mcZipWith(
 		names = c("mcAll", "mcAny", "mcFilter", "mcFind",
 		"mcFold", "mcOne", "mcPartition", "mcPosition",
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
+	)
+)
+
+test_backend <- function (x) call_mclapply(null_func, x)
+
+backend_tests <- mcZipWith(
+	function (x) {
+		list(test = x[[1]], control = x[[2]], name = x[[3]])	
+	},
+	list(
+		tests = list(
+			function (x) parallel::mclapply(x, null_func),	
+			function (x) Map(null_func, x),
+			function (x) lapply(x, null_func)
+		),
+		controls = list(
+			test_backend,
+			test_backend,
+			test_backend
+		),
+		names = c("mclapply", "map", "lapply")
 	)
 )
 
@@ -98,20 +119,7 @@ profile_tests <- function (tests, len = 100, times = 2) {
 	invisible(NULL)
 }
 
-profile_tests(tests, len=1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+options(mc.cores = NULL)
+profile_tests(mchof_tests, len=1000)
+profile_tests(backend_tests, len=1000)
 

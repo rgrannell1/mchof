@@ -42,7 +42,8 @@ forall <- function (
 		test_return_value <- predicate(args)
 		
 		if (!is_boolean(test_return_value)) {
-			stop(args, " didn't return t/f: actual value was ", test_return_value)
+			stop(args, " didn't return t/f: actual value was ",
+				paste0(test_return_value, collapse = ", "))
 		}
 		results <- c(
 			results,

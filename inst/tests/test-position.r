@@ -11,4 +11,30 @@ forall(info = "position always returns a single integer, or none",
 	}
 )
 
-FLAG("add more tests to position; probably failing at the moment")
+forall(info = "position of the ith letter is i",
+	list(ind_ = 1:26, paropts_ = r_paropts()),
+	function (ind_, paropts_) {
+		
+		mcPosition(function (letter) letter == letters[ind_], letters) == ind_
+	}
+)
+
+forall(info = "position always returns the first match",
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		
+		elem <- x_[sample(seq_along(x_), size = 1)]
+		mcPosition(function (x) x == elem, x_, FALSE, paropts_) == which(x_ == elem)[1]
+	},
+	given = function (x_, paropts_) length(x_) > 0
+)
+
+forall(info = "position right = T always returns the first match",
+	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		
+		elem <- x_[sample(seq_along(x_), size = 1)]
+		mcPosition(function (x) x == elem, x_, TRUE, paropts_) == rev(which(x_ == elem))[1]
+	},
+	given = function (x_, paropts_) length(x_) > 0
+)

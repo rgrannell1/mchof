@@ -60,8 +60,6 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 		Map(rev, group_into(seq_along(x), cores))
 	}
 
-	FLAG("need to fix this code...")
-	
 	for (i in seq_along(job_indices)) {
 		
 		checked_ind <- unlist(call_mclapply(
