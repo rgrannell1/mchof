@@ -51,9 +51,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	} else if (!is.null(getOption('mc.cores')))  {
 		abs(getOption('mc.cores'))
 	} else 1
-	
-	FLAG("correct order??")
-	
+
 	job_indices <- if (right) {
 		group_into(seq_along(x), cores) 
 	} else {

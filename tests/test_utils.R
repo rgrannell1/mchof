@@ -8,6 +8,9 @@ forall <- function (
 	opts = list(time = 4), info = '') {
 	# a lightweight quickcheck function
 	
+	opts$time <- getOption("forall_time", opts$time)
+	opts$length <- getOption("forall_length", opts$length)
+	
 	stopwatch <- function (seconds) {
 		# returns a function with Sys.time( ) 
 		# captured in a closure

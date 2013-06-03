@@ -44,14 +44,7 @@ to_pairs <- function (x) {
 	
 	group_into(x, 2)
 }
-pair_fmap <- function (f) {
-	# returns a function that applies f to pairs:
-	# g(a, b) |-> f(a, b), g(a) |-> a
-	
-	function (x) {
-		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
-	}	
-}
+
 iterateWhile <- function (f, p, x) {
 	# pipe the output x of f into f, 
 	# until p(x) is true
@@ -67,10 +60,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
-	
-	FLAG("reduce's parallel algorithm can be rewritten in terms of 
-		several foldrs")
-	
+
 	if (is.null(x)) return(NULL)
 	if (is.list(x) && length(x) == 0) return(list())
 	if (length(x) == 1) return(x)
@@ -78,7 +68,9 @@ mcReduce <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	g <- pair_fmap(f)
+	g <- function (x) {
+		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
+	}
 
 	g( iterateWhile (
 		function (reducable) {
@@ -90,57 +82,3 @@ mcReduce <- function (f, x, paropts = NULL) {
 		to_pairs(x)) [[1]] )
 
 }
-
-
-mcReduce <- function (f, x, paropts = NULL) {
-	# swaps the commas in x1, x2, x3, ..., xn with
-	# the infix function f.
-	
-	func_call <- paste0( deparse(match.call()), ':' )
-	
-	f <- match.fun(f)
-	
-	FLAG("reduce's parallel algorithm can be rewritten in terms of 
-		several foldrs")
-	
-	if (is.null(x)) return(NULL)
-	if (is.list(x) && length(x) == 0) return(list())
-	if (length(x) == 1) return(x)
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
-	
-	call_mclapply(
-		f = function (sublist) {
-			iterateWhile(
-				function (reducable) {
-					# reduce one step here
-				}, 
-				function (x) length(x) == 1,
-				sublist
-			)
-		},
-		x = x,
-		paropts)
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
