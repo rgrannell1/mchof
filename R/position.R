@@ -53,9 +53,9 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	} else 1
 
 	job_indices <- if (right) {
-		group_into(seq_along(x), cores) 
+		rev(group_into(seq_along(x), cores))
 	} else {
-		Map(rev, group_into(seq_along(x), cores))
+		group_into(seq_along(x), cores) 
 	}
 
 	for (i in seq_along(job_indices)) {

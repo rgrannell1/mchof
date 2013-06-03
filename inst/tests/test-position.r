@@ -34,7 +34,9 @@ forall(info = "position right = T always returns the first match",
 	function (x_, paropts_) {
 		
 		elem <- x_[sample(seq_along(x_), size = 1)]
-		mcPosition(function (x) x == elem, x_, TRUE, paropts_) == rev(which(x_ == elem))[1]
+		res <- mcPosition(function (x) x == elem, x_, TRUE, paropts_)
+
+		res == max(which(x_ == elem))
 	},
 	given = function (x_, paropts_) length(x_) > 0
 )

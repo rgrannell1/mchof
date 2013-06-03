@@ -44,10 +44,10 @@ forall <- function (
 		args <- nextElem(testargs_iter)
 		test_return_value <- predicate(args)
 		
-		if (!is_boolean(test_return_value)) {
-			stop(args, " didn't return t/f: actual value was ",
-				paste0(test_return_value, collapse = ", "))
-		}
+		(!is_boolean(test_return_value)) %throws% stopf(
+			"%s didn't return t/f: actual value was %s",
+			paste0(test_return_value, collapse = ", "))
+		
 		results <- c(
 			results,
 			list(list(
@@ -61,7 +61,8 @@ forall <- function (
 			(!test$passed) %throws% stopf(
 				c(
 					'failed! %s',
-					"the assertion wasn't true when %s were equal to %s"),
+					"the assertion wasn't true when %s were equal to..",
+					"%s"),
 				info, 
 				paste0(names(formals(expect)), collapse = ', '),
 				paste0(deparse(test$args), collapse = ', '))
