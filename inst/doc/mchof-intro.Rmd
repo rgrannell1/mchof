@@ -56,7 +56,7 @@ mcReject(is_prime, 1:20)
 ### 3.2 Solving Linear Equations
 
 A slightly tougher problem is finding the smallest coefficients that solve a polynomial equation
-for a given value of x. 
+for a given value of x (by smallest, I mean the set of coefficients a, b, c that have the smallest summed absolute value).
 
 ```{r}
 is_solved <- function (a, b, c, x) {
@@ -79,15 +79,30 @@ smallest_quadratic <- function (x, range = c(rev(-seq_len(20)), seq_len(20))) {
 		# minimum summed absolute values
 		if ( sum(abs(new)) < sum(abs(smallest)) ) new else smallest
 		},
-		# return the coefficients that solve the equation
-		mcFilter(
+		mcSelect(
 			function (coef) is_solved(coef[1], coef[2], coef[3], x),
 			product_set))
 }
 smallest_quadratic(5)
 ```
 
+There are three main steps in this program:
 
+* 1 the set product of range (the candidate values of the coefficient) is computed.
+The data is stored as a data frame, in which column one represents values of 
+a, column two represents values of b, and column three represents values
+of c. Each row in the dataframe gives a combination a, b, c. 
+
+mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts
+each row to a vector by applying unlist to them.
+
+* 2 mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic
+equation for a given value of x.
+
+* 3 mcReduce assumes the first set of coefficients are the smallest in the list. If 
+the second set of coefficients is smaller then these are assumed to be the smallest,
+and so on for the rest of the list. This ultimately returns the smallest set of coefficients
+that solve the equation.
 
 ## 4 Appendices
 

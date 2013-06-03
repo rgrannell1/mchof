@@ -87,41 +87,30 @@ mcReject(is_prime, 1:20)
 ### 3.2 Solving Linear Equations
 
 A slightly tougher problem is finding the smallest coefficients that solve a polynomial equation
-for a given value of x. 
+for a given value of x (by smallest, I mean the set of coefficients a, b, c that have the smallest summed absolute value).
 
 
 ```r
-is_solved <- function (a, b, c, x) {
-	# is the quadratic equation solved?
-	(a * x^2 + b * x + c) == 0
+is_solved <- function(a, b, c, x) {
+    # is the quadratic equation solved?
+    (a * x^2 + b * x + c) == 0
 }
-smallest_quadratic <- function (x, range = c(rev(-seq_len(20)), seq_len(20))) {
-	# get the cartesian product of the set
-	tmp <- expand.grid(range, range, range)
-	
-	# get the columns in tmp, zip them into tuples, and
-	# unlist tuples into vectors
-	product_set <- mcUnzipWith(
-		function (x) unlist(x),
-		list(tmp[,1], tmp[,2], tmp[,3]))
-	
-	mcReduce(
-		function (smallest, new) {
-		# pick the set of coefficients with the
-		# minimum summed absolute values
-		if ( sum(abs(new)) < sum(abs(smallest)) ) new else smallest
-		},
-		# return the coefficients that solve the equation
-		mcFilter(
-			function (coef) is_solved(coef[1], coef[2], coef[3], x),
-			product_set))
+smallest_quadratic <- function(x, range = c(rev(-seq_len(20)), seq_len(20))) {
+    # get the cartesian product of the set
+    tmp <- expand.grid(range, range, range)
+    
+    # get the columns in tmp, zip them into tuples, and unlist tuples into
+    # vectors
+    product_set <- mcUnzipWith(function(x) unlist(x), list(tmp[, 1], tmp[, 2], 
+        tmp[, 3]))
+    
+    mcReduce(function(smallest, new) {
+        # pick the set of coefficients with the minimum summed absolute values
+        if (sum(abs(new)) < sum(abs(smallest))) 
+            new else smallest
+    }, mcFilter(function(coef) is_solved(coef[1], coef[2], coef[3], x), product_set))
 }
 smallest_quadratic(5)
-```
-
-```
-## Warning: reduce's parallel algorithm can be rewritten in terms of several
-## foldrs
 ```
 
 ```
@@ -129,6 +118,7 @@ smallest_quadratic(5)
 ```
 
 
+There are three main steps in this program; first
 
 
 ## 4 Appendices
@@ -267,11 +257,6 @@ mcReduce("+", seq_len(10))
 ```
 
 ```
-## Warning: reduce's parallel algorithm can be rewritten in terms of several
-## foldrs
-```
-
-```
 ## [1] 55
 ```
 
@@ -281,11 +266,6 @@ or
 
 ```r
 mcFold("+", 0, seq_len(10), list(mc.cores = 2))
-```
-
-```
-## Warning: reduce's parallel algorithm can be rewritten in terms of several
-## foldrs
 ```
 
 ```

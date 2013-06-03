@@ -256,42 +256,34 @@ it is useful in its own right for recursively partitioning a list in a tree-like
 <h3>3.2 Solving Linear Equations</h3>
 
 <p>A slightly tougher problem is finding the smallest coefficients that solve a polynomial equation
-for a given value of x. </p>
+for a given value of x (by smallest, I mean the set of coefficients a, b, c that have the smallest summed absolute value).</p>
 
-<pre><code class="r">is_solved &lt;- function (a, b, c, x) {
+<pre><code class="r">is_solved &lt;- function(a, b, c, x) {
     # is the quadratic equation solved?
     (a * x^2 + b * x + c) == 0
 }
-smallest_quadratic &lt;- function (x, range = c(rev(-seq_len(20)), seq_len(20))) {
+smallest_quadratic &lt;- function(x, range = c(rev(-seq_len(20)), seq_len(20))) {
     # get the cartesian product of the set
     tmp &lt;- expand.grid(range, range, range)
 
-    # get the columns in tmp, zip them into tuples, and
-    # unlist tuples into vectors
-    product_set &lt;- mcUnzipWith(
-        function (x) unlist(x),
-        list(tmp[,1], tmp[,2], tmp[,3]))
+    # get the columns in tmp, zip them into tuples, and unlist tuples into
+    # vectors
+    product_set &lt;- mcUnzipWith(function(x) unlist(x), list(tmp[, 1], tmp[, 2], 
+        tmp[, 3]))
 
-    mcReduce(
-        function (smallest, new) {
-        # pick the set of coefficients with the
-        # minimum summed absolute values
-        if ( sum(abs(new)) &lt; sum(abs(smallest)) ) new else smallest
-        },
-        # return the coefficients that solve the equation
-        mcFilter(
-            function (coef) is_solved(coef[1], coef[2], coef[3], x),
-            product_set))
+    mcReduce(function(smallest, new) {
+        # pick the set of coefficients with the minimum summed absolute values
+        if (sum(abs(new)) &lt; sum(abs(smallest))) 
+            new else smallest
+    }, mcFilter(function(coef) is_solved(coef[1], coef[2], coef[3], x), product_set))
 }
 smallest_quadratic(5)
 </code></pre>
 
-<pre><code>## Warning: reduce&#39;s parallel algorithm can be rewritten in terms of several
-## foldrs
-</code></pre>
-
 <pre><code>## [1]  1 -4 -5
 </code></pre>
+
+<p>There are three main steps in this program; first</p>
 
 <h2>4 Appendices</h2>
 
@@ -405,20 +397,12 @@ in place of an actual function. For example, if you wanted to sum the vector
 <pre><code class="r">mcReduce(&quot;+&quot;, seq_len(10))
 </code></pre>
 
-<pre><code>## Warning: reduce&#39;s parallel algorithm can be rewritten in terms of several
-## foldrs
-</code></pre>
-
 <pre><code>## [1] 55
 </code></pre>
 
 <p>or</p>
 
 <pre><code class="r">mcFold(&quot;+&quot;, 0, seq_len(10), list(mc.cores = 2))
-</code></pre>
-
-<pre><code>## Warning: reduce&#39;s parallel algorithm can be rewritten in terms of several
-## foldrs
 </code></pre>
 
 <pre><code>## [1] 55

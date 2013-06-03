@@ -1,5 +1,6 @@
 #'
 #' @title mcFilter
+#' @aliases mcSelect
 #' 
 #' @description mcFilter extracts the elements of a vector or list for 
 #' which the function \code{f} returns \code{TRUE}.
@@ -20,9 +21,9 @@
 #' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject
 #'    
 #' @example inst/examples/examples-filter.r 
-#' @keywords mcFilter
+#' @keywords mcFilter mcSelect
 
-mcFilter <- function (f, x, paropts = NULL) {
+mcFilter <- mcSelect <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
 	
 	func_call <- paste0( deparse(match.call()), ':' )

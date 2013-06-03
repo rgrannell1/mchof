@@ -1,5 +1,6 @@
 \name{mcFilter}
 \alias{mcFilter}
+\alias{mcSelect}
 \title{mcFilter}
 \usage{
   mcFilter(f, x, paropts = NULL)
@@ -69,4 +70,5 @@ mcFilter(
   that combines mcFilter and mcReject
 }
 \keyword{mcFilter}
+\keyword{mcSelect}
 

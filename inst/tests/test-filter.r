@@ -33,7 +33,7 @@ all_equal <- function (x) {
 
 forall(
 	list(x_ = r_flat_no_null(1000), paropts_ = r_paropts(4)),
-	info = 'mcFilter, !mcReject, mcPartition & a nullless list which are equivelent',
+	info = "mcFilter ~ !mcReject ~ mcPartition",
 	function (x_, paropts_) {
 		
 		res_0 <- denullify(x_)
