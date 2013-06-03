@@ -33,9 +33,9 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			'invalid arguments given to paropts: %s', 
 				 paste(invalid_args, collapse = ', '))
 		
-		paropts$X <- NULL
 		paropts$FUN <- NULL
-	
+		paropts$X <- NULL
+
 	} else if (!is.null(getOption('mc.cores'))) {
 		paropts <- list(mc.cores = getOption('mc.cores'))
 	}
@@ -43,22 +43,22 @@ call_mclapply <- function (f, x, paropts = NULL) {
 	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {
 		lapply(x, f)
 	} else {
-		status <- ''	
+		status <- ""	
 		output <- withCallingHandlers({	
 			do.call(
 				what = par_mclapply,
 				args = c(list(FUN = f, X = x), paropts))	
 			},
 			warning = function (w) {
-				status <<- 'warning'
+				status <<- "warning"
 			}, error = function (e) {
-				status <<- 'error'
+				status <<- "error"
 		})
 	
-		(status == 'warning') %throws% stopf (
+		(status == "warning") %throws% stopf (
 			c('%s', '%s'), func_call, output)
 		
-		(status == 'error') %throws% stopf (
+		(status == "error") %throws% stopf (
 			c('%s', '%s'), func_call, output)		
 		
 		output	

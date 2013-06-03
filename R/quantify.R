@@ -140,10 +140,30 @@ mcOne <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	FLAG("need to optimise")
-	
-	bools <- as.logical(call_mclapply(f, x, paropts))
-	bools[is.na(bools)] <- FALSE
-	
-	length(which(bools)) == 1
+
+	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
+		abs(paropts$mc.cores)
+	} else if (!is.null(getOption('mc.cores')))  {
+		abs(getOption('mc.cores'))
+	} else 1
+
+	number_true <- 0
+	job_indices <- group_into(seq_along(x), cores)
+
+	for (i in seq_along(job_indices)) {
+		
+		if (number_true > 1) return (FALSE)
+		
+		bools <- unlist(call_mclapply(
+			f = function (ind) {
+				# returns indices satisfying f
+				
+				isTRUE( as.logical(f( x[[ind]] )) )
+			},
+			x = job_indices[[i]],
+			paropts
+		))
+		number_true <- number_true + length(which(bools))
+	}
+	number_true == 1
 }
