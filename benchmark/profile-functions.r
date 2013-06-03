@@ -1,5 +1,6 @@
 
 library (microbenchmark)
+library (parallel)
 
 options(mc.cores = NULL)
 
@@ -28,8 +29,7 @@ report_mchof_performance <- function (len, times) {
 		as.data.frame(structure(
 			Map(
 				function (test) {
-					timing <- microbenchmark(test(), times = times)$time
-					c(mean = mean(timing), sd = sd(timing))
+					microbenchmark(test(), times = times)$time
 				},
 				list(
 					function () mcAll(true_func, test_vector),
@@ -57,18 +57,17 @@ report_mchof_performance <- function (len, times) {
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
 		
 		control_quantifier <- function (f, x) {
-			Map(f, x)
+			mclapply(x, f)
 		}
 		control_zip <- function (f, x) {
-			Map(f, x)
+			mclapply(x, f)
 		}
 		
 		as.data.frame(structure(
 			Map(
 				function (test, profile_func) {
-					timing <- microbenchmark(test(), times = times)$time
-					c(mean = mean(timing), sd = sd(timing))	
-				},
+					microbenchmark(test(), times = times)$time
+					},
 				list(
 					function () control_quantifier(true_func, test_vector),
 					function () control_quantifier(true_func, test_vector),
@@ -85,7 +84,7 @@ report_mchof_performance <- function (len, times) {
 			names = func_names))
 	}
 	profile_backend <- function (len = 10, times = 1) {
-		timing_apply <- list(
+		list(
 			map = microbenchmark(
 				Map(null_func, seq_len(len)), times = times
 			)$time,	
@@ -93,42 +92,45 @@ report_mchof_performance <- function (len, times) {
 				call_mclapply(null_func, seq_len(len)), times = times
 			)$time,
 			mclapply = microbenchmark(
-				parallel::mclapply(seq_len(len), null_func), times = times
+				mclapply(seq_len(len), null_func), times = times
 			)$time,
 			lapply = microbenchmark(
 				lapply(seq_len(len), null_func), times = times
 			)$time)
 	
-		data.frame(
-			map = c(
-				mean = mean(timing_apply$map), 
-				sd = round(sd(timing_apply$map), 2)),
-			mclapply = c(
-				mean = mean(timing_apply$mclapply),
-				sd = round(sd(timing_apply$mclapply), 2)),
-			call_mclapply = c(
-				mean = mean(timing_apply$mclapply),
-				sd = round(sd(timing_apply$call_mclapply), 2)),
-			lapply = c(
-				mean = mean(timing_apply$lapply),
-				sd = round(sd(timing_apply$lapply), 2))
-		)
 	}
-	
-	
+
 	mchof_data <- profile_mchof(len, times)
 	backend_data <- profile_backend(len, times)
 	control_data <- profile_controls(len, times)
 	
+	mean_difference <- function (x, y) {
+		
+		c(1, 1)
+		
+	}
+	
+	backend_differences <- Map(
+		function (val) {
+			paste0(round(val[1], 4), '+-', round(val[2], 4), collapse = " ")
+		},		
+		list(mean_difference(
+			backend_data$call_mclapply,
+			backend_data$mclapply) / mean(backend_data$mclapply),
+		mean_difference(
+			backend_data$call_mclapply,
+			backend_data$map) / mean(backend_data$map),
+		mean_difference(
+			backend_data$call_mclapply,
+			backend_data$lapply) / mean(backend_data$lapply)	
+	))
+
 	messagef(
 		"call_mclapply was %s times slower than mclapply( ), 
-		%s times slower than Map( ) and %s times slower than lapply( )",
-		round(backend_data["mean", "call_mclapply"] / 
-			backend_data["mean", "mclapply"], 2),
-		round(backend_data["mean", "call_mclapply"] / 
-			backend_data["mean", "map"], 2),
-		round(backend_data["mean", "call_mclapply"] / 
-			backend_data["mean", "lapply"], 2))
+		%s times slower than Map( ) and %s times slower than lapply( )\n",
+		backend_differences[[1]],
+		backend_differences[[2]],
+		backend_differences[[3]])
 	
 	messagef(c(unlist(Map(
 		function (name, multipier, speed) {
@@ -139,10 +141,7 @@ report_mchof_performance <- function (len, times) {
 		round(mchof_data / control_data, 0),
 		round(mchof_data, 0)))))
 	
-	list(
-		mchof = mchof_data,
-		backend = backend_data,
-		control = control_data)
+	list(mchof = mchof_data, backend = backend_data, control = control_data)
 }
 
-report_mchof_performance(10000, 10)
+report_mchof_performance(10, 10)
