@@ -3,8 +3,11 @@ context ("test that every function can take a function name")
 
 truefun <- function (x) TRUE
 
-test_that ("Filter can take a function name", {
-	expect_equal(mcFilter ("truefun", 1:10), 1:10)
+test_that ("Select can take a function name", {
+	expect_equal(mcSelect ("truefun", 1:10), 1:10)
+})
+test_that ("Reject can take a function name", {
+	expect_equal(Reject ("truefun", 1:10), 1:10)
 })
 
 test_that ("Position can take a function name", {
