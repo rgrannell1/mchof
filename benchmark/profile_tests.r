@@ -57,8 +57,6 @@ mchof_tests <- mcZipWith(
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
 )
 
-test_backend <- function (x) call_mclapply(null_func, x)
-
 backend_tests <- mcZipWith(
 	function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
@@ -69,56 +67,12 @@ backend_tests <- mcZipWith(
 		function (x) lapply(x, null_func)
 	),
 	list(
-		test_backend,
-		test_backend,
-		test_backend
+		function (x) call_mclapply(null_func, x),
+		function (x) call_mclapply(null_func, x),
+		function (x) call_mclapply(null_func, x)
 	),
 	c("mclapply", "map", "lapply")
 )
-
-profile_tests <- function (tests, len = 100, times = 2) {
-	# compare the run-times of the tests to the controls
-
-	report_result <- function (name, multiplier) {
-		multiplier <- round(multiplier, 2)	
-	
-		messagef(
-			"%s was %s times slower than the control test",
-			name, paste(multiplier[1], "±", multiplier[2]))
-	}
-	compare_results <- function (test, control) {
-		# calculate how many times larger x is than y,
-		# within a 95% confidence interval
-		
-		difference <-  median(test) / median(control)
-		margin <- 0
-		
-		c(difference, margin)
-	}
-	
-	timing <- Map(
-		function (test) {
-			
-			x <- seq_len(len)
-			
-			list(
-				name = test$name,
-				test = microbenchmark(
-					test$test(x),
-					times = times)$time,
-				control = microbenchmark(
-					test$control(x),
-					times = times)$time)
-		},
-		tests)
-	
-	Map(
-		function (test) {
-			report_result(test$name, compare_results(test$test, test$control))
-		},
-		timing)
-	invisible(NULL)
-}
 
 options(mc.cores = NULL)
 
