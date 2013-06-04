@@ -3,13 +3,17 @@ context("zip & unzip: normal cases")
 
 FLAG("these tests aren't strong enough to verify functions work (mczip)")
 
+f <- function (x, paropts = NULL) {
+	mcUnzip(do.call(mcZip, list(x, paropts = paropts)), paropts)
+}
+g <- function (x, paropts = NULL) {
+	do.call(mcZip, list(mcUnzip(x, paropts), paropts = paropts))
+}
+
 forall(info = "zip is an approximate inverse of unzip",
 	list(x_ = c(r_int_tuples(), r_empty_list_tuples()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
-		
-		f <- mcUnzip %of% mcZip
-		g <- mcZip %of% mcUnzip		
-		
+
 		all_equal(list(x_, f(x_, paropts_), g(x_, paropts_)))
 	}
 )
@@ -25,10 +29,7 @@ forall(info = "the length of the outputted tuples is uniform",
 forall(info = "structure of the output is preserved for tuples of list( )",
 	list(x_ = r_empty_list_tuples(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
-		
-		f <- mcUnzip %of% mcZip
-		g <- mcZip %of% mcUnzip
-		
+
 		all_equal(list(
 			x_,
 			f(x_, paropts_),

@@ -44,9 +44,9 @@ test_that('list() behaviour is defined', {
 	expect_equal(mcFind(true_fun, list()), list())	
 	expect_equal(mcReduce(get('+'), list()), list())
 
-	expect_equal(mcZip(list()), list())
-	expect_equal(mcZip (list (list(), list(1), list(1,2,3))), list())
-	expect_equal(mcUnzip(list (list('a', 'b'), list(), list('c', 'd'))), list())
+	expect_equal(mcZip(), list())
+	expect_equal(mcZip (list(), list(1), list(1,2,3)), list())
+	expect_equal(mcUnzip(list(list('a', 'b'), list(), list('c', 'd'))), list())
 	expect_equal(mcUnzip(list()), list ())
 	
 	expect_equal(mcUnzipWith(max, list()), list())	
@@ -56,10 +56,10 @@ test_that('list() behaviour is defined', {
 			list (list ('a', 'b'), list (), list ('c', 'd'))), 
 		list ())
 
-	expect_equal(mcZipWith(identity, list(list())), list())
+	expect_equal(mcZipWith(identity, list()), list())
 	
 	# list(..., list(), ...) |-> list()
-	expect_equal(mcZipWith(identity, list(list(), list(), list(1:10))), list())
+	expect_equal(mcZipWith(identity, list(), list(), list(1:10)), list())
 	
 	# quantify list() -> list()
 	expect_equal(mcAll(mean, list()), list())
@@ -71,7 +71,7 @@ test_that('list() behaviour is defined', {
 test_that("[A](0) |-> ...", {
 	
 	# ... integer(0)
-	expect_equal(	mcPosition(true_fun, x = character(0)), integer(0))
+	expect_equal(mcPosition(true_fun, x = character(0)), integer(0))
 	
 	#...[A](0)
 	expect_equal(length(mcFind(function(x) FALSE, character(0))), 0)

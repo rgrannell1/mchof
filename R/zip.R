@@ -33,20 +33,12 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
-
-	FLAG("switch from 'x' to variadic list inputs;
-		mcZip is currently the same as mcUnzip!
-	")
 	
 	func_call <- deparse(match.call())
 	
+	x <- list(...)
 	f <- match.fun(f)
-	
-	captured <- as.list(match.call())[-1]
-	FLAG("get ellipsis here!")
-	
-	x <- captured[names(captured) == ""]
-	
+
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 

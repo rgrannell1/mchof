@@ -33,7 +33,7 @@ test_that ("Partition can take a function name", {
 test_that ("ZipWith can take a function name", {
 	
 	expect_equal(
-		mcZipWith('identity', list(1:3, 4:6)),
+		mcZipWith('identity', 1:3, 4:6),
 		list (list(1,4), list(2,5), list(3,6)) )
 
 })
