@@ -15,16 +15,6 @@ forall(
 		mcReduce(paste0, x_, paropts_) == paste0(x_, collapse = '')
 	}
 )
-forall(
-	info = "mcReduce head x is equal to x",
-	list(x_ = r_letters(), paropts_ = r_paropts()),
-	function (x_, paropts_) {
-		all_equal(list(
-			mcReduce(function (x) stop(""), head(x_, 1), paropts_),		
-			head(x_, 1)
-		))
-	}
-)
 
 context("fold: normal cases")
 	

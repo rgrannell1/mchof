@@ -82,11 +82,16 @@ test_that("[A](0) |-> ...", {
 
 })
 
-test_that("mcReduce length(1) |-> 1", {
-	
-	expect_equal(mcReduce(get('+'), c(1)), 1)
-
-})
+forall(
+	info = "mcReduce x[1] |-> x[1]",
+	list(x_ = c(r_letters(), r_integers(), r_flat_no_null()), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		all_equal(list(
+			mcReduce(function (x) stop("too late!"), head(x_, 1), paropts_),		
+			head(x_, 1)
+		))
+	}
+)
 
 test_that("mcPartition length(0) |-> length(0)", {
 	
