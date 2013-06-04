@@ -27,41 +27,45 @@
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
+
+	FLAG("need to convert this to unzip")
 	
 	func_call <- deparse(match.call())
-
-	f <- match.fun(f)
 	
+	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 
-	lists <- Filter(
-		function (elem) {
+	sublist_info <- sapply(x, function (elem) {
+		c(
+			factor = inherits(elem, "factor"),
+			not_null = !is.null(elem),
+			length = length(elem))
+	})
+
+	any(sublist_info["factor",]) %throws% stopf(
+		"%s elements %s were factors)",
+		func_call,
+		paste0(which(sublist_info["factor",]), collapse = ", "))
+
+	min_length <- min(sublist_info["length",])
+	
+	if (min_length == 0) {
+		return (list())
+	}
+
+	which_not_null <- which(sublist_info["not_null",] == 1)
+
+	call_mclapply(
+		function (ind) {
+			# get the ind-th element in each sublist,
+			# add to a list, apply f to that list
 			
-			inherits(elem, 'factor') %throws% stopf (
-				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
-				func_call, deparse(elem), class(elem))
-			
-			!is.null(elem)
-		}, x)
-	
-	shortest_tuple <- min(sapply(x, length))
-	
-	to_unzip <- Map (
-		function (elem) elem[seq_len(shortest_tuple)], 
-		lists)
-	
-	unzipped <- call_mclapply (
-		f = function (ind) {
-			lapply (to_unzip, function (x) x[[ind]])
+			 f(lapply( x, function (sublist) sublist[[ind]] ))
 		},
-		x = seq_len(shortest_tuple), 
-		paropts)
-	
-	call_mclapply (
-		f = f,	
-		x = unzipped,
-		paropts )
+		seq_len(min_length),
+		paropts
+	)
 }
 
 #' @description mcUnzip is the inverse function of mcZip; it takes a list 

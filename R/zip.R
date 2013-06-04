@@ -49,6 +49,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 			not_null = !is.null(elem),
 			length = length(elem))
 	})
+
 	any(sublist_info["factor",]) %throws% stopf(
 		"%s elements %s were factors)",
 		func_call,
@@ -61,19 +62,17 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	}
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
-	
-	x <- lapply(
-		x[which_not_null],
-		function (x) x[seq_len(min_length)] )
-	
-	x <- call_mclapply (
-		function (ind) {
-			lapply (x, function (elem) elem[[ind]])
-		},	
-		seq_len(min_length), 
-		paropts )
 
-	call_mclapply (f, x, paropts)
+	call_mclapply(
+		function (ind) {
+			# get the ind-th element in each sublist,
+			# add to a list, apply f to that list
+			
+			 f(lapply( x, function (sublist) sublist[[ind]] ))
+		},
+		seq_len(min_length),
+		paropts
+	)
 
 }
 

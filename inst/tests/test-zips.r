@@ -2,16 +2,13 @@
 context("zip & unzip: normal cases")
 
 forall(info = "zip is an approximate inverse of unzip",
-	list(x_ = c(r_tuple_list(), r_empty_list_tuples()), paropts_ = r_paropts()),
+	list(x_ = c(r_int_tuples(), r_empty_list_tuples()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		
 		f <- mcUnzip %of% mcZip
 		g <- mcZip %of% mcUnzip		
 		
 		all_equal(list(x_, f(x_, paropts_), g(x_, paropts_)))
-	},
-	given = function (x_, paropts_) {
-		all_equal(sapply(x_, length))
 	}
 )
 
