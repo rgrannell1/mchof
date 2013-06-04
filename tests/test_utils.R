@@ -74,7 +74,7 @@ forall <- function (
 }
 
 
-profile_tests <- function (tests, len = 100, times = 2) {
+benchmark_code <- function (tests, len = 100, times = 2) {
 	# compare the run-times of the tests to the controls
 
 	report_result <- function (name, multiplier) {
@@ -89,8 +89,10 @@ profile_tests <- function (tests, len = 100, times = 2) {
 		# within a 95% confidence interval
 		
 		difference <-  median(test) / median(control)
-		margin <- 0
-		
+		margin <- abs(
+			( median(test) - sd(test) / median(control) + sd(control) ) /
+			( median(test) + sd(test) / median(control) - sd(control) ))
+			
 		c(difference, margin)
 	}
 	
