@@ -31,7 +31,7 @@ forall(info = "position always returns the first match",
 	given = function (x_, paropts_) length(x_) > 0
 )
 
-forall(info = "position right = T always returns the first match",
+forall(info = "position right = T always returns the last match",
 	list(x_ = r_int_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		

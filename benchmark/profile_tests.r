@@ -108,8 +108,7 @@ profile_tests <- function (tests, len = 100, times = 2) {
 					times = times)$time,
 				control = microbenchmark(
 					test$control(x),
-					times = times)$time
-			)
+					times = times)$time)
 		},
 		tests)
 	

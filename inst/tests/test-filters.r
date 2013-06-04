@@ -56,7 +56,7 @@ forall(info = 'reject FALSE x -> x',
 			mcReject(function (...) FALSE, x_, paropts_), x_)
 	}
 )
-forall(info = 'given a function that returns true for odd ints, returns evn ints',
+forall(info = 'given a function that returns true for odd ints, returns even ints',
 	   list(x_ = r_seq_len(), paropts_ = r_paropts()),
 	   function (x_, paropts_) {
 	   	
