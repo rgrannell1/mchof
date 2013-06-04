@@ -26,7 +26,7 @@
 #' @keywords mcZipWith
 #' @example inst/examples/examples-zipwith.r
 
-mcZipWith <- function (f, x, paropts = NULL) {
+mcZipWith <- function (f, ..., paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
@@ -34,9 +34,19 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
 
+	FLAG("switch from 'x' to variadic list inputs;
+		mcZip is currently the same as mcUnzip!
+	")
+	
 	func_call <- deparse(match.call())
 	
 	f <- match.fun(f)
+	
+	captured <- as.list(match.call())[-1]
+	FLAG("get ellipsis here!")
+	
+	x <- captured[names(captured) == ""]
+	
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 
@@ -99,9 +109,9 @@ mcZipWith <- function (f, x, paropts = NULL) {
 #' @keywords mcZip
 #' @example inst/examples/examples-zip.r
 
-mcZip <- function(x, paropts = NULL) {
+mcZip <- function(..., paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
 	
-	mcZipWith (f = identity, x, paropts = paropts)
+	mcZipWith (f = identity, ..., paropts = paropts)
 
 }

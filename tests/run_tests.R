@@ -8,6 +8,8 @@ source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_generators.R')
 
 options(forall_time = 20)
 
+FLAG("zip & unzip same function?")
+
 test_dir('/home/rgrannell1/Dropbox/R directory/mchof/inst/tests/', rep = 'summary')
 
 options(forall_time = NULL)

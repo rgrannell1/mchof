@@ -4,6 +4,8 @@
 \title{mcFilter}
 \usage{
   mcFilter(f, x, paropts = NULL)
+
+  mcSelect(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,

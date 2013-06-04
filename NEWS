@@ -25,6 +25,11 @@ Bug Fixes:
 * bug with option handling fixed.
 * errors in documentation fixed.
 
+API Changes:
+* mcZip & mcZipWith now takes a variable number of arguments;
+to zip 1:4, 5:8, 9:12 you would now use mcZip(1:4, 5:8, 9:12, paropts = list(mc.cores = 2))
+instead of mcZip(list(1:4, 5:8, 9:12), paropts = list(mc.cores = 2)) 
+
 Version 0.2 (2013-05-03)
 ------------------------------------------------------------------------------
 

@@ -5,6 +5,10 @@
 #' @description mcFilter extracts the elements of a vector or list for 
 #' which the function \code{f} returns \code{TRUE}.
 #' 
+#' @usage mcFilter(f, x, paropts = NULL)
+#' 
+#' mcSelect(f, x, paropts = NULL)
+#' 
 #' @export
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
