@@ -65,7 +65,7 @@ forall <- function (
 					"%s"),
 				info, 
 				paste0(names(formals(expect)), collapse = ', '),
-				paste0(deparse(test$args), collapse = ', '))
+				paste0(dput(test$args), collapse = ", "))
 		},
 		results)
 	messagef(
