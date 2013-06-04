@@ -27,7 +27,13 @@
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
+	# takes a list of n-tuples, returns n lists
+	# returns the result of mapping f over this new list. 
+	# excess elements are discarded. 
 
+	# list (x1, y1), list (x2, y2)  |-> 
+	# list ( list(x1, x2), list(y1, y2) )
+	
 	FLAG("need to convert this to unzip")
 	
 	func_call <- deparse(match.call())

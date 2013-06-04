@@ -33,10 +33,7 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
-	
-	FLAG("zip scales poorly compared to other functions? 
-		simplify from 2n to n if possible")
-	
+
 	func_call <- deparse(match.call())
 	
 	f <- match.fun(f)
@@ -73,7 +70,6 @@ mcZipWith <- function (f, x, paropts = NULL) {
 		seq_len(min_length),
 		paropts
 	)
-
 }
 
 #' @description mcZip takes n lists/vectors, and generates a list of n element lists.

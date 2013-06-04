@@ -1,6 +1,8 @@
 
 context("zip & unzip: normal cases")
 
+FLAG("these tests aren't strong enough to verify functions work (mczip)")
+
 forall(info = "zip is an approximate inverse of unzip",
 	list(x_ = c(r_int_tuples(), r_empty_list_tuples()), paropts_ = r_paropts()),
 	function (x_, paropts_) {

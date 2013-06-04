@@ -15,7 +15,7 @@ of parallelism.
    
 Functions included in the current release (0.2)
 
-* **mcFilter**: get the elements of a list matching a predicate
+* **mcFilter/mcSelect**: get the elements of a list matching a predicate
 * **mcReduce:** applies an associative binary operator to a list (eg. +, *, rbind)
 * **mcFind:** get the first element in a list matching a predicate
 * **mcPosition:** find the first element in a list matching a predicate

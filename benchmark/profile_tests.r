@@ -121,7 +121,7 @@ profile_tests <- function (tests, len = 100, times = 2) {
 
 options(mc.cores = NULL)
 
-profile_tests(backend_tests, len = 100000, 30)
+profile_tests(backend_tests, len = 1000, 300)
 cat("\n")
-profile_tests(mchof_tests, len = 100000, 30)
+profile_tests(mchof_tests, len = 1000, 300)
 
