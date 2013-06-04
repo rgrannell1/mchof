@@ -15,42 +15,46 @@ quantifier_control <- filter_control <-
 }
 
 mchof_tests <- mcZipWith(
-	function (x) {		
+	function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	},
 	list(
-		tests = list(
-			function (x) mcAll(true_func, x),
-			function (x) mcAny(false_func, x),
-			function (x) mcFilter(true_func, x),
-			function (x) mcFind(false_func, x),
-			function (x) mcFold(one_func, 0, x),
-			function (x) mcOne(false_func, x),
-			function (x) mcPartition(true_func, x),
-			function (x) mcPosition(false_func, x),
-			function (x) mcReduce(one_func, x),
-			function (x) mcReject(false_func, x),
-			function (x) mcZipWith(true_func, x),
-			function (x) mcUnzipWith(true_func, x)
-		),
-		controls = list(
-			function (x) quantifier_control(x),
-			function (x) quantifier_control(x),
-			function (x) filter_control(x),
-			function (x) position_control(x),
-			function (x) fold_control(x),
-			function (x) quantifier_control(x),
-			function (x) filter_control(x),
-			function (x) position_control(x),
-			function (x) fold_control(x),
-			function (x) filter_control(x),
-			function (x) zip_control(x),
-			function (x) zip_control(x)	
-		),
-		names = c("mcAll", "mcAny", "mcFilter", "mcFind",
+		function (x) mcAll(true_func, x),
+		function (x) mcAny(false_func, x),
+		function (x) mcFilter(true_func, x),
+		function (x) mcFind(false_func, x),
+		function (x) mcFold(one_func, 0, x),
+		function (x) mcOne(false_func, x),
+		function (x) mcPartition(true_func, x),
+		function (x) mcPosition(false_func, x),
+		function (x) mcReduce(one_func, x),
+		function (x) mcReject(false_func, x),
+		function (x) {
+			zippable_x <- list(
+				head(x, floor(length(x) / 2)),
+				tail(x, ceiling(length(x) / 2)))
+			
+			do.call(mcZipWith(null_func, zippable_x))
+		},
+		function (x) mcUnzipWith(true_func, x)
+	),
+	list(
+		function (x) quantifier_control(x),
+		function (x) quantifier_control(x),
+		function (x) filter_control(x),
+		function (x) position_control(x),
+		function (x) fold_control(x),
+		function (x) quantifier_control(x),
+		function (x) filter_control(x),
+		function (x) position_control(x),
+		function (x) fold_control(x),
+		function (x) filter_control(x),
+		function (x) zip_control(x),
+		function (x) zip_control(x)	
+	),
+	c("mcAll", "mcAny", "mcFilter", "mcFind",
 		"mcFold", "mcOne", "mcPartition", "mcPosition",
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
-	)
 )
 
 test_backend <- function (x) call_mclapply(null_func, x)
@@ -60,18 +64,16 @@ backend_tests <- mcZipWith(
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	},
 	list(
-		tests = list(
-			function (x) parallel::mclapply(x, null_func),	
-			function (x) Map(null_func, x),
-			function (x) lapply(x, null_func)
-		),
-		controls = list(
-			test_backend,
-			test_backend,
-			test_backend
-		),
-		names = c("mclapply", "map", "lapply")
-	)
+		function (x) parallel::mclapply(x, null_func),	
+		function (x) Map(null_func, x),
+		function (x) lapply(x, null_func)
+	),
+	list(
+		test_backend,
+		test_backend,
+		test_backend
+	),
+	c("mclapply", "map", "lapply")
 )
 
 profile_tests <- function (tests, len = 100, times = 2) {

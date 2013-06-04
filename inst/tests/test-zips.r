@@ -7,7 +7,7 @@ f <- function (x, paropts = NULL) {
 	mcUnzip(do.call(mcZip, list(x, paropts = paropts)), paropts)
 }
 g <- function (x, paropts = NULL) {
-	do.call(mcZip, list(mcUnzip(x, paropts), paropts = paropts))
+	do.call(mcZip, c(mcUnzip(x, paropts), list(paropts = paropts)))
 }
 
 forall(info = "zip is an approximate inverse of unzip",

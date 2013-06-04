@@ -7,7 +7,7 @@
 #' 
 #' @param f a function that takes a single n-element list, or a string
 #' giving the name of such a function.
-#' @param x a list or vector.
+#' @param ... several lists or vectors.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see the vignette).
 #'    
@@ -39,9 +39,9 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	x <- list(...)
 	f <- match.fun(f)
 
-	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
-
+	if ( is.null(x[[1]]) ) return (NULL)
+	
 	sublist_info <- sapply(x, function (elem) {
 		c(
 			factor = inherits(elem, "factor"),
@@ -81,7 +81,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' @author Ryan Grannell
 #' 
 #' @export
-#' @param x a list of lists
+#' @param ... several lists or vectors.
 #' @param paropts a list of parameters to be handed to 
 #' mclapply (see the vignette).
 #' 

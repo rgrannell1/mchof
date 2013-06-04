@@ -2,13 +2,13 @@
 \alias{mcZipWith}
 \title{mcZipWith}
 \usage{
-  mcZipWith(f, x, paropts = NULL)
+  mcZipWith(f, ..., paropts = NULL)
 }
 \arguments{
   \item{f}{a function that takes a single n-element list,
   or a string giving the name of such a function.}
 
-  \item{x}{a list or vector.}
+  \item{...}{several lists or vectors.}
 
   \item{paropts}{a list of parameters to be handed to
   mclapply (see the vignette).}
@@ -39,7 +39,7 @@
 
 mcZipWith(
 	function (x) mean(unlist(x)),
-	list(1:4, 2:5, 3:6)
+	1:4, 2:5, 3:6
 )
 
 # using mcZipWith to add names after zipping
@@ -48,11 +48,9 @@ mcZipWith(
 	function (x) {
 		list(name = x[[1]], id = x[[2]])
 	},
-	list(
-		list('Jane', 'Jill', 'John'),
-		list(1, 2, 3)
-	),
-	list(mc.cores = 2)
+	list('Jane', 'Jill', 'John'),
+	list(1, 2, 3),
+	paropts = list(mc.cores = 2)
 )
 
 # or alternatively
@@ -61,11 +59,9 @@ mcZipWith(
 	function (x) {
 		structure(x, names = c('name', 'id'))
 	},
-	list(
-		list('Jane', 'Jill', 'John'),
-		list(1, 2, 3)
-	),
-	list(mc.cores = 2)
+	list('Jane', 'Jill', 'John'),
+	list(1, 2, 3),
+	paropts = list(mc.cores = 2)
 )
 
 # add indices to a shuffled vector
@@ -74,7 +70,8 @@ mcZipWith (
 	function (x) {
 		list( x[[1]], ind = x[[2]] )
 	}, 
-	list(sample(letters[1:10]), 1:10)
+	sample(letters[1:10]),
+	1:10
 )
 }
 \seealso{
