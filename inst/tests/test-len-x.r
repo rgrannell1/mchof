@@ -12,10 +12,12 @@ test_that('NULL handling behaviour is as expected', {
 	# NULL |-> NULL
 	expect_equal(mcFind(true_fun, NULL), NULL)	
 
-	expect_equal(mcFilter(true_fun, NULL), NULL)
+	expect_equal(mcSelect(true_fun, NULL), NULL)
+	expect_equal(mcReject(true_fun, NULL), NULL)
 	expect_equal(mcPartition(mean, NULL), NULL)
 
-	expect_equal(mcReduce(get('+'), NULL), NULL)
+	expect_equal(mcReduce('+', NULL), NULL)
+	expect_equal(mcFold('+', 0, NULL), NULL)
 
 	expect_equal(mcZip(NULL), NULL)
 	expect_equal(mcUnzip(NULL), NULL)
@@ -33,7 +35,6 @@ test_that('list() behaviour is defined', {
 	# list() |-> integer(0)
 	expect_equal(mcPosition(true_fun, list()), integer(0))
 
-	expect_equal(mcFilter(true_fun, list()), list())
 	# list() |-> list( list(), list() )
 	expect_equal(
 		mcPartition(identity, list()),	
@@ -42,18 +43,20 @@ test_that('list() behaviour is defined', {
 	
 	# list() |-> list()
 	expect_equal(mcFind(true_fun, list()), list())	
-	expect_equal(mcReduce(get('+'), list()), list())
-
+	expect_equal(mcReduce('+', list()), list())
+	
 	expect_equal(mcZip(), list())
 	expect_equal(mcZip (list(), list(1), list(1,2,3)), list())
 	expect_equal(mcUnzip(list(list('a', 'b'), list(), list('c', 'd'))), list())
 	expect_equal(mcUnzip(list()), list ())
 	
+	expect_equal(mcSelect(true_fun, list()), list())
+	expect_equal(mcReject(true_fun, list()), list())
+	
 	expect_equal(mcUnzipWith(max, list()), list())	
 	expect_equal(
-		mcUnzipWith(
-			function (x) x,
-			list (list ('a', 'b'), list (), list ('c', 'd'))), 
+		mcUnzipWith(identity,
+			list( list ('a', 'b'), list (), list ('c', 'd')) ), 
 		list ())
 
 	expect_equal(mcZipWith(identity, list()), list())

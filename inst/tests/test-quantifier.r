@@ -7,7 +7,7 @@ prime_property <- function (n) {
 	is_prime <- function (n) {
 		all( as.logical(n %% 2:(n-1)) )
 	}
-	is_prime(n) && is_prime(n^2 - 1)
+	is_prime(n) || is_prime(n^2 - 1)
 }
 
 closure_over_multiplication <- function (set) {
