@@ -34,41 +34,47 @@ mcZipWith <- function (f, x, paropts = NULL) {
 	# list (x1, x2), list (y1, y2)  |-> 
 	# list ( list(x1, y1), list(x2, y2) )
 	
+	FLAG("zip scales poorly compared to other functions? 
+		simplify from 2n to n if possible")
+	
 	func_call <- deparse(match.call())
 	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (is.list(x) && length(x) == 0) return (list())
 
-	lists <- Filter(
-		function (elem) {
+	sublist_info <- sapply(x, function (elem) {
+		c(
+			factor = inherits(elem, "factor"),
+			not_null = !is.null(elem),
+			length = length(elem))
+	})
+	any(sublist_info["factor",]) %throws% stopf(
+		"%s elements %s were factors)",
+		func_call,
+		paste0(which(sublist_info["factor",]), collapse = ", "))
 
-			inherits(elem, 'factor') %throws% stopf (
-				'%s x must be a list of vectors or lists; actual value was %s (%s)', 
-				func_call, deparse(elem), class(elem))
-			
-			!is.null(elem)
-		}, x)
-
-	shortest <- min(sapply (lists, length))
-
-	if (shortest == 0) return(list())
-
-	to_zip <- Map (
-		function (el) el[seq_len(shortest)], 
-		lists) 
-
-	zipped <- call_mclapply (
-		f = function (ind) {
-			lapply (to_zip, function (x) x[[ind]])
-		},	
-		x = seq_len(shortest), 
-		paropts )
+	min_length <- min(sublist_info["length",])
 	
-	call_mclapply (
-		f = f,	
-		x = zipped,
+	if (min_length == 0) {
+		return (list())
+	}
+
+	which_not_null <- which(sublist_info["not_null",] == 1)
+	
+	x <- lapply(
+		x[which_not_null],
+		function (x) x[seq_len(min_length)] )
+	
+	x <- call_mclapply (
+		function (ind) {
+			lapply (x, function (elem) elem[[ind]])
+		},	
+		seq_len(min_length), 
 		paropts )
+
+	call_mclapply (f, x, paropts)
+
 }
 
 #' @description mcZip takes n lists/vectors, and generates a list of n element lists.

@@ -15,7 +15,7 @@ quantifier_control <- filter_control <-
 }
 
 mchof_tests <- mcZipWith(
-	function (x) {
+	function (x) {		
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	},
 	list(
@@ -120,6 +120,6 @@ profile_tests <- function (tests, len = 100, times = 2) {
 }
 
 options(mc.cores = NULL)
-profile_tests(mchof_tests, len = 1000, 30)
-profile_tests(backend_tests, len = 1000, 30)
+profile_tests(mchof_tests, len = 100000, 3)
+profile_tests(backend_tests, len = 100000, 2)
 
