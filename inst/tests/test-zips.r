@@ -4,7 +4,6 @@ context("zip & unzip: normal cases")
 FLAG("these tests aren't strong enough to verify functions work (mczip)")
 
 f <- function (x, paropts = NULL) {
-	FLAG("broken at the moment")
 	mcUnzip(do.call(mcZip, c(x, list(paropts = paropts))), paropts)
 }
 g <- function (x, paropts = NULL) {
