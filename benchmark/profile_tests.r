@@ -34,7 +34,7 @@ mchof_tests <- mcZipWith(
 				head(x, floor(length(x) / 2)),
 				tail(x, ceiling(length(x) / 2)))
 			
-			do.call(mcZipWith(null_func, zippable_x))
+			do.call(mcZipWith, list(f=null_func, zippable_x))
 		},
 		function (x) mcUnzipWith(true_func, x)
 	),
