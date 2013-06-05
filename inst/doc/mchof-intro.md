@@ -1,14 +1,8 @@
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{Mchof Vignette}
--->
 
 Mchof Vignette
 =================================
 
 ## 1 Introduction
-
-
 
 ## 2 Installation
 
@@ -308,6 +302,11 @@ mcFold("+", 0, seq_len(10), list(mc.cores = 2))
 
 
 ```r
-options(markdown.HTML.stylesheet = system.file("css", "vignette.css", package = "mchof"))
+system.file("misc", "vignette.css", package = "mchof")
 ```
+
+```
+## [1] "/home/rgrannell1/R/x86_64-pc-linux-gnu-library/3.0/mchof/misc/vignette.css"
+```
+
 

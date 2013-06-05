@@ -3,6 +3,11 @@
 %\VignetteIndexEntry{Mchof Vignette}
 -->
 
+```{r css}
+options(markdown.HTML.stylesheet = 
+    	system.file("misc", "vignette.css", package = "mchof"))
+```
+
 Mchof Vignette
 =================================
 
@@ -248,7 +253,3 @@ or
 mcFold('+', 0, seq_len(10), list(mc.cores = 2))
 ```
 
-```{r css}
-options(markdown.HTML.stylesheet = 
-		system.file("css", "vignette.css", package = "mchof"))
-```

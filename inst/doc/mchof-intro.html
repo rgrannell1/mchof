@@ -178,11 +178,6 @@ hljs.initHighlightingOnLoad();
 </head>
 
 <body>
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{Mchof Vignette}
--->
-
 <h1>Mchof Vignette</h1>
 
 <h2>1 Introduction</h2>
@@ -430,7 +425,10 @@ in place of an actual function. For example, if you wanted to sum the vector
 <pre><code>## [1] 55
 </code></pre>
 
-<pre><code class="r">options(markdown.HTML.stylesheet = system.file(&quot;css&quot;, &quot;vignette.css&quot;, package = &quot;mchof&quot;))
+<pre><code class="r">system.file(&quot;misc&quot;, &quot;vignette.css&quot;, package = &quot;mchof&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;/home/rgrannell1/R/x86_64-pc-linux-gnu-library/3.0/mchof/misc/vignette.css&quot;
 </code></pre>
 
 </body>
