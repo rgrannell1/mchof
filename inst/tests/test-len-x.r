@@ -99,7 +99,7 @@ test_that("[A](0) |-> ...", {
 })
 
 forall(
-	info = "mcReduce x[1] |-> x[1]",
+	info = "mcReduce ",
 	list(x_ = c(r_letters(), r_integers(), r_flat_no_null()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		all_equal(list(

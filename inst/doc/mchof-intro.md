@@ -306,5 +306,8 @@ mcFold("+", 0, seq_len(10), list(mc.cores = 2))
 ```
 
 
-stylesheet from https://github.com/jasonm23/markdown-css-themes
+
+```r
+options(markdown.HTML.stylesheet = system.file("css", "vignette.css", package = "mchof"))
+```
 

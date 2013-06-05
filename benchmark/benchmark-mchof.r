@@ -76,6 +76,6 @@ backend_tests <- mcZipWith(
 
 options(mc.cores = NULL)
 
-benchmark_code(backend_tests, len = 1000, 100)
-benchmark_code(mchof_tests, len = 1000, 100)
+benchmark_code(backend_tests, len = 1000000, 10)
+benchmark_code(mchof_tests, len = 1000000, 10)
 
