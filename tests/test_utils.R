@@ -123,3 +123,16 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 all_equal <- function (x) {
 	length(unique(x)) == 1	
 }
+
+adapt_call <- function (func, with) {
+	
+	stopifnot(length(names(with)) == length(with))
+
+	func_formals <- names(formals(func))
+	call_with <- with[
+		which(names(with) %in% func_formals)
+	]
+	do.call(func, call_with)
+}
+
+
