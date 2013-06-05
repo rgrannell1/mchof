@@ -8,6 +8,8 @@ source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_generators.R')
 
 options(forall_time = 2)
 
+ISSUE("scrub all references to a vignette from documentation!")
+
 test_dir('/home/rgrannell1/Dropbox/R directory/mchof/inst/tests/', rep = 'summary')
 
 options(forall_time = NULL)

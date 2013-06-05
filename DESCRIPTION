@@ -23,7 +23,6 @@ Suggests:
 License: GPL-2
 SystemRequirements: POSIX-compliant OS (not Windows)
 OS_type: unix
-VignetteBuilder: knitr
 Collate:
     'call_mclapply.R'
     'filter.R'
