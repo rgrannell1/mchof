@@ -6,15 +6,22 @@
 Mchof Vignette
 =================================
 
+## 1 Introduction
+
+
+
 ## 2 Installation
 
-You have presumably installed mchof if you are reading this vignette; if not you can simply type
+If you are reading this vignette you have probably installed mchof; if not just run
+
 ```
 install.packages("mchof")
 ```
-into the console. It is also possible to install the development version of mchof by using `install_github('mchof', 'rgrannell1)`, though this is not recommended; the development version is usually unstable. Updates will be released frequently, with an release date being given in the README.
+
+It is also possible to install the development version of mchof by using `install_github("mchof", "rgrannell1")`, though this is not recommended; the development version is usually unstable, and often doesn't build. Updates will be released frequently, with an release date being given in the README.
 
 To load the package, use
+
 
 ```r
 require(mchof)
@@ -25,15 +32,18 @@ require(mchof)
 ```
 
 
-## 3 Functional Programs
+## 3 Example Programs
+
+Below are a few simple programs showing typical uses of mchof. These algorithms are chosen because they are illustrative, not because they are particulaly good algorithms.
 
 ### 3.1 Enumerating the Prime Numbers
 
-Many programs involve finding correct solutions from a set of candidate solutions; for example enumerating prime numbers, finding the solution to a linear equation, or finding cycle-free paths in a graph. These tasks can be easily expressed in terms of `mcFilter`, `mcReject`, or `mcPartition`.
+Many programs involve finding correct solutions from a set of candidate solutions; for example enumerating prime numbers, finding the solution to a linear equation, or finding cycle-free paths in a graph. These tasks can be easily expressed in terms of `mcSelect`, `mcReject`, or `mcPartition`.
 
 A simple algorithm for finding all the primes in the set 1, 2,..., n is to use the sieve of Eratosthenes, which excludes values that are are divisible by any number smaller than that value (excluding one).
 
 First, we need to create a function that return TRUE is a number n is prime, otherwise returning FALSE.
+
 
 ```r
 is_prime <- function(n) {
@@ -44,20 +54,23 @@ is_prime <- function(n) {
 }
 ```
 
-Now we can filter out the elements of the set 1...20 that do not return true for `is_prime`,
-returning a new set composed only of prime numbers.
+
+Now we can select the elements of the set 1...20 that return true for `is_prime`, returning a new set composed only of prime numbers.
+
 
 ```r
-mcFilter(is_prime, 1:20)
+mcSelect(is_prime, 1:20)
 ```
 
 ```
 ## [1]  3  5  7 11 13 17 19
 ```
 
+
 Similarily, mcPartition divides the set 1...20 into a two sets; the prime numbers and the 
-composite numbers. Although this function is essentially mcFilter paired with mcReject,
+composite numbers. Although this function is essentially mcSelect paired with mcReject,
 it is useful in its own right for recursively partitioning a list in a tree-like manner.
+
 
 ```r
 mcPartition(is_prime, 1:20)
@@ -72,6 +85,7 @@ mcPartition(is_prime, 1:20)
 ```
 
 mcReject returns only the composite numbers
+
 
 ```r
 mcReject(is_prime, 1:20)
@@ -95,6 +109,7 @@ is_solved <- function(a, b, c, x) {
 }
 smallest_quadratic <- function(x, range = c(rev(-seq_len(20)), seq_len(20))) {
     # get the cartesian product of the set
+    
     tmp <- expand.grid(range, range, range)
     
     # get the columns in tmp, zip them into tuples, and unlist tuples into
@@ -123,21 +138,17 @@ The data is stored as a data frame, in which column one represents values of
 a, column two represents values of b, and column three represents values
 of c. Each row in the dataframe gives a combination a, b, c. 
 
-mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts
-each row to a vector by applying unlist to them.
+mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts each row to a vector by applying unlist to them.
 
-Second, mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic
-equation for a given value of x.
+Second, mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic equation for a given value of x.
 
 Third, mcReduce assumes the first set of coefficients are the smallest in the list. If 
 the second set of coefficients is smaller then these are assumed to be the smallest,
-and so on for the rest of the list. This ultimately returns the smallest set of coefficients
-that solve the equation.
+and so on for the rest of the list. This ultimately returns the smallest set of coefficients that solve the equation.
 
 This program shows some of the main uses of mchof; using the zip family of functions to 
 reshape data from a "column" format to a "list of rows" format before applying some function
-to them, the filter family of functions to return a subset of a list matching some function,
-and mcReduce to greedily find a value in a list.
+to them, the filter family of functions to return a subset of a list matching some function, and mcReduce to greedily find a value in a list.
 
 ## 4 Appendices
 
@@ -187,7 +198,7 @@ using an anonymous function.
 pasted_vectors <- Map(comma_paste, list(c("a", "b", "c"), c("1", "2", "3"), 
     c("do", "ray", "me")))
 
-mcFilter(function(vector) {
+mcSelect(function(vector) {
     paste0(vector, collapse = ", ") == "a, b, c"
 }, list(c("a", "b", "c"), c("1", "2", "3"), c("do", "ray", "me")))
 ```
@@ -201,9 +212,9 @@ mcFilter(function(vector) {
 ### 4.3 NA Handling
 
 This package is composed of many small, composable functions as opposed to larger 
-functions with many optional parameters. 
+functions with many optional parameters. As a result of this it is sometimes necessary to transform your arguments slightly before using them as inputs. NA handling may be one of these cases.
 
-Several functions (including mcFilter, mcReject) take a function that returns
+Several functions (including mcSelect, mcReject) take a function that returns
 TRUE or FALSE. R uses three-value logic (TRUE, FALSE, NA), so NA must be converted
 either TRUE or FALSE internally. Users can control which value
 NA is converted to by *composing* their original function with one of these 
@@ -284,6 +295,10 @@ or
 
 ```r
 mcFold("+", 0, seq_len(10), list(mc.cores = 2))
+```
+
+```
+## Warning: special cases need a LOT of work (fold/reduce)
 ```
 
 ```

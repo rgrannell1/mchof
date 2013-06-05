@@ -44,11 +44,12 @@
 mcFold <- function (f, first, x, paropts = NULL) {
 	# swaps the commas in first, x1, x2, ..., xn with
 	# the function f.
-	
-	ISSUE("folds append isn't great..; some odd issues")
-	
+		
 	func_call <- paste0( deparse(match.call()), ':' )
 
+	ISSUE ("special cases need a LOT of work (fold/reduce)")
+	if (is.list(x) && length(x) == 0) return (first)
+	
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

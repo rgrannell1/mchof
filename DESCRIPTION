@@ -17,7 +17,9 @@ BugReports: <r.grannell2@gmail.com>
 Imports:
     parallel
 Suggests:
-    testthat
+    testthat,
+    itertools,
+    microbenchmark
 License: GPL-2
 SystemRequirements: POSIX-compliant OS (not Windows)
 OS_type: unix

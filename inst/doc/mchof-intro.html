@@ -185,14 +185,16 @@ hljs.initHighlightingOnLoad();
 
 <h1>Mchof Vignette</h1>
 
+<h2>1 Introduction</h2>
+
 <h2>2 Installation</h2>
 
-<p>You have presumably installed mchof if you are reading this vignette; if not you can simply type</p>
+<p>If you are reading this vignette you have probably installed mchof; if not just run</p>
 
 <pre><code>install.packages(&quot;mchof&quot;)
 </code></pre>
 
-<p>into the console. It is also possible to install the development version of mchof by using <code>install_github(&#39;mchof&#39;, &#39;rgrannell1)</code>, though this is not recommended; the development version is usually unstable. Updates will be released frequently, with an release date being given in the README.</p>
+<p>It is also possible to install the development version of mchof by using <code>install_github(&quot;mchof&quot;, &quot;rgrannell1&quot;)</code>, though this is not recommended; the development version is usually unstable, and often doesn&#39;t build. Updates will be released frequently, with an release date being given in the README.</p>
 
 <p>To load the package, use</p>
 
@@ -202,11 +204,13 @@ hljs.initHighlightingOnLoad();
 <pre><code>## Loading required package: mchof
 </code></pre>
 
-<h2>3 Functional Programs</h2>
+<h2>3 Example Programs</h2>
+
+<p>Below are a few simple programs showing typical uses of mchof. These algorithms are chosen because they are illustrative, not because they are particulaly good algorithms.</p>
 
 <h3>3.1 Enumerating the Prime Numbers</h3>
 
-<p>Many programs involve finding correct solutions from a set of candidate solutions; for example enumerating prime numbers, finding the solution to a linear equation, or finding cycle-free paths in a graph. These tasks can be easily expressed in terms of <code>mcFilter</code>, <code>mcReject</code>, or <code>mcPartition</code>.</p>
+<p>Many programs involve finding correct solutions from a set of candidate solutions; for example enumerating prime numbers, finding the solution to a linear equation, or finding cycle-free paths in a graph. These tasks can be easily expressed in terms of <code>mcSelect</code>, <code>mcReject</code>, or <code>mcPartition</code>.</p>
 
 <p>A simple algorithm for finding all the primes in the set 1, 2,&hellip;, n is to use the sieve of Eratosthenes, which excludes values that are are divisible by any number smaller than that value (excluding one).</p>
 
@@ -220,17 +224,16 @@ hljs.initHighlightingOnLoad();
 }
 </code></pre>
 
-<p>Now we can filter out the elements of the set 1&hellip;20 that do not return true for <code>is_prime</code>,
-returning a new set composed only of prime numbers.</p>
+<p>Now we can select the elements of the set 1&hellip;20 that return true for <code>is_prime</code>, returning a new set composed only of prime numbers.</p>
 
-<pre><code class="r">mcFilter(is_prime, 1:20)
+<pre><code class="r">mcSelect(is_prime, 1:20)
 </code></pre>
 
 <pre><code>## [1]  3  5  7 11 13 17 19
 </code></pre>
 
 <p>Similarily, mcPartition divides the set 1&hellip;20 into a two sets; the prime numbers and the 
-composite numbers. Although this function is essentially mcFilter paired with mcReject,
+composite numbers. Although this function is essentially mcSelect paired with mcReject,
 it is useful in its own right for recursively partitioning a list in a tree-like manner.</p>
 
 <pre><code class="r">mcPartition(is_prime, 1:20)
@@ -262,6 +265,7 @@ for a given value of x (by smallest, I mean the set of coefficients a, b, c that
 }
 smallest_quadratic &lt;- function(x, range = c(rev(-seq_len(20)), seq_len(20))) {
     # get the cartesian product of the set
+
     tmp &lt;- expand.grid(range, range, range)
 
     # get the columns in tmp, zip them into tuples, and unlist tuples into
@@ -288,21 +292,17 @@ The data is stored as a data frame, in which column one represents values of
 a, column two represents values of b, and column three represents values
 of c. Each row in the dataframe gives a combination a, b, c. </p>
 
-<p>mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts
-each row to a vector by applying unlist to them.</p>
+<p>mcUnzipWith takes the three columns a, b and c, returns a list of rows, and then converts each row to a vector by applying unlist to them.</p>
 
-<p>Second, mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic
-equation for a given value of x.</p>
+<p>Second, mcSelect (identical to mcFilter) selects the coefficients that solve the quadratic equation for a given value of x.</p>
 
 <p>Third, mcReduce assumes the first set of coefficients are the smallest in the list. If 
 the second set of coefficients is smaller then these are assumed to be the smallest,
-and so on for the rest of the list. This ultimately returns the smallest set of coefficients
-that solve the equation.</p>
+and so on for the rest of the list. This ultimately returns the smallest set of coefficients that solve the equation.</p>
 
 <p>This program shows some of the main uses of mchof; using the zip family of functions to 
 reshape data from a &ldquo;column&rdquo; format to a &ldquo;list of rows&rdquo; format before applying some function
-to them, the filter family of functions to return a subset of a list matching some function,
-and mcReduce to greedily find a value in a list.</p>
+to them, the filter family of functions to return a subset of a list matching some function, and mcReduce to greedily find a value in a list.</p>
 
 <h2>4 Appendices</h2>
 
@@ -346,7 +346,7 @@ using an anonymous function.</p>
 <pre><code class="r">pasted_vectors &lt;- Map(comma_paste, list(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;), 
     c(&quot;do&quot;, &quot;ray&quot;, &quot;me&quot;)))
 
-mcFilter(function(vector) {
+mcSelect(function(vector) {
     paste0(vector, collapse = &quot;, &quot;) == &quot;a, b, c&quot;
 }, list(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;), c(&quot;do&quot;, &quot;ray&quot;, &quot;me&quot;)))
 </code></pre>
@@ -358,9 +358,9 @@ mcFilter(function(vector) {
 <h3>4.3 NA Handling</h3>
 
 <p>This package is composed of many small, composable functions as opposed to larger 
-functions with many optional parameters. </p>
+functions with many optional parameters. As a result of this it is sometimes necessary to transform your arguments slightly before using them as inputs. NA handling may be one of these cases.</p>
 
-<p>Several functions (including mcFilter, mcReject) take a function that returns
+<p>Several functions (including mcSelect, mcReject) take a function that returns
 TRUE or FALSE. R uses three-value logic (TRUE, FALSE, NA), so NA must be converted
 either TRUE or FALSE internally. Users can control which value
 NA is converted to by <em>composing</em> their original function with one of these 
@@ -422,6 +422,9 @@ in place of an actual function. For example, if you wanted to sum the vector
 <p>or</p>
 
 <pre><code class="r">mcFold(&quot;+&quot;, 0, seq_len(10), list(mc.cores = 2))
+</code></pre>
+
+<pre><code>## Warning: special cases need a LOT of work (fold/reduce)
 </code></pre>
 
 <pre><code>## [1] 55

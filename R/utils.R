@@ -10,6 +10,12 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 	function (...) f(g(...))
 }
 
+curry <- function(FUN,...) {
+	# from stack overflow
+	.orig = list(...)
+	function(...) do.call( FUN,c(.orig,list(...)) )
+}
+
 '%throws%' <- function (bool, expr) {
 	# general function, but used specifically for 
 	# throwing exceptions. beware operator presidence
