@@ -44,6 +44,31 @@ forall(
 	}	
 )
 
+context("check that A[0] behaviour is defined")
+
+forall(
+	info = "mcAll logical(0) |-> TRUE",
+	list(f_ = list(mean, max, mode), paropts = r_paropts()),
+	function (f_, paropts_) {
+		mcAll(f_, logical(0), paropts_)
+	}
+)
+forall(
+	info = "mcAny & mcOne logical(0) |-> FALSE",
+	list(f_ = list(mean, max, mode), paropts = r_paropts()),
+	function (f_, paropts_) {
+		!mcAny(f_, logical(0), paropts_) && 
+		!mcOne(f_, logical(0), paropts_)
+	}
+)
+
+
+
+
+
+
+
+
 context("empty lists handled correctly")
 
 test_that('list() behaviour is defined', {

@@ -8,7 +8,12 @@ source('/home/rgrannell1/Dropbox/R directory/mchof/R/utils.R')
 source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_utils.R')
 source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_generators.R')
 
-options(forall_time = 200)
+ISSUE("fix mchof.Rs code tags")
+ISSUE("add tests to zip")
+ISSUE("improve len-x.r")
+ISSUE("point to website")
+
+options(forall_time = 20)
 test_dir('/home/rgrannell1/Dropbox/R directory/mchof/inst/tests/', rep = 'summary')
 
 options(forall_time = NULL)

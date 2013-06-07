@@ -25,6 +25,13 @@ r_null <- function (n=100) {
 r_null_list <- function (n=100) {
 	Map(function(...) NULL, seq_len(n))
 }
+r_vector_0 <- function (n=100) {
+	sample(
+		list(
+			integer(0), character(0), complex(0),
+			raw(0), numeric(0), logical(0)),
+		size = n, replace = TRUE)
+}
 r_flatlist <- function (n=100) {
 	Map(
 		function (...) {

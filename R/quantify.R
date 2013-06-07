@@ -5,7 +5,8 @@
 #' elements in the list or vector x
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}). 
+#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
+#' mcAll(f, logical(0)) is TRUE for consistency with the base function all().
 #' 
 #' @name mcAll
 #' 
@@ -29,8 +30,8 @@ mcAll <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(x)
-	if (is.list(x) && length(x) == 0) return(list())
+	if (is.null(x)) return (x)
+	if (is.list(x) && length(x) == 0) return (list())
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -74,6 +75,7 @@ mcAny <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
+	if (is.logical(x) && length(x) == 0) return(FALSE)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
@@ -136,6 +138,10 @@ mcOne <- function (f, x, paropts = NULL) {
 	
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
+	if (is.logical(x) && length(x) == 0) return(FALSE)
+
+	ISSUE("remove list() |-> list()")
+	
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
