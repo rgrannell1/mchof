@@ -1,9 +1,11 @@
 
 true_fun <- function (x) TRUE
 
-FLAG("special cases need to be nailed down for 0.3")
+ISSUE("special cases need to be nailed down for 0.3")
 
 context("nulls handled correctly")
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
 	list(
@@ -45,6 +47,8 @@ forall(
 )
 
 context("check that A[0] behaviour is defined")
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
 	info = "mcAll [A](0) |-> TRUE",
@@ -79,6 +83,44 @@ forall(
 		is_list0(mcUnzipWith(f_, x_, paropts = paropts_))
 	}
 )
+
+forall(
+	info = "Filter, Reject [A](0) |-> [A](0)",
+	list(
+		func_ = list(mcFilter, mcReject, mcSelect),
+		x_ = r_vector_0(), right_ = r_paropts(),
+		paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		is_list0(
+	}
+)
+
+#export(mcFind)
+#export(mcFold)
+#export(mcReduce)
+
+forall(
+	info = "[A](0) |-> list()",
+	list(
+		func_ = list(mean, max, mode),
+		x_ = r_vector_0(), right_ = r_paropts(),
+		paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		is_list0(
+	}
+)
+
+forall(info = "mcPosition f x [A](0) |-> integer(0)",
+	list(
+		f_ = list(mean, max, mode), x_ = r_vector_0(), 
+		right_ = list(TRUE, FALSE), paropts_ = r_paropts()),
+	function (f_, x_, right_, paropts_) {
+		res <- mcPosition(
+			f_, x_, right = right_, paropts = paropts_)
+		is.integer(res) && length(res) == 0
+	}
+)
+
 
 context("empty lists handled correctly")
 
