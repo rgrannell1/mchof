@@ -25,7 +25,8 @@
 \details{
   NA's obtained while applying f to x will be assumed to be
   FALSE. the user can sidestep this behaviour easily, if
-  necessary (see \link{mchof}).
+  necessary (see \link{mchof}). mcAll(f, logical(0)) is
+  TRUE for consistency with the base function all().
 }
 \examples{
 

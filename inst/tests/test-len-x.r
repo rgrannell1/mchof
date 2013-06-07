@@ -1,8 +1,6 @@
 
 true_fun <- function (x) TRUE
 
-ISSUE("special cases need to be nailed down for 0.3")
-
 context("nulls handled correctly")
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
@@ -88,25 +86,11 @@ forall(
 	info = "Filter, Reject [A](0) |-> [A](0)",
 	list(
 		func_ = list(mcFilter, mcReject, mcSelect),
-		x_ = r_vector_0(), right_ = r_paropts(),
+		f_ = list(mean, max, mode),
+		x_ = r_vector_0(),
 		paropts = r_paropts()),
-	function (f_, x_, paropts_) {
-		is_list0(
-	}
-)
-
-#export(mcFind)
-#export(mcFold)
-#export(mcReduce)
-
-forall(
-	info = "[A](0) |-> list()",
-	list(
-		func_ = list(mean, max, mode),
-		x_ = r_vector_0(), right_ = r_paropts(),
-		paropts = r_paropts()),
-	function (f_, x_, paropts_) {
-		is_list0(
+	function (func_, f_, x_, paropts_) {
+		identical(func_(f_, x_, paropts_), x_)
 	}
 )
 
@@ -121,11 +105,22 @@ forall(info = "mcPosition f x [A](0) |-> integer(0)",
 	}
 )
 
+forall(info = "mcFind f [A](0) |-> [A](0)",
+	list(
+		f_ = list(mean, max, mode), x_ = r_vector_0(), paropts_ = r_paropts()),
+	function (f_, x_, paropts_) {
+		identical(mcFind(f_, x_, paropts_), x_)
+	}
+)
 
-context("empty lists handled correctly")
+ISSUE("define [A](0) for reduce and fold")
+
+context("check that empty lists are handled correctly")
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
-	info = "mcAll list() |-> ",
+	info = "mcAll list() |-> TRUE",
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
 	function (f_, paropts_) {
 		ISSUE("define all list() behaviour")
@@ -134,7 +129,7 @@ forall(
 )
 
 forall(
-	info = "mcAny & mcOne list() |-> ",
+	info = "mcAny & mcOne list() |-> FALSE",
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
 	function (f_, paropts_) {
 		ISSUE("define any list() behaviour")
@@ -145,9 +140,6 @@ forall(
 
 test_that('list() behaviour is defined', {
 	
-	# list() |-> integer(0)
-	expect_equal(mcPosition(true_fun, list()), integer(0))
-
 	# list() |-> list( list(), list() )
 	expect_equal(
 		mcPartition(identity, list()),	
@@ -166,7 +158,6 @@ test_that('list() behaviour is defined', {
 	expect_equal(mcSelect(true_fun, list()), list())
 	expect_equal(mcReject(true_fun, list()), list())
 	
-	expect_equal(mcUnzipWith(max, list()), list())	
 	expect_equal(
 		mcUnzipWith(identity,
 			list( list ('a', 'b'), list (), list ('c', 'd')) ), 

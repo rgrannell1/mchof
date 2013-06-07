@@ -117,7 +117,8 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	if (is.null(x)) return(NULL)
-	if (is.list(x) && length(x) == 0) return(x)
+	if (is.list(x) && length(x) == 0) return (x)
+	if (is.vector(x) && length(x) == 0) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
