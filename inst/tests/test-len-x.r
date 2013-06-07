@@ -13,7 +13,7 @@ forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
 
 		res <- mcPosition(
 			f = f_, x = NULL, right = right_, paropts = paropts_)
-		
+		ISSUE("is this right? position")
 		is.integer(res) && length(res) == 0
 	}
 )
@@ -47,29 +47,59 @@ forall(
 context("check that A[0] behaviour is defined")
 
 forall(
-	info = "mcAll logical(0) |-> TRUE",
-	list(f_ = list(mean, max, mode), paropts = r_paropts()),
-	function (f_, paropts_) {
-		mcAll(f_, logical(0), paropts_)
+	info = "mcAll [A](0) |-> TRUE",
+	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		mcAll(f_, x_, paropts_)
 	}
 )
 forall(
-	info = "mcAny & mcOne logical(0) |-> FALSE",
-	list(f_ = list(mean, max, mode), paropts = r_paropts()),
-	function (f_, paropts_) {
-		!mcAny(f_, logical(0), paropts_) && 
-		!mcOne(f_, logical(0), paropts_)
+	info = "mcAny & mcOne [A](0) |-> FALSE",
+	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		!mcAny(f_, x_, paropts_) && 
+		!mcOne(f_, x_, paropts_)
+	}
+)
+forall(
+	info = "Zip, ZipWith [A](0) |-> list()",
+	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		is_list0(mcZip(x_, paropts = paropts_)) && 
+		is_list0(mcZip(x_, x_, paropts = paropts_)) &&
+		is_list0(mcZipWith(f_, x_, x_, paropts = paropts_))
+	}
+)
+forall(
+	info = "Unzip, UnzipWith [A](0) |-> list()",
+	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
+	function (f_, x_, paropts_) {
+		is_list0(mcUnzip(x_, paropts = paropts_)) &&
+		is_list0(mcUnzip(list(x_, x_), paropts = paropts_)) 
+		is_list0(mcUnzipWith(f_, x_, paropts = paropts_))
 	}
 )
 
-
-
-
-
-
-
-
 context("empty lists handled correctly")
+
+forall(
+	info = "mcAll list() |-> ",
+	list(f_ = list(mean, max, mode), paropts = r_paropts()),
+	function (f_, paropts_) {
+		ISSUE("define all list() behaviour")
+		mcAll(f_, list(), paropts_)
+	}
+)
+
+forall(
+	info = "mcAny & mcOne list() |-> ",
+	list(f_ = list(mean, max, mode), paropts = r_paropts()),
+	function (f_, paropts_) {
+		ISSUE("define any list() behaviour")
+		!mcAny(f_, list(), paropts_) && 
+		!mcOne(f_, list(), paropts_)
+	}
+)
 
 test_that('list() behaviour is defined', {
 	

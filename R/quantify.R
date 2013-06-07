@@ -32,6 +32,8 @@ mcAll <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return (x)
 	if (is.list(x) && length(x) == 0) return (list())
+	if (is.vector(x) && length(x) == 0) return (TRUE)
+
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -75,7 +77,7 @@ mcAny <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
-	if (is.logical(x) && length(x) == 0) return(FALSE)
+	if (is.vector(x) && length(x) == 0) return(FALSE)
 	if (is.list(x) && length(x) == 0) return(list())
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
@@ -138,7 +140,7 @@ mcOne <- function (f, x, paropts = NULL) {
 	
 	if (is.null(x)) return(x)
 	if (is.list(x) && length(x) == 0) return(list())
-	if (is.logical(x) && length(x) == 0) return(FALSE)
+	if (is.vector(x) && length(x) == 0) return(FALSE)
 
 	ISSUE("remove list() |-> list()")
 	

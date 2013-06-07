@@ -10,6 +10,10 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 	function (...) f(g(...))
 }
 
+is_list0 <- function (x) {
+	is.list(x) && length(x) == 0
+}
+
 curry <- function(FUN,...) {
 	# from stack overflow
 	.orig = list(...)
