@@ -14,8 +14,8 @@
   last FALSE element matching f be returned? Defaults to
   FALSE.}
 
-  \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see the vignette).}
+  \item{paropts}{a list of parameters to be handed to
+  mclapply (see \link{mchof}).}
 }
 \value{
   returns an element from x. If x is NULL, NULL is
@@ -31,7 +31,7 @@
   to a logical value, and returns the first value for which
   f returns TRUE. NA's obtained while applying f to x will
   be assumed to be FALSE. the user can sidestep this
-  behaviour easily, if necessary (see the vignette).
+  behaviour easily, if necessary (see \link{mchof}).
 }
 \examples{
 

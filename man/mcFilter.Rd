@@ -13,8 +13,8 @@
 
   \item{x}{a list or vector.}
 
-  \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see the vignette).}
+  \item{paropts}{a list of parameters to be handed to
+  mclapply (see \link{mchof}).}
 }
 \description{
   mcFilter extracts the elements of a vector or list for
@@ -25,7 +25,7 @@
   result to a logical value, and returns the values for
   which f returns TRUE. NA's obtained while applying f to x
   will be assumed to be FALSE. the user can sidestep this
-  behaviour easily, if necessary (see the vignette).
+  behaviour easily, if necessary (see \link{mchof}).
 }
 \examples{
 # remove NA values from a vector 

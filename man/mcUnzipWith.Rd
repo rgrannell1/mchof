@@ -10,8 +10,8 @@
 
   \item{x}{a list of lists or vectors}
 
-  \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see the vignette).}
+  \item{paropts}{a list of parameters to be handed to
+  mclapply (see \link{mchof}).}
 }
 \description{
   mcUnzipWith is the inverse function of mcZipWith; it

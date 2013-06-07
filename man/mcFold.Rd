@@ -13,7 +13,7 @@
   \item{x}{a vector or list}
 
   \item{paropts}{a list of parameters to be handed to
-  mclapply (see details and \code{\link{mclapply}})}
+  mclapply (see \link{mchof}).}
 }
 \value{
   returns the result of x1 f x2 f x3 f x4 f ... xn, the

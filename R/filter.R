@@ -13,13 +13,13 @@
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
 #' @param x a list or vector.
-#' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
 #' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
 #' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see the vignette).
+#' if necessary (see \link{mchof}).
 #' 
 #' @seealso see \code{\link{mcReject}} for a counterpart to this function, and
 #' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject

@@ -35,3 +35,4 @@ Collate:
     'reject.R'
     'fold.R'
     'utils.R'
+    'mchof.R'

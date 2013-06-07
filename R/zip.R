@@ -1,5 +1,5 @@
 #' @description mcZipWith takes n lists or vectors, generates a list of n element lists,
-#' and returns the result of mapping f over this new list. 
+#' and returns the result of mapping f over each n element list. 
 #'  
 #' @title mcZipWith
 #' 
@@ -9,7 +9,7 @@
 #' giving the name of such a function.
 #' @param ... several lists or vectors.
 #' @param paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#'    mclapply (see \link{mchof}).
 #'    
 #' @return returns the result of mapping f over a list of n element lists.
 #'    
@@ -83,7 +83,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' @export
 #' @param ... several lists or vectors.
 #' @param paropts a list of parameters to be handed to 
-#' mclapply (see the vignette).
+#'    mclapply (see \link{mchof}).
 #' 
 #' @return returns a list of n element lists.
 #'    

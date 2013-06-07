@@ -11,7 +11,7 @@
   \item{...}{several lists or vectors.}
 
   \item{paropts}{a list of parameters to be handed to
-  mclapply (see the vignette).}
+  mclapply (see \link{mchof}).}
 }
 \value{
   returns the result of mapping f over a list of n element
@@ -20,7 +20,7 @@
 \description{
   mcZipWith takes n lists or vectors, generates a list of n
   element lists, and returns the result of mapping f over
-  this new list.
+  each n element list.
 }
 \details{
   list names are dropped without warning during zipping; an

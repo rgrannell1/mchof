@@ -34,7 +34,7 @@
 #' @param first an initial value for the first position of f
 #' @param x a vector or list
 #' @param paropts a list of parameters to be handed to 
-#'    mclapply (see details and \code{\link{mclapply}})
+#'    mclapply (see \link{mchof}).
 #'
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x.

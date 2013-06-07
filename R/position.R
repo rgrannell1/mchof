@@ -11,8 +11,8 @@
 #' @param x a list or vector.
 #' @param right a boolean value. Should the first TRUE or last 
 #' FALSE element matching f be returned? Defaults to FALSE.
-#' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'
 #' @return returns an integer. If no match is found, x is null or of length(0)
 #' integer(0) is returned. This is consistent with the behaviour of which()
@@ -21,7 +21,7 @@
 #' combination with other functionals in base R and this library.
 #' NA's obtained while applying f to x will 
 #' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see the vignette).
+#' if necessary (see \link{mchof}).
 #'
 #' @seealso see \link{which} for an alternate indexing function, and \link{mcFind} for
 #' a function which returns the first (or last) element in a list matching a predicate.
@@ -92,8 +92,8 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #' @param x a list or vector.
 #' @param right a boolean value. Should the first TRUE or last 
 #' FALSE element matching f be returned? Defaults to FALSE.
-#' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #' 
 #' @return returns an element from x. If x is NULL, NULL is returned. If
 #' x is the empty list, the empty list is returned.
@@ -102,7 +102,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 #' to a logical value, and returns the first value for which f returns TRUE. 
 #' NA's obtained while applying f to x will 
 #' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see the vignette).
+#' if necessary (see \link{mchof}).
 #' 
 #' @seealso see \code{mcPosition} to return the index of the first element
 #' matching f.

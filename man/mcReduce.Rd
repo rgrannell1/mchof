@@ -2,15 +2,15 @@
 \alias{mcReduce}
 \title{mcReduce}
 \usage{
-  to_pairs(x)
+  mcReduce(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a binary function}
 
   \item{x}{a list or vector.}
 
-  \item{paropts}{paropts a list of parameters to be handed
-  to mclapply (see the vignette).}
+  \item{paropts}{a list of parameters to be handed to
+  mclapply (see \link{mchof}).}
 }
 \value{
   returns the result of x1 f x2 f x3 f x4 f ... xn, the

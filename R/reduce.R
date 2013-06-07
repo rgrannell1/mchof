@@ -29,8 +29,8 @@
 #' 
 #' @param f a binary function
 #' @param x a list or vector.
-#' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 #'    
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x.
@@ -39,23 +39,25 @@
 #' @seealso \code{\link{Reduce}}
 #' @keywords mcReduce
 
-to_pairs <- function (x) {
-	# chunk x into lists of two, where possible
-	
-	group_into(x, 2)
-}
 
-iterateWhile <- function (f, p, x) {
-	# pipe the output x of f into f, 
-	# until p(x) is true
-	
-	while( !p(x) ) x <- f(x)
-	x
-} 
 
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
+	
+	to_pairs <- function (x) {
+		# chunk x into lists of two, where possible
+			
+			group_into(x, 2)
+		}
+		
+	iterateWhile <- function (f, p, x) {
+		# pipe the output x of f into f, 
+		# until p(x) is true
+		
+		while( !p(x) ) x <- f(x)
+		x
+	} 
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	

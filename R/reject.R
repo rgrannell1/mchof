@@ -8,8 +8,8 @@
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
 #' @param x a list or vector.
-#' @param paropts paropts a list of parameters to be handed to 
-#'    mclapply (see the vignette).
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
 
 #' @return returns a list of elements for which f returned FALSE or NA.
 
@@ -22,7 +22,7 @@
 #' elements for which f returned NA are included, so that concatenating the results of mcFilter and 
 #' mcReject will give you the original set x (though unordered). The user can
 #' modify this behaviour by making sure the argument f returns TRUE is a value 
-#' is NA under coersion, as described in the vignette.
+#' is NA under coersion, as described in \link{mchof}.
 
 #' @seealso see \code{mcFilter} for a complementary function to this, and 
 #' \code{mcPartition} for a function that combines mcFilter and mcReject
