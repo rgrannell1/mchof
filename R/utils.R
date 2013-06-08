@@ -13,6 +13,9 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 is_list0 <- function (x) {
 	is.list(x) && length(x) == 0
 }
+is_integer0 <- function (x) {
+	is.integer(x) && length(x) == 0
+}
 
 curry <- function(FUN,...) {
 	# from stack overflow

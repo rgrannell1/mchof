@@ -7,11 +7,20 @@ true_func <- function (...) TRUE
 false_func <- Negate(true_func)
 null_func <- function (...) NULL
 
-fold_control <- function (x) Reduce(null_func, x)
+fold_control <- function (x) {
+	Reduce(null_func, x)
+}
 
 quantifier_control <- filter_control <- 
-	zip_control <- position_control <- function (x) {
-	parallel::mclapply(x, null_func)
+	position_control <- function (x) {
+		
+	lapply(x, null_func)
+}
+zip_control <- function (x) {
+	head(x, floor(length(x) / 2))
+	tail(x, floor(length(x) / 2))
+	
+	lapply(x, null_func)
 }
 
 mchof_tests <- mcZipWith(
@@ -19,38 +28,37 @@ mchof_tests <- mcZipWith(
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	},
 	list(
-		function (x) mcAll(true_func, x),
-		function (x) mcAny(false_func, x),
-		function (x) mcFilter(true_func, x),
-		function (x) mcFind(false_func, x),
-		function (x) mcFold(one_func, 0, x),
-		function (x) mcOne(false_func, x),
-		function (x) mcPartition(true_func, x),
-		function (x) mcPosition(false_func, x),
-		function (x) mcReduce(one_func, x),
-		function (x) mcReject(false_func, x),
-		function (x) {
-			zippable_x <- list(
+		mcAll = function (x) mcAll(true_func, x),
+		mcAny = function (x) mcAny(false_func, x),
+		mcFilter = function (x) mcFilter(true_func, x),
+		mcFind = function (x) mcFind(false_func, x),
+		mcFold = function (x) mcFold(one_func, 0, x),
+		mcOne = function (x) mcOne(false_func, x),
+		mcPartition = function (x) mcPartition(true_func, x),
+		mcPosition = function (x) mcPosition(false_func, x),
+		mcReduce = function (x) mcReduce(one_func, x),
+		mcReject = function (x) mcReject(false_func, x),
+		mcZipWith = function (x) {
+			mcZipWith(
+				null_func,
 				head(x, floor(length(x) / 2)),
-				tail(x, ceiling(length(x) / 2)))
-			
-			do.call(mcZipWith, list(f=null_func, zippable_x))
+				tail(x, ceiling(length(x) / 2)) )
 		},
-		function (x) mcUnzipWith(true_func, x)
+		mcUnzipWith = function (x) mcUnzipWith(true_func, x)
 	),
 	list(
-		function (x) quantifier_control(x),
-		function (x) quantifier_control(x),
-		function (x) filter_control(x),
-		function (x) position_control(x),
-		function (x) fold_control(x),
-		function (x) quantifier_control(x),
-		function (x) filter_control(x),
-		function (x) position_control(x),
-		function (x) fold_control(x),
-		function (x) filter_control(x),
-		function (x) zip_control(x),
-		function (x) zip_control(x)	
+		mcAll = function (x) quantifier_control(x),
+		mcAny = function (x) quantifier_control(x),
+		mcFilter = function (x) filter_control(x),
+		mcFind = function (x) position_control(x),
+		mcFold = function (x) fold_control(x),
+		mcOne = function (x) quantifier_control(x),
+		mcPartition = function (x) filter_control(x),
+		mcPosition = function (x) position_control(x),
+		mcReduce = function (x) fold_control(x),
+		mcReject = function (x) filter_control(x),
+		mcZipWith = function (x) zip_control(x),
+		mcUnzipWith = function (x) zip_control(x)	
 	),
 	c("mcAll", "mcAny", "mcFilter", "mcFind",
 		"mcFold", "mcOne", "mcPartition", "mcPosition",
@@ -76,6 +84,8 @@ backend_tests <- mcZipWith(
 
 options(mc.cores = NULL)
 
-benchmark_code(backend_tests, len = 1000000, 10)
-benchmark_code(mchof_tests, len = 1000000, 10)
+ISSUE("dont make run on inst load! benchmark")
+
+benchmark_code(backend_tests, len = 100000, 1)
+benchmark_code(mchof_tests, len = 100000, 1)
 

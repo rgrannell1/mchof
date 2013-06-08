@@ -3,7 +3,6 @@ true_fun <- function (x) TRUE
 
 context("nulls handled correctly")
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
 	list(
@@ -14,7 +13,7 @@ forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
 		res <- mcPosition(
 			f = f_, x = NULL, right = right_, paropts = paropts_)
 		ISSUE("is this right? position")
-		is.integer(res) && length(res) == 0
+		is_integer0(res)
 	}
 )
 
@@ -45,7 +44,6 @@ forall(
 )
 
 context("check that A[0] behaviour is defined")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
@@ -101,7 +99,7 @@ forall(info = "mcPosition f x [A](0) |-> integer(0)",
 	function (f_, x_, right_, paropts_) {
 		res <- mcPosition(
 			f_, x_, right = right_, paropts = paropts_)
-		is.integer(res) && length(res) == 0
+		is_integer0(res)
 	}
 )
 
@@ -116,7 +114,6 @@ forall(info = "mcFind f [A](0) |-> [A](0)",
 ISSUE("define [A](0) for reduce and fold")
 
 context("check that empty lists are handled correctly")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
