@@ -15,7 +15,8 @@
 \value{
   returns the result of x1 f x2 f x3 f x4 f ... xn, the
   value of which is dependent on the function f, and the
-  contents of x.
+  contents of x. Returns a length-zero or length-one value
+  of x as is.
 }
 \description{
   mcReduce applies an associative binary function to a

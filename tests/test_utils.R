@@ -11,6 +11,10 @@ forall <- function (
 	opts$time <- getOption("forall_time", opts$time)
 	opts$length <- getOption("forall_length", opts$length)
 	
+	(length(formals(expect)) != length(names(cases))) %throws% stopf(
+		c("mismatch between names for cases and expects names")	
+	)
+	
 	stopwatch <- function (seconds) {
 		# returns a function with Sys.time( ) 
 		# captured in a closure

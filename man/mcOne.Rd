@@ -16,7 +16,7 @@
 \value{
   returns TRUE if f is true for one element in x, otherwise
   it returns FALSE. If x is NULL, NULL is returned. If x is
-  an empty list an empty list is returned.
+  an empty list FALSE is returned.
 }
 \description{
   mcOne checks if a predicate function f is true for

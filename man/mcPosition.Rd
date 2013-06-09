@@ -18,9 +18,10 @@
   mclapply (see \link{mchof}).}
 }
 \value{
-  returns an integer. If no match is found, x is null or of
+  returns an integer. If no match is found or x is
   length(0) integer(0) is returned. This is consistent with
-  the behaviour of which()
+  the behaviour of which(). As with other mchof function x
+  = NULL returns NULL
 }
 \description{
   Returns the index of the first (or last) position in a
@@ -28,7 +29,7 @@
 }
 \details{
   mcPosition can be used as a functional alternative to
-  which, that works well in combination with other
+  \code{which}, that works well in combination with other
   functionals in base R and this library. NA's obtained
   while applying f to x will be assumed to be FALSE. the
   user can sidestep this behaviour easily, if necessary

@@ -5,6 +5,7 @@
 #' @description mcFilter extracts the elements of a vector or list for 
 #' which the function \code{f} returns \code{TRUE}.
 #' 
+#' 
 #' @usage mcFilter(f, x, paropts = NULL)
 #' 
 #' mcSelect(f, x, paropts = NULL)
@@ -20,6 +21,10 @@
 #' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
 #' be assumed to be FALSE. the user can sidestep this behaviour easily, 
 #' if necessary (see \link{mchof}).
+#' 
+#' @return returns the elements of x for which f returned true. If x is a list and no elements
+#' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
+#' vector of length(0). x = NULL always returns NULL.
 #' 
 #' @seealso see \code{\link{mcReject}} for a counterpart to this function, and
 #' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject

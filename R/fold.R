@@ -29,9 +29,6 @@
 #' always be taken in by the second parameter of f. Both mcReduce and mcFold may be used
 #' to emulate tail recursion over a list.
 #' 
-#' when x is NULL, NULL is automatically returned, as with other mchof functions.
-#' when x is a length-zero input such as integer(0) or list() \code{first} is returned.
-#' 
 #' @name mcFold
 #' 
 #' @param f a binary function
@@ -41,8 +38,10 @@
 #'    mclapply (see \link{mchof}).
 #'
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
-#' is dependent on the function f, and the contents of x.
-#'
+#' is dependent on the function f, and the contents of x. when x is NULL, NULL
+#' is automatically returned, as with other mchof functions. when x is a length-zero
+#' input such as integer(0) or list() \code{first} is returned.
+#' 
 #' @example inst/examples/examples-fold.r
 
 mcFold <- function (f, first, x, paropts = NULL) {
@@ -51,7 +50,7 @@ mcFold <- function (f, first, x, paropts = NULL) {
 		
 	func_call <- paste0( deparse(match.call()), ':' )
 	
-	if (is.null(x)) return (NULL) # nulls should never not fall through
+	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (first)
 	
 	is.factor(x) %throws% stopf (

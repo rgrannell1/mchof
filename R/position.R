@@ -14,10 +14,10 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
-#' @return returns an integer. If no match is found, x is null or of length(0)
-#' integer(0) is returned. This is consistent with the behaviour of which()
-
-#' @details mcPosition can be used as a functional alternative to which, that works well in 
+#' @return returns an integer. If no match is found or x is length(0)
+#' integer(0) is returned. This is consistent with the behaviour of which(). As with
+#' other mchof function x = NULL returns NULL
+#' @details mcPosition can be used as a functional alternative to \code{which}, that works well in 
 #' combination with other functionals in base R and this library.
 #' NA's obtained while applying f to x will 
 #' be assumed to be FALSE. the user can sidestep this behaviour easily, 
@@ -37,8 +37,9 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
-
-	if (is.null(x) || length(x) == 0) return(integer(0))
+	
+	if (is.null(x)) return (NULL)
+	if (length(x) == 0) return (integer(0))
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

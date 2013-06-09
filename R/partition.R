@@ -11,7 +11,10 @@
 #'    mclapply (see \link{mchof}).
 #'
 #' @return returns a list of two lists; the first list contains the values 
-#' for which f returned true, the other contains values that returned false or NA.
+#' for which f returned true, the other contains values that returned false or NA. 
+#' If the list of true/false elements is empty then the value of that slot is list()
+#' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
+#' NULL always returns NULL.
 #' 
 #' @seealso see \code{\link{mcReject}} for a function that returns the values for 
 #' which f returns false or NA, and
@@ -34,10 +37,7 @@ mcPartition <- function (f, x, paropts = NULL) {
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	ind <- as.logical(unlist(call_mclapply(f, x, paropts)))
-
 	true_ind <- !is.na(ind) & ind
 	
-	list (
-		x[true_ind],
-		x[!true_ind])
+	list (x[true_ind], x[!true_ind])
 }

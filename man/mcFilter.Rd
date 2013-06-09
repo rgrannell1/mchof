@@ -16,6 +16,12 @@
   \item{paropts}{a list of parameters to be handed to
   mclapply (see \link{mchof}).}
 }
+\value{
+  returns the elements of x for which f returned true. If x
+  is a list and no elements returned true, returns list().
+  If x is a vector and no elements returns true, returns a
+  typed vector of length(0). x = NULL always returns NULL.
+}
 \description{
   mcFilter extracts the elements of a vector or list for
   which the function \code{f} returns \code{TRUE}.

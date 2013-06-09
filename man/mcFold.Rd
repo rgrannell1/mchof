@@ -18,7 +18,10 @@
 \value{
   returns the result of x1 f x2 f x3 f x4 f ... xn, the
   value of which is dependent on the function f, and the
-  contents of x.
+  contents of x. when x is NULL, NULL is automatically
+  returned, as with other mchof functions. when x is a
+  length-zero input such as integer(0) or list()
+  \code{first} is returned.
 }
 \description{
   mcFold applies an associative binary function to a list,
@@ -49,10 +52,6 @@
   the actual data x will always be taken in by the second
   parameter of f. Both mcReduce and mcFold may be used to
   emulate tail recursion over a list.
-
-  when x is NULL, NULL is automatically returned, as with
-  other mchof functions. when x is a length-zero input such
-  as integer(0) or list() \code{first} is returned.
 }
 \examples{
 

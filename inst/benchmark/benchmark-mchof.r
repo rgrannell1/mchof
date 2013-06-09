@@ -2,6 +2,9 @@
 require(microbenchmark)
 require(mchof)
 
+# NOTE: these tests are profiling the worst-case behaviour of
+# these functions. Most functions have faster average case behaviour
+
 one_func <- function (...) 1
 true_func <- function (...) TRUE
 false_func <- Negate(true_func)
@@ -12,14 +15,10 @@ fold_control <- function (x) {
 }
 
 quantifier_control <- filter_control <- 
-	position_control <- function (x) {
-		
+position_control <- function (x) {
 	lapply(x, null_func)
 }
-zip_control <- function (x) {
-	head(x, floor(length(x) / 2))
-	tail(x, floor(length(x) / 2))
-	
+zip_control <- function (x) {	
 	lapply(x, null_func)
 }
 
@@ -86,6 +85,6 @@ options(mc.cores = NULL)
 
 ISSUE("dont make run on inst load! benchmark")
 
-benchmark_code(backend_tests, len = 100000, 2)
-benchmark_code(mchof_tests, len = 100000, 2)
+benchmark_code(backend_tests, len = 1000000, 2)
+benchmark_code(mchof_tests, len = 1000000, 2)
 

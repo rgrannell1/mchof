@@ -32,7 +32,7 @@ mcAll <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return (x)
-	if (is.vector(x) && length(x) == 0) return (TRUE)
+	if (length(x) == 0) return (TRUE)
 
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
@@ -77,7 +77,7 @@ mcAny <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
-	if (is.vector(x) && length(x) == 0) return(FALSE)
+	if (length(x) == 0) return(FALSE)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -101,7 +101,6 @@ mcAny <- function (f, x, paropts = NULL) {
 		paropts
 	)
 	any(unlist(results))
-
 }
 
 #' @title mcOne
@@ -136,12 +135,9 @@ mcOne <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	
 	if (is.null(x)) return(x)
-	if (is.vector(x) && length(x) == 0) return(FALSE)
+	if (length(x) == 0) return(FALSE)
 
-	ISSUE("remove list() |-> list()")
-	
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

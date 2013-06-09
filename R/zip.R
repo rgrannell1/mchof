@@ -1,7 +1,8 @@
+#'   
+#' @title mcZipWith
+#' 
 #' @description mcZipWith takes n lists or vectors, generates a list of n element lists,
 #' and returns the result of mapping f over each n element list. 
-#'  
-#' @title mcZipWith
 #' 
 #' @export
 #' 

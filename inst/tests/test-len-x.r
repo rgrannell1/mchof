@@ -2,25 +2,11 @@
 true_fun <- function (x) TRUE
 
 context("nulls handled correctly")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
-
-forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
-	list(
-		f_ = list(mean, max, mode), 
-		right_ = list(TRUE, FALSE), paropts_ = r_paropts()),
-	function (f_, right_, paropts_) {
-
-		res <- mcPosition(
-			f = f_, x = NULL, right = right_, paropts = paropts_)
-		ISSUE("is this right? position")
-		is_integer0(res)
-	}
-)
 
 forall(info = "non-variadic functions that take x = NULL |-> NULL",
 	list(
 		func_ = list(
-			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition,
+			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition, mcPosition,
 			mcReject, mcSelect, mcUnzip, mcUnzipWith
 		),
 		f_ = list(mean, max, mode), 
@@ -46,7 +32,6 @@ forall(
 )
 
 context("check that A[0] behaviour is defined")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
 	info = "mcAll [A](0) |-> TRUE",
@@ -72,8 +57,7 @@ forall(
 		is_list0(mcZipWith(f_, x_, x_, paropts = paropts_))
 	}
 )
-forall(
-	info = "Unzip, UnzipWith [A](0) |-> list()",
+forall(info = "Unzip, UnzipWith [A](0) |-> list()",
 	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
 	function (f_, x_, paropts_) {
 		is_list0(mcUnzip(x_, paropts = paropts_)) &&
@@ -82,8 +66,7 @@ forall(
 	}
 )
 
-forall(
-	info = "Filter, Reject [A](0) |-> [A](0)",
+forall(info = "Filter, Reject [A](0) |-> [A](0)",
 	list(
 		func_ = list(mcFilter, mcReject, mcSelect),
 		f_ = list(mean, max, mode),
@@ -116,21 +99,16 @@ forall(info = "mcFind f [A](0) |-> [A](0)",
 forall(info = "mcPartition true [A](0) |-> list(..., [A](0))",
 	list(x_ = r_typed_vectors(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
-		res <- mcPartition(true_fun, x_, paropts_)
-		identical( res[[2]], x_[0])
+		identical( mcPartition(true_fun, x_, paropts_)[[2]], x_[0])
 	}
 )
 
-ISSUE("define [A](0) for reduce and fold")
-
 context("check that empty lists are handled correctly")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
 	info = "mcAll list() |-> TRUE", 
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
 	function (f_, paropts_) {
-		ISSUE("define all list() behaviour")
 		mcAll(f_, list(), paropts_)
 	}
 )
@@ -139,7 +117,6 @@ forall(
 	info = "mcAny & mcOne list() |-> FALSE",
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
 	function (f_, paropts_) {
-		ISSUE("define any list() behaviour")
 		!mcAny(f_, list(), paropts_) && 
 		!mcOne(f_, list(), paropts_)
 	}
@@ -148,9 +125,7 @@ forall(
 forall(
 	info = "mcSelect, mcReject, mcFind, mcReduce list() |-> list()",
 	list(
-		func_ = list(
-			mcSelect, mcReject, mcFind, mcReduce
-		),
+		func_ = list(mcSelect, mcReject, mcFind, mcReduce),
 		f_ = list(mean, max, mode), right_ = list(TRUE, FALSE),
 		paropts = r_paropts()),
 	function (func_, f_, right_, paropts_) {
@@ -179,7 +154,6 @@ forall(
 )
 
 context("special tests for mcReduce and mcFold")
-#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
 
 forall(
 	info = "mcReduce length(one) -> length(one)",

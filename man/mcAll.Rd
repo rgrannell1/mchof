@@ -16,7 +16,7 @@
 \value{
   returns TRUE if f is true for one element in x, otherwise
   it returns FALSE. If x is NULL, NULL is returned. If x is
-  an empty list an empty list is returned.
+  an empty list TRUE is returned.
 }
 \description{
   mcAny checks if a predicate function f is true for all
@@ -25,8 +25,9 @@
 \details{
   NA's obtained while applying f to x will be assumed to be
   FALSE. the user can sidestep this behaviour easily, if
-  necessary (see \link{mchof}). mcAll(f, logical(0)) is
-  TRUE for consistency with the base function all().
+  necessary (see \link{mchof}). mcAll is TRUE for list()
+  and length zero vectors for consistency with the base
+  function all().
 }
 \examples{
 

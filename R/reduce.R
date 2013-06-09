@@ -33,13 +33,12 @@
 #'    mclapply (see \link{mchof}).
 #'    
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
-#' is dependent on the function f, and the contents of x.
+#' is dependent on the function f, and the contents of x. Returns a length-zero or
+#' length-one value of x as is.
 #'
 #' @example inst/examples/examples-reduce.r
 #' @seealso \code{\link{Reduce}}
 #' @keywords mcReduce
-
-
 
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
@@ -63,9 +62,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	
 	f <- match.fun(f)
 
-	if (is.null(x)) return(NULL)
-	if (is.list(x) && length(x) == 0) return(list())
-	if (length(x) == 1) return(x)
+	if (length(x) < 2 ) return(x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

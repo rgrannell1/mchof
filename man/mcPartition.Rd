@@ -16,7 +16,11 @@
 \value{
   returns a list of two lists; the first list contains the
   values for which f returned true, the other contains
-  values that returned false or NA.
+  values that returned false or NA. If the list of
+  true/false elements is empty then the value of that slot
+  is list() if x is a list, and a typed vector such as
+  integer(0) if x is a vector. mcPartition NULL always
+  returns NULL.
 }
 \description{
   mcPartition returns a list of two lists; a list for which
