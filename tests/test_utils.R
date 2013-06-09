@@ -121,7 +121,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 			report_result(test$name, compare_results(test$test, test$control))
 		},
 		timing)
-	invisible(NULL)
+	invisible(timing)
 }
 
 all_equal <- function (x) {

@@ -80,11 +80,3 @@ backend_tests <- mcZipWith(
 	),
 	c("mclapply", "map", "lapply")
 )
-
-options(mc.cores = NULL)
-
-ISSUE("dont make run on inst load! benchmark")
-
-benchmark_code(backend_tests, len = 1000000, 2)
-benchmark_code(mchof_tests, len = 1000000, 2)
-

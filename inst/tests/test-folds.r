@@ -38,6 +38,6 @@ forall(
 	function (x_, paropts_) {
 		identical(mcFold(
 			function (acc, new) c(acc, unname(new)),
-			NULL, x_, paropts_), unname(unlist(x_)))
+			list(), x_, paropts_), unname(unlist(x_)))
 	}
 )
