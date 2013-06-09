@@ -57,6 +57,6 @@ mcFold <- function (f, first, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	mcReduce(f, c(list(first), x), paropts)
+	mcReduce(f, x = c(list(first), x), paropts)
 	
 }

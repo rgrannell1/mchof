@@ -43,12 +43,14 @@
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
-
+	
+	ISSUE("mcreduce is changing the class of its inputs!")
+	
 	to_pairs <- function (x) {
 		# chunk x into lists of two, where possible
 			
-			group_into(x, 2)
-		}
+		group_into(x, 2)
+	}
 		
 	iterateWhile <- function (f, p, x) {
 		# pipe the output x of f into f, 
