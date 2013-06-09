@@ -26,7 +26,7 @@ forall(
 	}
 )
 forall(
-	info = "mcfold paste x is equal to paste x",
+	info = "fold paste x is equal to paste x",
 	list(x_ = r_letters(), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		mcFold(paste0, '', x_, paropts_) == paste0(x_, collapse = '')

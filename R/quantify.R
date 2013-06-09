@@ -6,7 +6,8 @@
 #' 
 #' @details NA's obtained while applying f to x will be assumed to be FALSE.
 #' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
-#' mcAll(f, logical(0)) is TRUE for consistency with the base function all().
+#' mcAll is TRUE for list() and length zero vectors for consistency with the 
+#' base function all(). 
 #' 
 #' @name mcAll
 #' 
@@ -21,7 +22,7 @@
 #' 
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list an empty list is returned.
+#' empty list TRUE is returned.
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -65,7 +66,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list an empty list is returned.
+#' empty list FALSE is returned.
 #'
 
 mcAny <- function (f, x, paropts = NULL) {
@@ -122,7 +123,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list an empty list is returned.
+#' empty list FALSE is returned.
 #'
 #' @example inst/examples/examples-one.r
 #' @keywords mcOne

@@ -34,7 +34,7 @@ mcFilter <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return(x)
-	if (is.list(x) && length(x) == 0) return(list())
+	if (is_list0(x)) return(list())
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

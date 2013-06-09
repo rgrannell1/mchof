@@ -82,7 +82,7 @@ r_seq_len <- function (n=100) {
 }
 r_int_vectors <- function (n=100) {
 	repl(
-		function(...) r_integers(pick_len(20)), n)
+		function (...) r_integers(pick_len(20)), n)
 }
 r_small_named_list <- function (n=100) {
 	repl(
@@ -102,4 +102,12 @@ r_empty_list_tuples <- function (n=100) {
 				seq_len(pick_len(n)))	
 		},
 		seq_len(pick_len(n)))
+}
+r_typed_vectors <- function (n=100) {
+	repl(
+		function (...) {
+			sample(c(
+				list(r_integers(pick_len(20))),
+				list(r_letters(pick_len(20)))), size = 1)[[1]]
+		}, n)	
 }

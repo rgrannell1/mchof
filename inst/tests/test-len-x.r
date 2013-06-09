@@ -20,17 +20,19 @@ forall(info = "mcPosition f x = NULL paropts |-> integer(0)",
 forall(info = "non-variadic functions that take x = NULL |-> NULL",
 	list(
 		func_ = list(
-			mcAll, mcAny, mcFilter, mcFind, mcOne, mcPartition,
+			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition,
 			mcReject, mcSelect, mcUnzip, mcUnzipWith
 		),
 		f_ = list(mean, max, mode), 
-		right_ = list(TRUE, FALSE), 
+		right_ = list(TRUE, FALSE), first_ = r_integers(),
 		paropts_ = r_paropts()	
 	),
-	function (func_, f_, right_, paropts_) {
+	function (func_, f_, first_, right_, paropts_) {
 		is.null(adapt_call(
 			func_,
-			with = list(f = f_, right = right_, x = NULL, paropts = paropts_)))
+			with = list(
+				f = f_, first = first_,
+				right = right_, x = NULL, paropts = paropts_)))
 	}
 )
 
@@ -75,7 +77,7 @@ forall(
 	list(f_ = list(mean, max, mode), x_ = r_vector_0(), paropts = r_paropts()),
 	function (f_, x_, paropts_) {
 		is_list0(mcUnzip(x_, paropts = paropts_)) &&
-		is_list0(mcUnzip(list(x_, x_), paropts = paropts_)) 
+		is_list0(mcUnzip(list(x_, x_), paropts = paropts_)) &&
 		is_list0(mcUnzipWith(f_, x_, paropts = paropts_))
 	}
 )
@@ -111,11 +113,19 @@ forall(info = "mcFind f [A](0) |-> [A](0)",
 	}
 )
 
+forall(info = "mcPartition true [A](0) |-> list(..., [A](0))",
+	list(x_ = r_typed_vectors(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		res <- mcPartition(true_fun, x_, paropts_)
+		identical( res[[2]], x_[0])
+	}
+)
+
 ISSUE("define [A](0) for reduce and fold")
 
 context("check that empty lists are handled correctly")
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
-ISSUE("mcAll")
+
 forall(
 	info = "mcAll list() |-> TRUE", 
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
@@ -150,33 +160,29 @@ forall(
 	}
 )
 
-test_that('list() behaviour is defined', {
-	
-	# list() |-> list( list(), list() )
-	expect_equal(
-		mcPartition(identity, list()),	
-		list(list(), list())
-	)
-		
-	expect_equal(mcZip(), list())
-	expect_equal(mcZip (list(), list(1), list(1,2,3)), list())
-	expect_equal(mcUnzip(list(list('a', 'b'), list(), list('c', 'd'))), list())
-	expect_equal(mcUnzip(list()), list ())
-	
-	expect_equal(
-		mcUnzipWith(identity,
-			list( list ('a', 'b'), list (), list ('c', 'd')) ), 
-		list ())
-
-	expect_equal(mcZipWith(identity, list()), list())
-	
-	# list(..., list(), ...) |-> list()
-	expect_equal(mcZipWith(identity, list(), list(), list(1:10)), list())
-	
-})
+forall(
+	info = "mcPartition list() |-> list( list(), list() )",
+	list(f_ = list(mean, max, mode), paropts = r_paropts()),
+	function (f_, paropts_) {
+		identical(
+			mcPartition(f_, list(), paropts_),
+			list( list(), list() ))
+	}
+)
 
 forall(
-	info = "mcReduce ",
+	info = "mcZip list(), ... |-> list()",
+	list(x_ = r_tuple_list(), paropts_ = r_paropts()), 
+	function (x_, paropts_) {
+		is_list0( do.call(mcZip, list(x_, list(), paropts = paropts_)) )
+	}
+)
+
+context("special tests for mcReduce and mcFold")
+#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
+
+forall(
+	info = "mcReduce length(one) -> length(one)",
 	list(x_ = c(r_letters(), r_integers(), r_flat_no_null()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		all_equal(list(
@@ -186,14 +192,12 @@ forall(
 	}
 )
 
-test_that("mcPartition length(0) |-> length(0)", {
-	
-	expect_equal(
-		mcPartition(function(x) TRUE, list(integer(0))), 
-		list(list(integer(0)), list()))
-	
-	expect_equal(
-		mcPartition(true_fun, list(1:10)),
-		list(list(1:10), list())
-	)
-})
+forall(
+	info = "mcFold first length(0) |-> first",
+	list(
+		f_ = list(mean, max, mode), first_ = r_integers(),
+		x_ = c(list(), r_vector_0()), paropts_ = r_paropts()),
+	function (f_, first_, x_, paropts_) {
+		identical(mcFold(f_, first_, x_, paropts_), first_)
+	}
+)

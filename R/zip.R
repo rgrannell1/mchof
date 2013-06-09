@@ -48,7 +48,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			not_null = !is.null(elem),
 			length = length(elem))
 	})
-
+	
 	any(sublist_info["factor",]) %throws% stopf(
 		"%s elements %s were factors)",
 		func_call,

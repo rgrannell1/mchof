@@ -33,14 +33,12 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 	# list (x1, y1), list (x2, y2)  |-> 
 	# list ( list(x1, x2), list(y1, y2) )
-
-	ISSUE("odd performance issues...unzipwith")
 	
 	func_call <- deparse(match.call())
 	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
-	if (is.list(x) && length(x) == 0) return (list())
+	if (length(x) == 0) return (list())
 
 	sublist_info <- sapply(x, function (elem) {
 		c(
