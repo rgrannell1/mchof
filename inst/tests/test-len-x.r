@@ -115,9 +115,9 @@ ISSUE("define [A](0) for reduce and fold")
 
 context("check that empty lists are handled correctly")
 #=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#=-=#
-
+ISSUE("mcAll")
 forall(
-	info = "mcAll list() |-> TRUE",
+	info = "mcAll list() |-> TRUE", 
 	list(f_ = list(mean, max, mode), paropts = r_paropts()),
 	function (f_, paropts_) {
 		ISSUE("define all list() behaviour")
@@ -135,6 +135,21 @@ forall(
 	}
 )
 
+forall(
+	info = "mcSelect, mcReject, mcFind, mcReduce list() |-> list()",
+	list(
+		func_ = list(
+			mcSelect, mcReject, mcFind, mcReduce
+		),
+		f_ = list(mean, max, mode), right_ = list(TRUE, FALSE),
+		paropts = r_paropts()),
+	function (func_, f_, right_, paropts_) {
+		is_list0( adapt_call(func_, with = list(
+			f = f_, x = list(), right = right_, paropts = paropts_ 	
+		)) )
+	}
+)
+
 test_that('list() behaviour is defined', {
 	
 	# list() |-> list( list(), list() )
@@ -142,18 +157,11 @@ test_that('list() behaviour is defined', {
 		mcPartition(identity, list()),	
 		list(list(), list())
 	)
-	
-	# list() |-> list()
-	expect_equal(mcFind(true_fun, list()), list())	
-	expect_equal(mcReduce('+', list()), list())
-	
+		
 	expect_equal(mcZip(), list())
 	expect_equal(mcZip (list(), list(1), list(1,2,3)), list())
 	expect_equal(mcUnzip(list(list('a', 'b'), list(), list('c', 'd'))), list())
 	expect_equal(mcUnzip(list()), list ())
-	
-	expect_equal(mcSelect(true_fun, list()), list())
-	expect_equal(mcReject(true_fun, list()), list())
 	
 	expect_equal(
 		mcUnzipWith(identity,
@@ -165,22 +173,6 @@ test_that('list() behaviour is defined', {
 	# list(..., list(), ...) |-> list()
 	expect_equal(mcZipWith(identity, list(), list(), list(1:10)), list())
 	
-	# quantify list() -> list()
-	expect_equal(mcAll(mean, list()), list())
-	expect_equal(mcAny(mean, list()), list())
-	expect_equal(mcOne(mean, list()), list())
-	
-})
-
-test_that("[A](0) |-> ...", {
-	
-	# ... integer(0)
-	expect_equal(mcPosition(true_fun, x = character(0)), integer(0))
-	
-	#...[A](0)
-	expect_equal(length(mcFind(function(x) FALSE, character(0))), 0)
-	expect_equal(mcFilter(function(x) T, integer(0)), integer(0))
-
 })
 
 forall(

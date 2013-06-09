@@ -48,8 +48,10 @@ mcFold <- function (f, first, x, paropts = NULL) {
 		
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	ISSUE ("special cases need a LOT of work (fold/reduce)")
-	if (is.list(x) && length(x) == 0) return (first)
+	ISSUE ("special cases need a LOT of work (fold); perhaps missing cases")
+	
+	if (is.null(x)) return (NULL) # nulls should never not fall through
+	if (length(x) == 0) return (first)
 	
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
