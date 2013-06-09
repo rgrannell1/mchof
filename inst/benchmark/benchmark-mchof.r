@@ -14,12 +14,14 @@ fold_control <- function (x) {
 	Reduce(null_func, x)
 }
 
-quantifier_control <- filter_control <- 
-position_control <- function (x) {
+quantifier_control <- filter_control <- function (x) {
 	lapply(x, null_func)
 }
 zip_control <- function (x) {	
 	lapply(x, null_func)
+}
+position_control <- function (x) {
+	Position(function(y) FALSE, x)
 }
 
 mchof_tests <- mcZipWith(
