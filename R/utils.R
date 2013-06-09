@@ -52,6 +52,13 @@ group_into <- function (x, size) {
 		})
 	}
 }
+get_cores <- function (paropts) {
+	if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
+		abs(paropts$mc.cores)
+	} else if (!is.null(getOption('mc.cores')))  {
+		abs(getOption('mc.cores'))
+	} else 1
+}
 
 stopf <- function (fmt, ...) {
 	# combines stop, paste0 and sprintf

@@ -30,16 +30,14 @@ if (exists('call_mclapply')) {
 		
 	})
 
-	test_that("returns correct results for sample cases", {
-		expect_equal(
-			call_mclapply(function(x) x, 1:5),
-			list(1,2,3,4,5))
-		
-		expect_equal(
-			call_mclapply(function(x) !is.na(x),
-			c(1, 2, 3, NA, 4, 5)), list(TRUE, TRUE, TRUE, FALSE, TRUE, TRUE))
-		
-	})
+	forall(
+		info = "check call_mclapply is returning correct results",
+		list(x_ = r_seq_len(), paropts_ = r_paropts()),
+		function (x_, paropts_) {
+			res <- call_mclapply(function (x) sum(unlist(x)), list(x_), paropts_)
+			unlist(res) == sum(unlist(x_))
+		}
+	)
 	
 	if (.Platform$OS.type == 'unix') {
 		

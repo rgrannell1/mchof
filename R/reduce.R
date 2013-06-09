@@ -45,13 +45,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	# the infix function f.
 	
 	ISSUE("mcreduce is changing the class of its inputs!")
-	
-	to_pairs <- function (x) {
-		# chunk x into lists of two, where possible
-			
-		group_into(x, 2)
-	}
-		
+
 	iterateWhile <- function (f, p, x) {
 		# pipe the output x of f into f, 
 		# until p(x) is true
@@ -63,7 +57,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
-	if (length(x) < 2 ) return (x)
+	if (length(x) < 2) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -73,13 +67,13 @@ mcReduce <- function (f, x, paropts = NULL) {
 	}
 
 	final <- iterateWhile(
-		f = function (reducable) {
-			to_pairs(call_mclapply(g, reducable, paropts))
+		function (reducable) {
+			group_into(call_mclapply(g, reducable, paropts), size = 2)
 		},
-		p = function (reducable) {
+		function (reducable) {
 			length(reducable) == 1
 		},
-		x = to_pairs(x))
+		group_into(x, size = 2))
 	
 	g( final[[1]] )
 }

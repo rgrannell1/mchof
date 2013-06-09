@@ -66,20 +66,20 @@
   the function in an anonymous function & add the second
   parameter inside the anonymous function.
 
-  mcFilter( function (el) { lang_set <- list('adda',
+  \code{ mcFilter( function (el) { lang_set <- list('adda',
   'erlang', 'javascript', 'R') is.element(el, lang_set) },
-  list('adda', 'matlab', 'R', 'java') )
+  list('adda', 'matlab', 'R', 'java') ) }
 
   it is also useful to create a curried function (a
   function with some parameters substituted) in cases where
   the code is likely to be re-used
 
-  in_lang_set <- function (el) { # check if an element is
-  in a particular set
+  \code{ in_lang_set <- function (el) { # check if an
+  element is in a particular set
 
   is.element(el, list('adda', 'matlab', 'R', 'java')) }
   mcFilter(in_lang_set, list('adda', 'matlab', 'R',
-  'java'))
+  'java')) }
 }
 
 \section{NA handling}{
@@ -90,16 +90,23 @@
 
   # TRUE -> TRUE, FALSE -> FALSE, NA -> FALSE
 
-  as_boolean_one <- function (x) isTRUE(x)
+  \code{ as_boolean_one <- function (x) isTRUE(x) }
 
   # TRUE -> TRUE, FALSE -> FALSE, NA -> TRUE
 
-  as_boolean_two <- function (x) isTRUE(x) || is.na(x)
+  \code{ as_boolean_two <- function (x) isTRUE(x) ||
+  is.na(x) }
 
   or alternatively the higher-order functions
 
-  f <- function (func) { function (...) as_boolean_one(...)
-  } g <- function (func) { function (...)
-  as_boolean_two(...) }
+  \code{ f <- function (func) {
+
+  function (...) as_boolean_one(...)
+
+  } g <- function (func) {
+
+  function (...) as_boolean_two(...)
+
+  } } end
 }
 

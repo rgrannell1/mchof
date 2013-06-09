@@ -82,11 +82,7 @@ mcAny <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
-		abs(paropts$mc.cores)
-	} else if (!is.null(getOption('mc.cores')))  {
-		abs(getOption('mc.cores'))
-	} else 1
+	cores <- get_cores(paropts)
 
 	results <- call_mclapply(
 		f = function (sublist) {
@@ -97,8 +93,7 @@ mcAny <- function (f, x, paropts = NULL) {
 			}
 			FALSE
 		},
-		group_into(x, cores),
-		paropts
+		group_into(x, cores), paropts
 	)
 	any(unlist(results))
 }

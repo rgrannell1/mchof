@@ -12,10 +12,9 @@ visualise_benchmark <- function (data) {
 	
 	molten <- structure(Map(
 		function(x) {
-			melt(data.frame(
-				name = x$name,
-				test = x$test,
-				control = x$control), id.vars = "name")
+			melt(
+				data.frame(name = x$name, test = x$test, control = x$control),
+				id.vars = "name")
 		},
 		data),
 	names = sapply(data, function (li) li$name))
@@ -25,12 +24,12 @@ visualise_benchmark <- function (data) {
 			geom_density(aes(group = variable, fill = variable), alpha = 0.3) + 
 			xlab("nanoseconds") + ggtitle(paste0(names(molten[i]), " Performance"))
 		plot(g)
-		Sys.sleep(4)
+		Sys.sleep(5)
 	}
 
 }
-len <- 300000
-times <- 300
+len <- 10000
+times <- 120
 
 backend_data <- benchmark_code(backend_tests, len, times)
 dual_core_data <- benchmark_code(dual_core_backend_tests, len, times)
@@ -41,6 +40,7 @@ mchof_data <- benchmark_code(mchof_tests, len, times)
 iterate_data <- benchmark_code(iterate_tests, len, times)
 group_into_data <- benchmark_code(group_into_tests, len, times)
 
+visualise_benchmark(mchof_data)
 visualise_benchmark(backend_data)
 visualise_benchmark(dual_core_data)
 

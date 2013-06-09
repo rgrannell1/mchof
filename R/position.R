@@ -47,11 +47,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	(!is_boolean(right)) %throws% stopf (
 		'right must be TRUE or FALSE', func_call)
 	
-	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
-		abs(paropts$mc.cores)
-	} else if (!is.null(getOption('mc.cores')))  {
-		abs(getOption('mc.cores'))
-	} else 1
+	cores <- get_cores(paropts)
 
 	job_indices <- if (right) {
 		rev(group_into(seq_along(x), cores))
@@ -68,8 +64,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 				is_match <- as.logical(f( x[[ind]] ))	
 				if (isTRUE(is_match)) ind else NaN
 			},
-			x = job_indices[[i]],
-			paropts
+			x = job_indices[[i]], paropts
 		))
 		
 		matched_indices <- checked_ind[
@@ -118,7 +113,6 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	if (is.null(x)) return (NULL)
-	if (is_list0(x) == 0) return (list())
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
