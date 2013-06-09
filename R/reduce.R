@@ -63,8 +63,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
-
-	if (length(x) < 2 ) return(x)
+	if (length(x) < 2 ) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -73,13 +72,14 @@ mcReduce <- function (f, x, paropts = NULL) {
 		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
 	}
 
-	g( iterateWhile (
-		function (reducable) {
+	final <- iterateWhile(
+		f = function (reducable) {
 			to_pairs(call_mclapply(g, reducable, paropts))
 		},
-		function (reducable) {
+		p = function (reducable) {
 			length(reducable) == 1
 		},
-		to_pairs(x)) [[1]] )
-
+		x = to_pairs(x))
+	
+	g( final[[1]] )
 }

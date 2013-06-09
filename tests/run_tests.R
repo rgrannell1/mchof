@@ -11,7 +11,7 @@ source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_generators.R')
 ISSUE("read and fix all docs")
 ISSUE("fix mchof.Rs code tags")
 ISSUE("add fold examples")
-ISSUE("suspect fold and reduce don't work!")
+ISSUE("docs are lying for mcreduce and mcfold")
 ISSUE("test on windows")
 
 options(forall_time = 0.2)

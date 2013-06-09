@@ -76,7 +76,7 @@ mcAny <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(x)
+	if (is.null(x)) return(NULL)
 	if (length(x) == 0) return(FALSE)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
@@ -135,13 +135,12 @@ mcOne <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(x)
+	if (is.null(x)) return(NULL)
 	if (length(x) == 0) return(FALSE)
 
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
-	
 
 	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)

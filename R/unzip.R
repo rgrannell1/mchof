@@ -54,9 +54,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 	min_length <- min(sublist_info["length",])
 	
-	if (min_length == 0) {
-		return (list())
-	}
+	if (min_length == 0) return (list())
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
 

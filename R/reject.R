@@ -40,7 +40,7 @@ mcReject <- function (f, x, paropts = NULL) {
 		!isTRUE(res)
 	}
 
-	if (length(x) == 0) return(x)
+	if (length(x) == 0) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

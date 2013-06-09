@@ -31,7 +31,7 @@ mcPartition <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(x)
+	if (is.null(x)) return (NULL)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

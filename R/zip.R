@@ -40,8 +40,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	x <- list(...)
 	f <- match.fun(f)
 
-	if (is.list(x) && length(x) == 0) return (list())
-	if ( is.null(x[[1]]) ) return (NULL)
+	if (is_list0(x)) return (list())
+	if (is.null( x[[1]] )) return (NULL)
 	
 	sublist_info <- sapply(x, function (elem) {
 		c(
@@ -57,9 +57,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 
 	min_length <- min(sublist_info["length",])
 	
-	if (min_length == 0) {
-		return (list())
-	}
+	if (min_length == 0) return (list())
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
 

@@ -29,20 +29,22 @@ visualise_benchmark <- function (data) {
 	}
 
 }
+len <- 300000
+times <- 300
 
-backend_data <- benchmark_code(backend_tests, len = 10000, 300)
-mchof_data <- benchmark_code(mchof_tests, len = 10000, 300)
+backend_data <- benchmark_code(backend_tests, len, times)
+dual_core_data <- benchmark_code(dual_core_backend_tests, len, times)
+# natural intersection of dual-core and lapply performance at 
 
-iterate_data <- benchmark_code(iterate_tests, len = 10000, 300)
-group_into_data <- benchmark_code(group_into_tests, len = 10000, 300)
+mchof_data <- benchmark_code(mchof_tests, len, times)
 
-reduce_data <- benchmark_code(reduce_tests, len = 10000, 300)
+iterate_data <- benchmark_code(iterate_tests, len, times)
+group_into_data <- benchmark_code(group_into_tests, len, times)
 
 visualise_benchmark(backend_data)
-visualise_benchmark(mchof_data)
+visualise_benchmark(dual_core_data)
 
 visualise_benchmark(iterate_data)
 visualise_benchmark(group_into_data)
 
-visualise_benchmark(reduce_data)
 
