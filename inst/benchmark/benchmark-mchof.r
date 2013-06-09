@@ -39,12 +39,12 @@ mchof_tests <- mcZipWith(
 		mcReduce = function (x) mcReduce(one_func, x),
 		mcReject = function (x) mcReject(false_func, x),
 		mcZipWith = function (x) {
-			mcZipWith(
-				null_func,
-				head(x, floor(length(x) / 2)),
-				tail(x, ceiling(length(x) / 2)) )
+
+			do.call(
+				mcZipWith,
+				c(list(f = null_func), group_into(x, 2)))
 		},
-		mcUnzipWith = function (x) mcUnzipWith(true_func, x)
+		mcUnzipWith = function (x) mcUnzipWith(null_func, x)
 	),
 	list(
 		mcAll = function (x) quantifier_control(x),
@@ -86,6 +86,6 @@ options(mc.cores = NULL)
 
 ISSUE("dont make run on inst load! benchmark")
 
-benchmark_code(backend_tests, len = 100000, 1)
-benchmark_code(mchof_tests, len = 100000, 1)
+benchmark_code(backend_tests, len = 100000, 2)
+benchmark_code(mchof_tests, len = 100000, 2)
 
