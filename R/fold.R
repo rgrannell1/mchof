@@ -30,10 +30,7 @@
 #' possible to simplify f. For example, lists have an identity element of list()
 #' when concatenated, and integers have an identity of 0 under addition. This is 
 #' shown below in the example programs given.
-#' 
-#' mcFold is more apt than mcReduce for accumulating data as the actual data x will
-#' always be taken in by the second parameter of f.
-#' 
+#'  
 #' @name mcFold
 #' 
 #' @param f a binary function

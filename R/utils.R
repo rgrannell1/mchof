@@ -5,9 +5,7 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 	warning (sprintf(
 		paste0(fmt, collapse = "\n"),...), call. = FALSE)
 }
-DONTRUN <- function (expr) {
-	# do nothing with expression
-}
+DONTRUN <- function (expr) {}
 
 '%of%' <- function (f, g) {
 	function (...) f(g(...))
@@ -56,6 +54,8 @@ group_into <- function (x, size) {
 	}
 }
 get_cores <- function (paropts) {
+	# check paropts and option(mc.cores) for cores to use
+	
 	if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
 	} else if (!is.null(getOption('mc.cores')))  {

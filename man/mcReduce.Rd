@@ -42,13 +42,10 @@
   as there is no way to apply a binary function to a
   length-one list.
 
-  mcReduce is useful when used with mathematical operators
-  such as plus, or max; mcFold is more apt at accumulating
-  data since the first option simplifies the f function. A
-  likely source of errors when using mcFold or mcReduce is
-  using a function without this type signature (ie. a
-  function that takes two of a thing, and returns one of a
-  thing).
+  A likely source of errors when using mcFold or mcReduce
+  is using a function without the type signature [A] -> [A]
+  -> [A] (ie. a function that takes two of a thing, and
+  returns one of a thing).
 }
 \examples{
 

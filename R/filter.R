@@ -5,7 +5,6 @@
 #' @description mcFilter extracts the elements of a vector or list for 
 #' which the function \code{f} returns \code{TRUE}.
 #' 
-#' 
 #' @usage mcFilter(f, x, paropts = NULL)
 #' 
 #' mcSelect(f, x, paropts = NULL)
@@ -39,7 +38,7 @@ mcFilter <- function (f, x, paropts = NULL) {
 
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
-	if (is_list0(x)) return (list())
+	if (length(x) == 0) return (x)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))

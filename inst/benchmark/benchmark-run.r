@@ -5,10 +5,7 @@ DONTRUN({
 })
 
 visualise_benchmark <- function (data) {
-	
-	require(reshape2)
-	require(ggplot2)
-	
+
 	molten <- structure(Map(
 		function(x) {
 			melt(data.frame(
@@ -24,15 +21,19 @@ visualise_benchmark <- function (data) {
 			geom_histogram(aes(group = variable, fill = variable), binwidth = 1) + 
 			xlab("nanoseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
 		plot(g)
-		Sys.sleep(3)
+		Sys.sleep(5)
 	}
 
 }
 DONTRUN({
 	options(mc.cores = NULL)
-
+	require(reshape2)
+	require(ggplot2)
+	
 	backend_data <- benchmark_code(backend_tests, len = 1000, 100)
 	mchof_data <- benchmark_code(mchof_tests, len = 1000, 100)
+	iterate_data <- benchmark_code(iterate_tests, len = 1000, 100)
+	group_into_data <-benchmark_code(group_into_tests, 1000, 100)
 	
 	visualise_benchmark(mchof_data)	
 })

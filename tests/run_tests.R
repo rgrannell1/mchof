@@ -7,7 +7,7 @@ ISSUE("read and fix all docs")
 ISSUE("add fold examples")
 ISSUE("docs are lying for mcreduce and mcfold")
 ISSUE("remove comments in test-fold")
-ISSUE("remove benchmark execution; will kill CRAN!")
+ISSUE("check that mcAll doesn't throw factor errors")
 
 options(forall_time = 0.2)
 	

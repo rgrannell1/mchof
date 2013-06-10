@@ -76,8 +76,8 @@ mcAny <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(NULL)
-	if (length(x) == 0) return(FALSE)
+	if (is.null(x)) return (NULL)
+	if (length(x) == 0) return (FALSE)
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
@@ -87,8 +87,8 @@ mcAny <- function (f, x, paropts = NULL) {
 	results <- call_mclapply(
 		f = function (sublist) {
 			
-			for (i in seq_along(sublist)) {
-				res <- as.logical(f( sublist[[i]] ))
+			for (ind in seq_along(sublist)) {
+				res <- as.logical(f( sublist[[ind]] ))
 				if (isTRUE(res)) return (TRUE)
 			}
 			FALSE
@@ -130,18 +130,14 @@ mcOne <- function (f, x, paropts = NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 
 	f <- match.fun(f)
-	if (is.null(x)) return(NULL)
-	if (length(x) == 0) return(FALSE)
+	if (is.null(x)) return (NULL)
+	if (length(x) == 0) return (FALSE)
 
 	is.factor(x) %throws% stopf (
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 
-	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
-		abs(paropts$mc.cores)
-	} else if (!is.null(getOption('mc.cores')))  {
-		abs(getOption('mc.cores'))
-	} else 1
+	cores <- get_cores(paropts)
 
 	number_true <- 0
 	job_indices <- group_into(seq_along(x), cores)

@@ -45,7 +45,7 @@
   Formally the combination of an associative binary
   operator, an identity element (first) and a set (x) is
   known as a monoid; the function f has a type signature of
-  [A] x [A] -> [A]. A likely source of errors when using
+  [A] -> [A] -> [A]. A likely source of errors when using
   mcFold or mcReduce is using a function without this type
   signature (ie. a function that takes two of a thing, and
   returns one of a thing).
@@ -55,12 +55,31 @@
   have an identity element of list() when concatenated, and
   integers have an identity of 0 under addition. This is
   shown below in the example programs given.
-
-  mcFold is more apt than mcReduce for accumulating data as
-  the actual data x will always be taken in by the second
-  parameter of f.
 }
 \examples{
+
+# bind a list of vectors into a column
+
+mcFold(
+	function (a, b) cbind(a, b),
+	c(),
+	list(
+		1:4, 2:5,
+		3:6, 4:7
+))
+
+# get the 4th power of a matrix (diagonalisation is more efficient though)
+
+fourth_power <- function (X) {
+	I <- diag(1, nrow(X), ncol(X))
+	
+	mcFold(
+		f = function (a, b) a \%*\% b,
+		first = I,
+		x = rep(list(X), 4))
+}
+fourth_power( t(matrix(1:4, 2, 2)) )
+
 
 }
 

@@ -31,9 +31,6 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 
-	# list (x1, y1), list (x2, y2)  |-> 
-	# list ( list(x1, x2), list(y1, y2) )
-	
 	func_call <- deparse(match.call())
 	
 	f <- match.fun(f)
@@ -43,8 +40,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	sublist_info <- sapply(x, function (elem) {
 		c(
 			factor = inherits(elem, "factor"),
-			not_null = !is.null(elem),
-			length = length(elem))
+			not_null = !is.null(elem), length = length(elem))
 	})
 
 	any(sublist_info["factor",]) %throws% stopf(

@@ -60,13 +60,13 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	if (min_length == 0) return (list())
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
-
+	
 	call_mclapply(
 		function (ind) {
 			# get the ind-th element in each sublist,
 			# add to a list, apply f to that list
 			
-			 f( lapply( x, function (sublist) sublist[[ind]] ))
+			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
 		paropts
