@@ -1,3 +1,4 @@
+
 #' @description mcAnd takes two functions f and g, and returns a function. This new function
 #' returns f(...) && g(...)
 #'
@@ -37,9 +38,9 @@ mcAnd <- function (f, g) {
 	}
 }
 
-#' @description mcAnd takes a function f, and negates its logical output
+#' @description mcNot takes a function f, and negates its logical output
 #'
-#' @title mcAnd
+#' @title mcNot
 #' 
 #' @export
 #' @param f a function that returns a logical value, or a string giving the name of 
@@ -51,8 +52,8 @@ mcAnd <- function (f, g) {
 #' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and
 #'  \code{\link{mcXor}}
 #' 
-#' @keywords mcAnd
-#' @example inst/examples/examples-and.r
+#' @keywords mcNot
+#' @example inst/examples/examples-not.r
 
 mcNot <- function (f) {
 	# return a function that returns false when f is true, 

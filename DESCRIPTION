@@ -4,7 +4,7 @@ Title: multicore higher-order functions
 Description: mchof (read: mac'hoff) is a utility library that provides
     composable, consistent parallel implementations of functionals such as
     Filter, Fold, ZipWith and Partition.
-Version: 0.3
+Version: 0.4
 Depends:
     R (>= 2.14.0)
 Date: 2013-02-03
@@ -25,6 +25,8 @@ OS_type: unix
 Collate:
     'call_mclapply.R'
     'filter.R'
+    'math.R'
+    'logic.R'
     'partition.R'
     'position.R'
     'reduce.R'

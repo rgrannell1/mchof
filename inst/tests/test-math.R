@@ -12,7 +12,7 @@ forall(info = "mcLarger and mcSmaller returns same value as operator",
 	}
 )
 
-forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide returns same value as operator",
+forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide, mcEqual returns same value as operator",
 	list(a_ = r_seq_len()),
 	function (a_) {
 		
@@ -20,8 +20,9 @@ forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide returns same value as opera
 		g <- function (n) n^3 - 20
 		
 		all_equal( list( mcPlus(f, g)(a_), f(a_) + g(a_) )) &&
-		all_equal( list( mcMinus(f, g)(a_), f(a_) - g(a_) ))
-		all_equal( list( mcMultiply(f, g)(a_), f(a_) * g(a_) ))
-		all_equal( list( mcDivide(f, g)(a_), f(a_) / g(a_) ))
+		all_equal( list( mcMinus(f, g)(a_), f(a_) - g(a_) )) &&
+		all_equal( list( mcMultiply(f, g)(a_), f(a_) * g(a_) )) &&
+		all_equal( list( mcDivide(f, g)(a_), f(a_) / g(a_) )) &&
+		all_equal( list( mcEqual(f, g)(a_), f(a_) == g(a_) ))
 	}
 )

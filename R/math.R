@@ -104,6 +104,41 @@ mcPlus <- function (f, g) {
 	}	
 }
 
+#' @description mcEqual takes two functions f and g, and returns a function. This new function
+#' returns f(...) == g(...)
+#'
+#' @title mcEqual
+#' 
+#' @export
+#' @param f a function that returns an object that can be compared with ==, 
+#' or a string giving the name of such a function.
+#' @param g a function that returns an object that can be compared with ==, 
+#' or a string giving the name of such a function.
+#' @return returns a logical value.
+#' 
+#' @keywords mcEqual
+#' @example inst/examples/examples-equal.r
+
+mcEqual <- function (f, g) {
+	# returns a function that returns f(...) == g(...)
+	
+	func_call <- paste0( deparse(match.call()), ':' )
+
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)	
+	missing(g) %throws% stopf (
+		'%s a function (or function name) g is required but was missing',
+		func_call)
+	
+	f <- match.fun(f)
+	g <- match.fun(g)
+	
+	function (...) {
+		f(...) == g(...)
+	}	
+}
+
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
 #' returns f(...) - g(...)
 #'
@@ -171,7 +206,7 @@ mcMultiply <- function (f, g) {
 	g <- match.fun(g)
 	
 	function (...) {
-		all(f(...) < g(...))
+		f(...) * g(...)
 	}	
 }
 
