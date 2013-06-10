@@ -154,7 +154,25 @@ mcEqual <- function (f, g) {
 #' @keywords mcNotEqual
 #' @example inst/examples/examples-notequal.r
 
-mcNotEqual <- mcNot(mcEqual)
+mcEqual <- function (f, g) {
+	# returns a function that returns f(...) == g(...)
+	
+	func_call <- paste0( deparse(match.call()), ':' )
+
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)	
+	missing(g) %throws% stopf (
+		'%s a function (or function name) g is required but was missing',
+		func_call)
+	
+	f <- match.fun(f)
+	g <- match.fun(g)
+	
+	function (...) {
+		f(...) != g(...)
+	}	
+}
 
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
 #' returns f(...) - g(...)

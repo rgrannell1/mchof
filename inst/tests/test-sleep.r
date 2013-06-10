@@ -1,4 +1,6 @@
 
+context("sleep: normal cases")
+
 expect_that(
 	mcSleep(mean, 0.2)(1),
 	takes_less_than(0.2)
