@@ -1,6 +1,7 @@
 #' mchof: multicore higher-order-functions
 #'
 #' @section Functions:
+#' 
 #'
 #' Below is a full list of functions currently included in mchof, along with a
 #' description of what they do
@@ -31,7 +32,7 @@
 #' forking to create parallel processes. Forking is not possible on windows.
 #'
 #' The most important option is mc.cores, which sets the number of processes to
-#' spawn. See \link{mclapply} in the parallel library for a more complete
+#' spawn. See mclapply in the parallel library for a more complete
 #' description of the options that can be used with mchof.
 #'
 #' Note; for obvious reasons FUN or X cannot be set in paropts in case they
@@ -43,34 +44,12 @@
 #' most mchof functions take a fixed number of arguments. There are several ways
 #' to set optional arguments despite this fact.
 #'
-#' take, for example, the one-parameter function mcFilter. If we want to see if
-#' an element is in a set we can use the two-element function is.element.
-#'
 #' the easiest way to add the second parameter is to wrap the function in an
 #' anonymous function & add the second parameter inside the anonymous function.
 #' 
-#' \code{
-#' mcFilter(
-#'     function (el) {
-#'         lang_set <- list('adda', 'erlang', 'javascript', 'R')
-#'         is.element(el, lang_set)
-#'     },
-#'     list('adda', 'matlab', 'R', 'java')
-#' )
-#' }
-#' 
 #' it is also useful to create a curried function (a function with some parameters
-#' substituted) in cases where the code is likely to be re-used
-#'
-#' \code{
-#' in_lang_set <- function (el) {
-#' # check if an element is in a particular set
-#'
-#' is.element(el, list('adda', 'matlab', 'R', 'java'))
-#' }
-#' mcFilter(in_lang_set, list('adda', 'matlab', 'R', 'java'))
-#' }
-#' 
+#' substituted) in cases where the code is likely to be re-used.
+#
 #' @section NA handling:
 #'
 #' many functions in mchof take a TRUE/FALSE value. If a user's function returns NA this will be converted
@@ -85,20 +64,16 @@
 #' # TRUE -> TRUE, FALSE -> FALSE, NA -> TRUE
 #'
 #' \code{ 
-#'     as_boolean_two <- function (x) isTRUE(x) || is.na(x) 
+#'     as_boolean_two <- function (x) isTRUE(x) || is.na(x)
 #' }
 #'
 #' or alternatively the higher-order functions
 #'
-#' \code{
-#'     f <- function (func) {
-#'         function (...) as_boolean_one(...)
-#'     }
-#'     g <- function (func) {
-#'         function (...) as_boolean_two(...)
-#'     }
-#' }
-#' end
+#' \code{f <- function (func) function (...) as_boolean_one(...)}
+#'     
+#' \code{g <- function (func) function (...) as_boolean_two(...)}
+#'
+#'  
 #' 
 #' @docType package
 #' @name mchof

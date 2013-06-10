@@ -16,8 +16,8 @@
 #' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
 #' NULL always returns NULL.
 #' 
-#' @seealso see \code{\link{mcReject}} for a function that returns the values for 
-#' which f returns false or NA, and
+#' @seealso see \code{\link{mcReject}} for a function that 
+#' returns the values for which f returns false or NA, and
 #' \code{\link{mcFilter}} for a function that returns the values for 
 #' which f returns true.
 #'

@@ -9,7 +9,7 @@ mcFold(
 		3:6, 4:7
 ))
 
-# get the 4th power of a matrix (diagonalisation is more efficient though)
+# get the 4th power of a matrix 
 
 fourth_power <- function (X) {
 	I <- diag(1, nrow(X), ncol(X))

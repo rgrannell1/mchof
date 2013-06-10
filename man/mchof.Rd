@@ -43,7 +43,7 @@
   processes. Forking is not possible on windows.
 
   The most important option is mc.cores, which sets the
-  number of processes to spawn. See \link{mclapply} in the
+  number of processes to spawn. See mclapply in the
   parallel library for a more complete description of the
   options that can be used with mchof.
 
@@ -58,28 +58,13 @@
   number of arguments. There are several ways to set
   optional arguments despite this fact.
 
-  take, for example, the one-parameter function mcFilter.
-  If we want to see if an element is in a set we can use
-  the two-element function is.element.
-
   the easiest way to add the second parameter is to wrap
   the function in an anonymous function & add the second
   parameter inside the anonymous function.
 
-  \code{ mcFilter( function (el) { lang_set <- list('adda',
-  'erlang', 'javascript', 'R') is.element(el, lang_set) },
-  list('adda', 'matlab', 'R', 'java') ) }
-
   it is also useful to create a curried function (a
   function with some parameters substituted) in cases where
-  the code is likely to be re-used
-
-  \code{ in_lang_set <- function (el) { # check if an
-  element is in a particular set
-
-  is.element(el, list('adda', 'matlab', 'R', 'java')) }
-  mcFilter(in_lang_set, list('adda', 'matlab', 'R',
-  'java')) }
+  the code is likely to be re-used.
 }
 
 \section{NA handling}{
@@ -99,8 +84,10 @@
 
   or alternatively the higher-order functions
 
-  \code{ f <- function (func) { function (...)
-  as_boolean_one(...)  } g <- function (func) { function
-  (...) as_boolean_two(...)  } } end
+  \code{f <- function (func) function (...)
+  as_boolean_one(...)}
+
+  \code{g <- function (func) function (...)
+  as_boolean_two(...)}
 }
 

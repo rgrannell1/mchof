@@ -86,7 +86,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 	
 		messagef(
 			"%s was %s times slower than the control test",
-			name, paste(multiplier[1], "±", multiplier[2]))
+			name, paste(multiplier[1], "+-", multiplier[2]))
 	}
 	compare_results <- function (test, control) {
 		# calculate how many times larger x is than y,

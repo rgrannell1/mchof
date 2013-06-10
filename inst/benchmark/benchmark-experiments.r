@@ -2,12 +2,10 @@
 iterate_tests <- ( function () {
 	
 	iterateWhile_1 <- function (f, p, x) {
-		
 		while( !p(x) ) x <- f(x)
 		x
 	}
 	iterateWhile_2 <- function (f, p, x) {
-	
 		repeat {
 			if (p(x)) break
 			x <- f(x)
