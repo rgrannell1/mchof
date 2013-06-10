@@ -37,6 +37,13 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	func_call <- paste0( deparse(match.call()), ':' )
 	
 	f <- match.fun(f)
+
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
+	missing(x) %throws% stopf (
+		'%s list/vector x is required but was missing',
+		func_call)
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))

@@ -29,7 +29,14 @@ mcPartition <- function (f, x, paropts = NULL) {
 	# true, and a list for which f returns false
 	
 	func_call <- paste0( deparse(match.call()), ':' )
-
+	
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
+	missing(x) %throws% stopf (
+		'%s list/vector x is required but was missing',
+		func_call)
+	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	is.factor(x) %throws% stopf (

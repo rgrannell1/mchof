@@ -36,6 +36,13 @@ mcFilter <- function (f, x, paropts = NULL) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
+	missing(x) %throws% stopf (
+		'%s list/vector x is required but was missing',
+		func_call)
+	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)

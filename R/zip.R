@@ -37,6 +37,10 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	
 	func_call <- deparse(match.call())
 	
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
+	
 	x <- list(...)
 	f <- match.fun(f)
 

@@ -33,6 +33,13 @@ mcReject <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is false
 	
 	func_call <- deparse(match.call())
+
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
+	missing(x) %throws% stopf (
+		'%s list/vector x is required but was missing',
+		func_call)
 	
 	f <- match.fun(f)
 	g <- function (...) {
