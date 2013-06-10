@@ -15,11 +15,20 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		'%s x is not a vector: actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	if (.Platform$OS.type == 'unix') {
-		if () {
-			message(
-				'parallel execution is not supported on windows: ',
-				'executing sequentially')
+	if (.Platform$OS.type == 'windows') {
+		if (!exists(
+			".mchof_windows_warned", envir = .GlobalEnv, inherits = FALSE)) {
+			# this seems kludgy, but it works for the foreach package
+			
+			msg <- sample(
+				c(paste0("parallel execution is not supported on windows: ",
+					"\n", "executing on one core"),
+				paste0("parallel execution is not supported on windows:",
+					"\n", "executing on one core :/")),
+				prob = c(0.8, 0.2), size = 1)
+			
+			warning(msg, call. = FALSE)
+			assign(".mchof_windows_warned", TRUE, envir = .GlobalEnv)
 		}
 		return (lapply(x, f))
 	}
@@ -61,8 +70,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 			c('%s', '%s'), func_call, output)
 		
 		(status == "error") %throws% stopf (
-			c('%s', '%s'), func_call, output)		
-		
-		output	
+			c('%s', '%s'), func_call, output)
+		output
 	}
 }

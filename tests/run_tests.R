@@ -11,11 +11,7 @@ source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_generators.R')
 ISSUE("read and fix all docs")
 ISSUE("add fold examples")
 ISSUE("docs are lying for mcreduce and mcfold")
-ISSUE("test on windows")
 ISSUE("remove comments in test-fold")
-
-ISSUE("re-add SystemRequirements: POSIX-compliant OS (not Windows)
-")
 
 ISSUE("fix path references!!! Cant be tested on server atm")
 
