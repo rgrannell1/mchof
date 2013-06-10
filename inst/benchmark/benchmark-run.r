@@ -1,8 +1,8 @@
 
-options(mc.cores = NULL)
-
-source('/home/rgrannell1/Dropbox/R directory/mchof/tests/test_utils.R')
-source("/home/rgrannell1/Dropbox/R directory/mchof/inst/benchmark/benchmark-mchof.r")
+DONTRUN({
+	source('/home/rgrannell1/Dropbox/R directory/mchof/R/test_utils.R')
+	source("/home/rgrannell1/Dropbox/R directory/mchof/inst/benchmark/benchmark-mchof.r")
+})
 
 visualise_benchmark <- function (data) {
 	
@@ -28,10 +28,11 @@ visualise_benchmark <- function (data) {
 	}
 
 }
+DONTRUN({
+	options(mc.cores = NULL)
 
-backend_data <- benchmark_code(backend_tests, len = 1000, 100)
-mchof_data <- benchmark_code(mchof_tests, len = 1000, 100)
-
-visualise_benchmark(mchof_data)
-
-
+	backend_data <- benchmark_code(backend_tests, len = 1000, 100)
+	mchof_data <- benchmark_code(mchof_tests, len = 1000, 100)
+	
+	visualise_benchmark(mchof_data)	
+})

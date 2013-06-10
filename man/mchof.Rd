@@ -99,14 +99,8 @@
 
   or alternatively the higher-order functions
 
-  \code{ f <- function (func) {
-
-  function (...) as_boolean_one(...)
-
-  } g <- function (func) {
-
-  function (...) as_boolean_two(...)
-
-  } } end
+  \code{ f <- function (func) { function (...)
+  as_boolean_one(...)  } g <- function (func) { function
+  (...) as_boolean_two(...)  } } end
 }
 

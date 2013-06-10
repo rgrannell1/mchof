@@ -58,7 +58,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		output <- withCallingHandlers({	
 			do.call(
 				what = par_mclapply,
-				args = c(list(FUN = f, X = x), paropts))	
+				args = c(list(FUN = f, X = x), paropts))
 			},
 			warning = function (w) {
 				status <<- "warning"
