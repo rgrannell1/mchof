@@ -17,6 +17,8 @@ ISSUE("remove comments in test-fold")
 ISSUE("re-add SystemRequirements: POSIX-compliant OS (not Windows)
 ")
 
+ISSUE("fix path references!!! Cant be tested on server atm")
+
 options(forall_time = 0.2)
 test_dir('/home/rgrannell1/Dropbox/R directory/mchof/inst/tests/', rep = 'summary')
 

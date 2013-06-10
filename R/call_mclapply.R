@@ -15,10 +15,12 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		'%s x is not a vector: actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	if (.Platform$OS.type == 'windows') {
-		message(
-			'parallel execution is not currently supported on windows',
-			'; executing sequentially')
+	if (.Platform$OS.type == 'unix') {
+		if () {
+			message(
+				'parallel execution is not supported on windows: ',
+				'executing sequentially')
+		}
 		return (lapply(x, f))
 	}
 	
