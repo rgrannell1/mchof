@@ -18,9 +18,9 @@ iterate_tests <- ( function () {
 	f <- function (n) n + 1
 	
 	mcZipWith(
-		function (x) {
+		squash(function (x) {
 			list(test = x[[1]], control = x[[2]], name = x[[3]])	
-		},
+		}),
 		list(
 			repeat_loop = function (x) {
 				p <- function (n) n == max(x)
@@ -93,9 +93,9 @@ group_into_tests <- ( function () {
 	}
 	
 	mcZipWith(
-		function (x) {
+		squash(function (x) {
 			list(test = x[[1]], control = x[[2]], name = x[[3]])	
-		},
+		}),
 		list(
 			preallocated_loop = function (x) {
 				preallocated_group_into(x, 2)

@@ -25,9 +25,9 @@ position_control <- function (x) {
 }
 
 mchof_tests <- mcZipWith(
-	function (x) {
+	squash(function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
-	},
+	}),
 	list(
 		mcAll = function (x) mcAll(true_func, x),
 		mcAny = function (x) mcAny(false_func, x),
@@ -67,9 +67,9 @@ mchof_tests <- mcZipWith(
 )
 
 backend_tests <- mcZipWith(
-	function (x) {
+	squash(function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
-	},
+	}),
 	list(
 		function (x) parallel::mclapply(x, null_func),	
 		function (x) Map(null_func, x),
@@ -84,9 +84,9 @@ backend_tests <- mcZipWith(
 )
 
 dual_core_backend_tests <- mcZipWith(
-	function (x) {
+	squash(function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
-	},
+	}),
 	list(
 		function (x) parallel::mclapply(x, null_func),	
 		function (x) Map(null_func, x),

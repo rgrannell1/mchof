@@ -18,22 +18,22 @@ visualise_benchmark <- function (data) {
 	
 	for (i in seq_along(molten)) {
 		g <- ggplot(data = molten[[i]], aes(x = value)) + 
-			geom_histogram(aes(group = variable, fill = variable), binwidth = 1) + 
+			geom_density(aes(group = variable, fill = variable)) + 
 			xlab("nanoseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
 		plot(g)
-		Sys.sleep(5)
+		Sys.sleep(9)
 	}
-
 }
+
 DONTRUN({
 	options(mc.cores = NULL)
 	require(reshape2)
 	require(ggplot2)
 	
-	backend_data <- benchmark_code(backend_tests, len = 1000, 100)
-	mchof_data <- benchmark_code(mchof_tests, len = 1000, 100)
-	iterate_data <- benchmark_code(iterate_tests, len = 1000, 100)
-	group_into_data <-benchmark_code(group_into_tests, 1000, 100)
+	backend_data <- benchmark_code(backend_tests, len = 10000, 100)
+	mchof_data <- benchmark_code(mchof_tests, len = 10000, 100)
+	iterate_data <- benchmark_code(iterate_tests, len = 10000, 100)
+	group_into_data <-benchmark_code(group_into_tests, 10000, 100)
 	
 	visualise_benchmark(mchof_data)	
 })

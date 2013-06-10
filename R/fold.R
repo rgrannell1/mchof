@@ -4,7 +4,7 @@
 #' @export
 #' @description mcFold applies an associative binary function to a list,
 #' returning a single value. The difference between mcFold & mcReduce is that an
-#' initial value can be supplied to mcFold, making certain tasks easier (see examples).
+#' initial value can be supplied to mcFold.
 #' 
 #' @details mcFold can be used as a parallel alternative to Fold if
 #' and only if the function f is associative; that is
