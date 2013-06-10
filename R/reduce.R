@@ -23,7 +23,9 @@
 #' 
 #' mcReduce is useful when used with mathematical operators such as plus, or
 #' max; mcFold is more apt at accumulating data since the first option simplifies the
-#' f function. Both mcReduce and mcFold may be used to emulate tail recursion over a list.
+#' f function. A likely source of errors when using mcFold
+#' or mcReduce is using a function without this type signature (ie. a function that
+#' takes two of a thing, and returns one of a thing).
 #'   
 #' @name mcReduce
 #' 
@@ -43,8 +45,6 @@
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
-	
-	ISSUE("mcreduce is changing the class of its inputs!")
 
 	iterateWhile <- function (f, p, x) {
 		# pipe the output x of f into f, 

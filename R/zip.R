@@ -66,7 +66,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			# get the ind-th element in each sublist,
 			# add to a list, apply f to that list
 			
-			 f(lapply( x, function (sublist) sublist[[ind]] ))
+			 f( lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
 		paropts
