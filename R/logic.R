@@ -9,10 +9,10 @@
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value
+#' @return returns a logical value.
 #'  
 #' @seealso see \code{\link{mcOr}}, \code{\link{mcNot}} and
-#'  \code{\link{mcXor}}
+#'  \code{\link{mcXor}} for other logical functionals in mchof.
 #' 
 #' @keywords mcAnd
 #' @example inst/examples/examples-and.r
@@ -38,19 +38,18 @@ mcAnd <- function (f, g) {
 	}
 }
 
-#' @description mcNot takes a function f, and negates its logical output
+#' @description mcNot takes a function f, and negates its logical output.
 #'
 #' @title mcNot
 #' 
 #' @export
 #' @param f a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a function that
-#' returns false when f returns true, 
-#' true when f returns false and na when f returns na
+#' @return returns a function that returns false when f returns true, 
+#' true when f returns false and na when f returns na.
 #'  
 #' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and
-#'  \code{\link{mcXor}}
+#'  \code{\link{mcXor}} for other logical functionals in mchof
 #' 
 #' @keywords mcNot
 #' @example inst/examples/examples-not.r
@@ -79,9 +78,10 @@ mcNot <- function (f) {
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value
+#' @return returns a logical value.
 #'  
-#' @seealso see \code{\link{mcAnd}}, \code{\link{mcNot}} and \code{\link{mcXor}}
+#' @seealso see \code{\link{mcAnd}}, \code{\link{mcNot}} and \code{\link{mcXor}},
+#' for other logical functionals in mchof.
 #' 
 #' @keywords mcOr
 #' @example inst/examples/examples-or.r
@@ -117,9 +117,10 @@ mcOr <- function (f, g) {
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value
+#' @return returns a logical value.
 #'  
-#' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and \code{\link{mcNot}} 
+#' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and \code{\link{mcNot}} ,
+#' for other logical functionals in mchof.
 #' @keywords mcXor
 #' @example inst/examples/examples-xor.r
 

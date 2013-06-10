@@ -139,6 +139,23 @@ mcEqual <- function (f, g) {
 	}	
 }
 
+#' @description mcNotEqual takes two functions f and g, and returns a function. This new function
+#' returns f(...) != g(...)
+#'
+#' @title mcNotEqual
+#' 
+#' @export
+#' @param f a function that returns an object that can be compared with ==, 
+#' or a string giving the name of such a function.
+#' @param g a function that returns an object that can be compared with ==, 
+#' or a string giving the name of such a function.
+#' @return returns a logical value.
+#' 
+#' @keywords mcNotEqual
+#' @example inst/examples/examples-notequal.r
+
+mcNotEqual <- mcNot(mcEqual)
+
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
 #' returns f(...) - g(...)
 #'

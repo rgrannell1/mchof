@@ -1,0 +1,42 @@
+
+#' @description mcCompose takes two functions f and g, and returns a function. 
+#' This new function returns f(g(...))
+#'
+#' @title mcCompose
+#' @aliases %of%
+#'  
+#' @usage mcCompose(f, g)
+#' 
+#' f %of% g
+#' 
+#' @export
+#' @param f a function, or a string giving the name of a function.
+#' @param g a function, or a string giving the name of a function.
+#' @return returns a function that returns f(g(...))
+#' 
+#' @keywords mcCompose
+#' @example inst/examples/examples-compose.r
+
+mcCompose <- function (f, g) {
+	# return a composite function of f and g
+	
+	func_call <- paste0( deparse(match.call()), ':' )
+
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)	
+	missing(g) %throws% stopf (
+		'%s a function (or function name) g is required but was missing',
+		func_call)
+	
+	f <- match.fun(f)
+	g <- match.fun(g)
+	
+	function (...) {
+		f(g(...))
+	}
+}
+
+#' @export
+
+'%of%' <- mcCompose
