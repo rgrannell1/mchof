@@ -1,6 +1,6 @@
 \name{mcNot}
 \alias{mcNot}
-\title{mcAnd}
+\title{mcNot}
 \usage{
   mcNot(f)
 }
@@ -10,39 +10,32 @@
 }
 \value{
   returns a function that returns false when f returns
-  true, true when f returns false and na when f returns na
+  true, true when f returns false and na when f returns na.
 }
 \description{
-  mcAnd takes a function f, and negates its logical output
+  mcNot takes a function f, and negates its logical output.
 }
 \examples{
 
-h <- function (name) name == "cat"
-w <- function (name) name == "dog"
+is_ten <- function (n) n == 10
+not_ten <- mcNot(is_ten)
+not_ten(10)
 
-cat_or_dog <- mcAnd(h, w)
-cat_or_dog("rat")
+# cancel out mcNot with a second mcNot
 
-# example without saving result of mcAnd to 
-# intermediate function
+mcNot(mcNot( function () TRUE ))()
 
-f <- function (n) n > 5
-g <- function (n) n < 10
-
-mcAnd(f, g)(7)
-
-## pairing mcAnd with mcSelect
+# select the non null elements from a list
 
 mcSelect(
-	mcAnd(
-		function (x) x < 10,
-		function (x) x == 7),
-	seq_len(20)
+	mcNot('is.null'),
+	list(1, NULL, 2,3,4)
 )
 }
 \seealso{
   see \code{\link{mcAnd}}, \code{\link{mcOr}}, and
-  \code{\link{mcXor}}
+  \code{\link{mcXor}} for other logical functionals in
+  mchof
 }
-\keyword{mcAnd}
+\keyword{mcNot}
 

@@ -39,3 +39,5 @@ Collate:
     'mchof.R'
     'test_utils.R'
     'test_generators.R'
+    'compose.R'
+    'sleep.R'

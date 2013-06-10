@@ -12,7 +12,7 @@
   string giving the name of such a function.}
 }
 \value{
-  returns a logical value
+  returns a logical value.
 }
 \description{
   mcXor takes two functions f and g, and returns a
@@ -46,7 +46,8 @@ mcSelect(
 }
 \seealso{
   see \code{\link{mcAnd}}, \code{\link{mcOr}}, and
-  \code{\link{mcNot}}
+  \code{\link{mcNot}} , for other logical functionals in
+  mchof.
 }
 \keyword{mcXor}
 

@@ -154,7 +154,7 @@ mcEqual <- function (f, g) {
 #' @keywords mcNotEqual
 #' @example inst/examples/examples-notequal.r
 
-mcEqual <- function (f, g) {
+mcNotEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
 	
 	func_call <- paste0( deparse(match.call()), ':' )

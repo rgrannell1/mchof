@@ -3,7 +3,7 @@ context("sleep: normal cases")
 
 expect_that(
 	mcSleep(mean, 0.2)(1),
-	takes_less_than(0.2)
+	takes_less_than(0.3)
 )
 
 forall(info = "mcSleeps doesn't alter the value of f",

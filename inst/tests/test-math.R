@@ -19,11 +19,13 @@ forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide, mcEqual, mcNotEqual return
 		f <- function (n) n^2 - 10
 		g <- function (n) n^3 - 20
 		
-		all_equal( list( mcPlus(f, g)(a_), f(a_) + g(a_) )) &&
-		all_equal( list( mcMinus(f, g)(a_), f(a_) - g(a_) )) &&
-		all_equal( list( mcMultiply(f, g)(a_), f(a_) * g(a_) )) &&
-		all_equal( list( mcDivide(f, g)(a_), f(a_) / g(a_) )) &&
-		all_equal( list( mcEqual(f, g)(a_), f(a_) == g(a_) )) &&
-		all_equal( list( mcNotEqual(f, g)(a_), f(a_) != g(a_) ))
+		res_1 <- all_equal( list( mcPlus(f, g)(a_), f(a_) + g(a_) ))
+		res_2 <- all_equal( list( mcMinus(f, g)(a_), f(a_) - g(a_) ))
+		res_3 <- all_equal( list( mcMultiply(f, g)(a_), f(a_) * g(a_) ))
+		res_4 <- all_equal( list( mcDivide(f, g)(a_), f(a_) / g(a_) ))
+		res_5 <- all_equal( list( mcEqual(f, g)(a_), f(a_) == g(a_) ))
+		res_6 <- all_equal( list( mcNotEqual(f, g)(a_), f(a_) != g(a_) ))
+		
+		all(res_1, res_2, res_3, res_4, res_5, res_6)
 	}
 )
