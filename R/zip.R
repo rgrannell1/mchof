@@ -102,7 +102,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 
 mcZip <- function(..., paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
-	
-	mcZipWith (f = identity, ..., paropts = paropts)
+
+	Id <- function (...) list(...)
+	mcZipWith (f = Id, ..., paropts = paropts)
 
 }
