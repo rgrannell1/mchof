@@ -21,7 +21,6 @@ Suggests:
     ggplot2,
     reshape2
 License: GPL-2
-SystemRequirements: POSIX-compliant OS (not Windows)
 OS_type: unix
 Collate:
     'call_mclapply.R'
