@@ -38,4 +38,15 @@ forall(info = "structure of the output is preserved for tuples of list( )",
 	}
 )
 
+forall(info = "check that the value of the output is correct",
+	list(x_ = r_seq_len(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		
+		mcZipWith('+', x_, x_) == (x_ + x_) &&
+		mcUnzipWith('+', list(x_, x_)) == (x_ + x_)
+	}
+)
+
+
+
 

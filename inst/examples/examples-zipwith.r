@@ -14,7 +14,7 @@ squash <- function (f) {
 mcZipWith ('*', 1:10, 1:10)
 
 mcZipWith(
-	squash(function (x) mean(unlist(x))),
+	function (...) mean(unlist(...)),
 	1:4, 2:5, 3:6
 )
 

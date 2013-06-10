@@ -13,7 +13,5 @@ mcZip(
 
 # zip two lists, with some elements discarded
 
-mcZip(
-	1:10,
-	letters[1:4]
-)
+mcZip(1:10,letters[1:4])
+

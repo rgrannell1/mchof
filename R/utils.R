@@ -4,7 +4,9 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 	
 	warning (sprintf(
 		paste0(fmt, collapse = "\n"),...), call. = FALSE)
+
 }
+
 DONTRUN <- function (expr) {}
 
 '%of%' <- function (f, g) {
