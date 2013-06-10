@@ -33,8 +33,8 @@
 #'  
 #' @name mcFold
 #' 
-#' @param f a binary function
-#' @param first an initial value for the first position of f
+#' @param f a binary function that takes two of "a thing" and returns one of a "thing".
+#' @param first an initial value to be prepended to x
 #' @param x a vector or list
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).

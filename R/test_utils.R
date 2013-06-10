@@ -79,7 +79,7 @@ forall <- function (
 
 
 benchmark_code <- function (tests, len = 100, times = 2) {
-	# compare the run-times of the tests to the controls
+	# compare the run-times of tests to controls
 
 	report_result <- function (name, multiplier) {
 		multiplier <- round(multiplier, 2)	

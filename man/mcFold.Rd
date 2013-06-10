@@ -5,10 +5,10 @@
   mcFold(f, first, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a binary function}
+  \item{f}{a binary function that takes two of "a thing"
+  and returns one of a "thing".}
 
-  \item{first}{an initial value for the first position of
-  f}
+  \item{first}{an initial value to be prepended to x}
 
   \item{x}{a vector or list}
 
@@ -68,7 +68,7 @@ mcFold(
 		3:6, 4:7
 ))
 
-# get the 4th power of a matrix (diagonalisation is more efficient though)
+# get the 4th power of a matrix 
 
 fourth_power <- function (X) {
 	I <- diag(1, nrow(X), ncol(X))

@@ -27,7 +27,7 @@
 #'   
 #' @name mcReduce
 #' 
-#' @param f a binary function
+#' @param f a binary function that takes two of "a thing" and returns one of a "thing".
 #' @param x a list or vector.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).

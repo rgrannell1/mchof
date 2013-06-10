@@ -12,7 +12,7 @@
 #' @name mcAll
 #' 
 #' @param f a unary function that returns a boolean value, or a string
-#' giving the name of a function.
+#' giving the name of such a function.
 #' @param x a list or vector.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
@@ -22,7 +22,7 @@
 #' 
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list TRUE is returned.
+#' empty list or vector TRUE is returned.
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -63,7 +63,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #' @name mcAny
 #' 
 #' @param f a unary function that returns a boolean value, or a string
-#' giving the name of a function.
+#' giving the name of such a function.
 #' @param x a list or vector.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
@@ -73,7 +73,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list FALSE is returned.
+#' empty list or vector FALSE is returned.
 #'
 
 mcAny <- function (f, x, paropts = NULL) {
@@ -124,14 +124,14 @@ mcAny <- function (f, x, paropts = NULL) {
 #' @name mcOne
 #' 
 #' @param f a unary function that returns a boolean value, or a string
-#' giving the name of a function.
+#' giving the name of such a function.
 #' @param x a list or vector.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list FALSE is returned.
+#' empty list or vector FALSE is returned.
 #'
 #' @example inst/examples/examples-one.r
 #' @keywords mcOne

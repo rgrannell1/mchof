@@ -31,7 +31,7 @@ DONTRUN({
 	require(ggplot2)
 	
 	backend_data <- benchmark_code(backend_tests, len = 10000, 100)
-	mchof_data <- benchmark_code(mchof_tests, len = 10000, 100)
+	mchof_data <- benchmark_code(mchof_tests, len = 100000, 100)
 	iterate_data <- benchmark_code(iterate_tests, len = 10000, 100)
 	group_into_data <-benchmark_code(group_into_tests, 10000, 100)
 	

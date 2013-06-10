@@ -6,7 +6,7 @@
 #' 
 #' @export
 #' 
-#' @param f a function that takes a single n-element list, or a string
+#' @param f a function that takes n arguments, or a string
 #' giving the name of such a function.
 #' @param ... several lists or vectors.
 #' @param paropts a list of parameters to be handed to 
@@ -21,8 +21,7 @@
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #' 
-#' @seealso see \code{\link{mclapply}} for more details about the parallel
-#'     backend being employed, \code{\link{mcZip}} for a varient of this function
+#' @seealso see \code{\link{mcZip}} for a varient of this function
 #'     and \code{\link{mcUnzipWith}} for the inverse of this function.
 #' @keywords mcZipWith
 #' @example inst/examples/examples-zipwith.r
@@ -81,7 +80,6 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' It is a special case of mcZipWith
 #' 
 #' @title mcZip
-#' @author Ryan Grannell
 #' 
 #' @export
 #' @param ... several lists or vectors.

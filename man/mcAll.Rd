@@ -6,7 +6,7 @@
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,
-  or a string giving the name of a function.}
+  or a string giving the name of such a function.}
 
   \item{x}{a list or vector.}
 
@@ -16,7 +16,7 @@
 \value{
   returns TRUE if f is true for one element in x, otherwise
   it returns FALSE. If x is NULL, NULL is returned. If x is
-  an empty list TRUE is returned.
+  an empty list or vector TRUE is returned.
 }
 \description{
   mcAny checks if a predicate function f is true for all

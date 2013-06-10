@@ -5,8 +5,8 @@
   mcZipWith(f, ..., paropts = NULL)
 }
 \arguments{
-  \item{f}{a function that takes a single n-element list,
-  or a string giving the name of such a function.}
+  \item{f}{a function that takes n arguments, or a string
+  giving the name of such a function.}
 
   \item{...}{several lists or vectors.}
 
@@ -87,10 +87,9 @@ mcZipWith (
 )
 }
 \seealso{
-  see \code{\link{mclapply}} for more details about the
-  parallel backend being employed, \code{\link{mcZip}} for
-  a varient of this function and \code{\link{mcUnzipWith}}
-  for the inverse of this function.
+  see \code{\link{mcZip}} for a varient of this function
+  and \code{\link{mcUnzipWith}} for the inverse of this
+  function.
 }
 \keyword{mcZipWith}
 

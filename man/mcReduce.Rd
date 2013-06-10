@@ -5,7 +5,8 @@
   mcReduce(f, x, paropts = NULL)
 }
 \arguments{
-  \item{f}{a binary function}
+  \item{f}{a binary function that takes two of "a thing"
+  and returns one of a "thing".}
 
   \item{x}{a list or vector.}
 

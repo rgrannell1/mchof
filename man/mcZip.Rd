@@ -47,9 +47,6 @@ mcZip(
 mcZip(1:10,letters[1:4])
 
 }
-\author{
-  Ryan Grannell
-}
 \seealso{
   see \code{\link{mcUnzip}} for the inverse of this
   function, and \code{\link{mcZipWith}} for a more general
