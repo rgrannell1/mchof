@@ -5,8 +5,8 @@
 #' @title mcUnzipWith
 #' 
 #' @export
-#' @param f a function that takes a single n-element list, or a string
-#' giving the name of such a function.
+#' @param f a function that takes n arguments, or a string giving the name of 
+#' such a function.
 #' @param x a list of lists or vectors
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
@@ -59,7 +59,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 			# get the ind-th element in each sublist,
 			# add to a list, apply f to that list
 			
-			 f(lapply( x, function (sublist) sublist[[ind]] ))
+			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
 		paropts
@@ -93,7 +93,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip
-
-	mcUnzipWith(f = identity, x, paropts = paropts)
+	
+	var_identity <- function (...) list(...)
+	mcUnzipWith(f = var_identity, x, paropts = paropts)
 	
 }

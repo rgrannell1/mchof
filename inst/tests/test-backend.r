@@ -23,8 +23,8 @@ if (exists('call_mclapply')) {
 			expect_error(mcReduce(errfunc_2, 1:10), 'see me?')
 			expect_error(mcFold(errfunc_2, 0,1:10), 'see me?')
 		
-			expect_error(mcUnzipWith(errfunc_1, 1:10), 'see me?')	
-			expect_error(mcZipWith(errfunc_1, 1:10), 'see me?')
+			expect_error(mcUnzipWith(squash(errfunc_1), 1:10), 'see me?')	
+			expect_error(mcZipWith(squash(errfunc_1), 1:10), 'see me?')
 			
 		})
 		

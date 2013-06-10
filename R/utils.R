@@ -23,6 +23,9 @@ curry <- function(FUN,...) {
 	.orig = list(...)
 	function(...) do.call( FUN,c(.orig,list(...)) )
 }
+squash <- function (f) {
+    function (...) f(list(...))
+}
 
 '%throws%' <- function (bool, expr) {
 	# general function, but used specifically for 

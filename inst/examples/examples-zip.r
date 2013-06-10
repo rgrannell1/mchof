@@ -1,9 +1,7 @@
 
 # zip two vectors into a list of 2-element lists
 
-mcZip(
-	1:5, letters[1:5]	
-)
+mcZip(1:5, letters[1:5])
 
 # zip three lists togerther
 
