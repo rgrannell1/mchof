@@ -32,12 +32,11 @@ forall(
 		mcFold(paste0, '', x_, paropts_) == paste0(x_, collapse = '')
 	}
 )
-#forall(
-#	info = "check that list accumulation works properly",
-#	list(x_ = r_small_named_list(), paropts_ = r_paropts()),
-#	function (x_, paropts_) {
-#		identical(mcFold(
-#			function (acc, new) c(acc, unname(new)),
-#			list(), x_, paropts_), unname(unlist(x_)))
-#	}
-#)
+forall(
+	info = "check that list accumulation works properly",
+	list(x_ = r_small_named_list(), paropts_ = r_paropts()),
+	function (x_, paropts_) {
+		res <- mcFold(function (acc, new) c(acc, unname(new)), c(), x_, paropts)
+		all_equal( list(res, unlist(unname(x_))) )
+	}
+)
