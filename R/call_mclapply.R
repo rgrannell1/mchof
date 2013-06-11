@@ -16,8 +16,10 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	if (.Platform$OS.type == 'windows') {
-		if (!exists(".mchof_windows_warned",
-			envir = environment( mchof::mcZipWith ), inherits = FALSE)) {
+		
+		mchof_env <- environment( mchof::mcZipWith )
+			
+		if (!exists(".mchof_windows_warned", envir = mchof_env, inherits=FALSE)) {
 			# this seems kludgy, but it works for the foreach package
 			
 			msg <- sample(
@@ -28,7 +30,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 				prob = c(0.8, 0.2), size = 1)
 			
 			warning(msg, call. = FALSE)
-			assign(".mchof_windows_warned", TRUE, envir = environment( mchof::mcZipWith ))
+			assign(".mchof_windows_warned", TRUE, envir = mchof_env)
 		}
 		return (lapply(x, f))
 	}

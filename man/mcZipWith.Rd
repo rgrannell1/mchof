@@ -19,7 +19,7 @@
 }
 \description{
   mcZipWith takes n lists or vectors, generates a list of n
-  element lists, and returns the result of mapping f over
+  element lists, and returns the result of calling f with
   each n element list.
 }
 \details{

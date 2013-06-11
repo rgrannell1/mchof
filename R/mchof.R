@@ -73,8 +73,6 @@
 #'     
 #' \code{g <- function (func) function (...) as_boolean_two(...)}
 #'
-#'  
-#' 
 #' @docType package
 #' @name mchof
 

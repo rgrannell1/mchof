@@ -14,10 +14,8 @@
   mclapply (see \link{mchof}).}
 }
 \description{
-  mcUnzipWith is the inverse function of mcZipWith; it
-  takes a list of n element lists, makes returns n lists
-  and applies a function to these lists before returning
-  these lists
+  mcUnzipWith takes a list of n element lists, returns n
+  lists and returns the result of calling f with each list.
 }
 \details{
   list names are dropped without warning during unzipping;

@@ -2,7 +2,7 @@
 #' @title mcZipWith
 #' 
 #' @description mcZipWith takes n lists or vectors, generates a list of n element lists,
-#' and returns the result of mapping f over each n element list. 
+#' and returns the result of calling f with each n element list. 
 #' 
 #' @export
 #' 
@@ -30,9 +30,6 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
-	
-	# list (x1, x2), list (y1, y2)  |-> 
-	# list ( list(x1, y1), list(x2, y2) )
 	
 	func_call <- deparse(match.call())
 	
@@ -76,8 +73,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	)
 }
 
-#' @description mcZip takes n lists/vectors, and generates a list of n element lists.
-#' It is a special case of mcZipWith
+#' @description mcZip takes n lists/vectors, and generates a list 
+#' of n element lists. It is a special case of mcZipWith
 #' 
 #' @title mcZip
 #' 
@@ -88,12 +85,14 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' 
 #' @return returns a list of n element lists.
 #'    
-#' @details list names are dropped without warning during zipping; an example below shows how to add
-#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
+#' @details list names are dropped without warning during zipping; an example below 
+#' shows how to add
+#' names to the output list. NULL elements in x are automatically removed from x.
+#'  The empty list is not 
 #' removed in order act as a 'zero' to preserve useful structural identities.
 #' 
-#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
-#' without warning.
+#' the input lists are assumed to be of equal length; if they are not excess 
+#' elements are discarded without warning.
 #' 
 #' @seealso see \code{\link{mcUnzip}} for the inverse of 
 #'     this function, and \code{\link{mcZipWith}} for a more general version 
