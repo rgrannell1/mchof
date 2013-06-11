@@ -57,5 +57,32 @@ mcCurryf <- function (f, ...) {
 	args <- list(...)
 	
 	formals_f <- names(formals(f))
+	
+	("..." %in% formals_f) %throws% stopf(
+		"%s : ... cannot be used in f's formals: actual formals were %s",
+		func_call, paste0(formals_f, collapse = ", "))
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

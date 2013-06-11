@@ -47,21 +47,16 @@ call_mclapply <- function (f, x, paropts = NULL,
 		
 		paropts$FUN <- NULL
 		paropts$X <- NULL
+		
+		rm(invalid_args, valid_formals, arg_names)
 
 	} else if (!is.null(getOption('mc.cores'))) {
 		paropts <- list(mc.cores = getOption('mc.cores'))
 	}
 
 	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {
-		
-		rm(
-			paropts, invalid_args,
-			valid_formals, arg_names)
-		
 		lapply(x, f)
 	} else {
-		
-		rm(invalid_args, valid_formals, arg_names)
 		
 		status <- ""
 		output <- withCallingHandlers({	

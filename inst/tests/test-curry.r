@@ -1,4 +1,6 @@
 
+context("mcCurry: normal cases")
+
 forall(info = "currying a binary to unary function works",
 	list(
 		a_ = r_integers(), b_ =  r_integers(),
@@ -26,3 +28,5 @@ forall(info = "iterative currying works",
 		e(d_) == a_ + b_ + c_ + d_
 	}
 )
+
+context("mcCurryf: normal cases")
