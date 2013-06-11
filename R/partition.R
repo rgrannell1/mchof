@@ -28,7 +28,7 @@ mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcPartition(f, x, paropts = NULL)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

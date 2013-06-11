@@ -86,12 +86,11 @@ mcCurryf <- function (f, ...) {
 	("..." %in% formals_f) %throws% message$formals_has_ellipses(
 		func_call, formals_f, "f")
 
-	(length( which(names(curried) != "") ) < length(curried)) %throws% stopf(
-		"%s: not every argument to be curried with f was named", func_call)
+	(length( which(names(curried) != "") ) < length(curried)) %throws% 
+		message$not_all_named(func_call, "...")
 	
-	(length(unique(names(curried))) != length(curried)) %throws% stopf(
-		"%s: some arguments to be curried with f were provided multiple times: %s",
-		func_call, duplicated_names)
+	(length(unique(names(curried))) != length(curried)) %throws% 
+		message$matched_muliple_times(func_call, duplicated_names, "...")
 	
 	rm(formals_f, func_call, duplicated_names)
 	

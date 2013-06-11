@@ -37,6 +37,18 @@ messages <- list(
 			'%s: a list or vector %s is required but was missing',
 			call, name)
 	},
+	not_all_named = function (call, name) {
+		# stop, not all named
+		
+		stopf (
+			"%s: not every argument in %s was named",
+			call, name)
+	},
+	matched_multiple_time = function (call, duplicates, name) {
+		stopf(
+			"%s: some arguments in %s were duplicated (%s)",
+			call, duplicates, name)
+	},
 	was_factor = function (call, name) {
 		# stop, was a factor
 		
@@ -78,8 +90,5 @@ messages <- list(
 				 paste(invalid_args, collapse = ', '))
 	}
 )
-
-
-
 
 

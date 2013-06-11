@@ -20,13 +20,15 @@
 mcCompose <- function (f, g) {
 	# return a composite function of f and g
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcCompose(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
+	
+	rm(func_call)
 	
 	function (...) {
 		f(g(...))

@@ -50,7 +50,7 @@ mcFold <- function (f, first, x, paropts = NULL) {
 	# swaps the commas in first, x1, x2, ..., xn with
 	# the function f.
 		
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcFold(f, first, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(first) %throws% messages$vector_is_required(func_call, "first")

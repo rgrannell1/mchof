@@ -26,8 +26,8 @@ call_mclapply <- function (f, x, paropts = NULL,
 
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
-		(length(invalid_args) > 0) %throws% messages$invalid_paropts(
-			invalid_args)
+		(length(invalid_args) > 0) %throws% 
+			messages$invalid_paropts(invalid_args)
 		
 		paropts$FUN <- NULL
 		paropts$X <- NULL

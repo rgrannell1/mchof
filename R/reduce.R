@@ -52,7 +52,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 		x
 	} 
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcReduce(f, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

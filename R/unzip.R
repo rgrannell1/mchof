@@ -31,7 +31,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 
-	func_call <- deparse(match.call())
+	func_call <- "mcUnzipWith(f, x, paropts = NULL)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

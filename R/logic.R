@@ -21,7 +21,7 @@ mcAnd <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) && g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcAnd(f, g)"
 
 	missing(f) %throws%  messages$ messages$function_is_required(func_call, "f")
 	missing(g) %throws%  messages$ messages$function_is_required(func_call, "g")
@@ -56,7 +56,7 @@ mcNot <- function (f) {
 	# return a function that returns false when f is true, 
 	# true when f is false, na when na
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcNot(f)"
 
 	missing(f) %throws%  messages$function_is_required(func_call, "f")
 
@@ -89,7 +89,7 @@ mcOr <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) || g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcOr(f, g)"
 
 	missing(f) %throws%  messages$function_is_required(func_call, "f")
 	missing(g) %throws%  messages$function_is_required(func_call, "g")
@@ -129,7 +129,7 @@ mcXor <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) xor g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcXor(f, g)"
 
 	missing(f) %throws%  messages$function_is_required(func_call, "f")
 	missing(g) %throws%  messages$function_is_required(func_call, "g")	

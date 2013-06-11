@@ -17,7 +17,7 @@
 mcLarger <- function (f, g) {
 	# return a function f(...) > g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcLarger(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")		
@@ -50,7 +50,7 @@ mcLarger <- function (f, g) {
 mcSmaller <- function (f, g) {
 	# return a function f(...) < g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcSmaller(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")	
@@ -83,7 +83,7 @@ mcSmaller <- function (f, g) {
 mcPlus <- function (f, g) {
 	# return a function f(...) + g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcPlus(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")		
@@ -116,7 +116,7 @@ mcPlus <- function (f, g) {
 mcEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcEqual(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")
@@ -149,7 +149,7 @@ mcEqual <- function (f, g) {
 mcNotEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcNotEqual(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")		
@@ -183,7 +183,7 @@ mcNotEqual <- function (f, g) {
 mcMinus <- function (f, g) {
 	# get f(...) - g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcMinus(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")	
@@ -216,7 +216,7 @@ mcMinus <- function (f, g) {
 mcMultiply <- function (f, g) {
 	# return a function f(...) * g(...)
 
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcMultiply(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")
@@ -249,7 +249,7 @@ mcMultiply <- function (f, g) {
 mcDivide <- function (f, g) {
 	# return a function f(...) / g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcDivide(f, g)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")	

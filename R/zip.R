@@ -50,16 +50,16 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			length = length(elem))
 	})
 	
-	any(sublist_info["factor",]) %throws% messages$these_were_factors(
-		func_call,
-		paste0(which(sublist_info["factor",]), collapse = ", "),
-		"x")
+	any(sublist_info["factor",]) %throws% 
+		messages$these_were_factors(func_call,
+		paste0(which(sublist_info["factor",]), collapse = ", "), "x")
 
 	min_length <- min(sublist_info["length",])
 	
 	if (min_length == 0) return (list())
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
+	x <- x[which_not_null]
 	
 	call_mclapply(
 		function (ind) {
@@ -103,6 +103,6 @@ mcZip <- function(..., paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
 
 	var_identity <- function (...) list(...)
-	mcZipWith (f = var_identity, ..., paropts = paropts, deparse(match.call()))
+	mcZipWith(f = var_identity, ..., paropts = paropts)
 
 }

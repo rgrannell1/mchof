@@ -28,7 +28,7 @@ mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for all x
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcAll(f, x, paropts = NULL)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
@@ -74,7 +74,7 @@ mcAny <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for any x
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcAny(f, x, paropts = NULL)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
@@ -129,7 +129,7 @@ mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for one x
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcOne(f, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

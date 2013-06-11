@@ -34,7 +34,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
 		
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcPosition(f, x, right=FALSE, paropts=NULL)"
 	
 	f <- match.fun(f)
 
@@ -110,7 +110,7 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcFind(f, x, right = FALSE, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

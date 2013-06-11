@@ -21,7 +21,7 @@ mcSleep <- function (f, n) {
 	# return a function that returns false when f is true, 
 	# true when f is false, na when na
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- "mcSleep(f, n)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	

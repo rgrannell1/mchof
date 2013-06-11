@@ -32,7 +32,7 @@
 mcReject <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is false
 	
-	func_call <- deparse(match.call())
+	func_call <- "mcReject(f, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
