@@ -1,5 +1,7 @@
 #' @import parallel
 
+.mchof_windows_warned <- FALSE
+
 call_mclapply <- function (f, x, paropts = NULL) {
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
@@ -15,13 +17,10 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		'%s x is not a vector: actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	if (.Platform$OS.type == 'windows') {
-		
-		mchof_env <- environment( mchof::mcZipWith )
-			
-		if (!exists(".mchof_windows_warned", envir = mchof_env, inherits=FALSE)) {
+	if (.Platform$OS.type == 'windows') {			
+		if (!.mchof_windows_warned) {
 			# this seems kludgy, but it works for the foreach package
-			
+
 			msg <- sample(
 				c(paste0("parallel execution is not supported on windows: ",
 					"\n", "executing on one core"),
@@ -30,7 +29,7 @@ call_mclapply <- function (f, x, paropts = NULL) {
 				prob = c(0.8, 0.2), size = 1)
 			
 			warning(msg, call. = FALSE)
-			assign(".mchof_windows_warned", TRUE, envir = mchof_env)
+			.mchof_windows_warned <<- TRUE
 		}
 		return (lapply(x, f))
 	}
