@@ -61,3 +61,4 @@ forall(info = "one element in 1...n is equal to n",
 		mcOne(function (x) x == n, x_, paropts_) 
 	}
 )
+

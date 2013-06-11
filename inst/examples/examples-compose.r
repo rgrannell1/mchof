@@ -8,3 +8,4 @@ list_sum( list(1,2,3) )
 
 capital_number <- toupper %of% function (i) letters[i]
 capital_number(1)
+

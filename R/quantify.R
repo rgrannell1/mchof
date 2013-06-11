@@ -45,7 +45,7 @@ mcAll <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	bools <- as.logical(call_mclapply(f, x, paropts))
+	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
 	bools[is.na(bools)] <- FALSE
 	
 	all(bools)
@@ -107,7 +107,7 @@ mcAny <- function (f, x, paropts = NULL) {
 			}
 			FALSE
 		},
-		group_into(x, cores), paropts
+		group_into(x, cores), paropts, func_call
 	)
 	any(unlist(results))
 }
@@ -174,7 +174,7 @@ mcOne <- function (f, x, paropts = NULL) {
 				isTRUE( as.logical(f( x[[ind]] )) )
 			},
 			x = job_indices[[i]],
-			paropts
+			paropts, func_call
 		))
 		number_true <- number_true + length(which(bools))
 	}

@@ -53,7 +53,7 @@ mcReject <- function (f, x, paropts = NULL) {
 		'%s x may not be a factor; actual value was %s (%s)',
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
-	ind <- as.logical(unlist(call_mclapply(f, x, paropts)))
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
 	true_ind <- !is.na(ind) & ind
 	
 	x[!true_ind]	

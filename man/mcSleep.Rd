@@ -32,6 +32,7 @@ slow_hello <- mcSleep(
 	function () print("good morning! *yawn*"),
 	n = 1)
 slow_hello()
+
 }
 \keyword{mcSleep}
 

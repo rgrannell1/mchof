@@ -55,3 +55,9 @@ test_that("mcXor truth tables", {
 })
 
 
+
+
+
+
+
+

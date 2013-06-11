@@ -69,7 +69,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
-		paropts
+		paropts, func_call
 	)
 }
 

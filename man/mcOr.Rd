@@ -42,6 +42,9 @@ mcSelect(
 		function (x) x == 7),
 	seq_len(20)
 )
+
+
+
 }
 \seealso{
   see \code{\link{mcAnd}}, \code{\link{mcNot}} and

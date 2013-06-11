@@ -12,3 +12,5 @@ square_by_cube(1:10)
 mcMultiply(
 	function (n) n + n,
 	function (n) n^2) (1:5)
+
+

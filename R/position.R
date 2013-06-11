@@ -71,7 +71,7 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 				is_match <- as.logical(f( x[[ind]] ))	
 				if (isTRUE(is_match)) ind else NaN
 			},
-			x = job_indices[[i]], paropts
+			x = job_indices[[i]], paropts, func_call
 		))
 		
 		matched_indices <- checked_ind[

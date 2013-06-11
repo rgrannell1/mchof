@@ -1,10 +1,12 @@
 #' @import parallel
 
-call_mclapply <- function (f, x, paropts = NULL) {
+.mchof_windows_warned <- FALSE
+
+call_mclapply <- function (f, x, paropts = NULL, 
+	func_call = "call_mclapply(f, x, paropts)") {
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	func_call <- if (exists('func_call')) func_call else ''
 	par_mclapply <- parallel::mclapply
 	
 	(!is.function(f)) %throws% stopf (
@@ -16,19 +18,20 @@ call_mclapply <- function (f, x, paropts = NULL) {
 		func_call, deparse(x), paste0(class(x), collapse = ', '))
 	
 	if (.Platform$OS.type == 'windows') {
-		if (!exists(
-			".mchof_windows_warned", envir = .GlobalEnv, inherits = FALSE)) {
+		if (!.mchof_windows_warned) {
 			# this seems kludgy, but it works for the foreach package
 			
-			msg <- sample(
-				c(paste0("parallel execution is not supported on windows: ",
-					"\n", "executing on one core"),
-				paste0("parallel execution is not supported on windows:",
-					"\n", "executing on one core :/")),
-				prob = c(0.8, 0.2), size = 1)
-			
-			warning(msg, call. = FALSE)
-			assign(".mchof_windows_warned", TRUE, envir = .GlobalEnv)
+			local({
+				msg <- sample(
+					c(paste0("parallel execution is not supported on windows: ",
+						"\n", "executing on one core"),
+					paste0("parallel execution is not supported on windows:",
+						"\n", "executing on one core :/")),
+					prob = c(0.8, 0.2), size = 1)
+				
+				warning(msg, call. = FALSE)
+				.mchof_windows_warned <<- FALSE	
+			})
 		}
 		return (lapply(x, f))
 	}

@@ -73,7 +73,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 
 	final <- iterateWhile(
 		function (reducable) {
-			group_into(call_mclapply(g, reducable, paropts), size = 2)
+			group_into(call_mclapply(g, reducable, paropts, func_call), size = 2)
 		},
 		function (reducable) {
 			length(reducable) == 1

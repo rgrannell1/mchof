@@ -31,6 +31,8 @@ mcSelect(
 	mcNot('is.null'),
 	list(1, NULL, 2,3,4)
 )
+
+
 }
 \seealso{
   see \code{\link{mcAnd}}, \code{\link{mcOr}}, and

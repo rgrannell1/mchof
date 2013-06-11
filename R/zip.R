@@ -72,7 +72,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
-		paropts
+		paropts, func_call
 	)
 }
 
@@ -106,6 +106,6 @@ mcZip <- function(..., paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
 
 	var_identity <- function (...) list(...)
-	mcZipWith (f = var_identity, ..., paropts = paropts)
+	mcZipWith (f = var_identity, ..., paropts = paropts, deparse(match.call()))
 
 }

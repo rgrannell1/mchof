@@ -22,6 +22,9 @@
 }
 \examples{
 
+NULL
+
+
 }
 \keyword{mcNotEqual}
 

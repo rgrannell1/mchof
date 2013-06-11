@@ -12,3 +12,4 @@ square_plus_cube(1:10)
 mcPlus(
 	function (n) n + n,
 	function (n) n^2) (1:5)
+

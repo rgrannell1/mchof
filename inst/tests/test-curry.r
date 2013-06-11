@@ -1,10 +1,4 @@
 
-forall(
-	info = "",
-	list(),
-	function () {
-		
-		
-		
-	}
-)
+NULL
+
+

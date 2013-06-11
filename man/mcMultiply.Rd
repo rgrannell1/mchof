@@ -33,6 +33,8 @@ square_minus_cube(1:10)
 mcMinus(
 	function (n) n + n,
 	function (n) n^2) (1:5)
+
+
 }
 \keyword{mcMultiply}
 

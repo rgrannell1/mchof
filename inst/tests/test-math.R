@@ -30,3 +30,8 @@ forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide, mcEqual,
 		all(res_1, res_2, res_3, res_4, res_5, res_6)
 	}
 )
+
+
+
+
+

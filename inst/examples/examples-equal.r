@@ -10,3 +10,5 @@ f_equals_g(1)
 mcEqual(
 	function (n) n + n,
 	function (n) n^2) (1)
+
+
