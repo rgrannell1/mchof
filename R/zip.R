@@ -31,9 +31,6 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 	
-	# list (x1, x2), list (y1, y2)  |-> 
-	# list ( list(x1, y1), list(x2, y2) )
-	
 	func_call <- deparse(match.call())
 	
 	missing(f) %throws% stopf (
@@ -72,7 +69,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
 		},
 		seq_len(min_length),
-		paropts, func_call
+		paropts
 	)
 }
 
