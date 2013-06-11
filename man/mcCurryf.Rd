@@ -9,19 +9,38 @@
   arguments, or a string giving the name of such a
   function.}
 
-  \item{...}{}
+  \item{...}{name = value pairs to curry f with.}
 }
 \value{
-  returns a function
+  returns a partially applied version of f, with modified
+  formals.
 }
 \description{
-  mcCurryf is a form of currying involving more rigorous
-  validation of input arguments, at the cost of not
-  supporting variadic functions.
+  mcCurryf transforms a function that takes multiple
+  arguments into a function that takes less arguments by
+  partially applying the function. This function differs
+  from mcCurry in that it also alters the formals of its
+  return function.
+}
+\details{
+  mcCurryf is superficially similar to mcCurry, but it
+  differs in the kind of function that it returns. mcCurryf
+  modifies the formals parameters of f, rather than just
+  setting the formals of f to ellipses (...). This allows
+  other functionals to modify the formals of an mcCurryf'd
+  function, but not one modified by mcCurry.
+
+  The downside to this implementation is that functions
+  with variadic arguments (...) or primitive arguments
+  (base function such as plus) do not work well with
+  mcCurryf.
 }
 \examples{
 
-NULL
+}
+\seealso{
+  see \code{\link{mcCurry}} for a currying function that
+  works with variadic and primitive formal parameters.
 }
 \keyword{mcCurryf}
 

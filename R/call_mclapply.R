@@ -7,29 +7,14 @@ call_mclapply <- function (f, x, paropts = NULL,
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	(!is.function(f)) %throws% stopf (
-		'%s f is not a function: actual value was %s (%s)',
-		func_call, deparse(f), paste0(class(x), collapse = ', '))
-
-	(!is.vector(x)) %throws% stopf (
-		'%s x is not a vector: actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	(!is.function(f)) %throws% messages$not_a_function(func_call, f)
+	(!is.vector(x)) %throws% messages$not_a_vector(func_call, x)
 	
 	if (.Platform$OS.type == 'windows') {
 		if (!.mchof_windows_warned) {
-			# this seems kludgy, but it works for the foreach package
 			
-			local({
-				msg <- sample(
-					c(paste0("parallel execution is not supported on windows: ",
-						"\n", "executing on one core"),
-					paste0("parallel execution is not supported on windows:",
-						"\n", "executing on one core :/")),
-					prob = c(0.8, 0.2), size = 1)
-				
-				warning(msg, call. = FALSE)
-				.mchof_windows_warned <<- FALSE	
-			})
+			messages$windows_sequential()
+			.mchof_windows_warned <<- FALSE	
 		}
 		return (lapply(x, f))
 	}
@@ -41,9 +26,8 @@ call_mclapply <- function (f, x, paropts = NULL,
 
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
-		(length(invalid_args) > 0) %throws% stopf(
-			'invalid arguments given to paropts: %s', 
-				 paste(invalid_args, collapse = ', '))
+		(length(invalid_args) > 0) %throws% messages$invalid_paropts(
+			invalid_args)
 		
 		paropts$FUN <- NULL
 		paropts$X <- NULL
