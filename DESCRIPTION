@@ -35,6 +35,7 @@ Collate:
     'quantify.R'
     'reject.R'
     'fold.R'
+    'flip.R'
     'utils.R'
     'mchof.R'
     'test_utils.R'

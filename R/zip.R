@@ -59,6 +59,9 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	if (min_length == 0) return (list())
 
 	which_not_null <- which(sublist_info["not_null",] == 1)
+	
+	if (length(which_not_null) == 0) return (NULL)
+	
 	x <- x[which_not_null]
 	
 	call_mclapply(

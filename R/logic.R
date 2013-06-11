@@ -23,8 +23,8 @@ mcAnd <- function (f, g) {
 	
 	func_call <- "mcAnd(f, g)"
 
-	missing(f) %throws%  messages$ messages$function_is_required(func_call, "f")
-	missing(g) %throws%  messages$ messages$function_is_required(func_call, "g")
+	missing(f) %throws%  messages$function_is_required(func_call, "f")
+	missing(g) %throws%  messages$function_is_required(func_call, "g")
 	
 	f <- match.fun(f)
 	g <- match.fun(g)

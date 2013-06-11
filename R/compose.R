@@ -18,7 +18,7 @@
 #' @example inst/examples/examples-compose.r
 
 mcCompose <- function (f, g) {
-	# return a composite function of f and g
+	# return a composite function f o g
 	
 	func_call <- "mcCompose(f, g)"
 
@@ -31,7 +31,7 @@ mcCompose <- function (f, g) {
 	rm(func_call)
 	
 	function (...) {
-		f(g(...))
+		f( g(...) )
 	}
 }
 

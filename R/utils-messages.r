@@ -37,6 +37,13 @@ messages <- list(
 			'%s: a list or vector %s is required but was missing',
 			call, name)
 	},
+	length_mismatch = function (call, length, name_one, name_two) {
+		# stop, length one != length two
+		
+		stopf (
+			'%s: length mismatch between %s and %s (%s)',
+			call, length, name_one, name_two)	
+	},
 	not_all_named = function (call, name) {
 		# stop, not all named
 		
@@ -47,7 +54,7 @@ messages <- list(
 	matched_multiple_time = function (call, duplicates, name) {
 		stopf(
 			"%s: some arguments in %s were duplicated (%s)",
-			call, duplicates, name)
+			call, name, duplicates)
 	},
 	was_factor = function (call, name) {
 		# stop, was a factor
