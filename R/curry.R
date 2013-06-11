@@ -30,16 +30,29 @@ mcCurry <- function (f, ...) {
   	}
 }
 
-#' @description mcCurryf is a form of currying involving more rigorous validation
-#' of input arguments, at the cost of not supporting variadic functions.
+#' @description mcCurryf curries a function, and returns a function with modified
+#' formals and the selected parameters curried.
 #'
 #' @title mcCurryf
 #'  
 #' @export
 #' @param f a function with no variadic (...) or primitive arguments,
 #' or a string giving the name of such a function.
-#' @param ...
-#' @return returns a function
+#' @param ... name = value pairs to curry f with.
+#' @return returns a function with certain parameters curried.
+#' 
+#' @details mcCurryf is superficially similar to mcCurry, but it differs in the kind
+#' of function that it returns. mcCurryf modifies the formals parameters of f, 
+#' rather than just setting the formals of f to ellipses (...). This allows other
+#' functionals to modify the formals of an mcCurryf'd function, but not one 
+#' modified by mcCurry.
+#' 
+#' The downside to this implementation is that functions with variadic 
+#' arguments (...) or primitive arguments (base function such as plus) do not
+#' work well with mcCurryf.
+#' 
+#' @seealso see \code{\link{mcCurry}} for a currying function that works with 
+#' variadic and primitive formal parameters.
 #' 
 #' @keywords mcCurryf
 #' @example inst/examples/examples-curryf.r
