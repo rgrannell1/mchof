@@ -23,7 +23,6 @@ call_mclapply <- function (f, x, paropts = NULL,
 		
 		arg_names <- names(paropts)		
 		valid_formals <- names(formals(parallel::mclapply))
-
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
 		(length(invalid_args) > 0) %throws% 

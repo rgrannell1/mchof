@@ -3,7 +3,7 @@ library(mchof)
 library(itertools)
 library(testthat)
 
-options(forall_time = 0.5)
+options(forall_time = 1)
 	
 	test_package("mchof")
 
