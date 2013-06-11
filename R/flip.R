@@ -13,11 +13,11 @@ mcFlip <- function (f) {
 	f
 }
 
-mcJummle <- function (f, x) {
+mcJumble <- function (f, x) {
 	# returns a function with its formals rearrange, 
 	# according to a index vector (bijection) 
 	
-	func_call <- "mcJummle(f, x)"
+	func_call <- "mcJumble(f, x)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")

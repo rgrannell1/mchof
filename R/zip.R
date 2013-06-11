@@ -31,8 +31,6 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 	
-	ISSUE("odd bugs in zipwith and zip")
-	
 	func_call <- "mcZipWith(f, ..., paropts = NULL)"
 	
 	missing(f) %throws% messages$function_is_required(func_call, "f")
