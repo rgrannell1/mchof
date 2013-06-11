@@ -37,6 +37,18 @@ messages <- list(
 			'%s: a list or vector %s is required but was missing',
 			call, name)
 	},
+	string_is_required = function (call, name) {
+		
+		stopf (
+			'%s: a string %s is required but was missing',
+			call, name)	
+	},
+	not_string = function (call, name) {
+		stopf(
+			'%s: %s was not a length-one character vector',
+			call, name
+		)	
+	},
 	length_mismatch = function (call, length, name_one, name_two) {
 		# stop, length one != length two
 		

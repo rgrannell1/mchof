@@ -24,7 +24,7 @@ mcFlip <- function (f) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	if (length(formals(f)) == 0) return (f)
+	if (length(formals(f)) < 2) return (f)
 
 	formals(f) <- rev(formals(f))
 	f
@@ -66,7 +66,7 @@ mcJumble <- function (f, x) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 
 	f <- match.fun(f)
-	if (length(formals(f)) == 0) return (f)
+	if (length(formals(f)) < 2) return (f)
 	
 	( !all(x %in% seq_along(formals(f))) ) %throws% 
 		messages$must_be_indices(func_call, x, "x")

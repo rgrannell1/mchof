@@ -44,16 +44,16 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcSmaller**:
 * **mcXor**:
 * **mcCurry**:
-
-
-
-
-
-
-
-
-
-
-
-
-
+* **mcCurryf**:
+* **mcSleep**:
+* **mcFlip**:
+* **mcJumble**:
+* **mcPluck**:
+* **mcWrap**:
+* **mcIterateWhile**:
+* **positionl**:
+* **positionr**:
+* **findl:
+* **findr:
+* **foldl**:
+* **foldr**:
