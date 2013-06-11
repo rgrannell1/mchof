@@ -23,7 +23,6 @@ mcCurry <- function (f, ...) {
 		func_call)	
 	
 	f <- match.fun(f)
-	
 	curried_arguments <- list(...)
 	
 	function (...) {
@@ -59,8 +58,6 @@ mcCurryf <- function (f, ...) {
 	
 	formals_f <- names(formals(f))
 	
-	(!all(names(args) %in% formals_f)) %throws% stopf(
-		"%s er ner bad args",
-		func_call)
+
 }
 

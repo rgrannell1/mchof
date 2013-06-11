@@ -17,15 +17,17 @@
 mcLarger <- function (f, g) {
 	# return a function f(...) > g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -52,15 +54,17 @@ mcLarger <- function (f, g) {
 mcSmaller <- function (f, g) {
 	# return a function f(...) < g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -87,15 +91,17 @@ mcSmaller <- function (f, g) {
 mcPlus <- function (f, g) {
 	# return a function f(...) + g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -122,14 +128,16 @@ mcPlus <- function (f, g) {
 mcEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
+	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)	
+	})
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -157,15 +165,17 @@ mcEqual <- function (f, g) {
 mcNotEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -193,14 +203,16 @@ mcNotEqual <- function (f, g) {
 mcMinus <- function (f, g) {
 	# get f(...) - g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
+	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -228,14 +240,16 @@ mcMinus <- function (f, g) {
 mcMultiply <- function (f, g) {
 	# return a function f(...) * g(...)
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
+	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -263,14 +277,16 @@ mcMultiply <- function (f, g) {
 mcDivide <- function (f, g) {
 	# return a function f(...) / g(...)?
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
+	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
 	
 	f <- match.fun(f)
 	g <- match.fun(g)

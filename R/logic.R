@@ -21,15 +21,17 @@ mcAnd <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) && g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
-	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)	
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -58,12 +60,14 @@ mcNot <- function (f) {
 	# return a function that returns false when f is true, 
 	# true when f is false, na when na
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	function (...) !f(...)
 }
@@ -90,15 +94,17 @@ mcOr <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) || g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
 	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
+
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
@@ -128,14 +134,16 @@ mcXor <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) xor g(...))
 	
-	func_call <- paste0( deparse(match.call()), ':' )
-
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	local({
+		func_call <- paste0( deparse(match.call()), ':' )
+	
+		missing(f) %throws% stopf (
+			'%s a function (or function name) f is required but was missing',
+			func_call)	
+		missing(g) %throws% stopf (
+			'%s a function (or function name) g is required but was missing',
+			func_call)		
+	})
 	
 	f <- match.fun(f)
 	g <- match.fun(g)

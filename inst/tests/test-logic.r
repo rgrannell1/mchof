@@ -54,3 +54,4 @@ test_that("mcXor truth tables", {
 	expect_na( mcXor(false, na)() )
 })
 
+
