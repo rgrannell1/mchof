@@ -9,4 +9,4 @@ options(forall_time = 2)
 
 options(forall_time = NULL)
 
-ISSUE("do functions pick up arguments from where they're created accidentally?")
+ISSUE("need to add local() to all functions, to avoid contamination. do in a branch")
