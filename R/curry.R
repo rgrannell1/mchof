@@ -14,19 +14,19 @@
 mcCurry <- function (f, ...) {
 	# take f and fill in some of its arguments
 	
-	local({
-		func_call <- paste0( deparse(match.call()), ':' )
+	func_call <- paste0( deparse(match.call()), ':' )
 	
-		missing(f) %throws% stopf (
-			'%s a function (or function name) f is required but was missing',
-			func_call)
-	})
+	missing(f) %throws% stopf (
+		'%s a function (or function name) f is required but was missing',
+		func_call)
 	
-	f <- match.fun(f)		
-	.curried_arguments <- list(...)
+	f <- match.fun(f)	
+	.curried <- list(...)
+	
+	rm(func_call)
 	
 	function (...) {
-		do.call( f, c(.curried_arguments, list(...)) )
+		do.call( f, c(.curried, list(...)) )
   	}
 }
 

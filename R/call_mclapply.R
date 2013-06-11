@@ -7,8 +7,6 @@ call_mclapply <- function (f, x, paropts = NULL,
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	par_mclapply <- parallel::mclapply
-	
 	(!is.function(f)) %throws% stopf (
 		'%s f is not a function: actual value was %s (%s)',
 		func_call, deparse(f), paste0(class(x), collapse = ', '))
@@ -39,7 +37,7 @@ call_mclapply <- function (f, x, paropts = NULL,
 	if (!is.null(paropts)) {
 		
 		arg_names <- names(paropts)		
-		valid_formals <- names(formals(par_mclapply))
+		valid_formals <- names(formals(parallel::mclapply))
 
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
@@ -55,12 +53,20 @@ call_mclapply <- function (f, x, paropts = NULL,
 	}
 
 	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {
+		
+		rm(
+			paropts, invalid_args,
+			valid_formals, arg_names)
+		
 		lapply(x, f)
 	} else {
-		status <- ""	
+		
+		rm(invalid_args, valid_formals, arg_names)
+		
+		status <- ""
 		output <- withCallingHandlers({	
 			do.call(
-				what = par_mclapply,
+				what = parallel::mclapply,
 				args = c(list(FUN = f, X = x), paropts))
 			},
 			warning = function (w) {
