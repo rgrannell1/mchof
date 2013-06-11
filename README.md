@@ -1,6 +1,6 @@
 mchof - MultiCore Higher-Order Functions
 ===
-Version 0.2
+Version 0.3
 
 mchof (read: mac'hoff) is a utility library that provides
 composable, consistent parallel implementations of higher-order
@@ -43,3 +43,17 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcPlus**:
 * **mcSmaller**:
 * **mcXor**:
+* **mcCurry**:
+
+
+
+
+
+
+
+
+
+
+
+
+

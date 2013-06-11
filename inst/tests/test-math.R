@@ -12,7 +12,8 @@ forall(info = "mcLarger and mcSmaller returns same value as operator",
 	}
 )
 
-forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide, mcEqual, mcNotEqual returns same value as operator",
+forall(info = "mcPlus, mcMinus, mcMultiply, mcDivide, mcEqual, 
+	mcNotEqual returns same value as equivelant operator",
 	list(a_ = r_seq_len()),
 	function (a_) {
 		
