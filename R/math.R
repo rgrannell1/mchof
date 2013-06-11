@@ -19,12 +19,8 @@ mcLarger <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")		
 
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -56,12 +52,8 @@ mcSmaller <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")	
 
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -93,12 +85,8 @@ mcPlus <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")		
 
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -130,12 +118,8 @@ mcEqual <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")
 
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -167,12 +151,8 @@ mcNotEqual <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")		
 
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -205,12 +185,8 @@ mcMinus <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")	
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -242,12 +218,8 @@ mcMultiply <- function (f, g) {
 
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -279,12 +251,8 @@ mcDivide <- function (f, g) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(g) %throws% stopf (
-		'%s a function (or function name) g is required but was missing',
-		func_call)		
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")	
 	
 	f <- match.fun(f)
 	g <- match.fun(g)

@@ -30,20 +30,14 @@ mcAll <- function (f, x, paropts = NULL) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
-	missing(x) %throws% stopf (
-		'%s list/vector x is required but was missing',
-		func_call)
-	
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
 	f <- match.fun(f)
 	if (is.null(x)) return (x)
 	if (length(x) == 0) return (TRUE)
 
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 	
 	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
 	bools[is.na(bools)] <- FALSE
@@ -82,19 +76,13 @@ mcAny <- function (f, x, paropts = NULL) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 	
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)	
-	missing(x) %throws% stopf (
-		'%s list/vector x is required but was missing',
-		func_call)
-	
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+			
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 	
 	cores <- get_cores(paropts)
 
@@ -143,20 +131,14 @@ mcOne <- function (f, x, paropts = NULL) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
-	missing(x) %throws% stopf (
-		'%s list/vector x is required but was missing',
-		func_call)
-	
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
 
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 
 	cores <- get_cores(paropts)
 

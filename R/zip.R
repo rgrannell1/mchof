@@ -35,9 +35,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	
 	func_call <- "mcZipWith(f, ..., paropts = NULL)"
 	
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
+	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
 	x <- list(...)
 	f <- match.fun(f)
@@ -52,10 +50,10 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 			length = length(elem))
 	})
 	
-	any(sublist_info["factor",]) %throws% stopf(
-		"%s elements %s were factors)",
+	any(sublist_info["factor",]) %throws% messages$these_were_factors(
 		func_call,
-		paste0(which(sublist_info["factor",]), collapse = ", "))
+		paste0(which(sublist_info["factor",]), collapse = ", "),
+		"x")
 
 	min_length <- min(sublist_info["length",])
 	

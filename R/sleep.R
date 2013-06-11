@@ -23,9 +23,7 @@ mcSleep <- function (f, n) {
 	
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
+	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
 	f <- match.fun(f)
 	function (...) {

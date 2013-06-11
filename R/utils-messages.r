@@ -1,7 +1,7 @@
 
 messages <- list(
-	not_a_function <- function (call, f) {
-		# warn that f isn't a function
+	not_a_function = function (call, f) {
+		# stop, f isn't a function
 		
 		stopf (
 			"%s: f is not a function: actual value was %s (%s)",
@@ -9,17 +9,19 @@ messages <- list(
 			paste0(deparse(f), collapse = "\n"),
 			paste0(class(f), collapse = ', '))
 	},
-	function_is_required <- function (call, name) {
+	function_is_required = function (call, name) {
+		# stop, a function/function string is needed
+		
 		stopf (
 			'%s: a function (or function name) %s is required but was missing',
 			call, name)
 	},
-	formals_has_ellipses <- function (call, formals, name) {
+	formals_has_ellipses = function (call, formals, name) {
 		stopf(
 			"%s: ellipses (...) cannot be used in %s's formals: actual formals were %s",
 			func_call, formals, paste0(formals_f, collapse = ", "))
 	},
-	not_a_vector <- function (call, x) {
+	not_a_vector = function (call, x) {
 		# warn that input isn't a vector
 		
 		stopf (
@@ -28,7 +30,35 @@ messages <- list(
 			paste0(deparse(x), collapse = "\n"),
 			paste0(class(x), collapse = ', '))
 	},
-	windows_sequential <- function () {
+	vector_is_required = function (call, name) {
+		# stop, a vector/list is needed
+		
+		stopf (
+			'%s: a list or vector %s is required but was missing',
+			call, name)
+	},
+	was_factor = function (call, name) {
+		# stop, was a factor
+		
+		stopf (
+			'%s: a list or vector %s but a factor was given',
+			call, name)
+	},
+	these_were_factors = function (call, which, name) {
+		# stop, these were factocts
+		
+		stopf (
+			"%s: elements %s in %s were factors",
+			call, which, name)
+	},
+	wasnt_boolean = function (call, name) {
+		# stop, wasnt T/F
+		
+		stopf (
+			"%s: %s wasn't a TRUE or FALSE value",
+			call, name)
+	},
+	windows_sequential = function () {
 		# warn windows users that parallel isn't possible
 		
 		msg <- sample(
@@ -40,7 +70,9 @@ messages <- list(
 		
 		warning (msg, call. = FALSE)
 	},
-	invalid_paropts <- function (invalid_args) {
+	invalid_paropts = function (invalid_args) {
+		# stop, paropts had incorrect options
+		
 		stopf(
 			'invalid arguments given to paropts: %s', 
 				 paste(invalid_args, collapse = ', '))

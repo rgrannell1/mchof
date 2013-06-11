@@ -38,21 +38,14 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	
 	f <- match.fun(f)
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
-	missing(x) %throws% stopf (
-		'%s list/vector x is required but was missing',
-		func_call)
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 	
-	(!is_boolean(right)) %throws% stopf (
-		'right must be TRUE or FALSE', func_call)
+	(!is_boolean(right)) %throws% messages$wasnt_boolean(func_call, "right")
 	
 	cores <- get_cores(paropts)
 
@@ -119,11 +112,12 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 
 	func_call <- paste0( deparse(match.call()), ':' )
 
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	

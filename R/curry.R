@@ -26,7 +26,7 @@ mcCurry <- function (f, ...) {
 	
 	func_call <- "mcCurry(f, ...)"
 	
-	missing(f) %throws% function_is_required(func_call, "f")
+	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
 	f <- match.fun(f)	
 	curried <- list(...)

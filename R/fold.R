@@ -52,19 +52,13 @@ mcFold <- function (f, first, x, paropts = NULL) {
 		
 	func_call <- paste0( deparse(match.call()), ':' )
 
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
-	missing(first) %throws% stopf (
-		'%s initial value first is required but was missing',
-		func_call)
-	
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(first) %throws% messages$vector_is_required(func_call, "first")
+
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (first)
 	
-	is.factor(x) %throws% stopf (
-		'%s x may not be a factor; actual value was %s (%s)',
-		func_call, deparse(x), paste0(class(x), collapse = ', '))
+	is.factor(x) %throws% messages$was_factor(func_call, "x")
 	
 	mcReduce(f, x = c(list(first), x), paropts)
 	

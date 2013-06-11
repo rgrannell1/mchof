@@ -33,12 +33,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 	func_call <- deparse(match.call())
 	
-	missing(f) %throws% stopf (
-		'%s a function (or function name) f is required but was missing',
-		func_call)
-	missing(x) %throws% stopf (
-		'%s list/vector x is required but was missing',
-		func_call)
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
 	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
@@ -50,10 +46,10 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 			not_null = !is.null(elem), length = length(elem))
 	})
 
-	any(sublist_info["factor",]) %throws% stopf(
-		"%s elements %s were factors)",
+	any(sublist_info["factor",]) %throws% messages$these_were_factors(
 		func_call,
-		paste0(which(sublist_info["factor",]), collapse = ", "))
+		paste0(which(sublist_info["factor",]), collapse = ", "),
+		"x")
 
 	min_length <- min(sublist_info["length",])
 	
