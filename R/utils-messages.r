@@ -17,19 +17,19 @@ messages <- list(
 			call, name)
 	},
 	formals_has_ellipses = function (call, data, name) {
-		call <- head(call, 1
+		call <- head(call, 1)
 		name <- head(name, 1)
 		
 		stopf (
-			"%s: ellipses (...) cannot be used in %s's formals: actual formals were %s",
-			call, name, paste0(data, collapse = ", "))
+			"%s: ellipses (...) cannot be used in %s's formals",
+			call, name)
 	},
 	not_a_vector = function (call, data, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
 		
 		stopf (
-			'%s: %s is not a vector: actual class was %s',
+			'%s: %s is not a vector (actual class was %s)',
 			call, name, paste0(class(data), collapse = ", "))
 
 	},
@@ -63,9 +63,11 @@ messages <- list(
 		name_one <- head(name_one, 1)
 		name_two <- head(name_two, 1)
 
-		description <- paste(
-			name_one, "had length", length( data[[1]] ), ",",
-			name_two, "had length", length( data[[2]] ))
+		description <- if (is.vector(data) && length(data) > 1) {
+			paste(
+				name_one, "had length", length( data[[1]] ), ",",
+				name_two, "had length", length( data[[2]] ))
+		} else ""
 		
 		stopf (
 			'%s: length mismatch between %s and %s (%s)',
@@ -75,9 +77,10 @@ messages <- list(
 		call <- head(call, 1)
 		name <- head(name, 1)
 		
-		which_not_named <- paste0(
-			which(names(data) == ""), collapse = ", ")
-		
+		which_not_named <- if (!is.vector(data)) {
+			paste0(which(names(data) == ""), collapse = ", ")
+		} else ""
+				
 		stopf (
 			"%s: not every argument in %s was named (%s)",
 			call, name, which_not_named)
@@ -85,9 +88,13 @@ messages <- list(
 	matched_multiple_time = function (call, data, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
-	
-		duplicates <- unique(names(data)[ data[duplicated(data)] ])
-		duplicates <- paste0(duplicates, collapse = ", ")
+		
+		duplicates <- if (is.vector(data)) {
+			paste0(
+				unique(names(data)[ data[duplicated(data)] ]),
+				collapse = ", ")
+		} else ""
+
 		stopf(
 			"%s: some arguments in %s were duplicated (%s)",
 			call, name, duplicates)
@@ -106,7 +113,7 @@ messages <- list(
 		
 		stopf (
 			"%s: elements %s in %s were factors",
-			call, which, name)
+			call, paste0(which, collapse = ", "), name)
 	},
 	not_a_bool = function (call, data, name) {
 		call <- head(call, 1)
@@ -121,16 +128,16 @@ messages <- list(
 		name <- head(name, 1)
 
 		stopf (
-			"%s: %s wasn't a number",
-			call, name)
+			"%s: %s wasn't a number (actual class was %s)",
+			call, name, paste0(class(data), collapse = ", "))
 	},
 	windows_sequential = function () {
 		
 		msg <- sample(
 			c(paste0("parallel execution is not supported on windows: ",
-				"\n", "executing on one core"),
+				"executing on one core"),
 			paste0("parallel execution is not supported on windows:",
-				"\n", "executing on one core :/")),
+				"executing on one core :/")),
 			prob = c(0.7, 0.3), size = 1)
 		
 		warning (msg, call. = FALSE)
@@ -139,7 +146,7 @@ messages <- list(
 		call <- head(call, 1)
 		
 		stopf(
-			'invalid arguments given to paropts: %s', 
+			'invalid arguments given to paropts (%s)', 
 				 paste(data, collapse = ', '))
 	}
 )
