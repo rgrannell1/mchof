@@ -30,17 +30,21 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, "x")
 
+	select_name <- function (pattern) {
+		
+	}
+	
 	if (is.list(x)) {
 		mcFilter(
 			f = mcNot(is.null),
-			call_mclapply(f, x, paropts, func_call))
+			call_mclapply(select_name, x, paropts, func_call))
 	} else {
 		unlist(call_mclapply(
 			function (chunk) {
 	
 				unname(chuck[ grepl(pattern, names(chunk)) ])
 			},
-			split_x,
+			chop_into(x, get_cores(paropts)),
 			paropts, func_call))
 	}
 }

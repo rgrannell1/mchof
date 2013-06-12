@@ -58,6 +58,11 @@ group_into <- function (x, size) {
 		})
 	}
 }
+ISSUE("fix chop_into")
+chop_into <- function (x, cuts) {
+	group_into(x, floor(length(x)/cuts))
+}
+
 get_cores <- function (paropts) {
 	# check paropts and option(mc.cores) for cores to use
 	
