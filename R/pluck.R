@@ -20,11 +20,13 @@
 mcPluck <- function (pattern, x, paropts = NULL) {
 	# extract entries matching pattern
 	
+	ISSUE("pluck not done!")
+	
 	func_call <- "mcPluck(pattern, x, paropts = NULL)"
 	
-	missing(name) %throws% messages$string_is_required(func_call, "name")
-	missing(x) %throws% messages$vector_is_required(func_call, "g")
-	(length(name) > 1) %throws% messages$not_string(func_call, "name")
+	missing(pattern) %throws% messages$string_is_required(func_call, "pattern")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	(length(pattern) > 1) %throws% messages$not_string(func_call, "pattern")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
@@ -32,17 +34,22 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 
 	select_name <- function (elem) {
 		# vectors and lists!
+
+		id <- if (is.list(elem)) list() else elem[0]
+		
+		if (length(names(vect)) == 0) return (id)		
+			
+		unname(vect[ grepl(pattern, names(vect)) ])
 	}
 	
 	if (is.list(x)) {
-		mcFilter(
-			f = mcNot(is.null),
-			call_mclapply(select_name, x, paropts, func_call))
+
 	} else {
+		if (length(names(x)) == 0) return (x[0])
+		
 		unlist(call_mclapply(
 			function (chunk) {
-	
-				unname(chuck[ grepl(pattern, names(chunk)) ])
+				# map over chunk select_name
 			},
 			chop_into(x, get_cores(paropts)),
 			paropts, func_call))

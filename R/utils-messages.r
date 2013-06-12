@@ -97,7 +97,7 @@ messages <- list(
 				"\n", "executing on one core"),
 			paste0("parallel execution is not supported on windows:",
 				"\n", "executing on one core :/")),
-			prob = c(0.8, 0.2), size = 1)
+			prob = c(0.7, 0.3), size = 1)
 		
 		warning (msg, call. = FALSE)
 	},

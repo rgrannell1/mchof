@@ -53,7 +53,7 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcIterateWhile**:
 * **positionl**:
 * **positionr**:
-* **findl:
-* **findr:
+* **findl**:
+* **findr**:
 * **foldl**:
 * **foldr**:

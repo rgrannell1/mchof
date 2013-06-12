@@ -1,14 +1,4 @@
 
-ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
-	# a defensive function to prevent an unfinished file being shipped
-	
-	warning (sprintf(
-		paste0(fmt, collapse = "\n"),...), call. = FALSE)
-
-}
-
-DONTRUN <- function (expr) {}
-
 '%of%' <- function (f, g) {
 	function (...) f(g(...))
 }
@@ -25,17 +15,9 @@ curry <- function(FUN,...) {
 	.orig = list(...)
 	function(...) do.call( FUN,c(.orig,list(...)) )
 }
+
 squash <- function (f) {
     function (...) f(list(...))
-}
-
-'%throws%' <- function (bool, expr) {
-	# general function, but used specifically for 
-	# throwing exceptions. beware operator presidence
-	
-	stopifnot(is.logical(bool))
-	
-	if (bool) expr
 }
 
 is_boolean <- function (x) {
@@ -71,25 +53,4 @@ get_cores <- function (paropts) {
 	} else if (!is.null(getOption('mc.cores')))  {
 		abs(getOption('mc.cores'))
 	} else 1
-}
-
-stopf <- function (fmt, ...) {
-	# combines stop, paste0 and sprintf
-	
-	stop (sprintf(
-		paste0(fmt, collapse = "\n"),...), call. = FALSE)
-}
-
-warningf <- function (fmt, ..., call. = FALSE) {
-	# combines stop, paste0 and sprintf
-	
-	warning (sprintf(
-		paste0(fmt, collapse = "\n"),...), call.)
-}
-
-messagef <- function (fmt, ...) {
-	# combines message, paste0 & sprintf
-	
-	message (sprintf(
-		paste0(fmt, collapse = "\n"),...))
 }

@@ -3,7 +3,8 @@ require(microbenchmark)
 require(mchof)
 
 # NOTE: these tests are profiling the worst-case behaviour of
-# these functions. Most functions have faster average case behaviour
+# these functions. Most functions have faster average case behaviour.
+# usually testing performance on vectors, not lists.
 
 one_func <- function (...) 1
 true_func <- function (...) TRUE
@@ -14,7 +15,7 @@ fold_control <- function (x) {
 	Reduce(null_func, x)
 }
 
-quantifier_control <- filter_control <- function (x) {
+quantifier_control <- filter_control <- pluck_control <- function (x) {
 	lapply(x, null_func)
 }
 zip_control <- function (x) {	
@@ -36,6 +37,10 @@ mchof_tests <- mcZipWith(
 		mcFold = function (x) mcFold(one_func, 0, x),
 		mcOne = function (x) mcOne(false_func, x),
 		mcPartition = function (x) mcPartition(true_func, x),
+		mcPluck = function (x) {
+			names(x) <- rep("a", length(x))
+			mcPluck("not-gonna-match", x)
+		},
 		mcPosition = function (x) mcPosition(false_func, x),
 		mcReduce = function (x) mcReduce(one_func, x),
 		mcReject = function (x) mcReject(false_func, x),
@@ -55,6 +60,7 @@ mchof_tests <- mcZipWith(
 		mcFold = function (x) fold_control(x),
 		mcOne = function (x) quantifier_control(x),
 		mcPartition = function (x) filter_control(x),
+		mcPluck = function (x) pluck_control(x),
 		mcPosition = function (x) position_control(x),
 		mcReduce = function (x) fold_control(x),
 		mcReject = function (x) filter_control(x),
@@ -62,7 +68,7 @@ mchof_tests <- mcZipWith(
 		mcUnzipWith = function (x) zip_control(x)	
 	),
 	c("mcAll", "mcAny", "mcFilter", "mcFind",
-		"mcFold", "mcOne", "mcPartition", "mcPosition",
+		"mcFold", "mcOne", "mcPartition", "mcPluck", "mcPosition",
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
 )
 
