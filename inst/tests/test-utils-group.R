@@ -1,0 +1,31 @@
+
+forall(info = "group_into groups properly",
+	list(
+		x_ = r_seq_len(),
+		size_ = r_integers()),
+	function (x_, size_) {
+
+		lengths <- sapply(group_into(x_, size_), length)
+		all(head(lengths, -1) %in% c(abs(size_)))
+		
+	},
+	given = function (x_, size_) {
+		length(x_) >= abs(size_) - 1
+	}
+)
+
+forall(info = "group_into values are proper",
+	list(x_ = r_seq_len(), size_ = r_integers()),
+	function (x_, size_) {
+
+		all(unlist(group_into(x_, size_)) == x_)
+		
+	}
+)
+
+forall(info = "chop_into works properly",
+	list(x_ = r_seq_len(), cuts_ = r_integers()),
+	function (x_, cuts_) {
+		length(chop_into(x_, cuts_)) == min(abs(cuts_), length(x_))
+	}
+)

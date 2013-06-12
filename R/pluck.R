@@ -26,8 +26,10 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	
 	missing(pattern) %throws% 
 		messages$string_is_required(func_call, "pattern")
+	
 	missing(x) %throws% 
 		messages$vector_is_required(func_call, "x")
+	
 	(length(pattern) > 1) %throws% 
 		messages$not_string(func_call, pattern, "pattern")
 	
@@ -36,7 +38,8 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
 	select_name <- function (elem) {
-		# vectors and lists!
+		# return the matching keys from a vector
+		# or the top level of a list
 
 		id <- if (is.list(elem)) list() else elem[0]
 		
@@ -47,14 +50,20 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	
 	if (is.list(x)) {
 
+		call_mclapply(
+			select_name,
+			chop_into(x, get_cores(paropts)),
+			paropts, func_call)
+		
 	} else {
 		if (length(names(x)) == 0) return (x[0])
 		
 		unlist(call_mclapply(
-			function (chunk) {
-				# map over chunk select_name
-			},
+			select_name,
 			chop_into(x, get_cores(paropts)),
 			paropts, func_call))
 	}
 }
+
+
+

@@ -26,25 +26,6 @@ is_boolean <- function (x) {
 	length(x) > 0 && is.logical(x) && !is.na(x)
 }
 
-group_into <- function (x, size) {
-	# groups x into chucks of size,
-	# unless too few elements are left
-	
-	if (size == length(x)) {
-		list(x)
-	} else {	
-		lapply(
-			seq(from = 1, to = length(x), by = size),
-			function (lower) {
-				x[ lower:min(length(x), lower + size - 1) ]
-		})
-	}
-}
-
-chop_into <- function (x, cuts) {
-	group_into(x, floor(length(x) / cuts))
-}
-
 get_cores <- function (paropts) {
 	# check paropts and option(mc.cores) for cores to use
 	
