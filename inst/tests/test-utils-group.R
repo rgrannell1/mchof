@@ -17,15 +17,15 @@ forall(info = "group_into groups properly",
 forall(info = "group_into values are proper",
 	list(x_ = r_seq_len(), size_ = r_integers()),
 	function (x_, size_) {
-
 		all(unlist(group_into(x_, size_)) == x_)
-		
 	}
 )
 
 forall(info = "chop_into works properly",
-	list(x_ = r_seq_len(), cuts_ = r_integers()),
-	function (x_, cuts_) {
-		length(chop_into(x_, cuts_)) == min(abs(cuts_), length(x_))
-	}
+	list(x_ = r_seq_len(), pieces_ = r_integers()),
+	function (x_, pieces_) {
+		length(chop_into(x_, pieces_)) == min(abs(pieces_), length(x_))
+	},
+	given = function (x_, pieces_) pieces_ != 0
 )
+

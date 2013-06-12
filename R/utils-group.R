@@ -17,11 +17,20 @@ group_into <- function (x, size) {
 	}
 }
 
-chop_into <- function (x, cuts) {
-	cuts <- abs(cuts)
+chop_into <- function (x, pieces) {
+	# chop a vector x into pieces...pieces,
+	# if it's possible
 	
-	if (cuts == 0) return (x)
-	if (cuts > length(x)) return (x)
-	group_into(x, floor(length(x) / cuts))
+	pieces <- abs(pieces)
+	
+	if (pieces > length(x)) return (group_into(x, 1))
+	
+	average_size <- ceiling(length(x) / pieces)
+	
+	lapply(
+		seq(from = 1, to = length(x), length.out = pieces),
+		function (lower) {
+			x[ lower:min(length(x), lower + average_size) ]
+	})
 }
 

@@ -47,3 +47,5 @@ Collate:
     'partial.R'
     'utils-dev.r'
     'utils-stop-functions.r'
+    'utils-group.R'
+    'utils-get-cores.R'

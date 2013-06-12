@@ -57,3 +57,8 @@ Functions in development (0.4) eta July 15th - August 1st
 * **findr**:
 * **foldl**:
 * **foldr**:
+
+Note to developers: early versions (pre 0.7) will be somewhat liable to api 
+changes. At this stage of development I'm focusing on making functions work well
+that keeping them perfectly consistent between versions.
+

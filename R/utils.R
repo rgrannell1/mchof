@@ -1,8 +1,4 @@
 
-'%of%' <- function (f, g) {
-	function (...) f(g(...))
-}
-
 is_list0 <- function (x) {
 	is.list(x) && length(x) == 0
 }

@@ -14,9 +14,18 @@ forall(
 	}	
 )
 
-forall(info = "mcPluck returns all key matches in sublists",
+forall(info = "mcPluck returns all key matches in fully named sublists",
 	list(x_ = r_seq_len(), name_ = r_words(), paropts_ = r_paropts()),
 	function (x_, name_, paropts_) {
 		TRUE
 	}	
 )
+
+forall(info = "mcPluck returns all key matches in partially named sublists",
+	list(x_ = r_seq_len(), name_ = r_words(), paropts_ = r_paropts()),
+	function (x_, name_, paropts_) {
+		TRUE
+	}	
+)
+
+
