@@ -43,8 +43,8 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcPlus**:
 * **mcSmaller**:
 * **mcXor**:
-* **mcCurry**:
-* **mcCurryf**:
+* **mcPartial**:
+* **mcPartialf**:
 * **mcSleep**:
 * **mcFlip**:
 * **mcJumble**:

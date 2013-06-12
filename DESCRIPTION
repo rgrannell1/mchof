@@ -42,7 +42,6 @@ Collate:
     'test_generators.R'
     'compose.R'
     'sleep.R'
-    'curry.R'
     'utils-messages.r'
     'pluck.R'
-    'test-pluck.R'
+    'partial.R'

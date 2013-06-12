@@ -1,7 +1,8 @@
 #'
 #' @title mcPluck
 #' 
-#' @description mcPluck
+#' @description mcPluck iterates over a list x, and extract slots matching name
+#' in each sublist. If x is a vector then keys matching name are returned.
 #'  
 #' @export
 #' @param name a name or regular expression for keys to be returned.
@@ -9,15 +10,17 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'    
-#' @details 
+#' @details mcPluck can operate on lists in which not every sublist contains 
+#' a named slot matching pattern. If multiple matches are found in a sublist they
+#' are all returned.
 #'    
 #' @example inst/examples/examples-pluck.r 
 #' @keywords mcPluck
 
 mcPluck <- function (pattern, x, paropts = NULL) {
-	# iterate over x, extract x$name where possible
+	# extract entries matching pattern
 	
-	func_call <- "mcFilter(f, x, paropts = NULL)"
+	func_call <- "mcPluck(pattern, x, paropts = NULL)"
 	
 	missing(name) %throws% messages$string_is_required(func_call, "name")
 	missing(x) %throws% messages$vector_is_required(func_call, "g")
@@ -27,11 +30,31 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, "x")
 
-	f <- function (elem) {
-
-	}
+	if (is.list(x)) {
+		mcFilter(
+			f = mcNot(is.null),
+			call_mclapply(f, x, paropts, func_call))
+	} else {
+		unlist(call_mclapply(
+			function (chunk) {
 	
-	mcFilter(
-		f = mcNot(is.null),
-		call_mclapply(f, x, paropts, func_call))
+				unname(chuck[ grepl(pattern, names(chunk)) ])
+			},
+			split_x,
+			paropts, func_call))
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
