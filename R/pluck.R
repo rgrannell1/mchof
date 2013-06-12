@@ -30,8 +30,8 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, "x")
 
-	select_name <- function (pattern) {
-		
+	select_name <- function (elem) {
+		# vectors and lists!
 	}
 	
 	if (is.list(x)) {

@@ -48,7 +48,7 @@ group_into <- function (x, size) {
 	# groups x into chucks of size,
 	# unless too few elements are left
 	
-	if (size == 1) {
+	if (size == length(x)) {
 		list(x)
 	} else {	
 		lapply(
@@ -58,9 +58,9 @@ group_into <- function (x, size) {
 		})
 	}
 }
-ISSUE("fix chop_into")
+
 chop_into <- function (x, cuts) {
-	group_into(x, floor(length(x)/cuts))
+	group_into(x, floor(length(x) / cuts))
 }
 
 get_cores <- function (paropts) {
