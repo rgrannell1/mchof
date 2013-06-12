@@ -1,25 +1,32 @@
 
 messages <- list(
 	not_a_function = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			"%s: %s is not a function (actual class was %s)",
 			call, name, paste0(class(data), collapse = ", "))
 	},
 	function_is_required = function (call, name) {
-		
+		call <- head(call, 1)
+		name <- head(name, 1)
+
 		stopf (
 			'%s: a function (or function name) %s is required but was missing',
 			call, name)
 	},
 	formals_has_ellipses = function (call, data, name) {
+		call <- head(call, 1
+		name <- head(name, 1)
 		
 		stopf (
 			"%s: ellipses (...) cannot be used in %s's formals: actual formals were %s",
 			call, name, paste0(data, collapse = ", "))
 	},
 	not_a_vector = function (call, data, name) {
-		# warn that input isn't a vector
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			'%s: %s is not a vector: actual class was %s',
@@ -27,26 +34,35 @@ messages <- list(
 
 	},
 	vector_is_required = function (call, name) {
-		# stop, a vector/list is needed
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			'%s: a list or vector %s is required but was missing',
 			call, name)
 	},
 	string_is_required = function (call, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			'%s: a string %s is required but was missing',
 			call, name)	
 	},
 	not_string = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
 		stopf(
 			'%s: %s was not a length-one character vector (length: %s, class: %s)',
 			call, name, length(data), paste0(class(data), collapse = ", ")
 		)
 	},
 	length_mismatch = function (call, data, name_one, name_two) {
-		
+		call <- head(call, 1)
+		name_one <- head(name_one, 1)
+		name_two <- head(name_two, 1)
+
 		description <- paste(
 			name_one, "had length", length( data[[1]] ), ",",
 			name_two, "had length", length( data[[2]] ))
@@ -56,6 +72,8 @@ messages <- list(
 			call, name_one, name_two, description)	
 	},
 	not_all_named = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		which_not_named <- paste0(
 			which(names(data) == ""), collapse = ", ")
@@ -65,6 +83,8 @@ messages <- list(
 			call, name, which_not_named)
 	},
 	matched_multiple_time = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 	
 		duplicates <- unique(names(data)[ data[duplicated(data)] ])
 		duplicates <- paste0(duplicates, collapse = ", ")
@@ -73,30 +93,38 @@ messages <- list(
 			call, name, duplicates)
 	},
 	was_factor = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			'%s: a list or vector %s was expected but a factor was given',
 			call, name)
 	},
 	these_were_factors = function (call, which, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			"%s: elements %s in %s were factors",
 			call, which, name)
 	},
 	not_a_bool = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
 		
 		stopf (
 			"%s: %s wasn't a TRUE or FALSE value",
 			call, name)
 	},
 	not_a_number = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+
 		stopf (
 			"%s: %s wasn't a number",
 			call, name)
 	},
 	windows_sequential = function () {
-		# warn windows users that parallel isn't possible
 		
 		msg <- sample(
 			c(paste0("parallel execution is not supported on windows: ",
@@ -108,11 +136,11 @@ messages <- list(
 		warning (msg, call. = FALSE)
 	},
 	invalid_paropts = function (call, data) {
-		# stop, paropts had incorrect options
+		call <- head(call, 1)
 		
 		stopf(
 			'invalid arguments given to paropts: %s', 
-				 paste(invalid_args, collapse = ', '))
+				 paste(data, collapse = ', '))
 	}
 )
 
