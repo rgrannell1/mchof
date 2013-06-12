@@ -101,12 +101,9 @@ mcPartialf <- function (f, ...) {
 	}
 	
 	formals_f <- names(formals(f))
-	formals_g <- formals_f[ !formals_f %in% names(added) ]
-	empty_symbol <- list(formals(function (x){ })$x)
+	formal_names_g <- formals_f[ !formals_f %in% names(added) ]
 	
-	formals(g) <- structure(
-		replicate(n = length(formals_g), expr = empty_symbol),
-		names = formals_g)
+	formals(g) <- empty_formals(formal_names_g)
 	g
 }
 

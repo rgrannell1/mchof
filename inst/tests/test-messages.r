@@ -1,4 +1,6 @@
 
+context("messages: ensure they actually work")
+
 forall(info = "check that error messages work",
 	list(
 		call_ = c("mcAll(x, f)", "mcAny(x, y)"),

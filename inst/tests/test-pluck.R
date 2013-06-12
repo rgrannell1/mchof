@@ -27,5 +27,3 @@ forall(info = "mcPluck returns all key matches in partially named sublists",
 		TRUE
 	}	
 )
-
-

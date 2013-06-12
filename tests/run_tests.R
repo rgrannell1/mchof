@@ -11,5 +11,6 @@ options(forall_time = NULL)
 
 ISSUE("need to avoid contamination")
 ISSUE("check blank examples")
-ISSUE("can functionals return formals?")
-ISSUE("add tests for messages")
+ISSUE("try to ensure all formals are preserved;
+	test for primitives too!	
+")

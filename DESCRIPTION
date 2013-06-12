@@ -49,3 +49,4 @@ Collate:
     'utils-stop-functions.r'
     'utils-group.R'
     'utils-get-cores.R'
+    'utils-formals.r'

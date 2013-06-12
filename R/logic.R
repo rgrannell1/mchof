@@ -31,9 +31,10 @@ mcAnd <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) && g(...)
 	}
+	set_formals(func, f, g)
 }
 
 #' @description mcNot takes a function f, and negates its logical output.
@@ -64,11 +65,12 @@ mcNot <- function (f) {
 	
 	rm(func_call)
 
-	function (...) !f(...)
+	func <- function (...) !f(...)
+	set_formals(func, f, f) # hack!
 }
 
-#' @description mcOr takes two functions f and g, and returns a function. This new function
-#' returns f(...) || g(...)
+#' @description mcOr takes two functions f and g, and returns a function. 
+#' This new function returns f(...) || g(...)
 #'
 #' @title mcOr
 #' 
@@ -103,9 +105,11 @@ mcOr <- function (f, g) {
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) || g(...)
 	}
+	set_formals(func, f, g)
+
 }
 
 #' @description mcXor takes two functions f and g, and returns a function. This new function
@@ -142,7 +146,8 @@ mcXor <- function (f, g) {
 	f <- match.fun(f)
 	g <- match.fun(g)
 	
-	function (...) {
+	func <- function (...) {
 		xor(f(...), g(...))
 	}
+	set_formals(func, f, g)
 }

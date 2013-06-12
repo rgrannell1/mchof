@@ -27,9 +27,10 @@ mcLarger <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		all(f(...) > g(...))
 	}
+	set_formals(func, f, g)
 }
 
 #' @description mcSmaller takes two functions f and g, and returns a function. This new function
@@ -60,9 +61,10 @@ mcSmaller <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		all(f(...) < g(...))
 	}
+	set_formals(func, f, g)
 }
 
 #' @description mcPlus takes two functions f and g, and returns a function. This new function
@@ -93,9 +95,10 @@ mcPlus <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) + g(...)
 	}	
+	set_formals(func, f, g)
 }
 
 #' @description mcEqual takes two functions f and g, and returns a function. This new function
@@ -126,9 +129,10 @@ mcEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) == g(...)
 	}	
+	set_formals(func, f, g)
 }
 
 #' @description mcNotEqual takes two functions f and g, and returns a function. This new function
@@ -159,9 +163,10 @@ mcNotEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) != g(...)
-	}	
+	}
+	set_formals(func, f, g)
 }
 
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
@@ -193,9 +198,10 @@ mcMinus <- function (f, g) {
 	
 	rm(func_call)
 
-	function (...) {
+	func <- function (...) {
 		f(...) - g(...)
 	}	
+	set_formals(func, f, g)
 }
 
 #' @description mcMultiply takes two functions f and g, and returns a function. This new function
@@ -226,9 +232,10 @@ mcMultiply <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) * g(...)
 	}	
+	set_formals(func, f, g)
 }
 
 #' @description mcDivide takes two functions f and g, and returns a function. This new function
@@ -259,8 +266,9 @@ mcDivide <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
+	func <- function (...) {
 		f(...) / g(...)
 	}
+	set_formals(func, f, g)
 }
 
