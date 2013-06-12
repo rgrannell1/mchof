@@ -24,22 +24,25 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	
 	func_call <- "mcPluck(pattern, x, paropts = NULL)"
 	
-	missing(pattern) %throws% messages$string_is_required(func_call, "pattern")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-	(length(pattern) > 1) %throws% messages$not_string(func_call, "pattern")
+	missing(pattern) %throws% 
+		messages$string_is_required(func_call, "pattern")
+	missing(x) %throws% 
+		messages$vector_is_required(func_call, "x")
+	(length(pattern) > 1) %throws% 
+		messages$not_string(func_call, pattern, "pattern")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
 	select_name <- function (elem) {
 		# vectors and lists!
 
 		id <- if (is.list(elem)) list() else elem[0]
 		
-		if (length(names(vect)) == 0) return (id)		
+		if (length(names(elem)) == 0) return (id)
 			
-		unname(vect[ grepl(pattern, names(vect)) ])
+		unname(elem[ grepl(pattern, names(elem)) ])
 	}
 	
 	if (is.list(x)) {
@@ -55,17 +58,3 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 			paropts, func_call))
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

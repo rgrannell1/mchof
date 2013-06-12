@@ -45,7 +45,7 @@ mcReject <- function (f, x, paropts = NULL) {
 
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
 	true_ind <- !is.na(ind) & ind

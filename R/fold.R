@@ -58,7 +58,7 @@ mcFold <- function (f, first, x, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (first)
 	
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	mcReduce(f, x = c(list(first), x), paropts)
 	

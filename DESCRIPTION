@@ -45,3 +45,5 @@ Collate:
     'utils-messages.r'
     'pluck.R'
     'partial.R'
+    'utils-dev.r'
+    'utils-stop-functions.r'

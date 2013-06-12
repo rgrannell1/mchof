@@ -21,9 +21,11 @@ mcSleep <- function (f, n) {
 	# return a function that returns false when f is true, 
 	# true when f is false, na when na
 	
+	n <- abs(n)
 	func_call <- "mcSleep(f, n)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
+	(!is.numeric(n)) %throws% messages$not_a_number(func_call, n, "n")
 	
 	f <- match.fun(f)
 	function (...) {

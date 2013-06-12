@@ -59,7 +59,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 		
 	f <- match.fun(f)
 	if (length(x) < 2) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	g <- function (x) {
 		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	

@@ -37,7 +37,7 @@ mcAll <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return (x)
 	if (length(x) == 0) return (TRUE)
 
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
 	bools[is.na(bools)] <- FALSE
@@ -82,7 +82,7 @@ mcAny <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	cores <- get_cores(paropts)
 
@@ -138,7 +138,7 @@ mcOne <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
 
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
 	cores <- get_cores(paropts)
 

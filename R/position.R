@@ -43,9 +43,10 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
-	(!is_boolean(right)) %throws% messages$wasnt_boolean(func_call, "right")
+	(!is_boolean(right)) %throws% 
+		messages$not_a_bool(func_call, right, "right")
 	
 	cores <- get_cores(paropts)
 
@@ -117,7 +118,7 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, "x")
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	

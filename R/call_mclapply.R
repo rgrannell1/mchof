@@ -7,8 +7,8 @@ call_mclapply <- function (f, x, paropts = NULL,
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	(!is.function(f)) %throws% messages$not_a_function(func_call, f)
-	(!is.vector(x)) %throws% messages$not_a_vector(func_call, x)
+	(!is.function(f)) %throws% messages$not_a_function(func_call, f, "f")
+	(!is.vector(x)) %throws% messages$not_a_vector(func_call, x, "x")
 	
 	if (.Platform$OS.type == 'windows') {
 		if (!.mchof_windows_warned) {
@@ -26,7 +26,7 @@ call_mclapply <- function (f, x, paropts = NULL,
 		invalid_args <- setdiff(arg_names, valid_formals)
 		
 		(length(invalid_args) > 0) %throws% 
-			messages$invalid_paropts(invalid_args)
+			messages$invalid_paropts(func_call, invalid_args)
 		
 		paropts$FUN <- NULL
 		paropts$X <- NULL
@@ -47,9 +47,9 @@ call_mclapply <- function (f, x, paropts = NULL,
 				what = parallel::mclapply,
 				args = c(list(FUN = f, X = x), paropts))
 			},
-			warning = function (w) {
+			warning = function (warn) {
 				status <<- "warning"
-			}, error = function (e) {
+			}, error = function (err) {
 				status <<- "error"
 		})
 	

@@ -73,7 +73,7 @@ mcPartialf <- function (f, ...) {
 	
 	func_call <- "mcPartialf(f, ...)"
 
-	missing(f) %throws% function_is_required(func_call, "f")
+	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
 	f <- match.fun(f)
 	added <- list(...)
@@ -83,14 +83,14 @@ mcPartialf <- function (f, ...) {
 		names(added)[ duplicated(names(added)) ],
 		collapse = ", ")
 	
-	("..." %in% formals_f) %throws% message$formals_has_ellipses(
+	("..." %in% formals_f) %throws% messages$formals_has_ellipses(
 		func_call, formals_f, "f")
 
 	(length( which(names(added) != "") ) < length(added)) %throws% 
-		message$not_all_named(func_call, "...")
+		messages$not_all_named(func_call, added, "...")
 	
 	(length(unique(names(added))) != length(added)) %throws% 
-		message$matched_muliple_times(func_call, duplicated_names, "...")
+		messages$matched_muliple_times(func_call, duplicated_names, "...")
 	
 	rm(formals_f, func_call, duplicated_names)
 	
