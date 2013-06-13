@@ -6,18 +6,19 @@ context("nulls handled correctly")
 forall(info = "non-variadic functions that take x = NULL |-> NULL",
 	list(
 		func_ = list(
-			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition, mcPosition,
-			mcReject, mcSelect, mcUnzip, mcUnzipWith
+			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition, mcPluck,
+			mcPosition, mcReject, mcSelect, mcUnzip, mcUnzipWith
 		),
 		f_ = list(mean, max, mode), 
+		pattern_ = r_words(),
 		right_ = list(TRUE, FALSE), first_ = r_integers(),
 		paropts_ = r_paropts()	
 	),
-	function (func_, f_, first_, right_, paropts_) {
+	function (func_, f_, pattern_, first_, right_, paropts_) {
 		is.null(adapt_call(
 			func_,
 			with = list(
-				f = f_, first = first_,
+				f = f_, pattern = pattern_, first = first_,
 				right = right_, x = NULL, paropts = paropts_)))
 	}
 )

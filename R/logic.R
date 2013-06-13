@@ -32,7 +32,8 @@ mcAnd <- function (f, g) {
 	rm(func_call)
 	
 	func <- function (...) {
-		f(...) && g(...)
+		.args <- as.list(match.call())[-1]
+		do.call(f, .args) && do.call(g, .args)
 	}
 	set_formals(func, f, g)
 }
@@ -65,7 +66,10 @@ mcNot <- function (f) {
 	
 	rm(func_call)
 
-	func <- function (...) !f(...)
+	func <- function (...) {
+		.args <- as.list(match.call())[-1]
+		!do.call(f, .args)
+	}
 	set_formals(func, f, f) # hack!
 }
 
@@ -95,7 +99,6 @@ mcOr <- function (f, g) {
 
 	missing(f) %throws%  messages$function_is_required(func_call, "f")
 	missing(g) %throws%  messages$function_is_required(func_call, "g")
-
 	
 	f <- match.fun(f)
 	g <- match.fun(g)
@@ -106,7 +109,8 @@ mcOr <- function (f, g) {
 	g <- match.fun(g)
 	
 	func <- function (...) {
-		f(...) || g(...)
+		.args <- as.list(match.call())[-1]
+		do.call(f, .args) || do.call(g, .args)
 	}
 	set_formals(func, f, g)
 
@@ -147,7 +151,8 @@ mcXor <- function (f, g) {
 	g <- match.fun(g)
 	
 	func <- function (...) {
-		xor(f(...), g(...))
+		.args <- as.list(match.call())[-1]
+		xor( do.call(f, .args), do.call(g, .args) )
 	}
 	set_formals(func, f, g)
 }

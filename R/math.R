@@ -27,10 +27,25 @@ mcLarger <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		all(f(...) > g(...))
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) > g(...)
+		}
+
+	} else {
+
+		insert_formals(
+			formals = formals_composite,
+			function () {
+				f(formals) > g(formals)
+			},
+			envir = environment())
 	}
-	set_formals(func, f, g)
 }
 
 #' @description mcSmaller takes two functions f and g, and returns a function. This new function
@@ -61,10 +76,27 @@ mcSmaller <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		all(f(...) < g(...))
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) < g(...)
+		}
+
+	} else {
+
+		.composite <- function () {
+
+			.args <- lapply(names(formals_composite), get)
+			do.call(f, .args) < do.call(f, .args)
+		}
+		formals(.composite) <- formals_composite
+
+
 	}
-	set_formals(func, f, g)
 }
 
 #' @description mcPlus takes two functions f and g, and returns a function. This new function
@@ -95,10 +127,21 @@ mcPlus <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		f(...) + g(...)
-	}	
-	set_formals(func, f, g)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) + g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
+	}
 }
 
 #' @description mcEqual takes two functions f and g, and returns a function. This new function
@@ -129,10 +172,21 @@ mcEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		f(...) == g(...)
-	}	
-	set_formals(func, f, g)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) == g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
+	}
 }
 
 #' @description mcNotEqual takes two functions f and g, and returns a function. This new function
@@ -163,10 +217,21 @@ mcNotEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		f(...) != g(...)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) != g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
 	}
-	set_formals(func, f, g)
 }
 
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
@@ -198,10 +263,21 @@ mcMinus <- function (f, g) {
 	
 	rm(func_call)
 
-	func <- function (...) {
-		f(...) - g(...)
-	}	
-	set_formals(func, f, g)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) - g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
+	}
 }
 
 #' @description mcMultiply takes two functions f and g, and returns a function. This new function
@@ -232,10 +308,21 @@ mcMultiply <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		f(...) * g(...)
-	}	
-	set_formals(func, f, g)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) * g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
+	}
 }
 
 #' @description mcDivide takes two functions f and g, and returns a function. This new function
@@ -266,9 +353,20 @@ mcDivide <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		f(...) / g(...)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) / g(...)
+		}
+
+	} else {
+
+		# construct dynamically
+
 	}
-	set_formals(func, f, g)
 }
 

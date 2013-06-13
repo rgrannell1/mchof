@@ -36,6 +36,10 @@ formals_equal <- function (f, g) {
 	identical(unname(formals$f), unname(formals$g))
 }
 
+is_ellipses <- function (formals) {
+	identical(formals, formals( function (...) NULL ))
+}
+
 empty_formals <- function (names) {
 	# construct an empty alist with names as names
 	
@@ -46,21 +50,38 @@ empty_formals <- function (names) {
 		names = names)
 }
 
-set_formals <- function (func, f, g) {
+match_formals <- function (f, g) {
 	# try to set the formals of func to 
 	# those of f and g, if they have similar formals.
 	# returns ellipses for primitive functions
 	
 	if (is.primitive(f) || is.primitive(g)) {
-		return (func)
-	}
-	
+		return (formals( function (...) NULL ))
+	} 
+
 	if (formal_names_equal(f, g)) {
 		if (formal_defaults_equal(f, g)) {
-			formals(func) <- formals(f)
+			formals(f)
 		} else {
-			formals(func) <- empty_formals( names(formals(f)) )
+			empty_formals( names(formals(f)) )
 		}
 	}
+}
+
+
+insert_formals <- function (formals, func, envir) {
+	# don't judge, eval parse is much less
+	# error prone than fiddling with envirnoments. simple is best.
+	# internal inputs are guaranteed to be synactically correct, 
+	# so there isn't much to worry about.
+
+	str_func <- gsub(
+		"formals", 
+		paste0(names(formals), collapse = ", "),
+		deparse(func))
+
+	func <- eval(parse(text = str_func))
+	formals(func) <- formals
+	environment(func) <- envir
 	func
 }

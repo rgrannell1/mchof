@@ -22,7 +22,8 @@ messagef <- function (fmt, ...) {
 
 '%throws%' <- function (bool, expr) {
 	# general function, but used specifically for 
-	# throwing exceptions. beware operator presidence
+	# throwing exceptions. beware operator presidence:
+	# !is.x(x) %throws% brackets as !(is.x(x) %throws%)
 	
 	stopifnot(is.logical(bool))
 	
