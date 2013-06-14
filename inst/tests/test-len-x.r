@@ -6,7 +6,7 @@ context("nulls handled correctly")
 forall(info = "non-variadic functions that take x = NULL |-> NULL",
 	list(
 		func_ = list(
-			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition, mcPluck,
+			mcAll, mcAny, mcFilter, mcFind, mcFold, mcOne, mcPartition, 
 			mcPosition, mcReject, mcSelect, mcUnzip, mcUnzipWith
 		),
 		f_ = list(mean, max, mode), 

@@ -15,16 +15,16 @@ forall(info = "check that error messages work",
 		
 		func_ <- messages[[func_]]
 		
-		tryCatch(
+		text <- tryCatch(
 			adapt_call(func_, with = list(
 				call = call_, data = data_, 
 				name = name_, name_one = name_one_, name_two = name_two_, 
 				which = which_)),		
 			error = function (err) {
-				message(err)
+				err$message
 			},
 			warning = function (warn) {
-				message(warn)
+				warn$message
 		})
 		
 		TRUE

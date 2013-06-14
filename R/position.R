@@ -30,7 +30,7 @@
 #' @keywords mcPosition
 #' 
 
-mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
+mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
 		
@@ -51,30 +51,26 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	cores <- get_cores(paropts)
 
 	if (cores == 1) {
-	
 		if (right) {
+			
 			ind <- length(x)
-
-			while (ind < 0) {
-
+			while (ind > 0) {
 				if ( as.logical(f( x[[ind]] )) ) return (ind)
 				ind <- ind - 1
 			}
-
 			return (integer(0))
-
+			
 		} else {
+			
 			ind <- 1
-
 			while (ind <= length(x)) {
 
 				if ( as.logical(f( x[[ind]] )) ) return (ind)
 				ind <- ind + 1
 			}
-
 			return (integer(0))
+			
 		}
-
 	}
  
 	job_indices <- if (right) {

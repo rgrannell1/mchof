@@ -15,7 +15,7 @@ fold_control <- function (x) {
 	Reduce(null_func, x)
 }
 
-quantifier_control <- filter_control <- pluck_control <- function (x) {
+quantifier_control <- filter_control <- function (x) {
 	lapply(x, null_func)
 }
 zip_control <- function (x) {	
@@ -37,10 +37,6 @@ mchof_tests <- mcZipWith(
 		mcFold = function (x) mcFold(one_func, 0, x),
 		mcOne = function (x) mcOne(false_func, x),
 		mcPartition = function (x) mcPartition(true_func, x),
-		mcPluck = function (x) {
-			names(x) <- rep("a", length(x))
-			#mcPluck("not-gonna-match", x)
-		},
 		mcPosition = function (x) mcPosition(false_func, x),
 		mcReduce = function (x) mcReduce(one_func, x),
 		mcReject = function (x) mcReject(false_func, x),
@@ -60,7 +56,6 @@ mchof_tests <- mcZipWith(
 		mcFold = function (x) fold_control(x),
 		mcOne = function (x) quantifier_control(x),
 		mcPartition = function (x) filter_control(x),
-		mcPluck = function (x) pluck_control(x),
 		mcPosition = function (x) position_control(x),
 		mcReduce = function (x) fold_control(x),
 		mcReject = function (x) filter_control(x),
@@ -68,7 +63,7 @@ mchof_tests <- mcZipWith(
 		mcUnzipWith = function (x) zip_control(x)	
 	),
 	c("mcAll", "mcAny", "mcFilter", "mcFind",
-		"mcFold", "mcOne", "mcPartition", "mcPluck", "mcPosition",
+		"mcFold", "mcOne", "mcPartition", "mcPosition",
 		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
 )
 
