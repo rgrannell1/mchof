@@ -51,21 +51,26 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	cores <- get_cores(paropts)
 
 	if (cores == 1) {
-
+	
 		if (right) {
 			ind <- length(x)
 			while (ind < 0) {
-				if (isTRUE( f(x[[i]]) )) return (ind)
+
+				res <- as.logical(f( x[[ind]] ))
+				if (isTRUE(res)) return (ind)
 				ind <- ind - 1
+
 			}
-			integer(0)
+			return (integer(0))
 		} else {
-			ind <- length(x)
+			ind <- 1
 			while (ind <= length(x)) {
-				if (isTRUE( f(x[[i]]) )) return (ind)
+				res <- as.logical(f( x[[ind]] ))
+				if (isTRUE(res)) return (ind)
 				ind <- ind + 1
+
 			}
-			integer(0)
+			return (integer(0))
 		}
 
 	}
