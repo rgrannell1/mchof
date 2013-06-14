@@ -27,6 +27,8 @@ forall(info = "check that error messages work",
 				warn$message
 		})
 		
+		grep(paste0("^", call_), text) && length(text) == 1
+		
 		TRUE
 	}
 )

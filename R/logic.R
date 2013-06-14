@@ -30,26 +30,12 @@ mcAnd <- function (f, g) {
 	g <- match.fun(g)
 	
 	rm(func_call)
-	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) && g(...)
+	ISSUE("fix logic")
+	substitute_formals(
+		function () {
+			f(formals) && g(formals)
 		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) && g(params)
-			},
-			envir = environment())
-	}
+	)
 }
 
 #' @description mcNot takes a function f, and negates its logical output.
