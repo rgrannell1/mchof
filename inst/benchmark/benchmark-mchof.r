@@ -39,7 +39,7 @@ mchof_tests <- mcZipWith(
 		mcPartition = function (x) mcPartition(true_func, x),
 		mcPluck = function (x) {
 			names(x) <- rep("a", length(x))
-			mcPluck("not-gonna-match", x)
+			#mcPluck("not-gonna-match", x)
 		},
 		mcPosition = function (x) mcPosition(false_func, x),
 		mcReduce = function (x) mcReduce(one_func, x),

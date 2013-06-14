@@ -54,22 +54,24 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	
 		if (right) {
 			ind <- length(x)
+
 			while (ind < 0) {
 
-				res <- as.logical(f( x[[ind]] ))
-				if (isTRUE(res)) return (ind)
+				if ( as.logical(f( x[[ind]] )) ) return (ind)
 				ind <- ind - 1
-
 			}
+
 			return (integer(0))
+
 		} else {
 			ind <- 1
-			while (ind <= length(x)) {
-				res <- as.logical(f( x[[ind]] ))
-				if (isTRUE(res)) return (ind)
-				ind <- ind + 1
 
+			while (ind <= length(x)) {
+
+				if ( as.logical(f( x[[ind]] )) ) return (ind)
+				ind <- ind + 1
 			}
+
 			return (integer(0))
 		}
 

@@ -39,19 +39,21 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 		# return the matching keys from a vector
 		# or the top level of a list
 
-		identity_elem <- if (is.list(elem)) {
-			list()
-		} else identity_elem[0]
-		
-		if (length(names(elem)) == 0) return (identity_elem)
-			
-		unname(elem[ grepl(pattern, names(elem)) ])
+		if (length(names(elem)) == 0) {
+			type_identity(elem)
+		} else {
+			unname(elem[ grepl(pattern, names(elem)) ])
+		}
 	}
 	
 	if (is.list(x)) {
 
 		call_mclapply(
-			select_name,
+			function (piece) {
+
+				Map(select_name, piece)
+
+			},
 			chop_into(x, pieces = get_cores(paropts)),
 			paropts, func_call)
 		

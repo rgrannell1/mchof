@@ -6,6 +6,12 @@ is_integer0 <- function (x) {
 	is.integer(x) && length(x) == 0
 }
 
+type_identity <- function (x) {
+	stopifnot(is.vector(x))
+
+	if (is.list(x)) list() else x[0] 
+}
+
 curry <- function(FUN,...) {
 	# from stack overflow
 	.orig = list(...)
