@@ -20,8 +20,6 @@
 mcPluck <- function (pattern, x, paropts = NULL) {
 	# extract entries matching pattern
 	
-	ISSUE("pluck not done!")
-	
 	func_call <- "mcPluck(pattern, x, paropts = NULL)"
 	
 	missing(pattern) %throws% 
@@ -41,9 +39,11 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 		# return the matching keys from a vector
 		# or the top level of a list
 
-		ident <- if (is.list(elem)) list() else elem[0]
+		identity_elem <- if (is.list(elem)) {
+			list()
+		} else identity_elem[0]
 		
-		if (length(names(elem)) == 0) return (ident)
+		if (length(names(elem)) == 0) return (identity_elem)
 			
 		unname(elem[ grepl(pattern, names(elem)) ])
 	}

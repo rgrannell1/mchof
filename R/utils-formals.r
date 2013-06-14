@@ -69,16 +69,17 @@ match_formals <- function (f, g) {
 }
 
 
-insert_formals <- function (formals, func, envir) {
+
+insert_params <- function (formals, func, envir = parent.frame()) {
 	# don't judge, eval parse is much less
 	# error prone than fiddling with envirnoments. simple is best.
 	# internal inputs are guaranteed to be synactically correct, 
 	# so there isn't much to worry about.
 
 	str_func <- gsub(
-		"formals", 
-		paste0(names(formals), collapse = ", "),
-		deparse(func))
+		pattern = "params", 
+		replacement = paste0(names(formals), collapse = ", "),
+		x = deparse(func))
 
 	func <- eval(parse(text = str_func))
 	formals(func) <- formals

@@ -31,11 +31,25 @@ mcAnd <- function (f, g) {
 	
 	rm(func_call)
 	
-	func <- function (...) {
-		.args <- as.list(match.call())[-1]
-		do.call(f, .args) && do.call(g, .args)
+	formals_composite <- match_formals(f, g)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			f(...) && g(...)
+		}
+
+	} else {
+
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) && g(params)
+			},
+			envir = environment())
 	}
-	set_formals(func, f, g)
 }
 
 #' @description mcNot takes a function f, and negates its logical output.
@@ -66,11 +80,25 @@ mcNot <- function (f) {
 	
 	rm(func_call)
 
-	func <- function (...) {
-		.args <- as.list(match.call())[-1]
-		!do.call(f, .args)
+	formals_composite <- match_formals(f, f)
+	
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			!f(...)
+		}
+
+	} else {
+
+		insert_params(
+			formals = formals_composite,
+			function () {
+				!f(params)
+			},
+			envir = environment())
 	}
-	set_formals(func, f, f) # hack!
 }
 
 #' @description mcOr takes two functions f and g, and returns a function. 
@@ -105,15 +133,25 @@ mcOr <- function (f, g) {
 	
 	rm(func_call)
 
-	f <- match.fun(f)
-	g <- match.fun(g)
+	formals_composite <- match_formals(f, g)
 	
-	func <- function (...) {
-		.args <- as.list(match.call())[-1]
-		do.call(f, .args) || do.call(g, .args)
-	}
-	set_formals(func, f, g)
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
 
+		function (...) {
+			f(...) || g(...)
+		}
+
+	} else {
+
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) || g(params)
+			},
+			envir = environment())
+	}
 }
 
 #' @description mcXor takes two functions f and g, and returns a function. This new function
@@ -147,12 +185,23 @@ mcXor <- function (f, g) {
 	
 	rm(func_call)
 	
-	f <- match.fun(f)
-	g <- match.fun(g)
+	formals_composite <- match_formals(f, g)
 	
-	func <- function (...) {
-		.args <- as.list(match.call())[-1]
-		xor( do.call(f, .args), do.call(g, .args) )
+	if (is_ellipses(formals_composite)) {
+		
+		rm (formals_composite)
+
+		function (...) {
+			xor( f(...), g(...) )
+		}
+
+	} else {
+
+		insert_params(
+			formals = formals_composite,
+			function () {
+				xor( f(params), g(params) )
+			},
+			envir = environment())
 	}
-	set_formals(func, f, g)
 }

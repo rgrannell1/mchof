@@ -8,11 +8,8 @@ forall(info = "mcLarger and mcSmaller returns same value as operator",
 		f <- function (n) n^2 - 10
 		g <- function (n) n^3 - 20
 		
-		print(a_)
-		print(mcLarger(f, g))
-
-		mcLarger(f, g)(a_) == all(f(a_) > g(a_)) &&
-		mcSmaller(f, g)(a_) == all(f(a_) < g(a_))	
+		mcLarger(f, g)(a_) == (f(a_) > g(a_)) &&
+		mcSmaller(f, g)(a_) == (f(a_) < g(a_))	
 	}
 )
 

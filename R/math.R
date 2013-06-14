@@ -11,6 +11,8 @@
 #' or a string giving the name of such a function.
 #' @return returns a logical value
 #' 
+#' @template math
+#'
 #' @keywords mcLarger
 #' @example inst/examples/examples-larger.r
 
@@ -39,10 +41,10 @@ mcLarger <- function (f, g) {
 
 	} else {
 
-		insert_formals(
+		insert_params(
 			formals = formals_composite,
 			function () {
-				f(formals) > g(formals)
+				f(params) > g(params)
 			},
 			envir = environment())
 	}
@@ -60,6 +62,8 @@ mcLarger <- function (f, g) {
 #' or a string giving the name of such a function.
 #' @return returns a logical value
 #' 
+#' #' @template math
+#'
 #' @keywords mcSmaller
 #' @example inst/examples/examples-smaller.r
 
@@ -88,14 +92,12 @@ mcSmaller <- function (f, g) {
 
 	} else {
 
-		.composite <- function () {
-
-			.args <- lapply(names(formals_composite), get)
-			do.call(f, .args) < do.call(f, .args)
-		}
-		formals(.composite) <- formals_composite
-
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) < g(params)
+			},
+			envir = environment())
 	}
 }
 
@@ -110,7 +112,9 @@ mcSmaller <- function (f, g) {
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcPlus
 #' @example inst/examples/examples-plus.r
 
@@ -139,7 +143,12 @@ mcPlus <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) + g(params)
+			},
+			envir = environment())
 
 	}
 }
@@ -155,7 +164,9 @@ mcPlus <- function (f, g) {
 #' @param g a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value.
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcEqual
 #' @example inst/examples/examples-equal.r
 
@@ -184,8 +195,12 @@ mcEqual <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) == g(params)
+			},
+			envir = environment())
 	}
 }
 
@@ -200,7 +215,9 @@ mcEqual <- function (f, g) {
 #' @param g a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value.
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcNotEqual
 #' @example inst/examples/examples-notequal.r
 
@@ -229,8 +246,12 @@ mcNotEqual <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) != g(params)
+			},
+			envir = environment())
 	}
 }
 
@@ -245,7 +266,9 @@ mcNotEqual <- function (f, g) {
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcMinus
 #' @example inst/examples/examples-minus.r
  
@@ -275,8 +298,12 @@ mcMinus <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) - g(params)
+			},
+			envir = environment())
 	}
 }
 
@@ -291,7 +318,9 @@ mcMinus <- function (f, g) {
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcMultiply
 #' @example inst/examples/examples-minus.r
 
@@ -320,8 +349,12 @@ mcMultiply <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) * g(params)
+			},
+			envir = environment())
 	}
 }
 
@@ -336,7 +369,9 @@ mcMultiply <- function (f, g) {
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
-#' 
+#'
+#' @template math
+#'
 #' @keywords mcDivide
 #' @example inst/examples/examples-divide.r
 
@@ -365,8 +400,12 @@ mcDivide <- function (f, g) {
 
 	} else {
 
-		# construct dynamically
-
+		insert_params(
+			formals = formals_composite,
+			function () {
+				f(params) / g(params)
+			},
+			envir = environment())
 	}
 }
 
