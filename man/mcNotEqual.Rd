@@ -39,6 +39,9 @@
   3, If the parameters of f and g differ, or their order is
   shuffled then the output function uses ellipses for as
   parameters.
+
+  if any of the input function are primitive (such as '+')
+  then the output function uses ellipses for parameters.
 }
 \examples{
 

@@ -20,12 +20,12 @@
   of x as is.
 }
 \description{
-  mcReduce applies an associative binary function to a
-  list, returning a single value
+  mcReduce
 }
 \details{
-  mcReduce can be used as a parallel alternative to Reduce
-  if and only if the function f is associative; that is
+  this function can be used as a parallel alternative to
+  foldl or reducel if and only if the function f is
+  associative; that is
 
   \code{(a f b) f c == a f (b f c)},
 
@@ -39,14 +39,19 @@
   associative binary functions can be folded or reduced in
   parallel.
 
-  When x only has one element it is returned immediately,
-  as there is no way to apply a binary function to a
-  length-one list.
-
-  A likely source of errors when using mcFold or mcReduce
-  is using a function without the type signature [A] -> [A]
-  -> [A] (ie. a function that takes two of a thing, and
+  Formally the combination of an associative binary
+  operator, an identity element (first) and a set (x) is
+  known as a monoid; the function f has a type signature of
+  [A] -> [A] -> [A]. A likely source of errors when using
+  mcFold or mcReduce is using a function without this type
+  signature (ie. a function that takes two of a thing, and
   returns one of a thing).
+
+  with mcFold it is often useful to use the identity of f
+  as first, as it can make it possible to simplify f. For
+  example, lists have an identity element of list() when
+  concatenated, and integers have an identity of 0 under
+  addition.
 }
 \examples{
 

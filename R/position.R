@@ -50,6 +50,26 @@ mcPosition <- function (f, x, right=FALSE, paropts=NULL) {
 	
 	cores <- get_cores(paropts)
 
+	if (cores == 1) {
+
+		if (right) {
+			ind <- length(x)
+			while (ind < 0) {
+				if (isTRUE( f(x[[i]]) )) return (ind)
+				ind <- ind - 1
+			}
+			integer(0)
+		} else {
+			ind <- length(x)
+			while (ind <= length(x)) {
+				if (isTRUE( f(x[[i]]) )) return (ind)
+				ind <- ind + 1
+			}
+			integer(0)
+		}
+
+	}
+ 
 	job_indices <- if (right) {
 		rev(group_into(seq_along(x), cores))
 	} else {
@@ -127,3 +147,4 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	}
 	else integer(0)
 }
+

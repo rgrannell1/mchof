@@ -1,31 +1,10 @@
 #' @title mcReduce
 #' 
 #' @export
-#' @description mcReduce applies an associative binary function to a list,
-#' returning a single value
-#' 
-#' @details mcReduce can be used as a parallel alternative to Reduce if
-#' and only if the function f is associative; that is
-#' 
-#' \code{(a f b) f c == a f (b f c)}, 
-#' 
-#' where a, b or c are values that f takes. For example, plus is an associative 
-#' binary operator, since
-#' 
-#' \code{(a + b) + c == a + (b + c)}
-#' 
-#' for any number a, b or c. Minus does not have this property, so it is not 
-#' suitable for use with mcFold. Only associative binary functions can be folded 
-#' or reduced in parallel. 
-#'  
-#' When x only has one element it is returned immediately, as there is no way
-#' to apply a binary function to a length-one list.
-#' 
-#' A likely source of errors when using mcFold
-#' or mcReduce is using a function without the type signature [A] -> [A] -> [A] (ie. a function that
-#' takes two of a thing, and returns one of a thing).
 #'   
 #' @name mcReduce
+#' 
+#' @template folds
 #' 
 #' @param f a binary function that takes two of "a thing" and returns one of a "thing".
 #' @param x a list or vector.
