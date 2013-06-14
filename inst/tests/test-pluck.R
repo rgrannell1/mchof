@@ -6,7 +6,7 @@ forall(
 	list(x_ = r_seq_len(), name_ = r_words(), paropts_ = r_paropts()),
 	function (x_, name_, paropts_) {
 		
-		names(x_) <- sample(c(name_, rev(name_)), size = 1, replace = TRUE)
+		names(x_) <- sample(c(name_, rev(name_)), size = length(x_), replace = TRUE)
 		
 		identical(
 			mcPluck(name_, x_, paropts_),
@@ -17,7 +17,11 @@ forall(
 forall(info = "mcPluck returns all key matches in fully named sublists",
 	list(x_ = r_int_tuples(), name_ = r_words(), paropts_ = r_paropts()),
 	function (x_, name_, paropts_) {
-		TRUE
+
+	
+	
+	
+	
 	}	
 )
 
@@ -28,17 +32,24 @@ forall(info = "mcPluck returns all key matches in partially named sublists",
 	}	
 )
 
-forall(info = "mcPluck returns all key matches in fully named subvectors",
-	list(x_ = r_seq_len(), name_ = r_words(), paropts_ = r_paropts()),
+
+forall(info = "mcPluck returns all key matches in partially named subvectors",
+	list(x_ = r_int_tuples(), name_ = r_words(), paropts_ = r_paropts()),
 	function (x_, name_, paropts_) {
-		ISSUE("fix pluck tests")
+		
+		x_ <- lapply(x, function (subvect) {
+			names(subvect) <- sample(c(name_, rev(name_)), size = 1, replace = TRUE)
+			subvect
+		})
+				
+		
+		
 		TRUE
 	}	
 )
 
-forall(info = "mcPluck returns all key matches in partially named subvectors",
-	list(x_ = r_seq_len(), name_ = r_words(), paropts_ = r_paropts()),
-	function (x_, name_, paropts_) {
-		TRUE
-	}	
-)
+
+
+
+
+

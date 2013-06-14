@@ -51,7 +51,7 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 		call_mclapply(
 			function (piece) {
 
-				Map(select_name, piece)
+				unname(Map(select_name, piece))
 
 			},
 			chop_into(x, pieces = get_cores(paropts)),
@@ -60,10 +60,10 @@ mcPluck <- function (pattern, x, paropts = NULL) {
 	} else {
 		if (length(names(x)) == 0) return (x[0])
 		
-		unlist(call_mclapply(
+		unname(unlist(call_mclapply(
 			select_name,
 			chop_into(x, pieces = get_cores(paropts)),
-			paropts, func_call))
+			paropts, func_call)))
 	}
 }
 
