@@ -30,13 +30,12 @@ mcAnd <- function (f, g) {
 	g <- match.fun(g)
 	
 	rm(func_call)
-	ISSUE("fix logic")
 	
 	combine_formals(
-		f, g,
 		function () {
 			f(formals) && g(formals)
-		}
+		},
+		f, g
 	)
 }
 
@@ -67,8 +66,6 @@ mcNot <- function (f) {
 	f <- match.fun(f)
 	
 	rm(func_call)
-
-	formals_composite <- match_formals(f, f)
 	
 	combine_formals(
 		function () {
@@ -147,6 +144,6 @@ mcXor <- function (f, g) {
 	
 	combine_formals(
 		function () {
-			xor( f(formals), g(formals) )
+			xor( f(formals), g(formals) ) 
 		}, f, g)
 }
