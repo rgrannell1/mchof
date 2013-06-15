@@ -50,26 +50,6 @@ empty_formals <- function (names) {
 		names = names)
 }
 
-match_formals <- function (f, g) {
-	# try to set the formals of func to 
-	# those of f and g, if they have similar formals.
-	# returns ellipses for primitive functions
-	
-	if (is.primitive(f) || is.primitive(g)) {
-		return (formals( function (...) NULL ))
-	} 
-
-	if (formal_names_equal(f, g)) {
-		if (formal_defaults_equal(f, g)) {
-			formals(f)
-		} else {
-			empty_formals( names(formals(f)) )
-		}
-	}
-}
-
-
-
 insert_params <- function (formals, func, envir = parent.frame()) {
 	# don't judge, eval parse is much less
 	# error prone than fiddling with envirnoments. simple is best.
@@ -86,3 +66,47 @@ insert_params <- function (formals, func, envir = parent.frame()) {
 	environment(func) <- envir
 	func
 }
+
+combine_formals <- function (func, f, g = f, envir = parent.frame()) {
+	# try to add the most useful formals to 
+	# func possible, by preserving the formals of f and g
+	
+	formals_func <- if (is.primitive(f) || is.primitive(g)) {
+		formals( function (...) NULL )
+	} else {
+		if (formal_names_equal(f, g)) {
+			if (formal_defaults_equal(f, g)) formals(f) else {
+				empty_formals( names(formals(f)) )
+			}
+		}
+	}	
+	
+	str_func <- gsub(
+		pattern = "params_", 
+		replacement = paste0(names(formals_func), collapse = ", "),
+		x = paste0(deparse(func), collapse = "\n"))
+
+	func <- eval(parse(text = str_func)) # create the function
+
+	formals(func) <- formals_func
+	environment(func) <- envir
+	func
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
