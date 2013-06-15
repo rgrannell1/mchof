@@ -65,25 +65,10 @@ mcSmaller <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) < g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) < g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) < g(params_)
+		}, f, g)
 }
 
 #' @description mcPlus takes two functions f and g, and returns a function. This new function
@@ -116,26 +101,10 @@ mcPlus <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) + g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) + g(params)
-			},
-			envir = environment())
-
-	}
+	combine_formals(
+		function () {			
+			f(params_) + g(params_)
+		}, f, g)
 }
 
 #' @description mcEqual takes two functions f and g, and returns a function. This new function
@@ -168,25 +137,10 @@ mcEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) == g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) == g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) == g(params_)
+		}, f, g)
 }
 
 #' @description mcNotEqual takes two functions f and g, and returns a function. This new function
@@ -219,25 +173,10 @@ mcNotEqual <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) != g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) != g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) != g(params_)
+		}, f, g)
 }
 
 #' @description mcMinus takes two functions f and g, and returns a function. This new function
@@ -271,25 +210,10 @@ mcMinus <- function (f, g) {
 	
 	rm(func_call)
 
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) - g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) - g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) - g(params_)
+		}, f, g)
 }
 
 #' @description mcMultiply takes two functions f and g, and returns a function. This new function
@@ -322,25 +246,10 @@ mcMultiply <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) * g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) * g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) * g(params_)
+		}, f, g)
 }
 
 #' @description mcDivide takes two functions f and g, and returns a function. This new function
@@ -373,24 +282,9 @@ mcDivide <- function (f, g) {
 	
 	rm(func_call)
 	
-	formals_composite <- match_formals(f, g)
-	
-	if (is_ellipses(formals_composite)) {
-		
-		rm (formals_composite)
-
-		function (...) {
-			f(...) / g(...)
-		}
-
-	} else {
-
-		insert_params(
-			formals = formals_composite,
-			function () {
-				f(params) / g(params)
-			},
-			envir = environment())
-	}
+	combine_formals(
+		function () {			
+			f(params_) / g(params_)
+		}, f, g)
 }
 
