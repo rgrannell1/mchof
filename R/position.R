@@ -69,7 +69,6 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 				ind <- ind + 1
 			}
 			return (integer(0))
-			
 		}
 	}
  
@@ -80,7 +79,8 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	} else {
 		group_into(seq_along(x), cores) 
 	}
-
+	print( job_indices ); stop()
+	
 	for (i in seq_along(job_indices)) {
 		
 		checked_ind <- unlist(call_mclapply(

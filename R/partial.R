@@ -50,8 +50,8 @@ mcPartial <- function (f, ...) {
 	}
 	
 	formals_f <- names(formals(f))
-	remaining_params <- formals_f[ !formals_f %in% names(applied) ]
+	unapplied <- formals_f[ !formals_f %in% names(applied) ]
 	
-	formals(applied_func) <- empty_formals(remaining_params)
+	formals(applied_func) <- empty_formals(unapplied)
 	applied_func
 }
