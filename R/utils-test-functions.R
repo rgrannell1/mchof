@@ -78,52 +78,7 @@ forall <- function (
 }
 
 
-benchmark_code <- function (tests, len = 100, times = 2) {
-	# compare the run-times of tests to controls
 
-	report_result <- function (name, multiplier) {
-		multiplier <- round(multiplier, 2)	
-	
-		messagef(
-			"%s was %s times slower than the control test",
-			name, paste(multiplier[1], "+-", multiplier[2]))
-	}
-	compare_results <- function (test, control) {
-		# calculate how many times larger x is than y,
-		# within a 95% confidence interval
-		
-		difference <-  median(test) / median(control)
-		margin <- abs(
-			( median(test) - sd(test) / median(control) + sd(control) ) /
-			( median(test) + sd(test) / median(control) - sd(control) ))
-			
-		c(difference, margin)
-	}
-	
-	timing <- Map(
-		function (test) {
-			
-			x <- seq_len(len)
-			cat("..")
-			
-			list(
-				name = test$name,
-				test = microbenchmark(
-					test$test(x),
-					times = times)$time,
-				control = microbenchmark(
-					test$control(x),
-					times = times)$time)
-		},
-		tests)
-	cat("\n")
-	Map(
-		function (test) {
-			report_result(test$name, compare_results(test$test, test$control))
-		},
-		timing)
-	invisible(timing)
-}
 
 all_equal <- function (x) {
 	length(unique(x)) == 1	

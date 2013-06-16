@@ -77,8 +77,8 @@ mcJumble <- function (f, x) {
 		messages$length_mismatch(
 			func_call, c(length(formals(f)),
 			length(x)), "formals(f)", "x")
-	
-	(length(unique(x)) != length(x)) %throws% 
+
+	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
 		
 	formals(f) <- formals(f)[c(x)]

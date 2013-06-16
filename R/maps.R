@@ -10,12 +10,12 @@
 
 mcIterateWhile <- function (p, f, x) {
 	# repeatedly apply f to x, until p of the result is true
+	
+	func_call <- "mcInterateWhile(f, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(p) %throws% messages$function_is_required(func_call, "p")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
-
-	func_call <- "mcInterateWhile(f, x, paropts = NULL)"
 
 	f <- match.fun(f)
 	p <- match.fun(p)
@@ -35,4 +35,28 @@ mcIterateWhile <- function (p, f, x) {
 		x <- f(x)
 	}
 	x
+}
+
+#' @title mcIndMap
+#' @export
+#' @keywords mcIndMap
+#'
+#' @param f 
+#' @param x 
+#' @param paropts 
+
+mcIndMap <- function (f, x, paropts) {
+	# map f across the list [ [x1_i, x1], ..., [xn_i, xn] ]
+	
+	func_call <- "mcIndMap(f, x, paropts = NULL)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+
+	f <- match.fun(f)
+
+	if (length(x) == 0) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+
+	ISSUE("finish indmap, with vector recycling")
 }

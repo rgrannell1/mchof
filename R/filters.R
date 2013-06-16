@@ -1,0 +1,153 @@
+#'
+#' @title mcFilter
+#' @aliases mcSelect
+#' 
+#' @description mcFilter extracts the elements of a vector or list for 
+#' which the function \code{f} returns \code{TRUE}.
+#' 
+#' @usage mcFilter(f, x, paropts = NULL)
+#' 
+#' mcSelect(f, x, paropts = NULL)
+#' 
+#' @export
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector.
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'    
+#' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
+#' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
+#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
+#' if necessary (see \link{mchof}).
+#' 
+#' @return returns the elements of x for which f returned true. If x is a list and no elements
+#' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
+#' vector of length(0). x = NULL always returns NULL.
+#' 
+#' @seealso see \code{\link{mcReject}} for a counterpart to this function, and
+#' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject
+#'    
+#' @example inst/examples/examples-filter.r 
+#' @keywords mcFilter mcSelect
+
+mcFilter <- function (f, x, paropts = NULL) {
+	# returns x[i] such that f(x[i]) is true
+	
+	func_call <- "mcFilter(f, x, paropts = NULL)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "g")
+	
+	f <- match.fun(f)
+	if (length(x) == 0) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
+	true_ind <- !is.na(ind) & ind
+	
+	x[true_ind]	
+}
+
+#' @export
+
+mcSelect <- mcFilter
+
+#' @title mcReject
+
+#' @description mcReject extracts the elements of a vector or list for  which the function 
+#' \code{f} returns \code{FALSE}.
+#' 
+#' @export
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector.
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+
+#' @return returns a list of elements for which f returned FALSE or NA.
+
+#' @details mcReject applies f to each element of x, coerces the result to a logical value,
+#' and returns the values for which f returns FALSE.
+#' 
+#' mcReject is more useful for filtering out NULL or NA values in a list that mcFilter,
+#' as is demonstrated in the examples below.
+#' 
+#' elements for which f returned NA are included, so that concatenating the results of mcFilter and 
+#' mcReject will give you the original set x (though unordered). The user can
+#' modify this behaviour by making sure the argument f returns TRUE is a value 
+#' is NA under coersion, as described in \link{mchof}.
+
+#' @seealso see \code{mcFilter} for a complementary function to this, and 
+#' \code{mcPartition} for a function that combines mcFilter and mcReject
+#'
+#' @example inst/examples/examples-reject.r
+
+mcReject <- function (f, x, paropts = NULL) {
+	# returns x[i] such that f(x[i]) is false
+	
+	func_call <- "mcReject(f, x, paropts = NULL)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
+	f <- match.fun(f)
+	g <- function (...) {
+		res <- as.logical(f(...))
+		!isTRUE(res)
+	}
+
+	if (length(x) == 0) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
+	true_ind <- !is.na(ind) & ind
+	
+	x[!true_ind]	
+}
+
+#' @description mcPartition returns a list of two lists; a list for which a predicate 
+#' returns true, and a list for which a predicate returns false.
+#' 
+#' @title mcPartition
+#' 
+#' @export
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector.
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'
+#' @return returns a list of two lists; the first list contains the values 
+#' for which f returned true, the other contains values that returned false or NA. 
+#' If the list of true/false elements is empty then the value of that slot is list()
+#' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
+#' NULL always returns NULL.
+#' 
+#' @seealso see \code{\link{mcReject}} for a function that 
+#' returns the values for which f returns false or NA, and
+#' \code{\link{mcFilter}} for a function that returns the values for 
+#' which f returns true.
+#'
+#' @keywords mcPartition
+#' @example inst/examples/examples-partition.r
+
+mcPartition <- function (f, x, paropts = NULL) {
+	# returns two lists; a list for which f returns 
+	# true, and a list for which f returns false
+	
+	func_call <- "mcPartition(f, x, paropts = NULL)"
+	
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	
+	f <- match.fun(f)
+	if (is.null(x)) return (NULL)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	ind <- as.logical( unlist(call_mclapply(f, x, paropts, func_call)) )
+	true_ind <- !is.na(ind) & ind
+	
+	list (x[true_ind], x[!true_ind])
+}
+

@@ -47,8 +47,7 @@ mchof_tests <- mcZipWith(
 			mcIterateWhile(
 				function (n) n != max(x),
 				function (n) n + 1,
-				0
-			)
+				0)
 		
 		},
 		mcOne = function (x) mcOne(false_func, x),

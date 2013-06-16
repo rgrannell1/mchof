@@ -141,6 +141,8 @@ mcOne <- function (f, x, paropts = NULL) {
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
 	cores <- get_cores(paropts)
+	
+	ISSUE("optimise mcone for one core")
 
 	number_true <- 0
 	job_indices <- group_into(seq_along(x), cores)
