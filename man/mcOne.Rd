@@ -15,17 +15,28 @@
 }
 \value{
   returns TRUE if f is true for one element in x, otherwise
-  it returns FALSE. If x is NULL, NULL is returned. If x is
-  an empty list or vector FALSE is returned.
+  it returns FALSE.
 }
 \description{
   mcOne checks if a predicate function f is true for
   exactly one element in the list or vector x
 }
-\details{
-  NA's obtained while applying f to x will be assumed to be
-  FALSE. the user can sidestep this behaviour easily, if
-  necessary (see \link{mchof}).
+\section{Special Cases}{
+  This function applies \code{f} to each element of
+  \code{x}, and coerces the results to a \code{TRUE} or
+  \code{FALSE} value. If an \code{NA} value is obtained
+  this is then coerced to a \code{FALSE} value. This is
+  usually the desired behaviour, but if the user wants
+  \code{NA} values to be converted to \code{TRUE} then they
+  can wrap the input function \code{f} with
+  \link{mcBoolean}.
+
+  All quantifiers return \code{NULL} when x = \code{NULL}.
+  When \code{x} is another length-zero value mcAll returns
+  \code{TRUE}, and mcOne and mcAny return \code{FALSE}. The
+  reason that mcAll returns \code{TRUE} for length-zero
+  data is for consistency with the base function
+  \code{all}.
 }
 \examples{
 
@@ -58,6 +69,10 @@ mcOne(
 
 
 
+}
+\seealso{
+  Other quantifiers: \code{\link{mcAll}},
+  \code{\link{mcAny}}
 }
 \keyword{mcOne}
 

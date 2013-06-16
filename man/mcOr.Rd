@@ -12,7 +12,7 @@
   string giving the name of such a function.}
 }
 \value{
-  returns a logical value.
+  returns a logical value (TRUE, FALSE, or NA).
 }
 \description{
   mcOr takes two functions f and g, and returns a function.

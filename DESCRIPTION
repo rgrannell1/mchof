@@ -21,7 +21,6 @@ Suggests:
     ggplot2,
     reshape2
 License: GPL-2
-OS_type: unix
 Collate:
     'call_mclapply.R'
     'filters.R'
@@ -45,4 +44,5 @@ Collate:
     'utils-formals.r'
     'utils-test-functions.R'
     'utils-test-generators.R'
-    'quantify.R'
+    'convert-na.R'
+    'quantiers.R'

@@ -53,6 +53,13 @@
   concatenated, and integers have an identity of 0 under
   addition.
 }
+\section{Special Cases}{
+  if x is a length-zero value such as NULL or integer(0),
+  or a length-one value then x is automatically returned.
+  Length-one values are returned because a binary function
+  cannot be applied to a single value, so the value is
+  presumed to be already fully "reduced".
+}
 \examples{
 
 # reduce integer operations over a list

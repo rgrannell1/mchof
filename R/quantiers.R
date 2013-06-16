@@ -4,25 +4,15 @@
 #' @description mcAny checks if a predicate function f is true for all 
 #' elements in the list or vector x
 #' 
-#' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
-#' mcAll is TRUE for list() and length zero vectors for consistency with the 
-#' base function all(). 
-#' 
 #' @name mcAll
 #' 
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#' @template quantifiers
 #'    
 #' @keywords mcAll
 #' @example inst/examples/examples-all.r
 #' 
 #' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list or vector TRUE is returned.
+#' otherwise it returns FALSE.
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -51,23 +41,15 @@ mcAll <- function (f, x, paropts = NULL) {
 #' @description mcAny checks if a predicate function f is true for one or more 
 #' elements in the list or vector x
 #' 
-#' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
-#' 
 #' @name mcAny
-#' 
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#'
+#' @template quantifiers
 #'    
 #' @keywords mcAny
 #' @example inst/examples/examples-any.r
 #'
 #' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list or vector FALSE is returned.
+#' otherwise it returns FALSE. 
 #'
 
 mcAny <- function (f, x, paropts = NULL) {
@@ -106,20 +88,12 @@ mcAny <- function (f, x, paropts = NULL) {
 #' @description mcOne checks if a predicate function f is true for exactly one 
 #' element in the list or vector x
 #' 
-#' @details NA's obtained while applying f to x will be assumed to be FALSE.
-#' the user can sidestep this behaviour easily, if necessary (see \link{mchof}).
-#' 
 #' @name mcOne
 #' 
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#' @template quantifiers
 #'
 #' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE. If x is NULL, NULL is returned. If x is an
-#' empty list or vector FALSE is returned.
+#' otherwise it returns FALSE. 
 #'
 #' @example inst/examples/examples-one.r
 #' @keywords mcOne

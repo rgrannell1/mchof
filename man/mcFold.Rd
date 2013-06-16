@@ -60,6 +60,13 @@
   concatenated, and integers have an identity of 0 under
   addition.
 }
+\section{Special Cases}{
+  when x is NULL, NULL is automatically returned (since
+  NULL falls throught all mchof functions without being
+  interperated as meaningful data). If x is a length-zero
+  value such as list() or integer(0) then first is
+  automatically returned.
+}
 \examples{
 
 # bind a list of vectors into a column

@@ -9,7 +9,7 @@
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value.
+#' @return returns a logical value (TRUE, FALSE, or NA).
 #'  
 #' @seealso see \code{\link{mcOr}}, \code{\link{mcNot}} and
 #'  \code{\link{mcXor}} for other logical functionals in mchof.
@@ -83,7 +83,7 @@ mcNot <- function (f) {
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value.
+#' @return returns a logical value (TRUE, FALSE, or NA).
 #'  
 #' @seealso see \code{\link{mcAnd}}, \code{\link{mcNot}} and \code{\link{mcXor}},
 #' for other logical functionals in mchof.
@@ -121,7 +121,7 @@ mcOr <- function (f, g) {
 #' such a function.
 #' @param g a function that returns a logical value, or a string giving the name of 
 #' such a function.
-#' @return returns a logical value.
+#' @return returns a logical value (TRUE, FALSE, or NA).
 #'  
 #' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and \code{\link{mcNot}} ,
 #' for other logical functionals in mchof.

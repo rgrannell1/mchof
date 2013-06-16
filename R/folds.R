@@ -16,6 +16,12 @@
 #' is automatically returned, as with other mchof functions. when x is a length-zero
 #' input such as integer(0) or list() \code{first} is returned.
 #' 
+#' @section Special Cases:
+#'
+#' when x is NULL, NULL is automatically returned (since NULL falls throught all mchof functions without 
+#' being interperated as meaningful data). If x is a length-zero value such as list() or integer(0) then
+#' first is automatically returned.
+#'
 #' @example inst/examples/examples-fold.r
 
 mcFold <- function (f, first, x, paropts = NULL) {
@@ -43,11 +49,16 @@ mcFold <- function (f, first, x, paropts = NULL) {
 #' @name mcReduce
 #' 
 #' @template folds
-#' 
 #'    
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x. Returns a length-zero or
 #' length-one value of x as is.
+#'
+#' @section Special Cases:
+#'
+#' if x is a length-zero value such as NULL or integer(0), or a length-one value then x is automatically returned.
+#' Length-one values are returned because a binary function cannot be applied to a single value, so the value is 
+#' presumed to be already fully "reduced".
 #'
 #' @example inst/examples/examples-reduce.r
 #' @seealso \code{\link{Reduce}}
