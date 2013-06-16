@@ -30,9 +30,12 @@ mcCompose <- function (f, g) {
 	
 	rm(func_call)
 	
-	function (...) {
-		f( g(...) )
-	}
+	combine_formals(
+		function () {
+			f(g(params_))
+		},
+		f, g
+	)
 }
 
 #' @export

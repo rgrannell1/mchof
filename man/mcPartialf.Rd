@@ -1,48 +1,58 @@
 \name{mcPartialf}
 \alias{mcPartialf}
-\title{mcPartialf}
+\title{mcPartial}
 \usage{
   mcPartialf(f, ...)
 }
 \arguments{
-  \item{f}{a function with no variadic (...) or primitive
-  arguments, or a string giving the name of such a
+  \item{f}{a function, or a string giving the name of a
   function.}
 
   \item{...}{name = value pairs to apply to f.}
 }
 \value{
-  returns a partially applied version of f, with modified
-  formals.
+  returns a partially applied function with ellipsis (...)
+  formals
 }
 \description{
-  mcPartialf ttransforms a function that takes multiple
+  mcPartial transforms a function that takes multiple
   arguments into a function that takes less arguments by
   partially applying the function with the arguments
-  supplied.This function differs from mcPartial in that it
-  alters the formals of its return function rather than
-  using ellipses (...).
+  supplied.
 }
 \details{
-  mcPartialf is superficially similar to mcPartial, but it
-  differs in the kind of function that it returns.
-  mcPartialf modifies the formals parameters of f, rather
-  than just setting the formals of f to ellipses (...).
-  This allows other functionals to modify the formals of an
-  mcPartialf'd function, but not one modified by mcPartial.
+  mcPartial returns a partially applied function; an
+  example of a partially applied function is
 
-  The downside to this implementation is that functions
-  with variadic arguments (...) or primitive arguments
-  (base function such as plus) do not work well with
-  mcPartialf.
+  f(x,y) 2x + y -> f(x) 2x + 2
 }
 \examples{
 
+sentence <- mcCurry(paste, collapse = " ")
+sentence(c("this", "is", "a", "curried", "function"))
+
+# increment a list 1..10 with curried plus function
+
+plus <- function (a, b) {
+	# + doesn't actually have formal arguments, so 
+	# this is necessary
+	
+	a + b
+}
+increment <- mcCurry(plus, a = 1)
+
+Map("increment", 1:10)
+
+## find every email in a vector
+
+is_email <- mcCurry(grepl, pattern = "[^@]+[@][^.]+[.].+")
+
+mcSelect(is_email, c("hi@gmail.com", "cran@cran.cran", "not email"))
 }
 \seealso{
-  see \code{\link{mcPartial}} for a partial application
-  function that works with variadic and primitive formal
-  parameters.
+  see \code{\link{mcPartialf}} for a partial application
+  function that operates on the formals of f and performs
+  input validation.
 }
-\keyword{mcPartialf}
+\keyword{mcPartial}
 

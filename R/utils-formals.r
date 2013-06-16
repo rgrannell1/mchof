@@ -6,8 +6,7 @@ formal_names_equal <- function (f, g) {
 	# are formals names of f equal to the formal names of g?
 	
 	formals <- list(
-		f = names(formals(f)),
-		g = names(formals(g)) )
+		f = names(formals(f)), g = names(formals(g)) )
 	
 	if (length(formals$f) != length(formals$g)) return (FALSE)
 	
@@ -18,8 +17,7 @@ formal_defaults_equal <- function (f, g) {
 	# are formals names of f equal to the formal names of g?
 	
 	formals <- list(
-		f = unname(formals(f)),
-		g = unname(formals(g)))
+		f = unname(formals(f)), g = unname(formals(g)))
 	
 	identical(formals$f, formals$g)
 }
@@ -36,6 +34,33 @@ formals_equal <- function (f, g) {
 	identical(unname(formals$f), unname(formals$g))
 }
 
+arg_names_equal <- function (f, g) {
+	# are the argument names of f the same as those of g?
+
+	arg_names <- list(
+		f = names( head(as.list(args(f)), -1) ),
+		g = names( head(as.list(args(g)), -1) )
+	)
+
+	if (length(arg_names$f) != length(arg_names$g)) {
+		return (FALSE)
+	}
+
+	all(arg_names$f == arg_names$g)
+}
+
+arg_defaults_equal <- function (f, g) {
+	# are the default values of f and g identical?
+
+	arg_defaults <- list(
+		f = unname( head(as.list(args(f)), -1) ),
+		g = unname( head(as.list(args(g)), -1) )
+	)
+
+	identical(arg_defaults$f, arg_defaults$g)
+
+}
+
 is_ellipses <- function (formals) {
 	identical(formals, formals( function (...) NULL ))
 }
@@ -50,29 +75,20 @@ empty_formals <- function (names) {
 		names = names)
 }
 
-insert_params <- function (formals, func, envir = parent.frame()) {
-	# don't judge, eval parse is much less
-	# error prone than fiddling with envirnoments. simple is best.
-	# internal inputs are guaranteed to be synactically correct, 
-	# so there isn't much to worry about.
-
-	str_func <- gsub(
-		pattern = "params", 
-		replacement = paste0(names(formals), collapse = ", "),
-		x = deparse(func))
-
-	func <- eval(parse(text = str_func))
-	formals(func) <- formals
-	environment(func) <- envir
-	func
-}
-
 combine_formals <- function (func, f, g = f, envir = parent.frame()) {
 	# try to add the most useful formals to 
 	# func possible, by preserving the formals of f and g
 	
 	formals_func <- if (is.primitive(f) || is.primitive(g)) {
-		formals( function (...) NULL )
+
+		if (arg_names_equal(f, g)) {
+			if (arg_defaults_equal(f, g)) {
+				head( as.list(args(f)), -1 )
+			} else {
+				empty_formals( head( as.list(args(g)), -1) )
+			}
+		}
+
 	} else {
 		if (formal_names_equal(f, g)) {
 			if (formal_defaults_equal(f, g)) formals(f) else {
@@ -92,21 +108,4 @@ combine_formals <- function (func, f, g = f, envir = parent.frame()) {
 	environment(func) <- envir
 	func
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

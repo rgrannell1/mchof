@@ -11,7 +11,8 @@ options(forall_time = NULL)
 
 ISSUE("need to avoid contamination")
 ISSUE("check blank examples")
+ISSUE("check no deleted docs included")
+ISSUE("use args as a fallback for primitive functions")
 
-ISSUE("finish refactoring factor creation")
 
 # pluck list() and A(0)

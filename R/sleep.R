@@ -27,9 +27,10 @@ mcSleep <- function (f, n) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	(!is.numeric(n)) %throws% messages$not_a_number(func_call, n, "n")
 	
-	f <- match.fun(f)
-	function (...) {
-		Sys.sleep(time = n)
-		f(...)
-	}
+	f <- match.fun(f)	
+	combine_formals(
+		function (...) {
+			Sys.sleep(time = n)
+			f(params_)
+		}, f)
 }

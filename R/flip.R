@@ -42,15 +42,15 @@ mcFlip <- function (f) {
 #' "+". mcJumble preserves the default arguments of f.
 #' 
 #' the vector x determines how the formals of f will be permuted. For example,
-#' if \code{x = c(3,1,2), f = function (a, b, c) sum(a, b, c)} the new formals 
+#' if \code{x = c(3, 1, 2), f = function (a, b, c) sum(a, b, c)} the new formals 
 #' are c, a, b; the 3rd element in formals, the 1st element in formals and the 
-#' 2nd element in formals.
+#' 2nd element in formals. The vector x defines a mapping between 
 #'  
 #' @name mcJumble
 #' 
 #' @param f a function with normal parameters and/or ellipses (...).
-#' @param a vector x that is the same length as the formal parameters of x and contains
-#' all the numbers 1, 2, ..., length(formals). This vector determines how the 
+#' @param x a vector that is the same length as the formal parameters of x and contains
+#' all the integers 1, 2, ..., length(formals). This vector determines how the 
 #' formals of f will be permuted (see details).
 #'
 #' @return returns f with its formal parameters permuted by x.
