@@ -104,6 +104,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 		function (test) {
 			
 			x <- seq_len(len)
+			cat("..")
 			
 			list(
 				name = test$name,
@@ -115,7 +116,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 					times = times)$time)
 		},
 		tests)
-	
+	cat("\n")
 	Map(
 		function (test) {
 			report_result(test$name, compare_results(test$test, test$control))
