@@ -44,7 +44,6 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcSmaller**:
 * **mcXor**:
 * **mcPartial**:
-* **mcPartialf**:
 * **mcSleep**:
 * **mcFlip**:
 * **mcJumble**:

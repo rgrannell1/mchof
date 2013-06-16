@@ -15,9 +15,6 @@
 #' 
 #' f(x,y) 2x + y -> f(x) 2x + 2 
 #' 
-#' @seealso see \code{\link{mcPartialf}} for a partial application function that 
-#' operates on the formals of f and performs input validation.
-#' 
 #' @keywords mcPartial
 #' @example inst/examples/examples-partial.r
 
@@ -25,7 +22,7 @@ mcPartial <- function (f, ...) {
 	# take f and fill in some of its arguments, return a function 
 	# with less formals
 	
-	func_call <- "mcPartialf(f, ...)"
+	func_call <- "mcPartial(f, ...)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
@@ -37,8 +34,8 @@ mcPartial <- function (f, ...) {
 		names(added)[ duplicated(names(added)) ],
 		collapse = ", ")
 	
-	("..." %in% formals_f) %throws% messages$formals_has_ellipses(
-		func_call, formals_f, "f")
+	("..." %in% formals_f) %throws% 
+		messages$formals_has_ellipses(func_call, formals_f, "f")
 
 	(length( which(names(added) != "") ) < length(added)) %throws% 
 		messages$not_all_named(func_call, added, "...")

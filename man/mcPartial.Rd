@@ -28,7 +28,7 @@
 }
 \examples{
 
-sentence <- mcCurry(paste, collapse = " ")
+sentence <- mcPartial(paste, collapse = " ")
 sentence(c("this", "is", "a", "curried", "function"))
 
 # increment a list 1..10 with curried plus function
@@ -39,13 +39,13 @@ plus <- function (a, b) {
 	
 	a + b
 }
-increment <- mcCurry(plus, a = 1)
+increment <- mcPartial(plus, a = 1)
 
 Map("increment", 1:10)
 
 ## find every email in a vector
 
-is_email <- mcCurry(grepl, pattern = "[^@]+[@][^.]+[.].+")
+is_email <- mcPartial(grepl, pattern = "[^@]+[@][^.]+[.].+")
 
 mcSelect(is_email, c("hi@gmail.com", "cran@cran.cran", "not email"))
 }

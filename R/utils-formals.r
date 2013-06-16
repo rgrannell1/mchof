@@ -80,6 +80,7 @@ combine_formals <- function (func, f, g = f, envir = parent.frame()) {
 	# func possible, by preserving the formals of f and g
 	
 	formals_func <- if (is.primitive(f) || is.primitive(g)) {
+		# use the less rigourous args function
 
 		if (arg_names_equal(f, g)) {
 			if (arg_defaults_equal(f, g)) {
@@ -90,6 +91,8 @@ combine_formals <- function (func, f, g = f, envir = parent.frame()) {
 		}
 
 	} else {
+		# use formals
+
 		if (formal_names_equal(f, g)) {
 			if (formal_defaults_equal(f, g)) formals(f) else {
 				empty_formals( names(formals(f)) )
