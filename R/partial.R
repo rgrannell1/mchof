@@ -48,9 +48,8 @@ mcPartial <- function (f, ...) {
 	ISSUE("partial not working")
 
 	g <- function () {
-		do.call(
-			what = f,
-			args = c(added, as.list(match.call())[-1]) )
+
+		do.call(f, c(added, as.list(match.call())[-1]) )
 	}
 	
 	formals_f <- names(formals(f))
