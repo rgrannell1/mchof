@@ -48,7 +48,6 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 	
 	invisible(timing)
 }
-
 	
 visualise_benchmark <- function (data) {
 	# plot the distribution of results for the control

@@ -33,6 +33,10 @@
   will be assumed to be FALSE. the user can sidestep this
   behaviour easily, if necessary (see \link{mchof}).
 }
+\section{Special Cases}{
+  when x is a length-zero value such as NULL or list(),
+  that value is automatically returned.
+}
 \examples{
 # remove NA values from a vector 
 

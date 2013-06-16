@@ -37,6 +37,10 @@
   returns TRUE is a value is NA under coersion, as
   described in \link{mchof}.
 }
+\section{Special Cases}{
+  when x is a length-zero value such as NULL or list(),
+  that value is automatically returned.
+}
 \examples{
 # remove NA values from a vector 
 

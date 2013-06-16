@@ -20,6 +20,10 @@
 #' @return returns the elements of x for which f returned true. If x is a list and no elements
 #' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
 #' vector of length(0). x = NULL always returns NULL.
+#'
+#' @section Special Cases:
+#'
+#' when x is a length-zero value such as NULL or list(), that value is automatically returned.
 #'     
 #' @example inst/examples/examples-filter.r 
 #' @keywords mcFilter mcSelect
@@ -66,6 +70,10 @@ mcSelect <- mcFilter
 #' modify this behaviour by making sure the argument f returns TRUE is a value 
 #' is NA under coersion, as described in \link{mchof}.
 #'
+#' @section Special Cases:
+#'
+#' when x is a length-zero value such as NULL or list(), that value is automatically returned.
+#'
 #' @example inst/examples/examples-reject.r
 
 mcReject <- function (f, x, paropts = NULL) {
@@ -104,6 +112,13 @@ mcReject <- function (f, x, paropts = NULL) {
 #' If the list of true/false elements is empty then the value of that slot is list()
 #' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
 #' NULL always returns NULL.
+#'
+#' @section Special Cases:
+#'
+#' when x is NULL, NULL is returned. If x is a length(0) vector or list,
+#' then a list of length two containing that empty value is returned. For example:
+#' 
+#' list() |-> list( list(), list() )
 #'
 #' @keywords mcPartition
 #' @example inst/examples/examples-partition.r

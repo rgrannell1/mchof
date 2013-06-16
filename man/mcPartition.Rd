@@ -27,6 +27,13 @@
   a predicate returns true, and a list for which a
   predicate returns false.
 }
+\section{Special Cases}{
+  when x is NULL, NULL is returned. If x is a length(0)
+  vector or list, then a list of length two containing that
+  empty value is returned. For example:
+
+  list() |-> list( list(), list() )
+}
 \examples{
 # partition a set into even and odd numbers
 

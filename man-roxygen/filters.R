@@ -5,4 +5,6 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
+#'
+#'
 #' @family filters
