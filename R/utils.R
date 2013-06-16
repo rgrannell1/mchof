@@ -6,6 +6,13 @@ is_integer0 <- function (x) {
 	is.integer(x) && length(x) == 0
 }
 
+any_unnamed <- function (x) {
+	any(x == "")
+}
+any_duplicated <- function (x) {
+	any(duplicated(x))
+}
+
 type_identity <- function (x) {
 	stopifnot(is.vector(x))
 

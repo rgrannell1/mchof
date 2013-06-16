@@ -26,35 +26,32 @@ mcPartial <- function (f, ...) {
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	
+	ISSUE("partial is very broken")
+	
 	f <- match.fun(f)
-	added <- list(...)
+	applied <- list(...)
 	
 	formals_f <- names(formals(f))
-	duplicated_names <- paste0(
-		names(added)[ duplicated(names(added)) ],
-		collapse = ", ")
 	
 	("..." %in% formals_f) %throws% 
 		messages$formals_has_ellipses(func_call, formals_f, "f")
-
-	(length( which(names(added) != "") ) < length(added)) %throws% 
-		messages$not_all_named(func_call, added, "...")
 	
-	(length(unique(names(added))) != length(added)) %throws% 
-		messages$matched_muliple_times(func_call, duplicated_names, "...")
+	( any_unnamed(names(applied)) ) %throws% 
+		messages$not_all_named(func_call, applied, "...")
 	
-	rm(formals_f, func_call, duplicated_names)
-	
-	ISSUE("partial not working")
+	( any_duplicated(names(applied)) ) %throws% 
+		messages$matched_muliple_times(func_call, applied, "...")
 
-	g <- function () {
+	rm(formals_f, func_call)
 
-		do.call(f, c(added, as.list(match.call())[-1]) )
+	applied_func <- function () {
+
+		do.call(f, c(applied, as.list(match.call())[-1]) )
 	}
 	
 	formals_f <- names(formals(f))
-	formal_names_g <- formals_f[ !formals_f %in% names(added) ]
+	remaining_params <- formals_f[ !formals_f %in% names(applied) ]
 	
-	formals(g) <- empty_formals(formal_names_g)
-	g
+	formals(applied_func) <- empty_formals(remaining_params)
+	applied_func
 }

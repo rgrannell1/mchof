@@ -73,6 +73,8 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 		}
 	}
  
+	ISSUE ("can fix inefficiency in position with repeat loop")
+	
 	job_indices <- if (right) {
 		rev(group_into(seq_along(x), cores))
 	} else {

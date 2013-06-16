@@ -33,7 +33,7 @@ mcAnd <- function (f, g) {
 	
 	combine_formals(
 		function () {
-			f(formals) && g(formals)
+			f(params_) && g(params_)
 		},
 		f, g
 	)
@@ -69,7 +69,7 @@ mcNot <- function (f) {
 	
 	combine_formals(
 		function () {
-			!f(formals)
+			!f(params_)
 		}, f)
 }
 
@@ -107,7 +107,7 @@ mcOr <- function (f, g) {
 
 	combine_formals(
 		function () {
-			f(formals) || g(formals)
+			f(params_) || g(params_)
 		}, f, g)
 }
 
@@ -144,6 +144,6 @@ mcXor <- function (f, g) {
 	
 	combine_formals(
 		function () {
-			xor( f(formals), g(formals) ) 
+			xor( f(params_), g(params_) ) 
 		}, f, g)
 }
