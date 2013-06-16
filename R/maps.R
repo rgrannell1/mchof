@@ -5,7 +5,7 @@
 #'
 #' @param p a function that takes an element of code{{f(x), f(f(x)), f(f(f(x))), ...}} and returns a TRUE/FALSE value
 #' @param f a function that is repeatedly applied to \code{x, f(x), f(f(x)), ...}
-#' @param x an initial vector/list to apply f to.
+#' @param x an initial vector/list to apply f to repeatedly.
 #'
 
 mcIterateWhile <- function (p, f, x) {

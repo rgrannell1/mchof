@@ -37,9 +37,6 @@ mcUnzip(
 		c('silicon', 'chip')
 ))
 }
-\author{
-  Ryan Grannell
-}
 \seealso{
   see \code{\link{mcZip}} for the inverse of this function,
   \code{\link{mcUnzipWith}} for a more general version of

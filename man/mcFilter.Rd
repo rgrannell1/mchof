@@ -73,9 +73,8 @@ mcFilter(
 )
 }
 \seealso{
-  see \code{\link{mcReject}} for a counterpart to this
-  function, and \code{\link{mcPartition}} for a function
-  that combines mcFilter and mcReject
+  Other filter.functions: \code{\link{mcPartition}},
+  \code{\link{mcReject}}
 }
 \keyword{mcFilter}
 \keyword{mcSelect}

@@ -10,11 +10,7 @@
 #' mcSelect(f, x, paropts = NULL)
 #' 
 #' @export
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#' @template filters
 #'    
 #' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
 #' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
@@ -24,10 +20,7 @@
 #' @return returns the elements of x for which f returned true. If x is a list and no elements
 #' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
 #' vector of length(0). x = NULL always returns NULL.
-#' 
-#' @seealso see \code{\link{mcReject}} for a counterpart to this function, and
-#' \code{\link{mcPartition}} for a function that combines mcFilter and mcReject
-#'    
+#'     
 #' @example inst/examples/examples-filter.r 
 #' @keywords mcFilter mcSelect
 
@@ -59,14 +52,9 @@ mcSelect <- mcFilter
 #' \code{f} returns \code{FALSE}.
 #' 
 #' @export
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
-
+#' @template filters
 #' @return returns a list of elements for which f returned FALSE or NA.
-
+#'
 #' @details mcReject applies f to each element of x, coerces the result to a logical value,
 #' and returns the values for which f returns FALSE.
 #' 
@@ -77,9 +65,6 @@ mcSelect <- mcFilter
 #' mcReject will give you the original set x (though unordered). The user can
 #' modify this behaviour by making sure the argument f returns TRUE is a value 
 #' is NA under coersion, as described in \link{mchof}.
-
-#' @seealso see \code{mcFilter} for a complementary function to this, and 
-#' \code{mcPartition} for a function that combines mcFilter and mcReject
 #'
 #' @example inst/examples/examples-reject.r
 
@@ -112,22 +97,13 @@ mcReject <- function (f, x, paropts = NULL) {
 #' @title mcPartition
 #' 
 #' @export
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#' @template filters
 #'
 #' @return returns a list of two lists; the first list contains the values 
 #' for which f returned true, the other contains values that returned false or NA. 
 #' If the list of true/false elements is empty then the value of that slot is list()
 #' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
 #' NULL always returns NULL.
-#' 
-#' @seealso see \code{\link{mcReject}} for a function that 
-#' returns the values for which f returns false or NA, and
-#' \code{\link{mcFilter}} for a function that returns the values for 
-#' which f returns true.
 #'
 #' @keywords mcPartition
 #' @example inst/examples/examples-partition.r

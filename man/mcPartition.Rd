@@ -48,10 +48,8 @@ mcPartition(
 )
 }
 \seealso{
-  see \code{\link{mcReject}} for a function that returns
-  the values for which f returns false or NA, and
-  \code{\link{mcFilter}} for a function that returns the
-  values for which f returns true.
+  Other filter.functions: \code{\link{mcFilter}},
+  \code{\link{mcReject}}
 }
 \keyword{mcPartition}
 

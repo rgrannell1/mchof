@@ -183,7 +183,6 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' mcUnzip (mcZip (x)) |-> x
 #' 
 #' @title mcUnzip
-#' @author Ryan Grannell
 #' 
 #' @export
 #' @param x a list of lists or vectors

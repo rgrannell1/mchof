@@ -14,5 +14,6 @@ ISSUE("check blank examples")
 ISSUE("check no deleted docs included")
 ISSUE("fix partial")
 ISSUE("add type-checking to math and logical functions")
+ISSUE("add families to all functions")
 
 # pluck list() and A(0)

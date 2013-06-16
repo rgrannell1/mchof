@@ -72,8 +72,7 @@ mcReject(
 )
 }
 \seealso{
-  see \code{mcFilter} for a complementary function to this,
-  and \code{mcPartition} for a function that combines
-  mcFilter and mcReject
+  Other filter.functions: \code{\link{mcFilter}},
+  \code{\link{mcPartition}}
 }
 

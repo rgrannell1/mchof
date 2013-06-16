@@ -12,7 +12,8 @@
   \item{f}{a function that is repeatedly applied to
   \code{x, f(x), f(f(x)), ...}}
 
-  \item{x}{an initial vector/list to apply f to.}
+  \item{x}{an initial vector/list to apply f to
+  repeatedly.}
 }
 \description{
   mcIterateWhile

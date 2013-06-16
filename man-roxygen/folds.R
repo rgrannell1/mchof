@@ -1,3 +1,8 @@
+#' @param f a binary function that takes two of "a thing" and returns one of a "thing".
+#' @param x a list or vector.
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'
 #' @details this function can be used as a parallel alternative to foldl or reducel if
 #' and only if the function f is associative; that is
 #'
@@ -13,7 +18,7 @@
 #' or reduced in parallel. 
 #' 
 #' Formally the combination of an associative binary operator,
-#' an identity element (first) and a set (x) is known as a monoid; the function f
+#' an identity element for that operator and a set (x) is known as a monoid; the function f
 #' has a type signature of [A] -> [A] -> [A]. A likely source of errors when using mcFold
 #' or mcReduce is using a function without this type signature (ie. a function that
 #' takes two of a thing, and returns one of a thing).
@@ -21,3 +26,5 @@
 #' with mcFold it is often useful to use the identity of f as first, as it can make it 
 #' possible to simplify f. For example, lists have an identity element of list()
 #' when concatenated, and integers have an identity of 0 under addition. 
+#'
+#' @family folds

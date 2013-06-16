@@ -8,12 +8,12 @@
   \item{f}{a binary function that takes two of "a thing"
   and returns one of a "thing".}
 
-  \item{first}{an initial value to be prepended to x}
-
-  \item{x}{a vector or list}
+  \item{x}{a list or vector.}
 
   \item{paropts}{a list of parameters to be handed to
   mclapply (see \link{mchof}).}
+
+  \item{first}{an initial value to be prepended to x}
 }
 \value{
   returns the result of x1 f x2 f x3 f x4 f ... xn, the
@@ -47,12 +47,12 @@
   parallel.
 
   Formally the combination of an associative binary
-  operator, an identity element (first) and a set (x) is
-  known as a monoid; the function f has a type signature of
-  [A] -> [A] -> [A]. A likely source of errors when using
-  mcFold or mcReduce is using a function without this type
-  signature (ie. a function that takes two of a thing, and
-  returns one of a thing).
+  operator, an identity element for that operator and a set
+  (x) is known as a monoid; the function f has a type
+  signature of [A] -> [A] -> [A]. A likely source of errors
+  when using mcFold or mcReduce is using a function without
+  this type signature (ie. a function that takes two of a
+  thing, and returns one of a thing).
 
   with mcFold it is often useful to use the identity of f
   as first, as it can make it possible to simplify f. For
