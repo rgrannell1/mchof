@@ -21,8 +21,7 @@
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #' 
-#' @seealso see \code{\link{mcZip}} for a varient of this function
-#'     and \code{\link{mcUnzipWith}} for the inverse of this function.
+#' @template zips
 #' @keywords mcZipWith
 #' @example inst/examples/examples-zipwith.r
 
@@ -96,7 +95,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' @seealso see \code{\link{mcUnzip}} for the inverse of 
 #'     this function, and \code{\link{mcZipWith}} for a more general version 
 #'     of this function.
-#' 
+#'
+#' @template zips
 #' @keywords mcZip
 #' @example inst/examples/examples-zip.r
 
@@ -127,11 +127,8 @@ mcZip <- function(..., paropts = NULL) {
 #' 
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
-#' 
-#' @seealso see \code{\link{mcZipWith}} for the inverse of 
-#' this function and \code{\link{mcUnzip}} for a shorthand variant of this function with
-#' f set to identity.
-#' 
+#'
+#' @template zips
 #' @keywords mcUnzipWith
 #' @example inst/examples/examples-unzipwith.r
 
@@ -196,9 +193,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #' 
-#' @seealso see \code{\link{mcZip}} for the inverse of this function, 
-#' \code{\link{mcUnzipWith}} for a more general version of this function.
-#'    
+#' @template zips  
 #' @keywords mcUnzip
 #' @example inst/examples/examples-unzip.r
 

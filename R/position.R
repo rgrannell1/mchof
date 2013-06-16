@@ -40,7 +40,7 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
-	
+
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
@@ -77,7 +77,6 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	} else {
 		group_into(seq_along(x), cores) 
 	}
-	print( job_indices ); stop()
 	
 	for (i in seq_along(job_indices)) {
 		

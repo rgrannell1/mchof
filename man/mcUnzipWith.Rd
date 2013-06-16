@@ -69,9 +69,8 @@ mcUnzipWith(
 ))
 }
 \seealso{
-  see \code{\link{mcZipWith}} for the inverse of this
-  function and \code{\link{mcUnzip}} for a shorthand
-  variant of this function with f set to identity.
+  Other zips: \code{\link{mcUnzip}}, \code{\link{mcZip}},
+  \code{\link{mcZipWith}}
 }
 \keyword{mcUnzipWith}
 

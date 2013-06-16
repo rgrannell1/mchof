@@ -29,7 +29,6 @@ Collate:
     'logic.R'
     'position.R'
     'zips.R'
-    'quantify.R'
     'folds.R'
     'flip.R'
     'maps.R'
@@ -46,3 +45,4 @@ Collate:
     'utils-formals.r'
     'utils-test-functions.R'
     'utils-test-generators.R'
+    'quantify.R'

@@ -86,4 +86,7 @@ fourth_power( t(matrix(1:4, 2, 2)) )
 
 
 }
+\seealso{
+  Other folds: \code{\link{mcReduce}}
+}
 

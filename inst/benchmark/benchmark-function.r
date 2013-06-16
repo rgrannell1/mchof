@@ -54,6 +54,9 @@ visualise_benchmark <- function (data) {
 	# plot the distribution of results for the control
 	# and test times
 
+	require(reshape)
+	require(ggplot2)
+
 	molten <- structure(Map(
 		function(x) {
 			melt(data.frame(

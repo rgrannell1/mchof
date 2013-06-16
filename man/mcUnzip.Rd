@@ -38,9 +38,8 @@ mcUnzip(
 ))
 }
 \seealso{
-  see \code{\link{mcZip}} for the inverse of this function,
-  \code{\link{mcUnzipWith}} for a more general version of
-  this function.
+  Other zips: \code{\link{mcUnzipWith}},
+  \code{\link{mcZip}}, \code{\link{mcZipWith}}
 }
 \keyword{mcUnzip}
 

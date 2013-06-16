@@ -85,6 +85,8 @@ mcReduce(
 }
 \seealso{
   \code{\link{Reduce}}
+
+  Other folds: \code{\link{mcFold}}
 }
 \keyword{mcReduce}
 

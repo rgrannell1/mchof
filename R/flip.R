@@ -26,6 +26,8 @@ mcFlip <- function (f) {
 	f <- match.fun(f)
 	if (length(formals(f)) < 2) return (f)
 
+	ISSUE("flip need to support primitives")
+
 	formals(f) <- rev(formals(f))
 	f
 }

@@ -87,9 +87,8 @@ mcZipWith (
 )
 }
 \seealso{
-  see \code{\link{mcZip}} for a varient of this function
-  and \code{\link{mcUnzipWith}} for the inverse of this
-  function.
+  Other zips: \code{\link{mcUnzip}},
+  \code{\link{mcUnzipWith}}, \code{\link{mcZip}}
 }
 \keyword{mcZipWith}
 

@@ -48,7 +48,7 @@ mcPartition(
 )
 }
 \seealso{
-  Other filter.functions: \code{\link{mcFilter}},
+  Other filters: \code{\link{mcFilter}},
   \code{\link{mcReject}}
 }
 \keyword{mcPartition}

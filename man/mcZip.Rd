@@ -51,6 +51,9 @@ mcZip(1:10,letters[1:4])
   see \code{\link{mcUnzip}} for the inverse of this
   function, and \code{\link{mcZipWith}} for a more general
   version of this function.
+
+  Other zips: \code{\link{mcUnzip}},
+  \code{\link{mcUnzipWith}}, \code{\link{mcZipWith}}
 }
 \keyword{mcZip}
 

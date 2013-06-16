@@ -19,10 +19,9 @@
   function. This new function returns f(...) + g(...)
 }
 \details{
-  This function works hard to try preserve the formals
-  arguments of its input functions in the composite output
-  function. There are ways in which formals might be
-  outputted
+  This function tries preserve the formals arguments of its
+  input functions in the composite output function. There
+  are ways three ways in which formals might be outputted
 
   1, If the function f and g have the same parameter names
   and the same default arguments - in the same order - then
@@ -38,8 +37,9 @@
   shuffled then the output function uses ellipses for as
   parameters.
 
-  if any of the input function are primitive (such as '+')
-  then the output function uses ellipses for parameters.
+  primitive functions (such as "+") are supported by mchof,
+  and their arguments are processed in a similar way to
+  those of closure functions.
 }
 \examples{
 

@@ -142,9 +142,8 @@ mcOne <- function (f, x, paropts = NULL) {
 
 	cores <- get_cores(paropts)
 	
-	ISSUE("optimise mcone for one core")
-
 	number_true <- 0
+
 	job_indices <- group_into(seq_along(x), cores)
 
 	for (i in seq_along(job_indices)) {

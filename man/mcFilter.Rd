@@ -73,7 +73,7 @@ mcFilter(
 )
 }
 \seealso{
-  Other filter.functions: \code{\link{mcPartition}},
+  Other filters: \code{\link{mcPartition}},
   \code{\link{mcReject}}
 }
 \keyword{mcFilter}
