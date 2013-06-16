@@ -139,15 +139,13 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 	
-	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	first_match <- mcPosition (f, x, right, paropts)
 	
-	if (length(first_match) > 0) {
+	if (!is_integer0(first_match)) {
 		x[[first_match]]
-	}
-	else integer(0)
+	} else integer(0)
 }
 

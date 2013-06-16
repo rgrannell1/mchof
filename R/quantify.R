@@ -34,7 +34,7 @@ mcAll <- function (f, x, paropts = NULL) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 		
 	f <- match.fun(f)
-	if (is.null(x)) return (x)
+	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (TRUE)
 
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")

@@ -37,7 +37,6 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 	
 	f <- match.fun(f)
-	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (list())
 
 	sublist_info <- sapply(x, function (elem) {

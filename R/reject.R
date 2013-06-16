@@ -43,7 +43,6 @@ mcReject <- function (f, x, paropts = NULL) {
 		!isTRUE(res)
 	}
 
-	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	

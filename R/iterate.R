@@ -20,7 +20,6 @@ mcIterateWhile <- function (p, f, x) {
 	f <- match.fun(f)
 	p <- match.fun(p)
 
-	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 

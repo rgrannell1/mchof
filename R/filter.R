@@ -40,7 +40,6 @@ mcFilter <- function (f, x, paropts = NULL) {
 	missing(x) %throws% messages$vector_is_required(func_call, "g")
 	
 	f <- match.fun(f)
-	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
