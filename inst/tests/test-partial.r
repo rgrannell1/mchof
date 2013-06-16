@@ -12,9 +12,6 @@ forall(info = "partial application a binary to unary function works",
 	function (a_, b_, operator_) {
 	
 		operator <- function (x, y) get(operator_)(x, y)
-
-		print(operator)
-
 		
 		g <- mcPartial(operator, x = a_)
 		g(b_) == get(operator_)(a_, b_)

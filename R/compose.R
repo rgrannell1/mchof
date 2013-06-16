@@ -9,13 +9,15 @@
 #' 
 #' f %of% g
 #' 
-#' @export
 #' @param f a function, or a string giving the name of a function.
 #' @param g a function, or a string giving the name of a function.
-#' @return returns a function that returns f(g(...))
+#' @return returns a composed function that inputs arguments, applies g to these
+#' arguments and then applies f to the result of that computation.
 #' 
+#' @template roxygen-formals
 #' @keywords mcCompose
 #' @example inst/examples/examples-compose.r
+#' @export
 
 mcCompose <- function (f, g) {
 	# return a composite function f o g
@@ -32,8 +34,9 @@ mcCompose <- function (f, g) {
 	
 	combine_formals(
 		function () {
+
 			f(g(params_))
-		},
+		}, 
 		f, g
 	)
 }

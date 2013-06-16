@@ -1,18 +1,17 @@
 #' @title mcAll
 #' 
-#' @export
 #' @description mcAny checks if a predicate function f is true for all 
 #' elements in the list or vector x
 #' 
-#' @name mcAll
 #' 
-#' @template quantifiers
+#' @template roxygen-quantifiers
 #'    
 #' @keywords mcAll
 #' @example inst/examples/examples-all.r
 #' 
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE.
+#' @export
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -37,20 +36,19 @@ mcAll <- function (f, x, paropts = NULL) {
 
 #' @title mcAny
 #' 
-#' @export
 #' @description mcAny checks if a predicate function f is true for one or more 
 #' elements in the list or vector x
 #' 
-#' @name mcAny
 #'
-#' @template quantifiers
+#' @template roxygen-quantifiers
 #'    
 #' @keywords mcAny
 #' @example inst/examples/examples-any.r
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. 
-#'
+#' @export
+
 
 mcAny <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -84,20 +82,18 @@ mcAny <- function (f, x, paropts = NULL) {
 
 #' @title mcOne
 #' 
-#' @export
 #' @description mcOne checks if a predicate function f is true for exactly one 
 #' element in the list or vector x
 #' 
-#' @name mcOne
 #' 
-#' @template quantifiers
+#' @template roxygen-quantifiers
 #'
 #' @return returns TRUE if f is true for one element in x, 
 #' otherwise it returns FALSE. 
 #'
 #' @example inst/examples/examples-one.r
 #' @keywords mcOne
-#' 
+#' @export
 
 mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true

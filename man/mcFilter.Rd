@@ -6,6 +6,15 @@
   mcFilter(f, x, paropts = NULL)
 
   mcSelect(f, x, paropts = NULL)
+
+  This function applies \code{f} to each element of
+    \code{x}, and coerces the results to a \code{TRUE} or
+    \code{FALSE} value. If an \code{NA} value is obtained
+    this is then coerced to a \code{FALSE} value. This is
+    usually the desired behaviour, but if the user wants
+    \code{NA} values to be converted to \code{TRUE} then
+    they can wrap the input function \code{f} with
+    \link{mcBoolean}.
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,
@@ -25,13 +34,6 @@
 \description{
   mcFilter extracts the elements of a vector or list for
   which the function \code{f} returns \code{TRUE}.
-}
-\details{
-  mcFilter applies f to each element of x, coerces the
-  result to a logical value, and returns the values for
-  which f returns TRUE. NA's obtained while applying f to x
-  will be assumed to be FALSE. the user can sidestep this
-  behaviour easily, if necessary (see \link{mchof}).
 }
 \section{Special Cases}{
   when x is a length-zero value such as NULL or list(),

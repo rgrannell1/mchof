@@ -1,4 +1,6 @@
 
+context("group utilities: normal cases")
+
 forall(info = "group_into groups properly",
 	list(
 		x_ = r_seq_len(),

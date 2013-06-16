@@ -1,12 +1,12 @@
 
 #' @title mcIterateWhile
-#' @export
-#' @keywords mcIterateWhile
 #'
 #' @param p a function that takes an element of code{{f(x), f(f(x)), f(f(f(x))), ...}} and returns a TRUE/FALSE value
 #' @param f a function that is repeatedly applied to \code{x, f(x), f(f(x)), ...}
 #' @param x an initial vector/list to apply f to repeatedly.
 #'
+#' @keywords mcIterateWhile
+#' @export
 
 mcIterateWhile <- function (p, f, x) {
 	# repeatedly apply f to x, until p of the result is true
@@ -38,14 +38,16 @@ mcIterateWhile <- function (p, f, x) {
 }
 
 #' @title mcIndMap
-#' @export
-#' @keywords mcIndMap
 #'
-#' @param f 
-#' @param x 
+#' @param f a binary function that takes an index as its first parameters and 
+#' a value as its second parameter, or a string giving the name of such a function.
+#' @param x a vector or list which will be used as an initial input for f.
 #' @param paropts 
+#'
+#' @keywords mcIndMap
+#' @export
 
-mcIndMap <- function (f, x, paropts) {
+mcIndMap <- function (f, x, paropts = NULL) {
 	# map f across the list [ [x1_i, x1], ..., [xn_i, xn] ]
 	
 	func_call <- "mcIndMap(f, x, paropts = NULL)"
@@ -58,5 +60,12 @@ mcIndMap <- function (f, x, paropts) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
-	ISSUE("finish indmap, with vector recycling")
+	call_mclapply(
+		function (pair) {
+			f( pair[[1]], pair[[2]] )
+		},
+		mcZip(x, seq_along(x)),
+		paropts
+	)
+
 }

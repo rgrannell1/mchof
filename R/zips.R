@@ -21,7 +21,7 @@
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #' 
-#' @template zips
+#' @template roxygen-zips
 #' @keywords mcZipWith
 #' @example inst/examples/examples-zipwith.r
 
@@ -96,7 +96,7 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #'     this function, and \code{\link{mcZipWith}} for a more general version 
 #'     of this function.
 #'
-#' @template zips
+#' @template roxygen-zips
 #' @keywords mcZip
 #' @example inst/examples/examples-zip.r
 
@@ -128,7 +128,7 @@ mcZip <- function(..., paropts = NULL) {
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #'
-#' @template zips
+#' @template roxygen-zips
 #' @keywords mcUnzipWith
 #' @example inst/examples/examples-unzipwith.r
 
@@ -181,7 +181,6 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' 
 #' @title mcUnzip
 #' 
-#' @export
 #' @param x a list of lists or vectors
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
@@ -193,9 +192,10 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
 #' 
-#' @template zips  
+#' @template roxygen-zips  
 #' @keywords mcUnzip
 #' @example inst/examples/examples-unzip.r
+#' @export
 
 mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip

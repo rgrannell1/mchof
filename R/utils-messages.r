@@ -1,4 +1,7 @@
 
+# === # === # === # === # === # === # === # === # === # === # === # === # === # 
+# this object contains all (or at least most) of the errors thrown by mchof
+
 messages <- list(
 	not_a_function = function (call, data, name) {
 		call <- head(call, 1)
@@ -137,8 +140,10 @@ messages <- list(
 			c(paste0("parallel execution is not supported on windows: ",
 				"executing on one core"),
 			paste0("parallel execution is not supported on windows:",
-				"executing on one core :/")),
-			prob = c(0.7, 0.3), size = 1)
+				"executing on one core :/"),
+			paste0("parallel execution isn't supported on windows:",
+				"executing on one core")
+			), size = 1)
 		
 		warning (msg, call. = FALSE)
 	},

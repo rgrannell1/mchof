@@ -11,24 +11,13 @@ forall <- function (
 	opts$time <- getOption("forall_time", opts$time)
 	opts$length <- getOption("forall_length", opts$length)
 	
-	(length(formals(expect)) != length(names(cases))) %throws% stopf(
-		c("mismatch between names for cases and expects names")	
-	)
-	
-	stopwatch <- function (seconds) {
-		# returns a function with Sys.time( ) 
-		# captured in a closure
-		
-		stopifnot (is.numeric(seconds) && seconds > 0)
-		
-		( function () {
-			start_time <- Sys.time()
-			function () {
-				time_passed <- as.numeric(difftime( Sys.time(), start_time ))
-				time_passed < seconds
-			}		
-		} )()
-	}
+	(length(formals(expect)) != length(names(cases))) %throws% 
+		messages$length_mismatch(
+			"forall(cases, expect)",
+			list(
+				formals(expect),
+				(names(cases))),
+			"expect's parameters", "case's names")
 	
 	testargs_iter <- ihasNext(do.call(product, cases))
 	
@@ -77,11 +66,23 @@ forall <- function (
 		info, length(results), tests_ran)
 }
 
-
-
-
 all_equal <- function (x) {
 	length(unique(x)) == 1	
+}
+
+stopwatch <- function (seconds) {
+	# returns a function with Sys.time( ) 
+	# captured in a closure
+	
+	stopifnot (is.numeric(seconds) && seconds > 0)
+	
+	( function () {
+		start_time <- Sys.time()
+		function () {
+			time_passed <- as.numeric(difftime( Sys.time(), start_time ))
+			time_passed < seconds
+		}		
+	} )()
 }
 
 adapt_call <- function (func, with) {

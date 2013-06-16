@@ -15,5 +15,3 @@
 #'
 #' primitive functions (such as \code{max}) are supported by mchof, and their arguments are processed
 #' in a similar way to those of closures (standard R functions).
-#'
-#' @family math functions

@@ -9,7 +9,6 @@
 #' but it cannot currently operate on functions with primitive functions such as 
 #' "+". mcFlip preserves the default arguments of f.
 #'  
-#' @name mcFlip
 #' 
 #' @param f a function with normal parameters and/or ellipses (...).
 #'
@@ -48,7 +47,6 @@ mcFlip <- function (f) {
 #' are c, a, b; the 3rd element in formals, the 1st element in formals and the 
 #' 2nd element in formals. The vector x defines a mapping between 
 #'  
-#' @name mcJumble
 #' 
 #' @param f a function with normal parameters and/or ellipses (...).
 #' @param x a vector that is the same length as the formal parameters of x and contains

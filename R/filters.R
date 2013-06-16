@@ -8,18 +8,18 @@
 #' @usage mcFilter(f, x, paropts = NULL)
 #' 
 #' mcSelect(f, x, paropts = NULL)
-#' 
-#' @export
-#' @template filters
 #'    
-#' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
-#' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
-#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see \link{mchof}).
+#' This function applies \code{f} to each element of \code{x}, and coerces the results to a 
+#' \code{TRUE} or \code{FALSE} value. If an \code{NA} value is obtained this is then coerced to a 
+#' \code{FALSE} value. This is usually the desired behaviour, but if the user wants
+#' \code{NA} values to be converted to \code{TRUE} then they can wrap the input function \code{f} with 
+#' \link{mcBoolean}.
 #' 
 #' @return returns the elements of x for which f returned true. If x is a list and no elements
 #' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
 #' vector of length(0). x = NULL always returns NULL.
+#'
+#' @template roxygen-filters
 #'
 #' @section Special Cases:
 #'
@@ -27,6 +27,7 @@
 #'     
 #' @example inst/examples/examples-filter.r 
 #' @keywords mcFilter mcSelect
+#' @export
 
 mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
@@ -55,8 +56,6 @@ mcSelect <- mcFilter
 #' @description mcReject extracts the elements of a vector or list for  which the function 
 #' \code{f} returns \code{FALSE}.
 #' 
-#' @export
-#' @template filters
 #' @return returns a list of elements for which f returned FALSE or NA.
 #'
 #' @details mcReject applies f to each element of x, coerces the result to a logical value,
@@ -70,11 +69,14 @@ mcSelect <- mcFilter
 #' modify this behaviour by making sure the argument f returns TRUE is a value 
 #' is NA under coersion, as described in \link{mchof}.
 #'
+#' @template roxygen-filters
+#'
 #' @section Special Cases:
 #'
 #' when x is a length-zero value such as NULL or list(), that value is automatically returned.
 #'
 #' @example inst/examples/examples-reject.r
+#' @export
 
 mcReject <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is false
@@ -104,8 +106,7 @@ mcReject <- function (f, x, paropts = NULL) {
 #' 
 #' @title mcPartition
 #' 
-#' @export
-#' @template filters
+#' @template roxygen-filters
 #'
 #' @return returns a list of two lists; the first list contains the values 
 #' for which f returned true, the other contains values that returned false or NA. 
@@ -122,6 +123,7 @@ mcReject <- function (f, x, paropts = NULL) {
 #'
 #' @keywords mcPartition
 #' @example inst/examples/examples-partition.r
+#' @export
 
 mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 

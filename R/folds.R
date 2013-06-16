@@ -1,13 +1,11 @@
 #'
 #' @title mcFold
-#' @name mcFold
-#' @export
 #'
 #' @description mcFold applies an associative binary function to a list,
 #' returning a single value. The difference between mcFold & mcReduce is that an
 #' initial value can be supplied to mcFold.
 #' 
-#' @template folds
+#' @template roxygen-folds
 #'
 #' @param first an initial value to be prepended to x
 #'
@@ -23,6 +21,7 @@
 #' first is automatically returned.
 #'
 #' @example inst/examples/examples-fold.r
+#' @export
 
 mcFold <- function (f, first, x, paropts = NULL) {
 	# swaps the commas in first, x1, x2, ..., xn with
@@ -44,11 +43,8 @@ mcFold <- function (f, first, x, paropts = NULL) {
 
 #' @title mcReduce
 #' 
-#' @export
-#'   
-#' @name mcReduce
-#' 
-#' @template folds
+#'  
+#' @template roxygen-folds
 #'    
 #' @return returns the result of x1 f x2 f x3 f x4 f ... xn, the value of which
 #' is dependent on the function f, and the contents of x. Returns a length-zero or
@@ -63,6 +59,7 @@ mcFold <- function (f, first, x, paropts = NULL) {
 #' @example inst/examples/examples-reduce.r
 #' @seealso \code{\link{Reduce}}
 #' @keywords mcReduce
+#' @export
 
 mcReduce <- function (f, x, paropts = NULL) {
 	# swaps the commas in x1, x2, x3, ..., xn with

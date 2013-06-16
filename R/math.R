@@ -4,17 +4,18 @@
 #'
 #' @title mcLarger
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value
 #' 
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcLarger
 #' @example inst/examples/examples-larger.r
+#' @export
 
 mcLarger <- function (f, g) {
 	# return a function f(...) > g(...)?
@@ -40,17 +41,17 @@ mcLarger <- function (f, g) {
 #'
 #' @title mcSmaller
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value
 #' 
-#' #' @template math
+#' @template roxygen-math
 #'
 #' @keywords mcSmaller
 #' @example inst/examples/examples-smaller.r
+#' @export
 
 mcSmaller <- function (f, g) {
 	# return a function f(...) < g(...)?
@@ -76,17 +77,18 @@ mcSmaller <- function (f, g) {
 #'
 #' @title mcPlus
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcPlus
 #' @example inst/examples/examples-plus.r
+#' @export
 
 mcPlus <- function (f, g) {
 	# return a function f(...) + g(...)
@@ -112,17 +114,18 @@ mcPlus <- function (f, g) {
 #'
 #' @title mcEqual
 #' 
-#' @export
 #' @param f a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value.
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcEqual
 #' @example inst/examples/examples-equal.r
+#' @export
 
 mcEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
@@ -148,17 +151,18 @@ mcEqual <- function (f, g) {
 #'
 #' @title mcNotEqual
 #' 
-#' @export
 #' @param f a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns an object that can be compared with ==, 
 #' or a string giving the name of such a function.
 #' @return returns a logical value.
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcNotEqual
 #' @example inst/examples/examples-notequal.r
+#' @export
 
 mcNotEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
@@ -184,18 +188,19 @@ mcNotEqual <- function (f, g) {
 #'
 #' @title mcMinus
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcMinus
 #' @example inst/examples/examples-minus.r
- 
+#' @export
+
 
 mcMinus <- function (f, g) {
 	# get f(...) - g(...)
@@ -221,17 +226,18 @@ mcMinus <- function (f, g) {
 #'
 #' @title mcMultiply
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcMultiply
 #' @example inst/examples/examples-minus.r
+#' @export
 
 mcMultiply <- function (f, g) {
 	# return a function f(...) * g(...)
@@ -257,17 +263,18 @@ mcMultiply <- function (f, g) {
 #'
 #' @title mcDivide
 #' 
-#' @export
 #' @param f a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @param g a function that returns a number or vector of numbers, 
 #' or a string giving the name of such a function.
 #' @return returns a number or vector of numbers.
 #'
-#' @template math
+#' @template roxygen-math
+#' @template roxygen-formals
 #'
 #' @keywords mcDivide
 #' @example inst/examples/examples-divide.r
+#' @export
 
 mcDivide <- function (f, g) {
 	# return a function f(...) / g(...)?

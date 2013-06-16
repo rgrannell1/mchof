@@ -4,6 +4,7 @@ context("parallel backend checks")
 if (exists('call_mclapply')) {
 	
 	forall(
+		info = "check that errors aren't hidden",
 		list(
 			func_ = list(mcFilter, mcReject, mcPartition),
 			x_ = r_seq_len(), paropts_ = r_paropts()),
@@ -40,7 +41,7 @@ if (exists('call_mclapply')) {
 		    	regexp = "invalid")
 		})
 	
-		test_that("check that everything's running quick", {
+		test_that("check that multicore is working correctly", {
 			
 			expect_that(
 				system.time(call_mclapply(
