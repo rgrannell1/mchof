@@ -49,10 +49,5 @@ is_email <- mcPartial(grepl, pattern = "[^@]+[@][^.]+[.].+")
 
 mcSelect(is_email, c("hi@gmail.com", "cran@cran.cran", "not email"))
 }
-\seealso{
-  see \code{\link{mcPartialf}} for a partial application
-  function that operates on the formals of f and performs
-  input validation.
-}
 \keyword{mcPartial}
 

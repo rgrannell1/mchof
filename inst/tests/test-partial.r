@@ -7,10 +7,13 @@ forall(info = "partial application a binary to unary function works",
 		operator_ = list("+", "*", "/", "-")),	
 	function (a_, b_, operator_) {
 	
-		f <- function (x, y) get(operator_)(x, y)
-		g <- mcPartial(f, x = a_)
-		g(b_) == get(operator_)(a_, b_)
+		operator <- function (x, y) get(operator_)(x, y)
+
+		print(operator)
+
 		
+		g <- mcPartial(operator, x = a_)
+		g(b_) == get(operator_)(a_, b_)
 	}
 )
 
@@ -36,9 +39,9 @@ forall(info = "iterative partial application shortens the formals one at a time"
 	function (a_, b_, c_, d_) {
 		
 		f <- function (x, y, z, w) x + y + z + w
-		g <- mcpartial(f, x = a_)
-		h <- mcpartial(g, y = b_) 
-		e <- mcpartial(h, z = c_) 
+		g <- mcPartial(f, x = a_)
+		h <- mcPartial(g, y = b_) 
+		e <- mcPartial(h, z = c_) 
 		
 		length( names(formals(f)) ) == 4 &&
 		length( names(formals(g)) ) == 3 &&

@@ -36,6 +36,7 @@ Collate:
     'reject.R'
     'fold.R'
     'flip.R'
+    'iterate.R'
     'utils.R'
     'mchof.R'
     'compose.R'

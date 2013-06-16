@@ -45,6 +45,8 @@ mcPartial <- function (f, ...) {
 	
 	rm(formals_f, func_call, duplicated_names)
 	
+	ISSUE("partial not working")
+
 	g <- function () {
 		do.call(
 			what = f,

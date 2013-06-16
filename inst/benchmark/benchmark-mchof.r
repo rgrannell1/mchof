@@ -24,6 +24,13 @@ zip_control <- function (x) {
 position_control <- function (x) {
 	Position(function(y) FALSE, x)
 }
+iterate_control <- function (x) {
+	
+	count <- 0
+	while (count < max(x)) {
+		count <- count + 1
+	}
+}
 
 mchof_tests <- mcZipWith(
 	squash(function (x) {
@@ -35,6 +42,15 @@ mchof_tests <- mcZipWith(
 		mcFilter = function (x) mcFilter(true_func, x),
 		mcFind = function (x) mcFind(false_func, x),
 		mcFold = function (x) mcFold(one_func, 0, x),
+		mcIterateWhile = function (x) {
+
+			mcIterateWhile(
+				function (n) n != max(x),
+				function (n) n + 1,
+				0
+			)
+		
+		},
 		mcOne = function (x) mcOne(false_func, x),
 		mcPartition = function (x) mcPartition(true_func, x),
 		mcPosition = function (x) mcPosition(false_func, x),
@@ -54,6 +70,7 @@ mchof_tests <- mcZipWith(
 		mcFilter = function (x) filter_control(x),
 		mcFind = function (x) position_control(x),
 		mcFold = function (x) fold_control(x),
+		mcIterateWhile = function (x) iterate_control(x),
 		mcOne = function (x) quantifier_control(x),
 		mcPartition = function (x) filter_control(x),
 		mcPosition = function (x) position_control(x),
@@ -63,8 +80,9 @@ mchof_tests <- mcZipWith(
 		mcUnzipWith = function (x) zip_control(x)	
 	),
 	c("mcAll", "mcAny", "mcFilter", "mcFind",
-		"mcFold", "mcOne", "mcPartition", "mcPosition",
-		"mcReduce", "mcReject", "mcZipWith", "mcUnzipWith")
+		"mcFold", "mcIterateWhile", "mcOne", "mcPartition", 
+		"mcPosition", "mcReduce", "mcReject", 
+		"mcZipWith", "mcUnzipWith")
 )
 
 backend_tests <- mcZipWith(
