@@ -146,8 +146,8 @@ messages <- list(
 		call <- head(call, 1)
 		
 		stopf(
-			'invalid arguments given to paropts (%s)', 
-				 paste(data, collapse = ', '))
+			'%s: invalid arguments given to paropts (%s)', 
+				 call, paste(data, collapse = ', '))
 	}
 )
 

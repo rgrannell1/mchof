@@ -1,5 +1,5 @@
 
-context("messages: these need to be verified by eye")
+context("messages: check that they include call")
 
 forall(info = "check that error messages work",
 	list(
@@ -8,26 +8,20 @@ forall(info = "check that error messages work",
 		name_ = list("name", c("a long", "name")),
 		name_one_ = list("name", c("a long", "name")),
 		name_two_ = list("name", c("a long", "name")),
-		func_ = sample(names(messages)),
+		func_ = setdiff( sample(names(messages)), "windows_sequential"),
 		which_ = r_seq_len()),
 	function (call_, data_ ,name_, name_one_, name_two_, func_, which_) {
 		# convert the error message to a string, check
 		
 		func_ <- messages[[func_]]
 		
-		text <- tryCatch(
+		expect_error(	
 			adapt_call(func_, with = list(
 				call = call_, data = data_, 
 				name = name_, name_one = name_one_, name_two = name_two_, 
-				which = which_)),		
-			error = function (err) {
-				err$message
-			},
-			warning = function (warn) {
-				warn$message
-		})
-		
-		grep(paste0("^", call_), text) && length(text) == 1
+				which = which_)),
+			regexp = strsplit(call_, "[(]")[[1]][1]
+		)
 		
 		TRUE
 	}
