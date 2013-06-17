@@ -5,7 +5,7 @@ Version 0.3
 mchof (read: mac'hoff) is a utility library that provides
 composable, consistent parallel implementations of higher-order
 functions such as Filter, Fold, ZipWith and more. This package aims to 
-make writing functional programs in R more rewarding, with the added benifit
+make writing functional programs in R more rewarding, with the added benefit
 of parallelism.
 
  * Special cases handled consistently between functions to allow composabililty.	
@@ -49,9 +49,11 @@ Functions in development (0.4) eta July 15th - August 1st
 * **mcJumble**:
 * **mcWrap**:
 * **mcIterateWhile**:
+* **mcIndMap***
 * **foldl**:
 * **foldr**:
 
 Note to developers: early versions (pre 0.7) will be somewhat liable to api 
 changes. At this stage of development I'm focusing on making functions work well
-that keeping them perfectly consistent between versions.
+that keeping them perfectly consistent between versions. I will make extra efforts
+to keep compatability with packages built on mchof, however.

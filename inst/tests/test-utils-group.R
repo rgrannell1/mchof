@@ -1,4 +1,6 @@
 
+context("grouping utils: normal cases")
+
 forall(info = "group_into groups properly",
 	list(
 		x_ = r_seq_len(),
@@ -14,14 +16,14 @@ forall(info = "group_into groups properly",
 	}
 )
 
-forall(info = "group_into values are proper",
+forall(info = "group_into values are preserved and in the right order",
 	list(x_ = r_seq_len(), size_ = r_integers()),
 	function (x_, size_) {
 		all(unlist(group_into(x_, size_)) == x_)
 	}
 )
 
-forall(info = "chop_into works properly",
+forall(info = "chop_into returns the correct number of pieces",
 	list(x_ = r_seq_len(), pieces_ = r_integers()),
 	function (x_, pieces_) {
 		length(chop_into(x_, pieces_)) == min(abs(pieces_), length(x_))

@@ -1,6 +1,5 @@
 
-
-#' Higher-Order-Functions for Quantifying TRUE/FALSE values
+#' Quantifier Functionals
 #'
 #' @description
 #'

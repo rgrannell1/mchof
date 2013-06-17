@@ -18,8 +18,8 @@
 #' @example inst/examples/examples-sleep.r
 
 mcSleep <- function (f, n) {
-	# return a function that returns false when f is true, 
-	# true when f is false, na when na
+	# sleep for n seconds before calling f. Less
+	# accurate on non-UNIX-like OS's
 	
 	n <- abs(n)
 	func_call <- "mcSleep(f, n)"
