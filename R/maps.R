@@ -58,5 +58,11 @@ mcIndMap <- function (f, x, paropts) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 
-	ISSUE("finish indmap, with vector recycling")
+	call_mclapply(
+		function (pair) {
+			f( pair[[1]], pair[[2]] )
+		},
+		mcZip(x, seq_along(x)),
+		paropts
+	)
 }
