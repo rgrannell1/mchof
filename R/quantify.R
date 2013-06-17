@@ -36,9 +36,6 @@
 #' and \code{mcOne} and \code{mcAny} return \code{FALSE}. The reason that mcAll returns
 #' \code{TRUE} for length-zero data is for consistency with the base function \code{all}.
 #'
-#' @rdname mchof_quantify
-#' @family mchof-quantify
-#'
 #' @keywords mcAll, mcAny, mcOne
 #'
 #' @example inst/examples/examples-quantify.r
@@ -141,7 +138,11 @@ mcOne <- function (f, x, paropts = NULL) {
 			x = job_indices[[i]],
 			paropts, func_call
 		))
-		number_true <- number_true + length(which(bools))
+
+		if (length(which(bools)) > 0) {
+			number_true <- number_true + length(which(bools))
+		}
+
 	}
 	number_true == 1
 }

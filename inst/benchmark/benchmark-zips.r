@@ -3,8 +3,7 @@ zip_control <- function (x) {
 
 	group_into(x, 2)
 
-	lapply(x, null_func) 
-
+	lapply(x, null_func)
 }
 
 zip_control <- function (x) {

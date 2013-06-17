@@ -1,4 +1,7 @@
 
+# find the fastest way of grouping a vector into 
+# groups of n
+
 benchmark_exp$group_into <- ( function () {
 	
 	group_into_control <- function (x, size) {

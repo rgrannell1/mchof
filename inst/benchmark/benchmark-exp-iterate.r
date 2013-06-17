@@ -1,3 +1,5 @@
+
+# find a fast way of iterating repeatedly
 		
 benchmark_exp$iterate <- ( function () {
 	
