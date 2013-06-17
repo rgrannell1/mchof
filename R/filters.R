@@ -1,4 +1,6 @@
 #'
+#' Higher-Order Functions for Selecting Values in a List/Vector
+#'
 #' @title mcFilter
 #' @aliases mcSelect
 #' 

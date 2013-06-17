@@ -45,4 +45,4 @@ Collate:
     'utils-test-functions.R'
     'utils-test-generators.R'
     'convert-na.R'
-    'quantiers.R'
+    'quantify.R'

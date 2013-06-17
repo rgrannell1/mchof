@@ -1,18 +1,53 @@
-#' @title mcAll
-#' 
+
+
+#' Higher-Order-Functions for Quantifying TRUE/FALSE cases
+#'
+#' @description
+#'
+#' mcAll checks if a predicate function \code{f} is true for all 
+#' elements in the list or vector \code{x}.
+#'
+#' mcAny checks if a predicate function \code{f} is true for one or more 
+#' elements in the list or vector \code{x}.
+#'
+#' mcOne checks if a predicate function \code{f} is true for exactly one 
+#' element in the list or vector \code{x}
+#'
+#' @param f a unary function that returns a boolean value, or a string
+#' giving the name of such a function.
+#' @param x a list or vector.
+#' @param paropts a list of parameters to be handed to 
+#'    mclapply (see \link{mchof}).
+#'
+#' @details:
+#'
+#' These functions apply \code{f} to each element of \code{x}, and coerce the results to a 
+#' \code{TRUE} or \code{FALSE} value. If an \code{NA} value is obtained it is coerced to 
+#' \code{FALSE}. This is usually the desired behaviour, but if the user wants
+#' \code{NA} values to be converted to \code{TRUE} then they can wrap the input function \code{f} with 
+#' \code{\link{mcBoolean}}. For example,
+#'
+#' \code{all_are_numbers = mcBoolean \%of\% function (x) mcAll(is.numeric, x)}
+#'
+#' \code{all_are_numbers} first checks whether every \code{x} is numeric,
+#' and then coerces this result to \code{TRUE} or \code{FALSE}.
+#'
+#' All of these functions return \code{NULL} when \code{x = NULL}. 
+#' When \code{x} is another length-zero value  \code{mcAll} returns \code{TRUE},
+#' and \code{mcOne} and \code{mcAny} return \code{FALSE}. The reason that mcAll returns
+#' \code{TRUE} for length-zero data is for consistency with the base function \code{all}.
+#'
+#' @rdname mchof_quantify
+#' @family mchof-quantify
+#'
+#' @keywords mcAll, mcAny, mcOne
+#'
+#' @example inst/examples/examples-quantify.r
 #' @export
-#' @description mcAny checks if a predicate function f is true for all 
-#' elements in the list or vector x
-#' 
-#' @name mcAll
-#' 
-#' @template quantifiers
-#'    
-#' @keywords mcAll
-#' @example inst/examples/examples-all.r
-#' 
-#' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE.
+#'
+#' @rdname mchof_quantify
+#' @family mchof-quantify
+#' @export
 
 mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -35,22 +70,9 @@ mcAll <- function (f, x, paropts = NULL) {
 	all(bools)
 }
 
-#' @title mcAny
-#' 
+#' @rdname mchof_quantify
+#' @family mchof-quantify
 #' @export
-#' @description mcAny checks if a predicate function f is true for one or more 
-#' elements in the list or vector x
-#' 
-#' @name mcAny
-#'
-#' @template quantifiers
-#'    
-#' @keywords mcAny
-#' @example inst/examples/examples-any.r
-#'
-#' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE. 
-#'
 
 mcAny <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
@@ -82,22 +104,9 @@ mcAny <- function (f, x, paropts = NULL) {
 	any(unlist(results))
 }
 
-#' @title mcOne
-#' 
+#' @rdname mchof_quantify
+#' @family mchof-quantify
 #' @export
-#' @description mcOne checks if a predicate function f is true for exactly one 
-#' element in the list or vector x
-#' 
-#' @name mcOne
-#' 
-#' @template quantifiers
-#'
-#' @return returns TRUE if f is true for one element in x, 
-#' otherwise it returns FALSE. 
-#'
-#' @example inst/examples/examples-one.r
-#' @keywords mcOne
-#' 
 
 mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true

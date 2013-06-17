@@ -49,7 +49,8 @@
   be obtained if either \code{f} or \code{g} returns
   \code{NA} when called with a particular value. This is
   easily altered by composing the output of \code{mcAnd},
-  \code{mcNot}, ... with \code{mcBoolean}. For example,
+  \code{mcNot}, ... with\code{\link{mcBoolean}}. For
+  example,
 
   \code{finite_number = mcBoolean \%of\% mcAnd(is.numeric,
   is.finite)}
