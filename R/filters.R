@@ -1,34 +1,44 @@
 #'
 #' Higher-Order Functions for Selecting Values in a List/Vector
+#' 
+#' @description 
+#' \code{mcFilter} extracts the elements of a vector or list \code{x} for which the function 
+#' \code{f} returns \code{TRUE}.
+#' 
+#' \code{mcSelect} is an alias for \code{mcFilter}.
 #'
-#' @title mcFilter
-#' @aliases mcSelect
+#' \code{mcReject} extracts the elements of a vector or list \code{x} for which the function 
+#' \code{f} returns \code{FALSE}.
 #' 
-#' @description mcFilter extracts the elements of a vector or list for 
-#' which the function \code{f} returns \code{TRUE}.
+#' \code{mcPartition} returns a list of two lists/vectors; a list for which \code{f}
+#' returns \code{TRUE}, and a list for which \code{f} returns \code{FALSE}.
 #' 
-#' @usage mcFilter(f, x, paropts = NULL)
+#' @details 
+
+#' All of these function return \code{NULL} automatically when \code{x} is NULL. \code{mcFilter} and 
+#' \code{mcReject} return length-zero values automatically.
+#'
+#' \code{mcReject} also returns elements for which \code{f} returned \code{NA} are included,
+#' so that concatenating the results of \code{mcFilter} and 
+#' \code{Reject} will give you the original set \code{x} (though unordered). The user can
+#' modify this behaviour by making sure the argument \code{f} returns \code{TRUE} is a value 
+#' is \code{NA} under coersion, as described in \link{mchof}.
+#'
+#' \code{mcPartition} always returns a list of two lists/vectors; the first list/vector contains the values 
+#' for which \code{f} returned \code{TRUE}, the other contains values that 
+#' returned \code{FALSE} or \code{NA}. When trying to partition a length-zero value a list containing two of that
+#' value is returned. For example, when \code{x} is \code{integer(0)} then
 #' 
-#' mcSelect(f, x, paropts = NULL)
+#' list( integer(0), integer(0) )
 #' 
+#' is returned. 
+
+#' @example inst/examples/examples-filters.r 
+#' @keywords mcFilter mcSelect mcReject mcPartition
+
+#' @rdname mchof_filters
+#' @family mchof-filters
 #' @export
-#' @template filters
-#'    
-#' @details mcFilter applies f to each element of x, coerces the result to a logical value, 
-#' and returns the values for which f returns TRUE. NA's obtained while applying f to x will 
-#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see \link{mchof}).
-#' 
-#' @return returns the elements of x for which f returned true. If x is a list and no elements
-#' returned true, returns list(). If x is a vector and no elements returns true, returns a typed 
-#' vector of length(0). x = NULL always returns NULL.
-#'
-#' @section Special Cases:
-#'
-#' when x is a length-zero value such as NULL or list(), that value is automatically returned.
-#'     
-#' @example inst/examples/examples-filter.r 
-#' @keywords mcFilter mcSelect
 
 mcFilter <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is true
@@ -48,35 +58,15 @@ mcFilter <- function (f, x, paropts = NULL) {
 	x[true_ind]	
 }
 
+#' @rdname mchof_filters
+#' @family mchof-filters
 #' @export
 
 mcSelect <- mcFilter
 
-#' @title mcReject
-
-#' @description mcReject extracts the elements of a vector or list for  which the function 
-#' \code{f} returns \code{FALSE}.
-#' 
+#' @rdname mchof_filters
+#' @family mchof-filters
 #' @export
-#' @template filters
-#' @return returns a list of elements for which f returned FALSE or NA.
-#'
-#' @details mcReject applies f to each element of x, coerces the result to a logical value,
-#' and returns the values for which f returns FALSE.
-#' 
-#' mcReject is more useful for filtering out NULL or NA values in a list that mcFilter,
-#' as is demonstrated in the examples below.
-#' 
-#' elements for which f returned NA are included, so that concatenating the results of mcFilter and 
-#' mcReject will give you the original set x (though unordered). The user can
-#' modify this behaviour by making sure the argument f returns TRUE is a value 
-#' is NA under coersion, as described in \link{mchof}.
-#'
-#' @section Special Cases:
-#'
-#' when x is a length-zero value such as NULL or list(), that value is automatically returned.
-#'
-#' @example inst/examples/examples-reject.r
 
 mcReject <- function (f, x, paropts = NULL) {
 	# returns x[i] such that f(x[i]) is false
@@ -101,29 +91,9 @@ mcReject <- function (f, x, paropts = NULL) {
 	x[!true_ind]	
 }
 
-#' @description mcPartition returns a list of two lists; a list for which a predicate 
-#' returns true, and a list for which a predicate returns false.
-#' 
-#' @title mcPartition
-#' 
+#' @rdname mchof_filters
+#' @family mchof-filters
 #' @export
-#' @template filters
-#'
-#' @return returns a list of two lists; the first list contains the values 
-#' for which f returned true, the other contains values that returned false or NA. 
-#' If the list of true/false elements is empty then the value of that slot is list()
-#' if x is a list, and a typed vector such as integer(0) if x is a vector. mcPartition
-#' NULL always returns NULL.
-#'
-#' @section Special Cases:
-#'
-#' when x is NULL, NULL is returned. If x is a length(0) vector or list,
-#' then a list of length two containing that empty value is returned. For example:
-#' 
-#' list() |-> list( list(), list() )
-#'
-#' @keywords mcPartition
-#' @example inst/examples/examples-partition.r
 
 mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
