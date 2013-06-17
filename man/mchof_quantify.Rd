@@ -2,7 +2,7 @@
 \alias{mcAll}
 \alias{mcAny}
 \alias{mcOne}
-\title{Higher-Order-Functions for Quantifying TRUE/FALSE values}
+\title{Quantifier Functionals}
 \usage{
   mcAll(f, x, paropts = NULL)
 

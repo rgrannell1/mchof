@@ -15,6 +15,6 @@ ISSUE("check no deleted docs included")
 ISSUE("fix partial")
 ISSUE("add type-checking to math and logical functions")
 ISSUE("add families to all functions")
-ISSUE("reduce boilerplate in math")
+ISSUE("reduce boilerplate in logic")
 
 # pluck list() and A(0)

@@ -52,7 +52,6 @@
 }
 \examples{
 
-
 # a helper function that takes a function that 
 # takes on variable and makes it work with ...
 

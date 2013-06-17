@@ -37,23 +37,11 @@
 #' @example inst/examples/examples-math.r
 #' @export
 
+
 mcLarger <- function (f, g) {
-	# return a function f(...) > g(...)?
-	
-	func_call <- "mcLarger(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")		
+	binary_functional(f, g, ">", "mcLarger(f, g)")
 
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) > g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -61,22 +49,9 @@ mcLarger <- function (f, g) {
 #' @export
 
 mcSmaller <- function (f, g) {
-	# return a function f(...) < g(...)?
-	
-	func_call <- "mcSmaller(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")	
+	binary_functional(f, g, "<", "mcSmaller(f, g)")
 
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) < g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -84,22 +59,8 @@ mcSmaller <- function (f, g) {
 #' @export
 
 mcPlus <- function (f, g) {
-	# return a function f(...) + g(...)
-	
-	func_call <- "mcPlus(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")		
-
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) + g(params_)
-		}, f, g)
+	binary_functional(f, g, "+", "mcPlus(f, g)")
 }
 
 #' @rdname mchof_math
@@ -107,22 +68,9 @@ mcPlus <- function (f, g) {
 #' @export
 
 mcMinus <- function (f, g) {
-	# get f(...) - g(...)
-	
-	func_call <- "mcMinus(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")	
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
+	binary_functional(f, g, "-", "mcMinus(f, g)")
 
-	combine_formals(
-		function () {			
-			f(params_) - g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -131,21 +79,9 @@ mcMinus <- function (f, g) {
 
 mcEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
-	
-	func_call <- "mcEqual(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")
+	binary_functional(f, g, "==", "mcEqual(f, g)")
 
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) == g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -154,21 +90,9 @@ mcEqual <- function (f, g) {
 
 mcNotEqual <- function (f, g) {
 	# returns a function that returns f(...) == g(...)
-	
-	func_call <- "mcNotEqual(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")		
+	binary_functional(f, g, "!=", "mcNotEqual(f, g)")
 
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) != g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -176,22 +100,10 @@ mcNotEqual <- function (f, g) {
 #' @export
 
 mcMultiply <- function (f, g) {
-	# return a function f(...) * g(...)
+	# returns a function that returns f(...) == g(...)
 
-	func_call <- "mcMultiply(f, g)"
+	binary_functional(f, g, "*", "mcMultiply(f, g)")
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) * g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_math
@@ -199,20 +111,8 @@ mcMultiply <- function (f, g) {
 #' @export
 
 mcDivide <- function (f, g) {
-	# return a function f(...) / g(...)?
-	
-	func_call <- "mcDivide(f, g)"
+	# returns a function that returns f(...) == g(...)
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")	
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) / g(params_)
-		}, f, g)
+	binary_functional(f, g, "/", "mcDivide(f, g)")
+
 }
