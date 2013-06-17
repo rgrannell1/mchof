@@ -1,6 +1,6 @@
-#' @details This function tries to preserve the formals arguments
-#' of its input functions in the composite output function. There are 
-#' ways three ways in which the composite function might be outputted:
+#' @section Output Function Parameters:
+
+#' There are three ways in which a composite function might be outputted:
 #'
 #' 1, If the function \code{f} and \code{g} have the same parameter names and the same
 #' default arguments - in the same order - then the output function will 

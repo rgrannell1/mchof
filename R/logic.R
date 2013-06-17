@@ -1,21 +1,58 @@
 
-#' @description mcAnd takes two functions f and g, and returns a function. This new function
-#' returns f(...) && g(...)
+#' Higher-Order-Functions for Functional Logic
 #'
-#' @title mcAnd
-#' 
-#' @export
-#' @param f a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @param g a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @return returns a logical value (TRUE, FALSE, or NA).
-#'  
-#' @seealso see \code{\link{mcOr}}, \code{\link{mcNot}} and
-#'  \code{\link{mcXor}} for other logical functionals in mchof.
-#' 
-#' @keywords mcAnd
+#' @description
+#' \code{mcAnd} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
+#' function returns a function, which returns \code{f(...) && g(...)}.
+#'
+#' \code{mcNot} takes a function \code{f}, and returns a function. This function returns the logical
+#' negation of \code{f}: if \code{f} returns \code{TRUE} for a value \code{x} then \code{mcNot(f)} will
+#' return \code{FALSE} (and visa versa when \code{f(x) == FALSE}). 
+#'
+#' \code{mcOr} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
+#' function returns a function, which returns \code{f(...) || g(...)}.
+#'
+#' \code{mcXor} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
+#' function returns a function, which returns \code{xor( f(...), g(...) )}. The \code{xor} function returns
+#' \code{TRUE} if either its first or second argument is \code{true}, but not both and not neither.
+#'
+#' @details
+#'
+#' All of these functions return logical values (\code{TRUE}, \code{FALSE}, or \code{NA}) and not boolean values
+#' (\code{TRUE}, \code{FALSE}). \code{NA} values will be obtained if either \code{f} or \code{g} returns \code{NA}
+#' when called with a particular value. This is easily altered by composing the output of \code{mcAnd}, \code{mcNot}, ...
+#' with \code{mcBoolean}. For example,
+#'
+#' \code{finite_number = mcBoolean \%of\% mcAnd(is.numeric, is.finite)}
+#'
+#' \code{finite_number} first checks whether its input is numeric and finite, and then coerces this result to \code{TRUE} or \code{FALSE}.
+#'
+#' The returned composition functions formals depend on the input function(s).
+#'
+#' 1, If the function \code{f} and \code{g} have the same parameter names and the same
+#' default arguments - in the same order - then the output function will 
+#' preserve the parameters and default arguments of \code{f}/\code{g}.
+#'
+#' 2, If the function \code{f} and \code{g} have the same parameter names - in the same order -
+#' but have different default arguments, then the output function will
+#' preserve only the parameters of \code{f}/\code{g}.
+#'
+#' 3, If the parameters of \code{f} and \code{g} differ, or their order is shuffled then
+#' the output function uses ellipses as parameters.
+#'
+#' primitive functions (such as \code{max}) are supported by mchof, and their arguments are processed
+#' in a similar way to those of closures (standard R functions). For mcNot the parameters of \code{f} are
+#' automatically copied to the output composite function.
+
+#' @rdname mchof_logic
+#' @keywords mcAnd mcNot mcOr mcXor
+#'
+#' @param f a function that returns a logical value, or a string giving the name of such a function.
+#' @param g a function that returns a logical value, or a string giving the name of such a function.
+#'
+#' @family logical functions
 #' @example inst/examples/examples-and.r
+#' @export
 
 mcAnd <- function (f, g) {
 	# return a function that returns true
@@ -39,21 +76,10 @@ mcAnd <- function (f, g) {
 	)
 }
 
-#' @description mcNot takes a function f, and negates its logical output.
-#'
-#' @title mcNot
-#' 
-#' @export
-#' @param f a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @return returns a function that returns false when f returns true, 
-#' true when f returns false and na when f returns na.
-#'  
-#' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and
-#'  \code{\link{mcXor}} for other logical functionals in mchof
-#' 
-#' @keywords mcNot
+#' @rdname mchof_logic
+#' @family logical functions
 #' @example inst/examples/examples-not.r
+#' @export
 
 mcNot <- function (f) {
 	# return a function that returns false when f is true, 
@@ -73,23 +99,10 @@ mcNot <- function (f) {
 		}, f)
 }
 
-#' @description mcOr takes two functions f and g, and returns a function. 
-#' This new function returns f(...) || g(...)
-#'
-#' @title mcOr
-#' 
-#' @export
-#' @param f a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @param g a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @return returns a logical value (TRUE, FALSE, or NA).
-#'  
-#' @seealso see \code{\link{mcAnd}}, \code{\link{mcNot}} and \code{\link{mcXor}},
-#' for other logical functionals in mchof.
-#' 
-#' @keywords mcOr
+#' @rdname mchof_logic
+#' @family logical functions
 #' @example inst/examples/examples-or.r
+#' @export
 
 mcOr <- function (f, g) {
 	# return a function that returns true
@@ -111,22 +124,10 @@ mcOr <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcXor takes two functions f and g, and returns a function. This new function
-#' returns \code{xor( f(...), g(...) )}
-#'
-#' @title mcXor
-#' 
-#' @export
-#' @param f a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @param g a function that returns a logical value, or a string giving the name of 
-#' such a function.
-#' @return returns a logical value (TRUE, FALSE, or NA).
-#'  
-#' @seealso see \code{\link{mcAnd}}, \code{\link{mcOr}}, and \code{\link{mcNot}} ,
-#' for other logical functionals in mchof.
-#' @keywords mcXor
+#' @rdname mchof_logic
+#' @family logical functions
 #' @example inst/examples/examples-xor.r
+#' @export
 
 mcXor <- function (f, g) {
 	# return a function that returns true
