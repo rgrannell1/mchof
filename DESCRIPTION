@@ -12,6 +12,7 @@ Author: Ryan Grannell
 Maintainer: Ryan Grannell <r.grannell2@gmail.com>
 Contact: Ryan Grannell <r.grannell2@gmail.com>
 BugReports: <r.grannell2@gmail.com>
+ByteCompile: yes
 Imports:
     parallel
 Suggests:

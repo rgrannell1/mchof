@@ -87,7 +87,7 @@ mcExplode <- function (f) {
 	# makes it into a variadic function
 
 	function (...) {
-		do.call(f, list(...))
+		f(list(...))
 	}
 }
 

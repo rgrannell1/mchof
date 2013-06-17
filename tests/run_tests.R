@@ -9,14 +9,10 @@ options(forall_time = 0.2)
 
 options(forall_time = NULL)
 
-ISSUE("need to avoid contamination")
-ISSUE("check blank examples")
-ISSUE("check no deleted docs included")
-ISSUE("fix partial")
-ISSUE("add type-checking to math and logical functions")
-ISSUE("add families to all functions")
-ISSUE("reduce boilerplate in logic")
+warning("need to avoid contamination")
+warning("check blank examples")
+warning("check no deleted docs included")
+warning("fix partial")
+warning("add families to all functions")
 
-ISSUE("use  as.list(parse(text=''))  to solve prob with formals")
-
-# pluck list() and A(0)
+warning("use  as.list(parse(text=''))  to solve prob with formals")

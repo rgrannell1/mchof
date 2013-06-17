@@ -45,7 +45,7 @@ mcIterateWhile <- function (p, f, x) {
 #' @param x 
 #' @param paropts 
 
-mcIndMap <- function (f, x, paropts) {
+mcIndMap <- function (f, x, paropts = NULL) {
 	# map f across the list [ [x1_i, x1], ..., [xn_i, xn] ]
 	
 	func_call <- "mcIndMap(f, x, paropts = NULL)"

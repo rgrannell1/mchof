@@ -3,7 +3,8 @@ zip_control <- function (x) {
 
 	group_into(x, 2)
 
-	lapply(x, null_func)
+	lapply(x, null_func) 
+
 }
 
 zip_control <- function (x) {
@@ -20,15 +21,15 @@ benchmark$zips <-
 
 				do.call(
 					mcZipWith,
-					c(list(f = function (y) NULL), group_into(x, 2)))
+					c(list(f = function (...) NULL), group_into(x, 2)))
 			},
 			mcUnzipWith = function (x) {
-				mcUnzipWith(function (y) NULL, x)
+				mcUnzipWith(function (....) NULL, list( group_into(x, 2) ))
 			}
 		),
 		list(
-			mcPosition = zip_control,
-			mcFind = zip_control
+			mcZipWith = zip_control,
+			mcUnzipWith = zip_control
 		),
-		c("mcPosition", "mcFind")
+		c("mcZipWith", "mcUnzipWith")
 	)

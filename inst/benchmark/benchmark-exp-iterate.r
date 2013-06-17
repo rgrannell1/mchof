@@ -1,5 +1,5 @@
 		
-benchmark$exp$iterate <- ( function () {
+benchmark_exp$iterate <- ( function () {
 	
 	iterateWhile_1 <- function (f, p, x) {
 		while( !p(x) ) x <- f(x)

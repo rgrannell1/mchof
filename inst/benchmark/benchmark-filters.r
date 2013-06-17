@@ -6,7 +6,10 @@ filter_control <- function (x) {
 benchmark$filters <- 
 	mcZipWith(
 		mcExplode(
-			function (x) list(test = x[[1]], control = x[[2]], name = x[[3]])
+			function (x) {
+
+				list(test = x[[1]], control = x[[2]], name = x[[3]])
+			}
 		),
 		list(
 			mcFilter = function (x) mcFilter(true_func, x),

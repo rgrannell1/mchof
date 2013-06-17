@@ -5,7 +5,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 
 	report_result <- function (name, multiplier) {
 		multiplier <- round(multiplier, 2)	
-	
+
 		messagef(
 			"%s was %s times slower than the control test",
 			name, paste(multiplier[1], "+-", multiplier[2]))
@@ -16,8 +16,8 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 		
 		difference <-  median(test) / median(control)
 		margin <- abs(
-			( median(test) - sd(test) / median(control) + sd(control) ) /
-			( median(test) + sd(test) / median(control) - sd(control) ))
+			( median(test) - 2*sd(test) / median(control) + 2*sd(control) ) /
+			( median(test) + 2*sd(test) / median(control) - 2*sd(control) ))
 			
 		c(difference, margin)
 	}
@@ -27,14 +27,20 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 			
 			cat("..")
 			
-			list(
-				name = test$name,
-				test = microbenchmark(
-					test$test( seq_len(len) ),
-					times = times)$time,
-				control = microbenchmark(
-					test$control( seq_len(len) ),
-					times = times)$time)
+			tryCatch(
+				list(
+					name = test$name,
+					test = microbenchmark(
+						test$test( seq_len(len) ),
+						times = times)$time,
+					control = microbenchmark(
+						test$control( seq_len(len) ),
+						times = times)$time),
+				error = function (error) {
+					stopf(c("%s", "%s"), test$name, error)
+				}
+			)
+
 		},
 		tests)
 	cat("\n")
@@ -51,9 +57,10 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 	
 visualise_benchmark <- function (data) {
 	# plot the distribution of results for the control
-	# and test times
+	# and test times, to get an idea of how efficient the 
+	# new function is
 
-	require(reshape)
+	require(reshape2)
 	require(ggplot2)
 
 	molten <- structure(Map(
@@ -67,12 +74,14 @@ visualise_benchmark <- function (data) {
 		names = sapply(data, function (li) li$name))
 	
 	for (i in seq_along(molten)) {
-		
-		g <- ggplot(data = molten[[i]], aes(x = value)) + 
-			geom_density(aes(group = variable, fill = variable)) + 
-			xlab("nanoseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
+
+		g <- ggplot(data = molten[[i]], aes(x = value / 1000)) + 
+			geom_density(aes(group = variable, color = variable),
+				alpha = 0.3) + 
+			xlab("microseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
 
 		plot(g)
 		Sys.sleep(6)
 	}
 }
+

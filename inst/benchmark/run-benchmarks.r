@@ -5,8 +5,10 @@ if ( Sys.info()["user"] == "rgrannell1") {
 	# save CRAN the horror of running such 
 	# expensive benchmarks
 
+	require(microbenchmark)
 	options(mc.cores = NULL)
-	squash <- mcExplode
+
+	collated_timings <- list()
 
 	# using a fixed path makes it hard from others to run,
 	# but I'm likely the only one who will want to run this code
@@ -17,15 +19,17 @@ if ( Sys.info()["user"] == "rgrannell1") {
 		"^benchmark[-][^-]+[^.]+[.][rR]"
 	))
 
+	source(paste0(path, "/utils-benchmark.r"))
 	sapply(all_tests, function (file) source(file))
 
-	len <- 100
-	times <- 2
+	len <- 10000
+	times <- 100
 
 	for (test in sample(names(benchmark))) {
 
-		timings <- benchmark_code( benchmark$test, len, times )
+		timings <- benchmark_code( benchmark[[test]], len, times )
+		collated_timings[[test]] <- timings
 		visualise_benchmark(timings)	
-
 	}
+	collated_timings
 }

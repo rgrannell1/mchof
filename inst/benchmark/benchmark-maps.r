@@ -21,11 +21,14 @@ benchmark$maps <-
 					0)
 
 			},
-			mcIndMap = function (x) mcIndMap(function (x) NULL, x)
+			mcIndMap = function (x) mcIndMap(function (x, y) NULL, x)
 		),
 		list(
-			mcPosition = iterate_control,
-			mcFind = function (x) lapply(x, function (x) NULL)
+			mcIterateWhile = iterate_control,
+			mcIndMap = function (x) {
+				seq_along(x)
+				lapply(x, function (x) NULL)
+			}
 		),
 		c("mcIterateWhile", "mcIndMap")
 	)

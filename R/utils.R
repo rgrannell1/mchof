@@ -25,7 +25,7 @@ curry <- function(FUN,...) {
 	function(...) do.call( FUN,c(.orig,list(...)) )
 }
 
-squash <- function (f) {
+mcExplode <- function (f) {
     function (...) f(list(...))
 }
 
