@@ -3,17 +3,17 @@
 #'
 #' @description
 #' \code{mcAnd} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
-#' function returns a function, which returns \code{f(...) && g(...)}.
+#' function returns \code{f(...) && g(...)}.
 #'
 #' \code{mcNot} takes a function \code{f}, and returns a function. This function returns the logical
 #' negation of \code{f}: if \code{f} returns \code{TRUE} for a value \code{x} then \code{mcNot(f)} will
 #' return \code{FALSE} (and visa versa when \code{f(x) == FALSE}). 
 #'
 #' \code{mcOr} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
-#' function returns a function, which returns \code{f(...) || g(...)}.
+#' function returns  \code{f(...) || g(...)}.
 #'
 #' \code{mcXor} takes two functions \code{f} and \code{g}, and returns a composite function. This composite 
-#' function returns a function, which returns \code{xor( f(...), g(...) )}. The \code{xor} function returns
+#' function returns \code{xor( f(...), g(...) )}. The \code{xor} function returns
 #' \code{TRUE} if either its first or second argument is \code{true}, but not both and not neither.
 #'
 #' @details
@@ -27,7 +27,7 @@
 #'
 #' \code{finite_number} first checks whether its input is numeric and finite, and then coerces this result to \code{TRUE} or \code{FALSE}.
 #'
-#' The returned composition functions formals depend on the input function(s).
+#' The composite functions formals depend on the input function(s):
 #'
 #' \enumerate{
 #'     \item If the function \code{f} and \code{g} have the same parameter names - in the same order -
@@ -45,7 +45,7 @@
 #' @param f a function that returns a logical value, or a string giving the name of such a function.
 #' @param g a function that returns a logical value, or a string giving the name of such a function.
 #'
-#' @family logical functions
+#' @family mchof-logic
 #' @example inst/examples/examples-logic.r
 #' @export
 
@@ -72,8 +72,7 @@ mcAnd <- function (f, g) {
 }
 
 #' @rdname mchof_logic
-#' @family logical functions
-#' @example inst/examples/examples-not.r
+#' @family mchof-logic
 #' @export
 
 mcNot <- function (f) {
@@ -95,7 +94,7 @@ mcNot <- function (f) {
 }
 
 #' @rdname mchof_logic
-#' @family logical functions
+#' @family mchof-logic
 #' @export
 
 mcOr <- function (f, g) {
@@ -119,7 +118,7 @@ mcOr <- function (f, g) {
 }
 
 #' @rdname mchof_logic
-#' @family logical functions
+#' @family mchof-logic
 #' @export
 
 mcXor <- function (f, g) {

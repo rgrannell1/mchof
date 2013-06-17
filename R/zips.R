@@ -1,29 +1,39 @@
-#'   
-#' @title mcZipWith
+
+#' Higher-Order-Functions for Restructuring Lists/Vectors
+#'
+#' @description
 #' 
-#' @description mcZipWith takes n lists or vectors, generates a list of n element lists,
-#' and returns the result of mapping f over each n element list. 
-#' 
-#' @export
-#' 
-#' @param f a function that takes n arguments, or a string
-#' giving the name of such a function.
+#' mcZipWith takes n lists or vectors, generates a list of n element lists,
+#' and returns the result of mapping \code{f} over each n element list. 
+#'
+#' mcZip takes n lists/vectors, and generates a list of n element lists.
+#' It is a special case of mcZipWith
+#'
+#' mcUnzipWith is the inverse function of mcZipWith; it takes
+#' a list of n element lists, generates n lists and returns
+#' the result of mapping zcode{f} over each generated list. 
+#'
+#' mcUnzip is the inverse function of mcZip; it takes a list 
+#' of n element lists/vectors, and returns n lists. It is a special case of mcUnzipWith
+#'
+#' @param f a function that takes n arguments, or a string giving the name of such a function.
 #' @param ... several lists or vectors.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
+#' @param paropts a list of parameters to be handed to mclapply (see \link{mchof}).
 #'    
-#' @return returns the result of mapping f over a list of n element lists.
-#'    
-#' @details list names are dropped without warning during zipping; an example below shows how to add
-#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
-#' removed in order act as a 'zero' to preserve useful structural identities.
+#' @details list names are dropped without warning during zipping and unzipping; an example 
+#' below shows how to add names to the output list. NULL elements in x are automatically 
+#' removed from x. The empty list is not removed in order act as a 'zero' to preserve 
+#' useful structural identities.
 #' 
 #' the input lists are assumed to be of equal length; if they are not excess elements are discarded
 #' without warning.
-#' 
-#' @template zips
-#' @keywords mcZipWith
-#' @example inst/examples/examples-zipwith.r
+
+#' @keywords mcZipWith, mcZip, mcUnzip, mcUnzipWith
+#' @example inst/examples/examples-zips.r
+
+#' @rdname mchof_zip
+#' @family mchof-zip
+#' @export
 
 mcZipWith <- function (f, ..., paropts = NULL) {
 	# takes n lists/vectors, generates a list of n-tuples. 
@@ -73,32 +83,9 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	)
 }
 
-#' @description mcZip takes n lists/vectors, and generates a list of n element lists.
-#' It is a special case of mcZipWith
-#' 
-#' @title mcZip
-#' 
+#' @rdname mchof_zip
+#' @family mchof-zip
 #' @export
-#' @param ... several lists or vectors.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
-#' 
-#' @return returns a list of n element lists.
-#'    
-#' @details list names are dropped without warning during zipping; an example below shows how to add
-#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
-#' removed in order act as a 'zero' to preserve useful structural identities.
-#' 
-#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
-#' without warning.
-#' 
-#' @seealso see \code{\link{mcUnzip}} for the inverse of 
-#'     this function, and \code{\link{mcZipWith}} for a more general version 
-#'     of this function.
-#'
-#' @template zips
-#' @keywords mcZip
-#' @example inst/examples/examples-zip.r
 
 mcZip <- function(..., paropts = NULL) {
 	# special case of mcZipWith: applies identity to result
@@ -108,29 +95,9 @@ mcZip <- function(..., paropts = NULL) {
 
 }
 
-#' @description mcUnzipWith is the inverse function of mcZipWith; it takes
-#' a list of n element lists, makes returns n lists and applies a function to
-#' these lists before returning these lists
-#'
-#' @title mcUnzipWith
-#' 
+#' @rdname mchof_zip
+#' @family mchof-zip
 #' @export
-#' @param f a function that takes n arguments, or a string giving the name of 
-#' such a function.
-#' @param x a list of lists or vectors
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
-#'    
-#' @details list names are dropped without warning during unzipping; an example below shows how to add
-#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
-#' removed in order act as a 'zero' to preserve useful structural identities.
-#' 
-#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
-#' without warning.
-#'
-#' @template zips
-#' @keywords mcUnzipWith
-#' @example inst/examples/examples-unzipwith.r
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
 	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
@@ -175,27 +142,9 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	)
 }
 
-#' @description mcUnzip is the inverse function of mcZip; it takes a list 
-#' of n element vectors, and returns n lists. 
-#' mcUnzip (mcZip (x)) |-> x
-#' 
-#' @title mcUnzip
-#' 
+#' @rdname mchof_zip
+#' @family mchof-zip
 #' @export
-#' @param x a list of lists or vectors
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
-#' 
-#' @details list names are dropped without warning during unzipping; an example below shows how to add
-#' names to the output list. NULL elements in x are automatically removed from x. The empty list is not 
-#' removed in order act as a 'zero' to preserve useful structural identities.
-#' 
-#' the input lists are assumed to be of equal length; if they are not excess elements are discarded
-#' without warning.
-#' 
-#' @template zips  
-#' @keywords mcUnzip
-#' @example inst/examples/examples-unzip.r
 
 mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip

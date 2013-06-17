@@ -23,8 +23,7 @@
 \description{
   \code{mcAnd} takes two functions \code{f} and \code{g},
   and returns a composite function. This composite function
-  returns a function, which returns \code{f(...) &&
-  g(...)}.
+  returns \code{f(...) && g(...)}.
 
   \code{mcNot} takes a function \code{f}, and returns a
   function. This function returns the logical negation of
@@ -34,15 +33,14 @@
 
   \code{mcOr} takes two functions \code{f} and \code{g},
   and returns a composite function. This composite function
-  returns a function, which returns \code{f(...) ||
-  g(...)}.
+  returns \code{f(...) || g(...)}.
 
   \code{mcXor} takes two functions \code{f} and \code{g},
   and returns a composite function. This composite function
-  returns a function, which returns \code{xor( f(...),
-  g(...) )}. The \code{xor} function returns \code{TRUE} if
-  either its first or second argument is \code{true}, but
-  not both and not neither.
+  returns \code{xor( f(...), g(...) )}. The \code{xor}
+  function returns \code{TRUE} if either its first or
+  second argument is \code{true}, but not both and not
+  neither.
 }
 \details{
   All of these functions return logical values
@@ -60,8 +58,8 @@
   numeric and finite, and then coerces this result to
   \code{TRUE} or \code{FALSE}.
 
-  The returned composition functions formals depend on the
-  input function(s).
+  The composite functions formals depend on the input
+  function(s):
 
   \enumerate{ \item If the function \code{f} and \code{g}
   have the same parameter names - in the same order - but
@@ -101,73 +99,6 @@ mcSelect(
 	seq_len(20)
 )
 
-
-
-is_ten <- function (n) n == 10
-not_ten <- mcNot(is_ten)
-not_ten(10)
-
-# cancel out mcNot with a second mcNot
-
-mcNot(mcNot( function () TRUE ))()
-
-# select the non null elements from a list
-
-mcSelect(
-	mcNot('is.null'),
-	list(1, NULL, 2,3,4)
-)
-
-
-
-h <- function (name) name == "cat"
-w <- function (name) name == "dog"
-
-cat_or_dog <- mcOr(h, w)
-cat_or_dog("rat")
-
-# example without saving result of mcOr to 
-# intermediate function
-
-f <- function (n) n > 5
-g <- function (n) n < 10
-
-mcOr(f, g)(7)
-
-## pairing mcOr with mcSelect
-
-mcSelect(
-	mcOr(
-		function (x) x < 10,
-		function (x) x == 7),
-	seq_len(20)
-)
-
-
-
-
-h <- function (name) name == "cat"
-w <- function (name) name == "dog"
-
-cat_or_dog <- mcXor(h, w)
-cat_or_dog("rat")
-
-# example without saving result of mcXor to 
-# intermediate function
-
-f <- function (n) n > 5
-g <- function (n) n < 10
-
-mcXor(f, g)(7)
-
-## pairing mcXor with mcSelect
-
-mcSelect(
-	mcXor(
-		function (x) x < 10,
-		function (x) x == 7),
-	seq_len(20)
-)
 
 }
 \keyword{mcAnd}

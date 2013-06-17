@@ -1,20 +1,41 @@
 
-#' @description mcLarger takes two functions f and g, and returns a function. This new function
-#' returns f(...) > g(...)
+#' Higher-Order-Functions for Functional Arithmetic
 #'
-#' @title mcLarger
-#' 
+#' @description
+#'
+#'\code{mcLarger} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) > g(...)}
+#'
+#'\code{mcSmaller} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) < g(...)}
+#''
+#'\code{mcPlus} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) + g(...)}
+#'
+#'\code{mcMinus} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) - g(...)}
+#'
+#'\code{mcEqual} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) == g(...)}
+#'
+#'\code{mcNotEqual} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) != g(...)}
+#'
+#'\code{mcMultiply} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) * g(...)}
+#'
+#'\code{mcDivide} takes two functions \code{f} and \code{g}, and returns a composite function.
+#' this composite function returns \code{f(...) / g(...)}
+#'
+#' @details 1
+#'
+#' @param f a function that returns a value, or a string giving the name of such a function.
+#' @param g a function that returns a value, or a string giving the name of such a function.
+#'
+#' @rdname mchof_math
+#' @family mchof-math
+#' @example inst/examples/examples-math.r
 #' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a logical value
-#' 
-#' @template math
-#'
-#' @keywords mcLarger
-#' @example inst/examples/examples-larger.r
 
 mcLarger <- function (f, g) {
 	# return a function f(...) > g(...)?
@@ -35,22 +56,9 @@ mcLarger <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcSmaller takes two functions f and g, and returns a function. This new function
-#' returns f(...) < g(...)
-#'
-#' @title mcSmaller
-#' 
+#' @rdname mchof_math
+#' @family mchof-math
 #' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a logical value
-#' 
-#' #' @template math
-#'
-#' @keywords mcSmaller
-#' @example inst/examples/examples-smaller.r
 
 mcSmaller <- function (f, g) {
 	# return a function f(...) < g(...)?
@@ -71,22 +79,9 @@ mcSmaller <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcPlus takes two functions f and g, and returns a function. This new function
-#' returns f(...) + g(...)
-#'
-#' @title mcPlus
-#' 
+#' @rdname mchof_math
+#' @family mchof-math
 #' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a number or vector of numbers
-#'
-#' @template math
-#'
-#' @keywords mcPlus
-#' @example inst/examples/examples-plus.r
 
 mcPlus <- function (f, g) {
 	# return a function f(...) + g(...)
@@ -107,95 +102,9 @@ mcPlus <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcEqual takes two functions f and g, and returns a function. This new function
-#' returns f(...) == g(...)
-#'
-#' @title mcEqual
-#' 
+#' @rdname mchof_math
+#' @family mchof-math
 #' @export
-#' @param f a function that returns an object that can be compared with ==, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns an object that can be compared with ==, 
-#' or a string giving the name of such a function.
-#' @return returns a logical value.
-#'
-#' @template math
-#'
-#' @keywords mcEqual
-#' @example inst/examples/examples-equal.r
-
-mcEqual <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
-	
-	func_call <- "mcEqual(f, g)"
-
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")
-
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) == g(params_)
-		}, f, g)
-}
-
-#' @description mcNotEqual takes two functions f and g, and returns a function. This new function
-#' returns f(...) != g(...)
-#'
-#' @title mcNotEqual
-#' 
-#' @export
-#' @param f a function that returns an object that can be compared with ==, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns an object that can be compared with ==, 
-#' or a string giving the name of such a function.
-#' @return returns a logical value.
-#'
-#' @template math
-#'
-#' @keywords mcNotEqual
-#' @example inst/examples/examples-notequal.r
-
-mcNotEqual <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
-	
-	func_call <- "mcNotEqual(f, g)"
-
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")		
-
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {			
-			f(params_) != g(params_)
-		}, f, g)
-}
-
-#' @description mcMinus takes two functions f and g, and returns a function. This new function
-#' returns f(...) - g(...)
-#'
-#' @title mcMinus
-#' 
-#' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a number or vector of numbers.
-#'
-#' @template math
-#'
-#' @keywords mcMinus
-#' @example inst/examples/examples-minus.r
- 
 
 mcMinus <- function (f, g) {
 	# get f(...) - g(...)
@@ -216,22 +125,55 @@ mcMinus <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcMultiply takes two functions f and g, and returns a function. This new function
-#' returns f(...) * g(...)
-#'
-#' @title mcMultiply
-#' 
+#' @rdname mchof_math
+#' @family mchof-math
 #' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a number or vector of numbers.
-#'
-#' @template math
-#'
-#' @keywords mcMultiply
-#' @example inst/examples/examples-minus.r
+
+mcEqual <- function (f, g) {
+	# returns a function that returns f(...) == g(...)
+	
+	func_call <- "mcEqual(f, g)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")
+
+	f <- match.fun(f)
+	g <- match.fun(g)
+	
+	rm(func_call)
+	
+	combine_formals(
+		function () {			
+			f(params_) == g(params_)
+		}, f, g)
+}
+
+#' @rdname mchof_math
+#' @family mchof-math mchof-logic
+#' @export
+
+mcNotEqual <- function (f, g) {
+	# returns a function that returns f(...) == g(...)
+	
+	func_call <- "mcNotEqual(f, g)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(g) %throws% messages$function_is_required(func_call, "g")		
+
+	f <- match.fun(f)
+	g <- match.fun(g)
+	
+	rm(func_call)
+	
+	combine_formals(
+		function () {			
+			f(params_) != g(params_)
+		}, f, g)
+}
+
+#' @rdname mchof_math
+#' @family mchof-math mchof-logic
+#' @export
 
 mcMultiply <- function (f, g) {
 	# return a function f(...) * g(...)
@@ -252,22 +194,9 @@ mcMultiply <- function (f, g) {
 		}, f, g)
 }
 
-#' @description mcDivide takes two functions f and g, and returns a function. This new function
-#' returns f(...) / g(...)
-#'
-#' @title mcDivide
-#' 
+#' @rdname mchof_math
+#' @family mchof-math
 #' @export
-#' @param f a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @param g a function that returns a number or vector of numbers, 
-#' or a string giving the name of such a function.
-#' @return returns a number or vector of numbers.
-#'
-#' @template math
-#'
-#' @keywords mcDivide
-#' @example inst/examples/examples-divide.r
 
 mcDivide <- function (f, g) {
 	# return a function f(...) / g(...)?
