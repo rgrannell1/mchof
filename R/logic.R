@@ -29,21 +29,16 @@
 #'
 #' The returned composition functions formals depend on the input function(s).
 #'
-#' 1, If the function \code{f} and \code{g} have the same parameter names and the same
-#' default arguments - in the same order - then the output function will 
-#' preserve the parameters and default arguments of \code{f}/\code{g}.
-#'
-#' 2, If the function \code{f} and \code{g} have the same parameter names - in the same order -
-#' but have different default arguments, then the output function will
-#' preserve only the parameters of \code{f}/\code{g}.
-#'
-#' 3, If the parameters of \code{f} and \code{g} differ, or their order is shuffled then
-#' the output function uses ellipses as parameters.
-#'
-#' primitive functions (such as \code{max}) are supported by mchof, and their arguments are processed
-#' in a similar way to those of closures (standard R functions). For mcNot the parameters of \code{f} are
-#' automatically copied to the output composite function.
-
+#' \enumerate{
+#'     \item If the function \code{f} and \code{g} have the same parameter names - in the same order -
+#'     but have different default arguments, then the output function will
+#'     preserve only the parameters of \code{f}/\code{g}.
+#'     \item If the parameters of \code{f} and \code{g} differ, or their order is shuffled then
+#'     the output function uses ellipses as parameters.
+#'     \item primitive functions (such as \code{max}) are supported by mchof, and their arguments are processed
+#' in a similar way to those of closures (standard R functions). 
+#'}
+#' For mcNot the parameters of \code{f} are automatically copied to the output composite function.
 #' @rdname mchof_logic
 #' @keywords mcAnd mcNot mcOr mcXor
 #'
@@ -51,7 +46,7 @@
 #' @param g a function that returns a logical value, or a string giving the name of such a function.
 #'
 #' @family logical functions
-#' @example inst/examples/examples-and.r
+#' @example inst/examples/examples-logic.r
 #' @export
 
 mcAnd <- function (f, g) {
@@ -101,7 +96,6 @@ mcNot <- function (f) {
 
 #' @rdname mchof_logic
 #' @family logical functions
-#' @example inst/examples/examples-or.r
 #' @export
 
 mcOr <- function (f, g) {
@@ -126,7 +120,6 @@ mcOr <- function (f, g) {
 
 #' @rdname mchof_logic
 #' @family logical functions
-#' @example inst/examples/examples-xor.r
 #' @export
 
 mcXor <- function (f, g) {
