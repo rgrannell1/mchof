@@ -17,4 +17,6 @@ ISSUE("add type-checking to math and logical functions")
 ISSUE("add families to all functions")
 ISSUE("reduce boilerplate in logic")
 
+ISSUE("use  as.list(parse(text=''))  to solve prob with formals")
+
 # pluck list() and A(0)

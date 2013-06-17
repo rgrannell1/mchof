@@ -52,23 +52,9 @@
 mcAnd <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) && g(...))
-	
-	func_call <- "mcAnd(f, g)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(g) %throws% messages$function_is_required(func_call, "g")
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {
-			f(params_) && g(params_)
-		},
-		f, g
-	)
+	binary_functional(f, g, "&&", "mcAnd(f, g)")
+
 }
 
 #' @rdname mchof_logic
@@ -101,20 +87,8 @@ mcOr <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) || g(...))
 	
-	func_call <- "mcOr(f, g)"
+	binary_functional(f, g, "||", "mcOr(f, g)")
 
-	missing(f) %throws%  messages$function_is_required(func_call, "f")
-	missing(g) %throws%  messages$function_is_required(func_call, "g")
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-
-	combine_formals(
-		function () {
-			f(params_) || g(params_)
-		}, f, g)
 }
 
 #' @rdname mchof_logic
@@ -127,16 +101,6 @@ mcXor <- function (f, g) {
 	
 	func_call <- "mcXor(f, g)"
 
-	missing(f) %throws%  messages$function_is_required(func_call, "f")
-	missing(g) %throws%  messages$function_is_required(func_call, "g")	
-	
-	f <- match.fun(f)
-	g <- match.fun(g)
-	
-	rm(func_call)
-	
-	combine_formals(
-		function () {
-			xor( f(params_), g(params_) ) 
-		}, f, g)
+	binary_functional(f, g, "xor", "mcXor(f, g)")
+
 }

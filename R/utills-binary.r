@@ -1,7 +1,7 @@
 
 binary_functional <- function (f, g, operator, func_call) {
 
-	ISSUE("rename binary_functional")
+	ISSUE("rename binary_functional & TEST")
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")		
