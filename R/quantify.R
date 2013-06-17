@@ -1,6 +1,6 @@
 
 
-#' Higher-Order-Functions for Quantifying TRUE/FALSE cases
+#' Higher-Order-Functions for Quantifying TRUE/FALSE values
 #'
 #' @description
 #'
@@ -33,7 +33,7 @@
 #' and then coerces this result to \code{TRUE} or \code{FALSE}.
 #'
 #' All of these functions return \code{NULL} when \code{x = NULL}. 
-#' When \code{x} is another length-zero value  \code{mcAll} returns \code{TRUE},
+#' When \code{x} is another length-zero value \code{mcAll} returns \code{TRUE},
 #' and \code{mcOne} and \code{mcAny} return \code{FALSE}. The reason that mcAll returns
 #' \code{TRUE} for length-zero data is for consistency with the base function \code{all}.
 #'

@@ -1,34 +1,25 @@
 
-#' @title mcPosition
-#' 
-#' @description Returns the index of the first (or last) position in a vector or 
-#' list matching a predicate function.
+#' Higher-Order-Functions for Finding Values
+#'
+#' @description 
+#' \code{mcPosition} returns the index of the first (or last) position in \code{x} whose value 
+#' matches a predicate function \code{f}.
 #'  
-#' @export
-
+#' \code{mcFind} returns the value of the first (or last) element of \code{x} that meets the predicate f.  
+#'
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
 #' @param x a list or vector.
-#' @param right a boolean value. Should the first TRUE or last 
-#' FALSE element matching f be returned? Defaults to FALSE.
+#' @param right a boolean value. Should \code{x} be searched starting from the right? Defaults to \code{FALSE}.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
-#'
-#' @return returns an integer. If no match is found or x is length(0)
-#' integer(0) is returned. This is consistent with the behaviour of which(). As with
-#' other mchof function x = NULL returns NULL
-#' @details mcPosition can be used as a functional alternative to \code{which}, that works well in 
-#' combination with other functionals in base R and this library.
-#' NA's obtained while applying f to x will 
-#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see \link{mchof}).
-#'
-#' @seealso see \link{which} for an alternate indexing function, and \link{mcFind} for
-#' a function which returns the first (or last) element in a list matching a predicate.
 #'   
-#' @example inst/examples/examples-position.r
-#' @keywords mcPosition
-#' 
+#' @example inst/examples/examples-positions.r
+#' @keywords mcPosition mcFind
+
+#' @rdname mchof_positions
+#' @family mchof-positions
+#' @export
 
 mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	# returns the first (or last) index in x that matches
@@ -101,33 +92,9 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	integer(0)
 }
 
-#' @description Returns the value of the first element of x that meets the predicate f.  
-#'
-#' @title mcFind
-#' 
+#' @rdname mchof_positions
+#' @family mchof-positions
 #' @export
-#' @param f a unary function that returns a boolean value, or a string
-#' giving the name of such a function.
-#' @param x a list or vector.
-#' @param right a boolean value. Should the first TRUE or last 
-#' FALSE element matching f be returned? Defaults to FALSE.
-#' @param paropts a list of parameters to be handed to 
-#'    mclapply (see \link{mchof}).
-#' 
-#' @return returns an element from x. If x is NULL, NULL is returned. If
-#' x is the empty list, the empty list is returned.
-#' 
-#' @details mcFind applies f to each element of x, coerces the result 
-#' to a logical value, and returns the first value for which f returns TRUE. 
-#' NA's obtained while applying f to x will 
-#' be assumed to be FALSE. the user can sidestep this behaviour easily, 
-#' if necessary (see \link{mchof}).
-#' 
-#' @seealso see \code{mcPosition} to return the index of the first element
-#' matching f.
-#'
-#' @example inst/examples/examples-find.r
-#' @keywords mcFind
 
 mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	# returns the first (or last) element in x that matches

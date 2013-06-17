@@ -216,4 +216,3 @@ mcDivide <- function (f, g) {
 			f(params_) / g(params_)
 		}, f, g)
 }
-
