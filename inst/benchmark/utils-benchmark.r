@@ -67,9 +67,11 @@ visualise_benchmark <- function (data) {
 		names = sapply(data, function (li) li$name))
 	
 	for (i in seq_along(molten)) {
+		
 		g <- ggplot(data = molten[[i]], aes(x = value)) + 
 			geom_density(aes(group = variable, fill = variable)) + 
 			xlab("nanoseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
+
 		plot(g)
 		Sys.sleep(6)
 	}
