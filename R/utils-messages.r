@@ -90,7 +90,16 @@ messages <- list(
 		name <- head(name, 1)
 		
 		stopf(
-			"%s: cannot set parameters of %s, as it is a primitive function"
+			"%s: cannot set %s's parameters, as it is a primitive function",
+			call, name)
+
+	},
+	cant_be_parameters = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
+		stopf(
+			"%s: %s must be either a character vector or a list of parameter = default pairs",
 			call, name)
 
 	},

@@ -34,9 +34,9 @@ mcFlip <- function (f) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	if (length(parametres(f)) < 2) return (f)
+	if (length(parameters(f)) < 2) return (f)
 
-	parametres(f) <- rev(formals(f))
+	parameters(f) <- rev(formals(f))
 	f
 }
 
@@ -50,29 +50,97 @@ mcJumble <- function (f, x) {
 	
 	func_call <- "mcJumble(f, x)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	missing(x) %throws% 
+		messages$vector_is_required(func_call, "x")
 
-	is.factor(x) %throws% messages$was_a_factor(func_call, x, "x")
+	is.factor(x) %throws% 
+		messages$was_a_factor(func_call, x, "x")
 	
 	f <- match.fun(f)
-	if (length(parametres(f)) < 2) return (f)
+	if (length(parameters(f)) < 2) return (f)
 	
-	( !all(x %in% seq_along(parametres(f))) ) %throws% 
+	( !all(x %in% seq_along(parameters(f))) ) %throws% 
 		messages$must_be_indices(func_call, x, "x")
 	
-	(length(parametres(f)) != length(x)) %throws% 
+	(length(parameters(f)) != length(x)) %throws% 
 		messages$length_mismatch(
-			func_call, c(length(parametres(f)),
-			length(x)), "parametres(f)", "x")
+			func_call, c(length(parameters(f)),
+			length(x)), "parameters(f)", "x")
 
 	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
-		
-	ISSUE("jumble need to support primitives")
 
-	parametres(f) <- parametres(f)[c(x)]
+	parameters(f) <- parameters(f)[c(x)]
 	f
+}
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
+mcParameters <- function (f, x) {
+	# get the formals/arguments of f if x
+	# isn't given, and set the formals if x is given
+
+	func_call <- "mcParameters(f, x)"
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+
+	use_as_getter <- missing(x)
+
+	if (use_as_getter) {
+
+		parameters <- if (is.primitive(f)) {
+			head( as.list(args(f)), -1 )
+		} else {
+			formals(f)
+		}
+
+		return (parameters)
+	}
+		
+	is.primitive(f) %throws% 
+		messages$cant_set_parameters(func_call, f, "f")
+
+	is_correct_class <- 
+		(is.vector(x) && is.character(x)) || is.list(x) 
+
+	(!is_correct_class) %throws%
+		messages$cant_be_parameters(func_call, x, "x")
+ 
+	if (is.vector(x) && is.character(x)) {
+
+		any_unnamed(x) %throws% 
+			messages$not_all_named(func_call, x, "x")
+
+		any_duplicated(x) %throws%
+			messages$matched_multiple_time(func_call, x, "x")
+
+		missing_default <- list( formals(function (x) { })$x )
+
+		if (length(x) > 0) {
+
+			formals(f) <- structure(
+				replicate(length(x), missing_default),
+				names = x)
+			f
+		} else {
+			formals(f) <- list()
+			f
+		}
+	}
+
+	if (is.list(x)) {
+
+		(any_unnamed(x)) %throws% 
+			messages$not_all_named(func_call, x, "x")
+	
+		formals(f) <- x
+		return (f)
+	}
 }
 
 #' @rdname mchof_parameters
@@ -101,24 +169,9 @@ mcImplode <- function (f) {
 	}
 }
 
-#' @description mcPartial transforms a function that takes multiple arguments
-#' into a function that takes less arguments by partially applying the function with
-#' the arguments supplied.
-#'
-#' @title mcPartial
-#'  
+#' @rdname mchof_parameters
+#' @family mchof-parameters
 #' @export
-#' @param f a function, or a string giving the name of a function.
-#' @param ... name = value pairs to apply to f.
-#' @return returns a partially applied function with ellipsis (...) formals
-#' 
-#' @details mcPartial returns a partially applied function; an example of a partially
-#' applied function is 
-#' 
-#' f(x,y) 2x + y -> f(x) 2x + 2 
-#' 
-#' @keywords mcPartial
-#' @example inst/examples/examples-partial.r
 
 mcPartial <- function (f, ...) {
 	# take f and fill in some of its arguments, return a function 
@@ -126,7 +179,8 @@ mcPartial <- function (f, ...) {
 	
 	func_call <- "mcPartial(f, ...)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
 	
 	ISSUE("partial is very broken")
 	

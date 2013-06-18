@@ -7,7 +7,7 @@ is_integer0 <- function (x) {
 }
 
 any_unnamed <- function (x) {
-	any(x == "")
+	any(names(x) == "")
 }
 any_duplicated <- function (x) {
 	any(duplicated(x))
