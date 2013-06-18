@@ -51,6 +51,14 @@ mcIterateWhile <- function (p, f, x) {
 #' @family mchof-maps
 #' @export
 
+mcIterate <- function (f, x) {
+	mcIterateWhile(Negate(is.null), f, x)
+}
+
+#' @rdname mchof_maps
+#' @family mchof-maps
+#' @export
+
 mcIndMap <- function (f, x, paropts = NULL) {
 	# map f across the list [ [x1_i, x1], ..., [xn_i, xn] ]
 	
@@ -72,3 +80,4 @@ mcIndMap <- function (f, x, paropts = NULL) {
 		paropts
 	)
 }
+

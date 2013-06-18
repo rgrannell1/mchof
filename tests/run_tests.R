@@ -19,3 +19,4 @@ warning("make mcParameters(prim, x) work")
 
 warning("use  as.list(parse(text=''))  to solve prob with formals")
 warning("juxtapose ((juxt a b c) x) => [(a x) (b x) (c x)]")
+warning("add mcAcc")
