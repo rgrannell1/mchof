@@ -5,7 +5,7 @@ pick_len <- function (n=100) {
 gen_invoke <- function (gen, n = 1) {
 	# invoke the generator n times
 
-	replicate(n, gen[[1]]$f())
+	replicate(n, gen[[1]]$f(), simplify = FALSE)
 
 }
 
@@ -64,11 +64,11 @@ r_words <- Generator(
 	}
 )
 
-## collection generator functions, which take element generators and 
+## collection generator functionals, which take element generators and 
 ## return generators for vectors and lists
 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-vector_generator <- function (element_gen) {
+gen_to_vector <- function (element_gen) {
 	# takes a generator for a single 
 	# type of vector element, and return a generator
 	# for length > 1 vectors of that element
@@ -82,11 +82,25 @@ vector_generator <- function (element_gen) {
 	)
 }
 
-## name generator functions, which take collection
+gen_to_flatlist <- function (element_gen) {
+	# takes a generator for a single 
+	# type of vector element, and return a generator
+	# for length > 1 lists of that element
+
+	Generator(
+		function () {
+
+			length <- pick_len(20) 
+			as.list( gen_invoke(element_gen, length) )
+		}
+	)
+}
+
+## name generator functionals, which take collection
 ## generator and returns a generator of named collections
 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-collection_names <- function (collection_gen) {
+gen_add_names <- function (collection_gen) {
 	# takes a collection generator, and 
 	# returns a collection generator that names its 
 	# outputs. May contain duplicate values
@@ -95,13 +109,13 @@ collection_names <- function (collection_gen) {
 		function () {
 
 			x <- gen_invoke(collection_gen)
-			names(x) <- gen_invoke(r_vect_words, length(x)),
+			names(x) <- gen_invoke(r_vect_words, length(x))
 			x
 		}
 	)
 }
 
-collection_names_unique <- function (collection_gen) {
+gen_add_unique_names <- function (collection_gen) {
 	# takes a collection generator, and 
 	# returns a collection generator that names its 
 	# outputs. Each name is unique.
@@ -117,13 +131,22 @@ collection_names_unique <- function (collection_gen) {
 	)
 }
 
+r_int_vectors <- gen_to_vector(r_integers)
+r_char_vectors <- gen_to_vector(r_words)
 
+r_seq_len <- Generator(
+	function () {
+		seq_len( pick_len(20) )
+	}
+)
 
+r_int_lists <- gen_to_flatlist(r_integers)
+r_char_lists <- gen_to_flatlist(r_words)
 
+r_named_int_vectors <- gen_add_names(r_int_vectors)
+r_named_char_vectors <- gen_add_names(r_char_vectors)
 
-
-
-
-
-
-
+r_uniq_named_int_vectors <- 
+	gen_add_unique_names(r_int_vectors)
+r_uniq_named_char_vectors <- 
+	gen_add_unique_names(r_char_vectors)
