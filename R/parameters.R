@@ -8,7 +8,6 @@
 #'
 #'\code{mcJumble} takes a function \code{f}, and returns \code{f} with its parameters
 #' permuted as defined by \code{x}.
-#
 #'
 #' @details 
 #'
@@ -35,11 +34,9 @@ mcFlip <- function (f) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	if (length(formals(f)) < 2) return (f)
+	if (length(parametres(f)) < 2) return (f)
 
-	ISSUE("flip need to support primitives")
-
-	formals(f) <- rev(formals(f))
+	parametres(f) <- rev(formals(f))
 	f
 }
 
@@ -59,22 +56,22 @@ mcJumble <- function (f, x) {
 	is.factor(x) %throws% messages$was_a_factor(func_call, x, "x")
 	
 	f <- match.fun(f)
-	if (length(formals(f)) < 2) return (f)
+	if (length(parametres(f)) < 2) return (f)
 	
-	( !all(x %in% seq_along(formals(f))) ) %throws% 
+	( !all(x %in% seq_along(parametres(f))) ) %throws% 
 		messages$must_be_indices(func_call, x, "x")
 	
-	(length(formals(f)) != length(x)) %throws% 
+	(length(parametres(f)) != length(x)) %throws% 
 		messages$length_mismatch(
-			func_call, c(length(formals(f)),
-			length(x)), "formals(f)", "x")
+			func_call, c(length(parametres(f)),
+			length(x)), "parametres(f)", "x")
 
 	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
 		
 	ISSUE("jumble need to support primitives")
 
-	formals(f) <- formals(f)[c(x)]
+	parametres(f) <- parametres(f)[c(x)]
 	f
 }
 

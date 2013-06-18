@@ -85,6 +85,15 @@ messages <- list(
 			"%s: not every argument in %s was named (%s)",
 			call, name, which_not_named)
 	},
+	cant_set_parameters = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
+		stopf(
+			"%s: cannot set parameters of %s, as it is a primitive function"
+			call, name)
+
+	},
 	matched_multiple_time = function (call, data, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)

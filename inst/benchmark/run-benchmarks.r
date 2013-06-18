@@ -28,7 +28,6 @@ if ( Sys.info()["user"] == "rgrannell1") {
 	source(paste0(path, "/utils-benchmark.r"))
 	sapply(all_tests, function (file) source(file))
 
-
 	benchmark_obj <- list(
 		benchmark,
 		benchmark_exp

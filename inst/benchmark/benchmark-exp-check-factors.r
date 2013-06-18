@@ -1,4 +1,7 @@
 
+# throw errors if a any element in a list is a factor,
+# return which values are NULL
+
 benchmark_exp$check_ziplists <- ( function () {
 
 	control_factor <- function (x) {
