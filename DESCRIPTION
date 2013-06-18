@@ -20,7 +20,8 @@ Suggests:
     itertools,
     microbenchmark,
     ggplot2,
-    reshape2
+    reshape2,
+    digest
 License: GPL-2
 Collate:
     'call_mclapply.R'
@@ -47,3 +48,4 @@ Collate:
     'parameters.R'
     'positions.R'
     'utills-binary.r'
+    'utils-forall.r'
