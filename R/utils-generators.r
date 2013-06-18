@@ -2,9 +2,16 @@
 pick_len <- function (n=100) {
 	sample(seq_len(n), size = 1)
 }
+gen_invoke <- function (gen, n = 1) {
+	# invoke the generator n times
+
+	replicate(n, gen[[1]]$f())
+
+}
 
 # generate corner cases: values that are likely to 
 # require special consideration by the test function
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
 r_vector_zero <- Generator (
 	function () {
@@ -38,6 +45,7 @@ r_length_zero <- Generator (
 
 # generate values: numbers, words, letters, which are 
 # elements of larger structures such as lists or vectors
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
 r_integers <- Generator(
 	function () sample(-500:500, size = 1)
@@ -56,68 +64,58 @@ r_words <- Generator(
 	}
 )
 
-# generate vectors: named, unnamed, and of various types
+## collection generator functions, which take element generators and 
+## return generators for vectors and lists
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-# unnamed vectors
+vector_generator <- function (element_gen) {
+	# takes a generator for a single 
+	# type of vector element, and return a generator
+	# for length > 1 vectors of that element
 
-r_vect_integers <- Generator(
-	function () {
-		size <- pick_len(20)
-		sample(-500:500, size = size, replace = TRUE)
-	}
-)
-r_vect_letters <- Generator(
-	function () {
-		size <- pick_len(20)
-		sample(letters, size = size, replace = TRUE)
-	}
-)
+	Generator(
+		function () {
 
-r_vect_sequence <- Generator(
-	function () {
-		size <- pick_len(20)
-		seq_len(size)
-	}
-)
+			length <- pick_len(20) 
+			gen_invoke(element_gen, length)
+		}
+	)
+}
 
-# named vectors: some partially, 
-# some fully, some without duplicates
+## name generator functions, which take collection
+## generator and returns a generator of named collections
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-r_vect_integers <- Generator(
-	function () {
-		size <- pick_len(20)
-		sample(-500:500, size = size, replace = TRUE)
-	}
-)
-r_vect_letters <- Generator(
-	function () {
-		size <- pick_len(20)
-		sample(letters, size = size, replace = TRUE)
-	}
-)
+collection_names <- function (collection_gen) {
+	# takes a collection generator, and 
+	# returns a collection generator that names its 
+	# outputs. May contain duplicate values
 
-r_vect_sequence <- Generator(
-	function () {
-		size <- pick_len(20)
-		seq_len(size)
-	}
-)
-# generate non-nested lists
-###########################
+	Generator(
+		function () {
 
-r_list_integers <- Generator(
-	function () {
-		size <- pick_len(20)
-		as.list( sample(-500:500, size = size, replace = TRUE) )
-	}
-)
-r_list_letters <- Generator(
-	function () {
-		size <- pick_len(20)
-		as.list( sample(letters, size = size, replace = TRUE) )
-	}
-)
+			x <- gen_invoke(collection_gen)
+			names(x) <- gen_invoke(r_vect_words, length(x)),
+			x
+		}
+	)
+}
 
+collection_names_unique <- function (collection_gen) {
+	# takes a collection generator, and 
+	# returns a collection generator that names its 
+	# outputs. Each name is unique.
+	
+	Generator(
+		function () {
+			
+			x <- gen_invoke(collection_gen)
+			names(x) <- paste0(
+				gen_invoke(r_words), seq_along(x))
+			x
+		}
+	)
+}
 
 
 
