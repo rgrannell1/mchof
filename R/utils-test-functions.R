@@ -33,4 +33,18 @@ adapt_call <- function (func, with) {
 	do.call(func, call_with)
 }
 
+accWhile <- function (func) {
+	# ( [a] -> NULL | [b] ) -> [b]
+	# accumulates a list of the return values
+	# of func in a sublist, until func returns NULL.
+
+	acc <- list()
+	res <- func (acc)
+
+	while (!is.null(res)) {
+		acc <- c(acc, list(res))
+		res <- func(acc)
+	}
+	acc
+}
 

@@ -1,16 +1,47 @@
 
-
 ISSUE("fix cache assignment")
 ISSUE("add expression -> func tool")
 ISSUE("more rigourous checks, fix trycatch reports")
+ISSUE("add generator support to forall!")
 
+#' @title Generator
+#' 
 
+Generator <- function (f) {
+	# constructor for an S3 object that is used to generate
+	# test cases by indium_backend
+
+	(missing(f)) %throws%
+ 		messages$function_is_required("Generator(f)", f, "f")
+
+ 	f <- match.fun(f)
+
+	(length(formals(f)) != 0) %throws% stopf(c(
+		'f must be a zero-parameter function that returns a single test case:',
+		'actual parameters are %s'),
+		deparse(formals(f)))
+
+	list(
+		structure (
+			list(f = f),
+			class = 'generator'
+	))
+}
+
+ 
 forall_cache <- list()
 
 forall <- function (
 	cases, expect, given = function (...) TRUE,
 	opts = list(time = 4), info = '') {
-	# a lightweight quickcheck function
+	# check if a condition is true over a range of discourse
+
+	has_generators <- any(sapply(
+		cases,
+		function (el) {
+			is(el[[1]], 'generator')
+		}
+	))
 
 	opts$time <-   getOption("forall_time", opts$time)
 	opts$length <- getOption("forall_length", opts$length)
@@ -19,23 +50,34 @@ forall <- function (
 		messages$length_mismatch(
 			"forall()", list(formals(expect), names(cases)),
 			 "formals of expect", "names of cases")
-	
-	testargs_iter <- ihasNext(do.call(product, cases))
-	
+
+	enumerator <- if (has_generators) {
+		ihasNext( recycle(do.call(product, cases)) )
+	} else {
+		ihasNext(do.call(product, cases))
+	}
+
 	predicate <- function (case) {
 		# args -> boolean
 		# does a set of testargs pass the specified test,
 		# after composing given and expect into one function
 
+		if (has_generators) {
+
+			case <- Map(
+				function (el) {
+
+					if (is(el, "generator")) {
+
+						el$f()
+					} else el
+				},
+				case)
+		}
+
 		tryCatch(
 			precondition_holds <- do.call(given, case),
 			error = function (err) {
-
-				#forall_cache <<- list(
-				#	info = info,
-				#	time = date(),
-				#	cases = case
-				#)
 
 				stopf(c(
 					"%s",
@@ -53,17 +95,11 @@ forall <- function (
 				"the result of given")
 
 		if (precondition_holds) {
-			tests_ran <<- tests_ran + 1
+			expectation_checked <<- expectation_checked + 1
 			
 			tryCatch(
-				statement_holds <- do.call(expect, case),
+				expectation_holds <- do.call(expect, case),
 				error = function (err) {
-
-					#forall_cache <<- list(
-					#	info = info,
-					#	time = date(),
-					#	cases = case
-					#)
 
 					stopf(c(
 						"%s",
@@ -75,39 +111,43 @@ forall <- function (
 				}
 			)
 
-			(!is_boolean(statement_holds)) %throws% 
+			(!is_boolean(expectation_holds)) %throws% 
 				messages$not_a_bool(
-					"given(args)", statement_holds,
+					"given(args)", expectation_holds,
 					"the result of given")
 
-			statement_holds
+			expectation_holds
 		} else TRUE
 
 	}
 	
-	tests_ran <- 0 # side-effectfully updated
-	results <- c()
+	expectation_checked <- 0 # side-effectfully updated
 	time_left <- stopwatch(opts$time)
-	
-	while (hasNext(testargs_iter) && time_left()) {
-		
-		args <- nextElem(testargs_iter)
-		test_return_value <- predicate(args)
-		
-		(!is_boolean(test_return_value)) %throws% 
-			messages$not_a_bool(
-				"forall()", test_return_value, "result of expect")
-		
-		results <- c(
-			results,
-			list(list(
-				passed = test_return_value,
-				args = args
-		)))
+
+	should_run <- function () {
+		hasNext(enumerator) && time_left()
 	}
 
+	results <- accWhile(
+		function (previous_results) {
+
+			if (should_run()) {
+
+				testargs <- nextElem(enumerator)
+				test_return_value <- predicate(testargs)
+
+				list(
+					passed = test_return_value,
+					args = testargs)
+
+			} else NULL
+		}
+	)
+
 	failed <- Filter(
-		function (test) !test$passed,
+		function (test) {
+			!test$passed
+		},
 		results
 	)
 
@@ -137,16 +177,14 @@ forall <- function (
 			"",
 			"a list of the cases which failed has been assigned to forall_cache"),
 			info,
-			min(which_failed), tests_ran,
+			min(which_failed), expectation_checked,
 			length(which_failed), length(results) - length(which_failed)
 		)
-
-
 
 	} else {
 		messagef(
 			'%s:\n\t true, passed %s tests (%s tests ran)',
-			info, length(results), tests_ran)		
+			info, length(results), expectation_checked)		
 	}
 
 }
