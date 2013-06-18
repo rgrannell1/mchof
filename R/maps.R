@@ -1,13 +1,21 @@
-
 #' Map-like Higher-Order-Functions
+#'
+#' @details 1
 #'
 #' @keywords mcIterateWhile, mcIndMap
 #'
-#' @example inst/examples/examples-maps/.r
-#' @export
+#' @example inst/examples/examples-maps.r
 #'
-#' @rdname mchof_map
-#' @family mchof_map
+#' @param p 1
+#' @param f 1
+#' @param x x
+#' @param paropts 1
+#'
+#'
+#'
+#'
+#' @rdname mchof_maps
+#' @family mchof_maps
 #' @export
 
 mcIterateWhile <- function (p, f, x) {
@@ -39,8 +47,8 @@ mcIterateWhile <- function (p, f, x) {
 	x
 }
 
-#' @rdname mchof-map
-#' @family mchof-map
+#' @rdname mchof_maps
+#' @family mchof-maps
 #' @export
 
 mcIndMap <- function (f, x, paropts = NULL) {

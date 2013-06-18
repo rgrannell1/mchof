@@ -25,10 +25,6 @@ curry <- function(FUN,...) {
 	function(...) do.call( FUN,c(.orig,list(...)) )
 }
 
-mcExplode <- function (f) {
-    function (...) f(list(...))
-}
-
 is_boolean <- function (x) {
 	# is the value true or false
 	

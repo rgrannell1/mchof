@@ -111,3 +111,11 @@ r_typed_vectors <- function (n=100) {
 				list(r_letters(pick_len(20)))), size = 1)[[1]]
 		}, n)	
 }
+r_functions <- list(
+	mean, max, mode, Reduce,
+	get("+"), get("-"), get("*"),
+	Position, list, alist, c, matrix, vector, is.vector,
+	is.integer, is.factor, 
+	Map, lapply, sapply, vapply, min, mcReduce,
+	seq_len, seq_along, sd,
+	cat, print, sprintf, message)

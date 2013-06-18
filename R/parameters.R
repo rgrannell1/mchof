@@ -31,13 +31,13 @@ mcFlip <- function (f) {
 	
 	func_call <- "mcFlip(f)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	if (length(parameters(f)) < 2) return (f)
+	if (length(mcParameters(f)) < 2) return (f)
 
-	parameters(f) <- rev(formals(f))
-	f
+	mcParameters(f, rev(mcParameters(f)))
 }
 
 #' @rdname mchof_parameters
@@ -72,8 +72,9 @@ mcJumble <- function (f, x) {
 	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
 
-	parameters(f) <- parameters(f)[c(x)]
-	f
+	mcParameters(
+		f,
+		mcParameters(f)[c(x)])
 }
 
 #' @rdname mchof_parameters
@@ -89,6 +90,8 @@ mcParameters <- function (f, x) {
 	missing(f) %throws% 
 		messages$function_is_required(func_call, "f")
 
+	f <- match.fun(f)
+
 	use_as_getter <- missing(x)
 
 	if (use_as_getter) {
@@ -101,9 +104,15 @@ mcParameters <- function (f, x) {
 
 		return (parameters)
 	}
-		
-	is.primitive(f) %throws% 
-		messages$cant_set_parameters(func_call, f, "f")
+
+	if (is.primitive(f)) {
+		# prime to work with setter 
+
+		g <- function () {}
+		body(g) <- body(f)
+		environment(g) <- environment(f)
+		g
+	}
 
 	is_correct_class <- 
 		(is.vector(x) && is.character(x)) || is.list(x) 
@@ -151,6 +160,12 @@ mcExplode <- function (f) {
 	# takes a function that takes a single value and 
 	# makes it into a variadic function
 
+	func_call <- "mcExplode(f)"
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	f <- match.fun(f)
+
 	function (...) {
 		f(list(...))
 	}
@@ -163,6 +178,12 @@ mcExplode <- function (f) {
 mcImplode <- function (f) {
 	# takes a function that takes a many values and 
 	# makes it into a function that takes one list
+
+	func_call <- "mcImplode(f)"
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	f <- match.fun(f)
 
 	function (x) {
 		do.call(f, c(list(), x))
@@ -187,12 +208,12 @@ mcPartial <- function (f, ...) {
 	f <- match.fun(f)
 	applied <- list(...)
 	
-	formals_f <- names(formals(f))
+	formals_f <- names(mcParameters(f))
 	
 	("..." %in% formals_f) %throws% 
 		messages$formals_has_ellipses(func_call, formals_f, "f")
 	
-	( any_unnamed(names(applied)) ) %throws% 
+	( any_unnamed(applied) ) %throws% 
 		messages$not_all_named(func_call, applied, "...")
 	
 	( any_duplicated(names(applied)) ) %throws% 
@@ -205,7 +226,7 @@ mcPartial <- function (f, ...) {
 		do.call(f, c(applied, as.list(match.call())[-1]) )
 	}
 	
-	formals_f <- names(formals(f))
+	formals_f <- names(mcParameters(f))
 	unapplied <- formals_f[ !formals_f %in% names(applied) ]
 	
 	formals(applied_func) <- empty_formals(unapplied)

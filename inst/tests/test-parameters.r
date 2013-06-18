@@ -2,7 +2,7 @@
 context("mcFlip: normal cases")
 
 forall(info = "mcFlip reverses formal names",
-	list(func_ = list(Reduce, Position, Find, mcFind, mcReduce, mcFold, mcZip)),
+	list(func_ = r_functions),
 	function (func_) {
 		
 		rev_formals <- formals(mcFlip(func_))
@@ -14,7 +14,7 @@ forall(info = "mcFlip reverses formal names",
 )
 
 forall(info = "mcFlip preserved and reverses formal values",
-	list(func_ = list(Reduce, Position, Find, mcFind, mcReduce, mcFold, mcZip)),
+	list(func_ = r_functions),
 	function (func_) {
 		
 		rev_formals <- formals(mcFlip(func_))
@@ -33,7 +33,7 @@ forall(info = "mcFlip preserved and reverses formal values",
 context("mcJumble: normal cases")
 
 forall(info = "mcJumble permutes formal names",
-	list(func_ = list(Reduce, Position, Find, mcFind, mcReduce, mcFold, mcZip)),
+	list(func_ = r_functions),
 	function (func_) {
 		
 		permutation <- sample(seq_along(formals(func_)))
@@ -47,7 +47,7 @@ forall(info = "mcJumble permutes formal names",
 )
 
 forall(info = "mcJumble preserved and reverses formal values",
-	list(func_ = list(Reduce, Position, Find, mcFind, mcReduce, mcFold, mcZip)),
+	list(func_ = r_functions),
 	function (func_) {
 		
 		permutation <- sample(seq_along(formals(func_)))
@@ -65,3 +65,32 @@ forall(info = "mcJumble preserved and reverses formal values",
 	}
 )
 
+context("mcParameters: normal cases")
+
+forall(info = "mcParameters can get the formals in the base library",
+	list(func_ = r_functions),
+	function (func_) {
+		
+		identical( formals(func_), mcParameters(func_) )
+
+	},
+	given = function (func_) {
+		!is.primitive(func_) && is.function(func_)
+	}
+)
+
+forall(info = "mcParameters can get the arguments in the base library",
+	list(func_ = r_functions),
+	function (func_) {
+		
+		arguments <- function (f) {
+			head(as.list(args(f)), -1)
+		}
+
+		identical( arguments(func_), mcParameters(func_) )
+
+	},
+	given = function (func_) {
+		is.primitive(func_)
+	}
+)
