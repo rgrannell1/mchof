@@ -131,22 +131,3 @@ gen_add_unique_names <- function (collection_gen) {
 	)
 }
 
-r_int_vectors <- gen_to_vector(r_integers)
-r_char_vectors <- gen_to_vector(r_words)
-
-r_seq_len <- Generator(
-	function () {
-		seq_len( pick_len(20) )
-	}
-)
-
-r_int_lists <- gen_to_flatlist(r_integers)
-r_char_lists <- gen_to_flatlist(r_words)
-
-r_named_int_vectors <- gen_add_names(r_int_vectors)
-r_named_char_vectors <- gen_add_names(r_char_vectors)
-
-r_uniq_named_int_vectors <- 
-	gen_add_unique_names(r_int_vectors)
-r_uniq_named_char_vectors <- 
-	gen_add_unique_names(r_char_vectors)
