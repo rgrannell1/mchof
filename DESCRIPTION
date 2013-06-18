@@ -51,3 +51,4 @@ Collate:
     'utils-forall.r'
     'utils-registrar.r'
     'set.R'
+    'utils-generators.r'
