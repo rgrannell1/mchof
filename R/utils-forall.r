@@ -1,8 +1,6 @@
 
 ISSUE("fix cache assignment")
-ISSUE("add expression -> func tool")
-ISSUE("more rigourous checks, fix trycatch reports")
-ISSUE("add generator support to forall!")
+ISSUE("fix trycatch reports")
 
 Generator <- function (f) {
 	# constructor for an S3 object that is used to generate
@@ -30,7 +28,6 @@ forall_cache <- list()
 forall <- function (
 	cases, expect, given = function (...) TRUE,
 	opts = list(time = 4), info = '') {
-	# check if a condition is true over a range of discourse
 
 	has_generators <- any(sapply(
 		cases,
@@ -40,7 +37,6 @@ forall <- function (
 	))
 
 	opts$time <-   getOption("forall_time", opts$time)
-	opts$length <- getOption("forall_length", opts$length)
 	
 	(length(formals(expect)) != length(names(cases))) %throws% 
 		messages$length_mismatch(
@@ -64,9 +60,12 @@ forall <- function (
 
 				stopf(c(
 					"%s",
-					"\tthe precondition encountered an error",
+					"\tthe precondition encountered an error:",
+					"",
+					"\t%s",
+					"",
 					"\tthe case which caused the error has been assigned to forall_cache"),
-					info
+						info, err$message
 				)
 				stop(err)
 			}
@@ -86,11 +85,13 @@ forall <- function (
 	
 					stopf(c(
 						"%s",
-						"\tthe expectation encountered an error",
+						"\tthe expectation encountered an error:",
+						"",
+						"\t%s",
+						"",
 						"\tthe case which caused the error has been assigned to forall_cache"),
-						info
+						info, err$message
 					)
-					stop(err)
 				}
 			)
 
@@ -119,7 +120,6 @@ forall <- function (
 				testargs <- nextElem(enumerator)
 
 				if (has_generators) {
-
 					testargs <- Map(
 						function (el) {
 
@@ -134,7 +134,7 @@ forall <- function (
 
 				list(
 					passed = test_return_value,
-					args = testargs)
+					args = unname( testargs ))
 
 			} else NULL
 		}
@@ -179,8 +179,8 @@ forall <- function (
 
 	} else {
 		messagef(
-			"%s",
-			"\ttrue, passed %s tests (%s tests ran)",
+			c("%s",
+			"\ttrue, passed %s tests (%s tests ran)"),
 			info, length(results), expectation_checked)		
 	}
 
