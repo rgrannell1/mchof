@@ -4,9 +4,6 @@ ISSUE("add expression -> func tool")
 ISSUE("more rigourous checks, fix trycatch reports")
 ISSUE("add generator support to forall!")
 
-#' @title Generator
-#' 
-
 Generator <- function (f) {
 	# constructor for an S3 object that is used to generate
 	# test cases by indium_backend
@@ -27,7 +24,6 @@ Generator <- function (f) {
 			class = 'generator'
 	))
 }
-
  
 forall_cache <- list()
 
@@ -62,27 +58,14 @@ forall <- function (
 		# does a set of testargs pass the specified test,
 		# after composing given and expect into one function
 
-		if (has_generators) {
-
-			case <- Map(
-				function (el) {
-
-					if (is(el, "generator")) {
-
-						el$f()
-					} else el
-				},
-				case)
-		}
-
 		tryCatch(
 			precondition_holds <- do.call(given, case),
 			error = function (err) {
 
 				stopf(c(
 					"%s",
-					"the precondition encountered an error",
-					"the case which caused the error has been assigned to forall_cache"),
+					"\tthe precondition encountered an error",
+					"\tthe case which caused the error has been assigned to forall_cache"),
 					info
 				)
 				stop(err)
@@ -100,11 +83,11 @@ forall <- function (
 			tryCatch(
 				expectation_holds <- do.call(expect, case),
 				error = function (err) {
-
+	
 					stopf(c(
 						"%s",
-						"the expectation encountered an error",
-						"the case which caused the error has been assigned to forall_cache"),
+						"\tthe expectation encountered an error",
+						"\tthe case which caused the error has been assigned to forall_cache"),
 						info
 					)
 					stop(err)
@@ -134,6 +117,19 @@ forall <- function (
 			if (should_run()) {
 
 				testargs <- nextElem(enumerator)
+
+				if (has_generators) {
+
+					testargs <- Map(
+						function (el) {
+
+							if (is(el, "generator")) {
+								el$f()
+							} else el
+						},
+						testargs)
+				}
+
 				test_return_value <- predicate(testargs)
 
 				list(
@@ -171,11 +167,11 @@ forall <- function (
 
 		stopf(c(
 			"failed! %s",
-			"the test failed for the first time after %s tests",
-			"%s tests met their precondition",
-			"%s tests failed, %s tests passed",
+			"\tthe test failed for the first time after %s tests",
+			"\t%s tests met their precondition",
+			"\t%s tests failed, %s tests passed",
 			"",
-			"a list of the cases which failed has been assigned to forall_cache"),
+			"\ta list of the cases which failed has been assigned to forall_cache"),
 			info,
 			min(which_failed), expectation_checked,
 			length(which_failed), length(results) - length(which_failed)
@@ -183,7 +179,8 @@ forall <- function (
 
 	} else {
 		messagef(
-			'%s:\n\t true, passed %s tests (%s tests ran)',
+			"%s",
+			"\ttrue, passed %s tests (%s tests ran)",
 			info, length(results), expectation_checked)		
 	}
 
