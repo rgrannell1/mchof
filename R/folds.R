@@ -54,6 +54,7 @@
 #' @export
 
 mcFold <- function (f, first, x, paropts = NULL) {
+	# (a -> b -> a) -> a -> [b] -> a
 	# swaps the commas in first, x1, x2, ..., xn with
 	# the function f.
 		
@@ -76,6 +77,7 @@ mcFold <- function (f, first, x, paropts = NULL) {
 #' @export
 
 mcReduce <- function (f, x, paropts = NULL) {
+	# (a -> b -> a) -> [a] -> a
 	# swaps the commas in x1, x2, x3, ..., xn with
 	# the infix function f.
 

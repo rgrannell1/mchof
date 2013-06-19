@@ -19,6 +19,7 @@
 #' @export
 
 mcLarger <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
 	binary_functional(f, g, ">", "mcLarger(f, g)")
 
@@ -29,6 +30,7 @@ mcLarger <- function (f, g) {
 #' @export
 
 mcSmaller <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
 	binary_functional(f, g, "<", "mcSmaller(f, g)")
 
@@ -39,6 +41,7 @@ mcSmaller <- function (f, g) {
 #' @export
 
 mcPlus <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
 	binary_functional(f, g, "+", "mcPlus(f, g)")
 }
@@ -48,6 +51,7 @@ mcPlus <- function (f, g) {
 #' @export
 
 mcMinus <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
 	binary_functional(f, g, "-", "mcMinus(f, g)")
 
@@ -58,7 +62,7 @@ mcMinus <- function (f, g) {
 #' @export
 
 mcEqual <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
+	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
 	binary_functional(f, g, "==", "mcEqual(f, g)")
 
@@ -69,7 +73,7 @@ mcEqual <- function (f, g) {
 #' @export
 
 mcNotEqual <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
+	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
 	binary_functional(f, g, "!=", "mcNotEqual(f, g)")
 
@@ -80,7 +84,7 @@ mcNotEqual <- function (f, g) {
 #' @export
 
 mcMultiply <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
 	binary_functional(f, g, "*", "mcMultiply(f, g)")
 
@@ -91,8 +95,26 @@ mcMultiply <- function (f, g) {
 #' @export
 
 mcDivide <- function (f, g) {
-	# returns a function that returns f(...) == g(...)
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
 	binary_functional(f, g, "/", "mcDivide(f, g)")
+
+}
+
+#' @rdname mchof_math
+#' @family mchof-math
+#' @export
+
+mcMax <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
+
+	binary_functional(f, g, "max", "mcMax(f, g)")
+
+}
+
+mcMin <- function (f, g) {
+	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
+
+	binary_functional(f, g, "min", "mcMin(f, g)")
 
 }

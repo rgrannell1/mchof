@@ -157,6 +157,7 @@ mcParameters <- function (f, x) {
 #' @export
 
 mcExplode <- function (f) {
+	# (a -> b) -> (... -> b)
 	# takes a function that takes a single value and 
 	# makes it into a variadic function
 
@@ -176,6 +177,7 @@ mcExplode <- function (f) {
 #' @export
 
 mcImplode <- function (f) {
+	# (... -> b) -> (a -> b)
 	# takes a function that takes a many values and 
 	# makes it into a function that takes one list
 

@@ -2,6 +2,7 @@
 #' export 
 
 mcBoolean <- function (f, na_is_true = FALSE) {
+	# (a -> b) -> (a -> boolean)
 	# convert the output of f to a TRUE or FALSE value
 
 	func_call <- "mcBoolean(f, na_is_true)"

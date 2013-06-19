@@ -1,14 +1,15 @@
 
 #' Higher-Order-Functions for Composing Functions
 #'
-#' @description 
+#' @description 1
 #'
-#' @rdname mchof_math
-#' @family mchof-math
-#' @example inst/examples/examples-math.r
+#' @rdname mchof_compose
+#' @family mchof-compose
+#' @example inst/examples/examples-compose.r
 #' @export
 
 mcCompose <- function (f, g) {
+	# (a -> b) -> (b -> c) -> (a -> c)
 	# return a composite function f o g
 	
 	func_call <- "mcCompose(f, g)"

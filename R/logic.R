@@ -50,6 +50,7 @@
 #' @export
 
 mcAnd <- function (f, g) {
+	# (a -> boolean) -> (a -> boolean) -> (a -> boolean)
 	# return a function that returns true
 	# if (f(...) && g(...))
 
@@ -62,6 +63,7 @@ mcAnd <- function (f, g) {
 #' @export
 
 mcNot <- function (f) {
+	# (a -> boolean) -> (a -> boolean)
 	# return a function that returns false when f is true, 
 	# true when f is false, na when na
 	
@@ -84,6 +86,7 @@ mcNot <- function (f) {
 #' @export
 
 mcOr <- function (f, g) {
+	# (a -> boolean) -> (a -> boolean) -> (a -> boolean)
 	# return a function that returns true
 	# if (f(...) || g(...))
 	
@@ -96,6 +99,7 @@ mcOr <- function (f, g) {
 #' @export
 
 mcXor <- function (f, g) {
+	# (a -> boolean) -> (a -> boolean) -> (a -> boolean)
 	# return a function that returns true
 	# if (f(...) xor g(...))
 	

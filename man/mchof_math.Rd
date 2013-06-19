@@ -2,6 +2,7 @@
 \alias{mcDivide}
 \alias{mcEqual}
 \alias{mcLarger}
+\alias{mcMax}
 \alias{mcMinus}
 \alias{mcMultiply}
 \alias{mcNotEqual}
@@ -24,6 +25,8 @@
   mcMultiply(f, g)
 
   mcDivide(f, g)
+
+  mcMax(f, g)
 }
 \arguments{
   \item{\code{f}}{a function that returns an appropriate

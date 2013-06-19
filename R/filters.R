@@ -39,6 +39,7 @@
 #' @export
 
 mcFilter <- function (f, x, paropts = NULL) {
+	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is true
 	
 	func_call <- "mcFilter(f, x, paropts = NULL)"
@@ -67,6 +68,7 @@ mcSelect <- mcFilter
 #' @export
 
 mcReject <- function (f, x, paropts = NULL) {
+	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is false
 	
 	func_call <- "mcReject(f, x, paropts = NULL)"
@@ -94,6 +96,7 @@ mcReject <- function (f, x, paropts = NULL) {
 #' @export
 
 mcPartition <- function (f, x, paropts = NULL) {
+	# (a -> boolean) -> [a] -> [a]
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 	

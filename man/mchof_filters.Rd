@@ -54,96 +54,70 @@
 }
 \examples{
 
-# remove NA values from a vector 
+# find all primes in 1...15
 
-p <- function(x) !is.na(x)
-mcFilter(p, c(3,2,6,NA, 2))
-
-# the same example, in parallel
-p <- function(x) !is.na(x)
-mcFilter(p, c(3,2,6,NA, 2, list(mc.cores = 2)))
-
-# find all even numbers in a vector of numbers
-even_ints <- function(x){
-	Filter(
-		f = function(y) !(y \%\% 2),
-		x
-	)
+is_prime <- function (n) {
+    if (n == 1 || n == 2) FALSE else {
+        !any( n \%\% (2:(n - 1)) == 0)
+    }
 }
-even_ints(c(1,2,3,4,5,6,7,8,9,10))
 
-# a more advanced example, using an anonymous function to
-# filter out combinations that don't meet a predicate 
+mcSelect(is_prime, 1:15) #or
+mcReject(mcNot(is_prime), 1:15)
 
-mcFilter(
-	f = function(pair){
-		val <- sum(unlist(pair))
-		val > 8
-	}, 
-	x = apply(combn(8, 3), 2, list),
-	paropts = list(mc.cores = 2)
+# find the largest prime factor of 2023
+
+mcReduce(
+	max,
+	mcSelect(
+		mcAnd(is_prime, function (n) (2023 \%\% n) == 0) ,
+		1:2023) 
 )
 
-# remove NULL values from a list, by first transforming the
-# is.null function to a !is.null function
+# find solutions to 2*x + 4*y < 100
 
-mcFilter(
-	Negate(is.null),
-	list(NULL, 1, 2, 3, NULL, 4, 5)
-)
-
-# remove NA values from a vector 
-
-mcReject(is.na, c(3,2,6,NA, 2))
-
-# the same example, in parallel
-mcReject(is.na, c(3,2,6,NA, 2, list(mc.cores = 2)))
-
-# find all even numbers in a vector of numbers
-even_ints <- function(x){
-	Filter(
-		f = function(y) y \%\% 2,
-		x
+mcSelect(
+    mcImplode(
+		function (x, y) {
+			2*x + 4*y < 100
+		}
+	),
+	mcZip(
+		sample(1:100, size = 100),
+		sample(1:100, size = 100)
 	)
-}
-even_ints(c(1,2,3,4,5,6,7,8,9,10))
-
-# a more advanced example, using an anonymous function to
-# filter out combinations that don't meet a predicate 
-
-mcReject(
-	f = function(pair){
-		val <- sum(unlist(pair))
-		val <= 8
-	}, 
-	x = apply(combn(8, 3), 2, list),
-	paropts = list(mc.cores = 2)
 )
 
-mcReject(
-	is.null,
-	list(NULL, 1, 2, 3, NULL, 4, 5)
-)
+# Project Euler 8: find the greatest product of 5-consecutive digits
+# in a 1000-digit number
 
-# partition a set into even and odd numbers
+# use random data instead of the given number
 
-mcPartition(
-	function (x) x \%\% 2,
-	1:10
-) 
+number <- sample(0:9, size = 1000, replace = TRUE)
 
-# divide a set of combinations into 
-# two based on a predicate
-
-mcPartition(
-	f = function(pair){
-		val <- sum(unlist(pair))
-		val > 8
+indices <- mcReduce(
+	function (a, b) {
+		if (prod(number[a]) > prod(number[b])) a else b
 	},
-	x = apply(combn(8, 3), 2, list),
-	paropts = list(mc.cores = 2)
+	mcZipWith(
+		"+",
+		rep(list(1:5), 995), 1:1000)
 )
 
+# the mcZipWith step generates the indices 
+# [1,..., 5], [2,..., 6], ... [995, ..., 1000]
+
+number[indices]
+
+# partition a vector into good cops and other kinds
+# of cop
+
+mcPartition(
+	function (cop) {
+		cop == "good cop"
+	},
+	c("good cop", "bad cop", "good cop", "bad cop", "it's a fair cop!")
+)
 
 }
 \keyword{mcFilter}

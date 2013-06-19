@@ -74,6 +74,22 @@
 }
 \examples{
 
+# find all sexy primes below 1000
+
+mcFold
+
+
+
+
+
+
+
+
+
+
+
+
+
 # bind a list of vectors into a column
 
 mcFold(
@@ -124,6 +140,22 @@ mcReduce(
 		matrix(1:4, 2, 2),
 		matrix(1:16,4, 4)
 ))
+
+# find all sexy primes below 1000
+
+mcFold
+
+
+
+
+
+
+
+
+
+
+
+
 
 # bind a list of vectors into a column
 
