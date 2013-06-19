@@ -35,3 +35,22 @@ mcSleep <- function (f, n) {
 			f(params_)
 		}, f)
 }
+
+mcTimer <- function (n) {
+	# returns a function with Sys.time( ) 
+	# captured in a closure
+	
+	func_call <- "mcTimer(n)"
+
+	(!is.numeric(n)) %throws% 
+		messages$not_a_number(func_call, n, "n")
+	
+	( function () {
+		start_time <- Sys.time()
+		function () {
+			time_passed <- as.numeric(difftime( Sys.time(), start_time ))
+			time_passed < n
+		}		
+	} )()
+}
+

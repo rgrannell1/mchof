@@ -125,6 +125,15 @@ messages <- list(
 			'%s: a list or vector %s was expected but a factor was given',
 			call, name)
 	},
+	not_in = function (call, data, name_one, name_two) {
+		call <- head(call, 1)
+		name_one <- head(name_one, 1)
+		name_two <- head(name_two, 1)
+
+		stopf (
+			'%s: %s not in %s',
+			call, name_one, name_two)	
+	},
 	these_were_factors = function (call, which, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)

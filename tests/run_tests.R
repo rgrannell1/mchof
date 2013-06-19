@@ -5,7 +5,7 @@ library(testthat)
 
 options(forall_time = 0.2)
 	
-	test_package("mchof")
+test_package("mchof")
 
 options(forall_time = NULL)
  

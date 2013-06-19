@@ -80,4 +80,3 @@ mcIndMap <- function (f, x, paropts = NULL) {
 		paropts
 	)
 }
-

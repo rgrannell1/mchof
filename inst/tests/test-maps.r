@@ -1,5 +1,5 @@
 
-context("iteratewhile: normal cases")
+context("mcIterateWhile: normal cases")
 
 forall(info = "incrementing 0...n returns n",
 	list(n_ = r_integers()),
@@ -11,6 +11,8 @@ forall(info = "incrementing 0...n returns n",
 			function (n) n + 1, 0) == n_
 	}
 )
+
+context("mcIterate: normal cases")
 
 context("mcIndMap: normal cases")
 

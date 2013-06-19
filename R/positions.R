@@ -1,4 +1,4 @@
-
+	
 #' Higher-Order-Functions for Finding Values
 #'
 #' @description 
@@ -10,7 +10,6 @@
 #' @param f a unary function that returns a boolean value, or a string
 #' giving the name of such a function.
 #' @param x a list or vector.
-#' @param right a boolean value. Should \code{x} be searched starting from the right? Defaults to \code{FALSE}.
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'   
@@ -21,11 +20,11 @@
 #' @family mchof-positions
 #' @export
 
-mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
+mcPosition <- function (f, x, paropts = NULL) {
 	# returns the first (or last) index in x that matches
 	# the predicate f
 		
-	func_call <- "mcPosition(f, x, right=FALSE, paropts=NULL)"
+	func_call <- "mcPosition(f, x, paropts=NULL)"
 	
 	f <- match.fun(f)
 
@@ -35,39 +34,21 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
-	
-	(!is_boolean(right)) %throws% 
-		messages$not_a_bool(func_call, right, "right")
-	
+
 	cores <- get_cores(paropts)
 
 	if (cores == 1) {
-		if (right) {
-			
-			ind <- length(x)
-			while (ind > 0) {
-				if ( as.logical(f( x[[ind]] )) ) return (ind)
-				ind <- ind - 1
-			}
-			return (integer(0))
-			
-		} else {
-			
-			ind <- 1
-			while (ind <= length(x)) {
+		
+		ind <- 1
+		while (ind <= length(x)) {
 
-				if ( as.logical(f( x[[ind]] )) ) return (ind)
-				ind <- ind + 1
-			}
-			return (integer(0))
+			if ( as.logical(f( x[[ind]] )) ) return (ind)
+			ind <- ind + 1
 		}
+		return (integer(0))
 	}
  	
-	job_indices <- if (right) {
-		rev(group_into(seq_along(x), cores))
-	} else {
-		group_into(seq_along(x), cores) 
-	}
+	job_indices <- group_into(seq_along(x), cores) 
 	
 	for (i in seq_along(job_indices)) {
 		
@@ -86,7 +67,7 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 		]
 		
 		if (length(matched_indices) > 0) {
-			return (if (right) max(matched_indices) else min(matched_indices))
+			return( min(matched_indices) )
 		}
 	}
 	integer(0)
@@ -96,11 +77,11 @@ mcPosition <- function (f, x, right = FALSE, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
-mcFind <- function (f, x, right = FALSE, paropts = NULL) {
+mcFind <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
-	func_call <- "mcFind(f, x, right = FALSE, paropts = NULL)"
+	func_call <- "mcFind(f, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
@@ -108,7 +89,7 @@ mcFind <- function (f, x, right = FALSE, paropts = NULL) {
 	if (length(x) == 0) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
-	first_match <- mcPosition (f, x, right, paropts)
+	first_match <- mcPosition (f, x, paropts)
 	
 	if (!is_integer0(first_match)) {
 		x[[first_match]]

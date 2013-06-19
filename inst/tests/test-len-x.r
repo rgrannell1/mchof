@@ -11,15 +11,15 @@ forall(info = "non-variadic functions that take x = NULL |-> NULL",
 		),
 		f_ = list(mean, max, mode), 
 		pattern_ = r_words(),
-		right_ = list(TRUE, FALSE), first_ = r_integers(),
+		first_ = r_integers(),
 		paropts_ = r_paropts()	
 	),
-	function (func_, f_, pattern_, first_, right_, paropts_) {
+	function (func_, f_, pattern_, first_, paropts_) {
 		is.null(adapt_call(
 			func_,
 			with = list(
 				f = f_, pattern = pattern_, first = first_,
-				right = right_, x = NULL, paropts = paropts_)))
+				x = NULL, paropts = paropts_)))
 	}
 )
 
@@ -81,10 +81,10 @@ forall(info = "Filter, Reject [A](0) |-> [A](0)",
 forall(info = "mcPosition f x [A](0) |-> integer(0)",
 	list(
 		f_ = list(mean, max, mode), x_ = r_vector_0(), 
-		right_ = list(TRUE, FALSE), paropts_ = r_paropts()),
-	function (f_, x_, right_, paropts_) {
+		paropts_ = r_paropts()),
+	function (f_, x_, paropts_) {
 		res <- mcPosition(
-			f_, x_, right = right_, paropts = paropts_)
+			f_, x_, paropts = paropts_)
 		is_integer0(res)
 	}
 )
@@ -127,11 +127,11 @@ forall(
 	info = "mcSelect, mcReject, mcFind, mcReduce list() |-> list()",
 	list(
 		func_ = list(mcSelect, mcReject, mcFind, mcReduce),
-		f_ = list(mean, max, mode), right_ = list(TRUE, FALSE),
+		f_ = list(mean, max, mode),
 		paropts = r_paropts()),
-	function (func_, f_, right_, paropts_) {
+	function (func_, f_, paropts_) {
 		is_list0( adapt_call(func_, with = list(
-			f = f_, x = list(), right = right_, paropts = paropts_ 	
+			f = f_, x = list(), paropts = paropts_ 	
 		)) )
 	}
 )

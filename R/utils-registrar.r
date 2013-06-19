@@ -1,6 +1,10 @@
 
 registrar <- list(
-	property = function (func, property, family = "mchof") {
+	add_function = function (func) {
+
+		registrar$functions <<- c(registrar$functions, func)
+	},
+	add_property = function (func, property, family = "mchof") {
 		# add a property to registrar
 
 		registrar$properties <<- c(
@@ -49,6 +53,12 @@ registrar <- list(
 	get_properties = function (func) {
 		# get the properties of a single function
 
+		(!(func %in% registrar$functions)) %throws% 
+			messages$not_in(
+				"registrar$get_properties()",
+				 list(func, registrar$functions),
+				"func", "registrar$functions")
+
 		sapply(
 			mcSelect(
 				function (record) {
@@ -62,5 +72,6 @@ registrar <- list(
 		)
 
 	},
+	functions = c(),
 	properties = list()
 )

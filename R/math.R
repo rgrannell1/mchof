@@ -1,36 +1,18 @@
 
 #' Higher-Order-Functions for Functional Arithmetic
 #'
-#' @description
+#' @description 1
+#'
 #'
 #'\code{mcLarger} takes two functions \code{f} and \code{g}, and returns a composite function.
 #' this composite function returns \code{f(...) > g(...)}
 #'
-#'\code{mcSmaller} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) < g(...)}
-#''
-#'\code{mcPlus} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) + g(...)}
-#'
-#'\code{mcMinus} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) - g(...)}
-#'
-#'\code{mcEqual} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) == g(...)}
-#'
-#'\code{mcNotEqual} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) != g(...)}
-#'
-#'\code{mcMultiply} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) * g(...)}
-#'
-#'\code{mcDivide} takes two functions \code{f} and \code{g}, and returns a composite function.
-#' this composite function returns \code{f(...) / g(...)}
+#' \code{mcSmaller}, \code{mcPlus}, \code{mcMinus}, \code{mcEqual}, \code{mcNotEqual}, \code{mcMultiply}, and \code{mcDivide} are equivalent wrappers for their respective operators.
 #'
 #' @details 1
 #'
-#' @param f a function that returns a value, or a string giving the name of such a function.
-#' @param g a function that returns a value, or a string giving the name of such a function.
+#' @param \code{f} a function that returns an appropriate value (a number for every function but \code{mcEqual} and \code{mcNotEqual}), or a string giving the name of such a function.
+#' @param g a function with the same restrictions as \code{f}
 #'
 #' @rdname mchof_math
 #' @family mchof-math

@@ -49,3 +49,5 @@ Collate:
     'positions.R'
     'utills-binary.r'
     'utils-forall.r'
+    'utils-registrar.r'
+    'set.R'

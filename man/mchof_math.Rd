@@ -26,153 +26,81 @@
   mcDivide(f, g)
 }
 \arguments{
-  \item{f}{a function that returns a value, or a string
-  giving the name of such a function.}
+  \item{\code{f}}{a function that returns an appropriate
+  value (a number for every function but \code{mcEqual} and
+  \code{mcNotEqual}), or a string giving the name of such a
+  function.}
 
-  \item{g}{a function that returns a value, or a string
-  giving the name of such a function.}
+  \item{g}{a function with the same restrictions as
+  \code{f}}
 }
 \description{
+  1
+
   \code{mcLarger} takes two functions \code{f} and
   \code{g}, and returns a composite function. this
   composite function returns \code{f(...) > g(...)}
 
-  \code{mcSmaller} takes two functions \code{f} and
-  \code{g}, and returns a composite function. this
-  composite function returns \code{f(...) < g(...)} '
-  \code{mcPlus} takes two functions \code{f} and \code{g},
-  and returns a composite function. this composite function
-  returns \code{f(...) + g(...)}
-
-  \code{mcMinus} takes two functions \code{f} and \code{g},
-  and returns a composite function. this composite function
-  returns \code{f(...) - g(...)}
-
-  \code{mcEqual} takes two functions \code{f} and \code{g},
-  and returns a composite function. this composite function
-  returns \code{f(...) == g(...)}
-
-  \code{mcNotEqual} takes two functions \code{f} and
-  \code{g}, and returns a composite function. this
-  composite function returns \code{f(...) != g(...)}
-
-  \code{mcMultiply} takes two functions \code{f} and
-  \code{g}, and returns a composite function. this
-  composite function returns \code{f(...) * g(...)}
-
-  \code{mcDivide} takes two functions \code{f} and
-  \code{g}, and returns a composite function. this
-  composite function returns \code{f(...) / g(...)}
+  \code{mcSmaller}, \code{mcPlus}, \code{mcMinus},
+  \code{mcEqual}, \code{mcNotEqual}, \code{mcMultiply}, and
+  \code{mcDivide} are equivalent wrappers for their
+  respective operators.
 }
 \details{
   1
 }
 \examples{
 
-# function is vectorised
-
-f <- function (x) x^2
-g <- function (x) x^3
-
-square_over_cube <- mcDivide(f, g)
-square_over_cube(1:10)
-
-# invoking the function without intermediate steps
-
-mcDivide(
-	function (n) n + n,
-	function (n) n^2) (1:5)
-
-
-f <- function (x) 2
-g <- function (x) 2 * x
-
-f_equals_g <- mcEqual(f, g)
-f_equals_g(1)
-
-# invoking the function without intermediate steps
-
-mcEqual(
-	function (n) n + n,
-	function (n) n^2) (1)
-
-
-# is the first function larger than the second when n = 10?
-
-f <- function (n) 2*n
-g <- function (n) 3*n - 4
-first_bigger <- mcLarger(f, g)
-first_bigger(10)
-
-# select the values of x that make the first 
-# function larger than the second
+# get the values of x
+# for which one polynomial is larger than polynomial
 
 mcSelect(
 	mcLarger(
-		function (x) x^2 - 2,
-		function (x) x^3 - 10),
-	x = 1:10)
+		function (x) x^2 - 2 * x + 3,
+		function (x) 2^x^2 - 10
+	),
+	-10:10
+)
 
+# is composition of linear functions equivelant to 
+# multiplication?
 
-# function is vectorised
+f <- function (x) x * 2
+g <- function (x) x * 3
 
-f <- function (x) x^2
-g <- function (x) x^3
+mcAll(
+	mcEqual(
+		f \%of\% g,
+		function (x) x * 2 * 3
+	),
+	0:100
+)
 
-square_minus_cube <- mcMinus(f, g)
-square_minus_cube(1:10)
+# partition a list into values for which
+# sin + cos is bigger than sin + sin
 
-# invoking the function without intermediate steps
+mcPartition(
+	mcLarger(
+		mcPlus(sin, cos),
+		mcPlus(sin, sin)),
+	1:100
+)
 
-mcMinus(
-	function (n) n + n,
-	function (n) n^2) (1:5)
-
-
-# function is vectorised
-
-f <- function (x) x^2
-g <- function (x) x^3
-
-square_by_cube <- mcMultiply(f, g)
-square_by_cube(1:10)
-
-# invoking the function without intermediate steps
-
-mcMultiply(
-	function (n) n + n,
-	function (n) n^2) (1:5)
-
-
-# function is vectorised
-
-f <- function (x) x^2
-g <- function (x) x^3
-
-square_plus_cube <- mcPlus(f, g)
-square_plus_cube(1:10)
-
-# invoking the function without intermediate steps
-
-mcPlus(
-	function (n) n + n,
-	function (n) n^2) (1:5)
-
-
-# is the first function smaller than the second when n = 10?
-
-f <- function (n) 2*n
-g <- function (n) 3*n - 4
-first_bigger <- mcSmaller(f, g)
-first_bigger(10)
-
-# select the values of x that make the first 
-# function smaller than the second
+# find the intersection of two lines, if there
+# is one
 
 mcSelect(
-	mcSmaller(
-		function (x) x^2 - 2,
-		function (x) x^3 - 10),
-	x = 1:10)
+	mcEqual(
+		function (n) 2*n + 4,
+		function (n) 3*n + 12
+	),
+	-100:100
+)
+
+# create a function 
+# sin(x) - cos(cos(x))
+
+mcMinus(sin, cos \%of\% cos)
+
 }
 

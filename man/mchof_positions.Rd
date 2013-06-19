@@ -3,18 +3,15 @@
 \alias{mcPosition}
 \title{Higher-Order-Functions for Finding Values}
 \usage{
-  mcPosition(f, x, right = FALSE, paropts = NULL)
+  mcPosition(f, x, paropts = NULL)
 
-  mcFind(f, x, right = FALSE, paropts = NULL)
+  mcFind(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,
   or a string giving the name of such a function.}
 
   \item{x}{a list or vector.}
-
-  \item{right}{a boolean value. Should \code{x} be searched
-  starting from the right? Defaults to \code{FALSE}.}
 
   \item{paropts}{a list of parameters to be handed to
   mclapply (see \link{mchof}).}
@@ -35,13 +32,6 @@ mcPosition(
 	function (n) n > 10,
 	c(1,2,11,3,4,-2))
 
-# check for a match from the right
-
-mcPosition(
-	function (n) n > 10,
-	c(1,2,11,3,4,-2),
-	right = TRUE)
-
 # find the first string matching a regular expression
 
 mcPosition(
@@ -54,13 +44,6 @@ mcPosition(
 mcFind(
 	function (n) n > 10,
 	c(1,2,11,3,4,-2))
-
-# return the first match from the right
-
-mcFind(
-	function (n) n > 10,
-	c(1,2,11,3,4,-2),
-	right = TRUE)
 
 # return the first string matching a regular expression
 
