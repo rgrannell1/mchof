@@ -1,21 +1,12 @@
 
-#' @description mcCompose takes two functions f and g, and returns a function. 
-#' This new function returns f(g(...))
+#' Higher-Order-Functions for Composing Functions
 #'
-#' @title mcCompose
-#' @aliases %of%
-#'  
-#' @usage mcCompose(f, g)
-#' 
-#' f %of% g
-#' 
+#' @description 
+#'
+#' @rdname mchof_math
+#' @family mchof-math
+#' @example inst/examples/examples-math.r
 #' @export
-#' @param f a function, or a string giving the name of a function.
-#' @param g a function, or a string giving the name of a function.
-#' @return returns a function that returns f(g(...))
-#' 
-#' @keywords mcCompose
-#' @example inst/examples/examples-compose.r
 
 mcCompose <- function (f, g) {
 	# return a composite function f o g
@@ -43,3 +34,10 @@ mcCompose <- function (f, g) {
 #' @export
 
 '%of%' <- mcCompose
+
+
+mcWrap <- function (f, g) {
+
+	func_call <- "mcWrap(f, g)"
+
+}

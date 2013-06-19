@@ -1,3 +1,4 @@
+#'
 #' Map-like Higher-Order-Functions
 #'
 #' @details 1

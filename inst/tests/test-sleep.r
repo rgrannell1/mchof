@@ -1,5 +1,5 @@
 
-context("sleep: normal cases")
+context("mcSleep: normal cases")
 
 expect_that(
 	mcSleep(mean, 0.2)(1),
@@ -13,5 +13,19 @@ forall(info = "mcSleeps doesn't alter the value of f",
 	}
 )
 
+context("mcTimer: normal cases")
 
+test_that({
 
+	func <- mcTimer(0.5)
+	first <- func()
+
+	Sys.sleep(1)
+
+	func <- mcTimer(0.5)
+	second <- func()
+
+	expect_true(first)
+	expect_false(second)
+	
+})

@@ -1,21 +1,19 @@
 
-#' @description mcSleep takes a function f, and returns a function that waits
-#' n seconds before calling f
+#' Functions for Controlling Temporal Flow of a Program
 #'
-#' @title mcSleep
-#' 
-#' @export
-#' @param f a function or a string giving the name of 
-#' a function.
-#' @param n the amount of time to sleep before executing f, in seconds
-#' @return returns a function that calls f after n seconds
-#' 
-#' @details mcSleep is useful for stalling quick functions that execute 
-#' queries to a website with a rate limit, 
-#' to avoid hitting the rate limit before it refreshes.
-#'  
-#' @keywords mcSleep
+#' @description 1
+#'
+#'
+#'
+#' @details 1
+#'
+#' @param \code{f} a function or a string giving the name of a function.
+#' @param \code{n} a number that is interperated as seconds
+#'
+#' @rdname mchof_sleep
+#' @family mchof-sleep
 #' @example inst/examples/examples-sleep.r
+#' @export
 
 mcSleep <- function (f, n) {
 	# sleep for n seconds before calling f. Less
@@ -36,10 +34,15 @@ mcSleep <- function (f, n) {
 		}, f)
 }
 
+#' @rdname mchof_sleep
+#' @family mchof-sleep
+#' @export
+
 mcTimer <- function (n) {
 	# returns a function with Sys.time( ) 
 	# captured in a closure
 	
+	n <- abs(n)
 	func_call <- "mcTimer(n)"
 
 	(!is.numeric(n)) %throws% 

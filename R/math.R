@@ -3,7 +3,6 @@
 #'
 #' @description 1
 #'
-#'
 #'\code{mcLarger} takes two functions \code{f} and \code{g}, and returns a composite function.
 #' this composite function returns \code{f(...) > g(...)}
 #'
@@ -18,7 +17,6 @@
 #' @family mchof-math
 #' @example inst/examples/examples-math.r
 #' @export
-
 
 mcLarger <- function (f, g) {
 
