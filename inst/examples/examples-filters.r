@@ -1,5 +1,6 @@
 
 # find all primes in 1...15
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 is_prime <- function (n) {
     if (n == 1 || n == 2) FALSE else {
@@ -11,6 +12,7 @@ mcSelect(is_prime, 1:15) #or
 mcReject(mcNot(is_prime), 1:15)
 
 # find the largest prime factor of 2023
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcReduce(max,
 	mcSelect(
@@ -19,6 +21,7 @@ mcReduce(max,
 )
 
 # find solutions to 2*x + 4*y < 100
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcSelect(
     mcImplode(
@@ -34,6 +37,7 @@ mcSelect(
 
 # Project Euler 8: find the greatest product of 5-consecutive digits
 # in a 1000-digit number
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 # use random data instead of the given number
 
@@ -53,8 +57,8 @@ indices <- mcReduce(
 
 number[indices]
 
-# partition a vector into good cops and other kinds
-# of cop
+# partition a vector into good cops and other kinds of cop
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcPartition(
 	function (cop) {

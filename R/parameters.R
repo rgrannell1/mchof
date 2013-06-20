@@ -84,6 +84,8 @@ mcJumble <- function (f, x) {
 #' @export
 
 mcParameters <- function (f, x) {
+	# (a -> b -> ... -> z) -> [a, b, ..., z]
+	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
 	# get the formals/arguments of f if x
 	# isn't given, and set the formals if x is given
 
@@ -103,17 +105,15 @@ mcParameters <- function (f, x) {
 		} else {
 			formals(f)
 		}
-
 		return (parameters)
 	}
 
 	if (is.primitive(f)) {
 		# prime to work with setter 
 
-		g <- function () {}
-		body(g) <- body(f)
-		environment(g) <- environment(f)
-		g
+		g <- function () {
+			do.call(f, )
+		}
 	}
 
 	is_correct_class <- 
@@ -180,6 +180,7 @@ mcExplode <- function (f) {
 
 mcImplode <- function (f) {
 	# (... -> b) -> (a -> b)
+	# dual to mcExplode. 
 	# takes a function that takes a many values and 
 	# makes it into a function that takes one list
 
@@ -207,8 +208,6 @@ mcPartial <- function (f, ...) {
 	missing(f) %throws% 
 		messages$function_is_required(func_call, "f")
 	
-	ISSUE("partial is very broken")
-	
 	f <- match.fun(f)
 	applied <- list(...)
 	
@@ -232,6 +231,8 @@ mcPartial <- function (f, ...) {
 	
 	formals_f <- names(mcParameters(f))
 	unapplied <- formals_f[ !formals_f %in% names(applied) ]
+	
+	ISSUE("partial is very broken")
 	
 	formals(applied_func) <- empty_formals(unapplied)
 	applied_func

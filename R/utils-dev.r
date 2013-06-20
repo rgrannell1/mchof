@@ -1,4 +1,6 @@
 
+DONTRUN <- function (expr) NULL
+
 ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 	# a defensive function to prevent an unfinished file being shipped
 	
@@ -7,6 +9,3 @@ ISSUE <- FLAG <- function (fmt = "still need to work on this feature", ...) {
 
 }
 
-DONTRUN <- function (expr) {
-	
-}

@@ -67,7 +67,7 @@ forall(info = "mcJumble preserved and reverses formal values",
 
 context("mcParameters: normal cases")
 
-forall(info = "mcParameters can get the formals in the base library",
+forall(info = "mcParameters can get the formals of non-primitive functions",
 	list(func_ = r_functions),
 	function (func_) {
 		
@@ -79,7 +79,7 @@ forall(info = "mcParameters can get the formals in the base library",
 	}
 )
 
-forall(info = "mcParameters can get the arguments in the base library",
+forall(info = "mcParameters can get the arguments of primitive functions",
 	list(func_ = r_functions),
 	function (func_) {
 		
@@ -88,6 +88,31 @@ forall(info = "mcParameters can get the arguments in the base library",
 		}
 
 		identical( arguments(func_), mcParameters(func_) )
+
+	},
+	given = function (func_) {
+		is.primitive(func_)
+	}
+)
+
+forall(info = "mcParameters can set the formals of non-primitive functions",
+	list(func_ = r_functions),
+	function (func_) {
+		
+		func_new <- mcParameters( func_, c("a", "b") )
+
+
+	},
+	given = function (func_) {
+		!is.primitive(func_) && is.function(func_)
+	}
+)
+
+forall(info = "mcParameters can set the arguments of primitive functions",
+	list(func_ = r_functions),
+	function (func_) {
+		
+		func_new <- mcParameters( func_, c("a", "b") )
 
 	},
 	given = function (func_) {

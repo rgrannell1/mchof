@@ -46,6 +46,7 @@
 #' @export
 
 mcAll <- function (f, x, paropts = NULL) {
+	# (a -> bool) -> [a] -> bool
 	# apply a function f to x, return TRUE iff f is true
 	# for all x
 	
@@ -71,6 +72,7 @@ mcAll <- function (f, x, paropts = NULL) {
 #' @export
 
 mcAny <- function (f, x, paropts = NULL) {
+	# (a -> bool) -> [a] -> bool
 	# apply a function f to x, return TRUE iff f is true
 	# for any x
 	
@@ -105,6 +107,7 @@ mcAny <- function (f, x, paropts = NULL) {
 #' @export
 
 mcOne <- function (f, x, paropts = NULL) {
+	# (a -> bool) -> [a] -> bool
 	# apply a function f to x, return TRUE iff f is true
 	# for one x
 	

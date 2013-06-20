@@ -77,6 +77,7 @@ mcPosition <- function (f, x, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
+
 mcFind <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f

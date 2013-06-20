@@ -5,7 +5,7 @@
 #' \code{mcFold} applies an associative binary function \code{f} to a list or vector \code{x},
 #' returning a single value. If x is length zero then an initial value is returned.
 #'
-#' \code{mcFold} applies an associative binary function \code{f} to a list or vector \code{x},
+#' \code{mcReduce} applies an associative binary function \code{f} to a list or vector \code{x},
 #' returning a single value. 
 #'
 #' @param f a binary function that takes two of "a thing" and returns one of a "thing".
@@ -129,7 +129,6 @@ mcFoldl <- function (f, z, x) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 		
 	f <- match.fun(f)
-	if (length(x) < 2) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	if (is.null(x)) return (NULL)
@@ -159,12 +158,11 @@ mcFoldr <- function (f, z, x) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 		
 	f <- match.fun(f)
-	if (length(x) < 2) return (x)
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
-
+	
 	ind <- len_x <- length(x)
 
     while (ind > 0) {

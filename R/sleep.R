@@ -3,8 +3,6 @@
 #'
 #' @description 1
 #'
-#'
-#'
 #' @details 1
 #'
 #' @param \code{f} a function or a string giving the name of a function.
@@ -16,6 +14,7 @@
 #' @export
 
 mcSleep <- function (f, n) {
+	# side-effectful function
 	# sleep for n seconds before calling f. Less
 	# accurate on non-UNIX-like OS's
 	
@@ -39,6 +38,7 @@ mcSleep <- function (f, n) {
 #' @export
 
 mcTimer <- function (n) {
+	# int -> ( -> bool)
 	# returns a function with Sys.time( ) 
 	# captured in a closure
 	

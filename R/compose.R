@@ -36,7 +36,6 @@ mcCompose <- function (f, g) {
 
 '%of%' <- mcCompose
 
-
 mcWrap <- function (f, g) {
 
 	func_call <- "mcWrap(f, g)"
