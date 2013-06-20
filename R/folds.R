@@ -139,7 +139,7 @@ mcFoldl <- function (f, z, x) {
 	len_x <- length(x)
 
     while (ind <= len_x) {
-    	z <- f( x[[ind]], z )
+    	z <- f( z, x[[ind]] )
     	ind <- ind + 1
     }
     z
@@ -182,11 +182,25 @@ mcReducel <- function (f, x) {
 	# (a -> b -> a) -> [b] -> a
 	# fold a list, starting from the left
 	
-	ind <- len_x <- length(x)
+	func_call <- "mcReducel(f, x)"
 
-    while (ind > 0) {
-    	z <- f( x[[ind]], z )
-    	ind <- ind - 1
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
+	f <- match.fun(f)
+	if (length(x) < 2) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	ind <- 1
+	
+	z <- x[[1]]
+	x <- x[-1]
+
+	len_x <- length(x)
+
+    while (ind <= len_x) {
+    	z <- f( z, x[[ind]] )
+    	ind <- ind + 1
     }
     z
 }
@@ -199,9 +213,20 @@ mcReducer <- function (f, x) {
 	# (a -> b -> a) -> [b] -> a
 	# fold a list, starting from the left
 	
+	func_call <- "mcReducer(f, x)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
+	f <- match.fun(f)
+	if (length(x) < 2) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+		
 	len_x <- length(x)
 	ind <- length(x) - 1
-	z <- head(x, -1)
+	
+	z <- x[[len_x]]
+	x <- x[-len_x]
 
     while (ind > 0) {
     	z <- f( x[[ind]], z )

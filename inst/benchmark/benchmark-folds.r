@@ -11,12 +11,21 @@ benchmark$folds <-
 			function (x) list(test = x[[1]], control = x[[2]], name = x[[3]])
 		),
 		list(
-			mcFold = function (x) mcFold(one_func, first = 0, x = x),
-			mcReduce =  function (x) mcReduce(one_func, x)
+			mcFold = function (x) mcFold(one_func, z = 0, x = x),
+			mcFoldl = function (x) mcFoldl(one_func, z = 0, x = x),
+			mcFoldr = function (x) mcFoldr(one_func, z = 0, x = x),
+			mcReduce =  function (x) mcReduce(one_func, x),
+			mcReducel =  function (x) mcReducel(one_func, x),
+			mcReducer =  function (x) mcReducer(one_func, x)
 		),
 		list(
 			mcFold = fold_control,
-			mcReduce = fold_control
+			mcFoldl = fold_control,
+			mcFoldr = fold_control,
+			mcReduce = fold_control,
+			mcReducel = fold_control,
+			mcReducer = fold_control
 		),
-		c("mcFold", "mcReduce")
+		c("mcFold", "mcFoldl", "mcFoldr",
+		 "mcReduce", "mcReducel", "mcReducer")
 	)

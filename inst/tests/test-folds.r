@@ -67,4 +67,44 @@ forall(
 	}
 )
 
+forall(
+	info = "stacking values into a list works with foldl & foldr",
+	list(x_ = r_seq_len()),
+	function (x_) {
+
+		all_equal(list(
+			mcFoldl(
+				function (acc, new) {
+					c(acc, list(new))
+				},
+				list(), x_),
+			mcFoldr(
+				function (new, acc) {
+					c(list(new), acc)
+				},
+				list(), x_),
+			as.list(x_),
+			Reduce(
+				function (acc, new) {
+					c(acc, list(new))
+				},
+				init = list(), x = x_)))
+
+	}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

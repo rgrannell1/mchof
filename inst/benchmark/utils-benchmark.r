@@ -27,7 +27,7 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 			
 			cat("..")
 			
-			tryCatch(
+			raw <- tryCatch(
 				list(
 					name = test$name,
 					test = microbenchmark(
@@ -40,6 +40,25 @@ benchmark_code <- function (tests, len = 100, times = 2) {
 					stopf(c("%s", "%s"), test$name, error)
 				}
 			)
+
+			# remove n/20 of the most deviant values, 
+			# since microbenchmark generates some extreme outliers
+			# initially.
+
+			remove_outliers <- function (x) {
+				
+				if (length(x) < 30) return (x)
+				sort_indices <- order( abs( x - sd(x) ) )
+
+			    cut_of <- ceiling(length(x) - length(x) / 20)
+			    
+				x[sort_indices < cut_of ]
+			}
+
+			list(
+				name = raw$name,
+				test = remove_outliers( raw$test ),
+				control = remove_outliers( raw$control ))
 
 		},
 		tests)
@@ -76,9 +95,9 @@ visualise_benchmark <- function (data) {
 	for (i in seq_along(molten)) {
 
 		g <- ggplot(data = molten[[i]], aes(x = value / 1000)) + 
-			geom_density(aes(group = variable, color = variable),
-				alpha = 0.3) + 
-			xlab("microseconds") + ggtitle(paste0(names(molten[i]), " vs control"))
+			geom_line(aes(group = variable, color = variable), stat="density",
+				alpha = 0.5, size = 1.5) + 
+			xlab("microseconds") + ggtitle(names(molten[i]))
 
 		plot(g)
 		Sys.sleep(6)

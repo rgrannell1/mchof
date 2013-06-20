@@ -8,10 +8,12 @@ Version 0.4
 
 
 API Changes:
-removed the right parameter of mcPosition and mcFind, 
+* removed the right parameter of mcPosition and mcFind, 
 as it was inconsistent with the philosophy of preferring composing
-functions to using parameters. To remedy this, use rev(x) to reverse
-x before handing to mcPosition/mcFind
+functions to using parameters. To remedy this use mcPositionl and mcPositionr.
+* renamed the "first" parameter of Fold to "z", to make parameters more interchangable
+between mcFold, mcFoldl and mcFoldr.
+
 
 Version 0.3
 ------------------------------------------------------------------------------

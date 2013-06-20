@@ -10,7 +10,7 @@ forall <- function (
 		}
 	))
 
-	opts$time <-   getOption("forall_time", opts$time)
+	opts$time <- getOption("forall_time", opts$time)
 	
 	(length(formals(expect)) != length(names(cases))) %throws% 
 		messages$length_mismatch(
