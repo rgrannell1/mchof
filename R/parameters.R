@@ -27,6 +27,7 @@
 #' @export
 
 mcFlip <- function (f) {
+	# (a -> b -> ... -> z) -> (z -> ... -> b -> a)
 	# return a function with reversed formal arguments
 	
 	func_call <- "mcFlip(f)"
@@ -45,6 +46,7 @@ mcFlip <- function (f) {
 #' @export
 
 mcJumble <- function (f, x) {
+	# function -> function 
 	# returns a function with its formals rearranged, 
 	# according to a index vector (bijection) 
 	
@@ -233,4 +235,12 @@ mcPartial <- function (f, ...) {
 	
 	formals(applied_func) <- empty_formals(unapplied)
 	applied_func
+}
+
+mcCurry <- function (f) {
+	# take a function f that can take multiple multiple 
+	# arguments and transform it into a chain of single variable
+	# functions
+
+	
 }

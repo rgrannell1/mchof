@@ -95,4 +95,3 @@ mcFind <- function (f, x, paropts = NULL) {
 		x[[first_match]]
 	} else integer(0)
 }
-

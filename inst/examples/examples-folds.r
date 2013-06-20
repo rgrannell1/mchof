@@ -1,19 +1,4 @@
 
-# find all sexy primes below 1000
-
-mcFold
-
-
-
-
-
-
-
-
-
-
-
-
 
 # bind a list of vectors into a column
 

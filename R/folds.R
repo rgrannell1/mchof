@@ -10,7 +10,7 @@
 #'
 #' @param f a binary function that takes two of "a thing" and returns one of a "thing".
 #' @param x a list or vector.
-#' @param first an initial value to be prepended to x
+#' @param z an initial value to be prepended to x
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
@@ -53,22 +53,23 @@
 #' @example inst/examples/examples-folds.r
 #' @export
 
-mcFold <- function (f, first, x, paropts = NULL) {
+mcFold <- function (f, z, x, paropts = NULL) {
 	# (a -> b -> a) -> a -> [b] -> a
-	# swaps the commas in first, x1, x2, ..., xn with
+	# swaps the commas in z, x1, x2, ..., xn with
 	# the function f.
 		
-	func_call <- "mcFold(f, first, x, paropts = NULL)"
+	func_call <- "mcFold(f, z, x, paropts = NULL)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(first) %throws% messages$vector_is_required(func_call, "first")
-
+	missing(z) %throws% messages$vector_is_required(func_call, "z")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+ 
 	if (is.null(x)) return (NULL)
-	if (length(x) == 0) return (first)
+	if (length(x) == 0) return (z)
 	
 	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
-	mcReduce(f, x = c(list(first), x), paropts)
+	mcReduce(f, x = c(list(z), x), paropts)
 	
 }
 
@@ -112,4 +113,99 @@ mcReduce <- function (f, x, paropts = NULL) {
 		group_into(x, size = 2))
 	
 	g( final[[1]] )
+}
+
+#' @rdname mchof_folds
+#' @family mchof-folds
+#' @export
+
+mcFoldl <- function (f, z, x) {
+	# (a -> b -> a) -> a -> [b] -> a
+	# fold a list, starting from the left
+	
+	func_call <- "mcFoldl(f, z, x)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
+	f <- match.fun(f)
+	if (length(x) < 2) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	if (is.null(x)) return (NULL)
+	if (length(x) == 0) return (z)
+
+	ind <- 1
+	len_x <- length(x)
+
+    while (ind <= len_x) {
+    	z <- f( x[[ind]], z )
+    	ind <- ind + 1
+    }
+    z
+}
+
+#' @rdname mchof_folds
+#' @family mchof-folds
+#' @export
+
+mcFoldr <- function (f, z, x) {
+	# (a -> b -> b) -> b -> [a] -> b
+	# fold a list, starting from the right
+	
+	func_call <- "mcFoldr(f, z, x)"
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+		
+	f <- match.fun(f)
+	if (length(x) < 2) return (x)
+	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	
+	if (is.null(x)) return (NULL)
+	if (length(x) == 0) return (z)
+
+	ind <- len_x <- length(x)
+
+    while (ind > 0) {
+    	z <- f( x[[ind]], z )
+    	ind <- ind - 1
+    }
+    z
+}
+
+#' @rdname mchof_folds
+#' @family mchof-folds
+#' @export
+
+mcReducel <- function (f, x) {
+	# (a -> b -> a) -> [b] -> a
+	# fold a list, starting from the left
+	
+	ind <- len_x <- length(x)
+
+    while (ind > 0) {
+    	z <- f( x[[ind]], z )
+    	ind <- ind - 1
+    }
+    z
+}
+
+#' @rdname mchof_folds
+#' @family mchof-folds
+#' @export
+
+mcReducer <- function (f, x) {
+	# (a -> b -> a) -> [b] -> a
+	# fold a list, starting from the left
+	
+	len_x <- length(x)
+	ind <- length(x) - 1
+	z <- head(x, -1)
+
+    while (ind > 0) {
+    	z <- f( x[[ind]], z )
+    	ind <- ind - 1
+    }
+    z
 }

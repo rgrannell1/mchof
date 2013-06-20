@@ -11,14 +11,14 @@ forall(info = "non-variadic functions that take x = NULL |-> NULL",
 		),
 		f_ = list(mean, max, mode), 
 		pattern_ = r_words(),
-		first_ = r_integers(),
+		z_ = r_integers(),
 		paropts_ = r_paropts()	
 	),
-	function (func_, f_, pattern_, first_, paropts_) {
+	function (func_, f_, pattern_, z_, paropts_) {
 		is.null(adapt_call(
 			func_,
 			with = list(
-				f = f_, pattern = pattern_, first = first_,
+				f = f_, pattern = pattern_, z = z_,
 				x = NULL, paropts = paropts_)))
 	}
 )
@@ -168,11 +168,11 @@ forall(
 )
 
 forall(
-	info = "mcFold first length(0) |-> first",
+	info = "mcFold z length(0) |-> z",
 	list(
-		f_ = list(mean, max, mode), first_ = r_integers(),
+		f_ = list(mean, max, mode), z_ = r_integers(),
 		x_ = c(list(), r_vector_0()), paropts_ = r_paropts()),
-	function (f_, first_, x_, paropts_) {
-		identical(mcFold(f_, first_, x_, paropts_), first_)
+	function (f_, z_, x_, paropts_) {
+		identical(mcFold(f_, z_, x_, paropts_), z_)
 	}
 )

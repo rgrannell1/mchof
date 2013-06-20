@@ -13,7 +13,7 @@ if ( Sys.info()["user"] == "rgrannell1") {
 	# using a fixed path makes it hard from others to run,
 	# but I'm likely the only one who will want to run this code
 
-	which_tests <- 2
+	which_tests <- 1
 
 	suffix_regex <- c(
 		"^benchmark[-][^-]+[^.]+[.][rR]",
@@ -33,7 +33,7 @@ if ( Sys.info()["user"] == "rgrannell1") {
 		benchmark_exp
 	)[[which_tests]]
 
-	len <- 10000
+	len <- 1000
 	times <- 100
 
 	for (test in sample(names(benchmark_obj))) {

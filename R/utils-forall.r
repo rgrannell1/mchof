@@ -63,7 +63,7 @@ forall <- function (
 						"",
 						"\t\t%s",
 						"",
-						"\t\tthe case which caused the error has been assigned to forall_cache"),
+						"\t\tthe case which caused the error has been returned invisibly"),
 						info, err$message
 					)
 				}
@@ -127,7 +127,9 @@ forall <- function (
 			sapply(results, function (test) !test$passed)
 		)
 
-		forall_cache <- list(
+		on.exit(return(invisible(failed_info)), add = TRUE)
+
+		failed_info <- list(
 			info = info,
 			time = date(),
 			cases = list(
@@ -138,14 +140,13 @@ forall <- function (
 					results[which_failed])
 			)
 		)
-
 		stopf(c(
 			"failed! %s",
 			"\t\tthe test failed for the first time after %s tests",
 			"\t\t%s tests met their precondition",
 			"\t\t%s tests failed, %s tests passed",
 			"",
-			"\t\ta list of the cases which failed has been assigned to forall_cache"),
+			"\t\tthe case which caused the error has been returned invisibly"),
 			info,
 			min(which_failed), expectation_checked,
 			length(which_failed), length(results) - length(which_failed)
@@ -157,5 +158,5 @@ forall <- function (
 			"\t\ttrue, passed %s tests (%s tests ran)"),
 			info, length(results), expectation_checked)		
 	}
-
+	invisible(results)
 }
