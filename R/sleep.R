@@ -38,7 +38,7 @@ mcSleep <- function (f, n) {
 #' @export
 
 mcTimer <- function (n) {
-	# int -> ( -> bool)
+	# int -> (bool)
 	# returns a function with Sys.time( ) 
 	# captured in a closure
 	

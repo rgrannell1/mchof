@@ -112,8 +112,9 @@ mcParameters <- function (f, x) {
 		# prime to work with setter 
 
 		g <- function () {
-			do.call(f, )
+			do.call( f, as.list(sys.call()) )
 		}
+		
 	}
 
 	is_correct_class <- 

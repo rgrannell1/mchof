@@ -119,3 +119,12 @@ forall(info = "mcParameters can set the arguments of primitive functions",
 		is.primitive(func_)
 	}
 )
+
+context("mcExplode and mcImplode: normal cases")
+
+forall(info = "mcExplode and mcImplode counteract each other",
+	list(),
+	function () {
+		
+	}
+)

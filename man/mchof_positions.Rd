@@ -1,11 +1,17 @@
 \name{mcPosition}
 \alias{mcFind}
+\alias{mcFindr}
 \alias{mcPosition}
+\alias{mcPositionr}
 \title{Higher-Order-Functions for Finding Values}
 \usage{
   mcPosition(f, x, paropts = NULL)
 
+  mcPositionr(f, x, paropts = NULL)
+
   mcFind(f, x, paropts = NULL)
+
+  mcFindr(f, x, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,

@@ -14,14 +14,14 @@
 #'    mclapply (see \link{mchof}).
 #'   
 #' @example inst/examples/examples-positions.r
-#' @keywords mcPosition mcFind
+#' @keywords mcPosition mcPositionl mcPositionr mcFind mcFindl mcFindr
 
 #' @rdname mchof_positions
 #' @family mchof-positions
 #' @export
 
-mcPosition <- function (f, x, paropts = NULL) {
-	# returns the first (or last) index in x that matches
+mcPosition <- mcPositionl <- function (f, x, paropts = NULL) {
+	# returns the first index in x that matches
 	# the predicate f
 		
 	func_call <- "mcPosition(f, x, paropts=NULL)"
@@ -77,8 +77,19 @@ mcPosition <- function (f, x, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
+mcPositionr <- function (f, x, paropts = NULL) {
+	# returns the last index in x that matches
+	# the predicate f
 
-mcFind <- function (f, x, paropts = NULL) {
+	mcPositionl(f, rev(x), paropts)
+	
+}
+
+#' @rdname mchof_positions
+#' @family mchof-positions
+#' @export
+
+mcFind <- mcFindl <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
@@ -95,4 +106,16 @@ mcFind <- function (f, x, paropts = NULL) {
 	if (!is_integer0(first_match)) {
 		x[[first_match]]
 	} else integer(0)
+}
+
+#' @rdname mchof_positions
+#' @family mchof-positions
+#' @export
+
+mcFindr <- function (f, x, paropts = NULL) {
+	# returns the last index in x that matches
+	# the predicate f
+
+	mcFindl(f, rev(x), paropts)
+	
 }
