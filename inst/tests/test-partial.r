@@ -1,7 +1,6 @@
 
 context("mcPartial: normal cases")
 
-
 forall(info = "partial application a binary to unary function works",
 	list(
 		a_ = r_integers(),

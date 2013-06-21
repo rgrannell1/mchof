@@ -38,10 +38,9 @@ forall <- function (
 					"",
 					"\t\t%s",
 					"",
-					"\t\tthe case which caused the error has been assigned to forall_cache"),
+					"\t\tthe case which caused the error has been returned invisibly"),
 						info, err$message
 				)
-				stop(err)
 			}
 		)
 

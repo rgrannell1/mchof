@@ -22,11 +22,11 @@
   mcSymDiff(f, g)
 }
 \arguments{
-  \item{f}{a function that returns a value, or a string
-  giving the name of such a function.}
+  \item{f}{a function, or a string giving the name of a
+  function.}
 
-  \item{g}{a function that returns a value, or a string
-  giving the name of such a function.}
+  \item{g}{a function, or a string giving the name of a
+  function.}
 }
 \description{
   1

@@ -50,7 +50,6 @@
 #' @example inst/examples/examples-folds.r
 #' @rdname mchof_folds
 #' @family mchof-folds
-#' @example inst/examples/examples-folds.r
 #' @export
 
 mcFold <- function (f, z, x, paropts = NULL) {

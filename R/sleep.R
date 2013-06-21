@@ -1,4 +1,4 @@
-
+	
 #' Functions for Controlling Temporal Flow of a Program
 #'
 #' @description 1
@@ -35,7 +35,7 @@ mcSleep <- function (f, n) {
 
 #' @rdname mchof_sleep
 #' @family mchof-sleep
-#' @export
+#' @export 
 
 mcTimer <- function (n) {
 	# int -> (bool)

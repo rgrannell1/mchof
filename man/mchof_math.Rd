@@ -38,7 +38,7 @@
   function.}
 
   \item{g}{a function with the same restrictions as
-  \code{f}}
+  \code{f}.}
 }
 \description{
   \code{mcLarger} takes two functions \code{f} and
@@ -47,7 +47,7 @@
 
   \code{mcSmaller}, \code{mcPlus}, \code{mcMinus},
   \code{mcEqual}, \code{mcNotEqual}, \code{mcMultiply},
-  \code{mcDivide}, \code{ \code{mcMax} and \code{mcMin} are
+  \code{mcDivide}, \code{mcMax} and \code{mcMin} are
   equivalent wrappers for their respective operators.
 }
 \details{

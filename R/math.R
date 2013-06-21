@@ -6,7 +6,7 @@
 #'\code{mcLarger} takes two functions \code{f} and \code{g}, and returns a composite function.
 #' This composite function returns \code{f(...) > g(...)}
 #'
-#' \code{mcSmaller}, \code{mcPlus}, \code{mcMinus}, \code{mcEqual}, \code{mcNotEqual}, \code{mcMultiply}, \code{mcDivide},  \code{ \code{mcMax} and \code{mcMin} are equivalent wrappers for their respective operators.
+#' \code{mcSmaller}, \code{mcPlus}, \code{mcMinus}, \code{mcEqual}, \code{mcNotEqual}, \code{mcMultiply}, \code{mcDivide}, \code{mcMax} and \code{mcMin} are equivalent wrappers for their respective operators.
 #'
 #' @details 
 #'
@@ -27,7 +27,7 @@
 #' \figure{math-example.png}
 #'
 #' @param \code{f} a function that returns an appropriate value (a number for every function but \code{mcEqual} and \code{mcNotEqual}), or a string giving the name of such a function.
-#' @param g a function with the same restrictions as \code{f}
+#' @param g a function with the same restrictions as \code{f}.
 #'
 #' @rdname mchof_math
 #' @family mchof-math

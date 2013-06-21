@@ -236,7 +236,7 @@ mcPartial <- function (f, x) {
 
 	missing(f) %throws% 
 		messages$function_is_required(func_call, "f")
-	missing(x) %throws% 
+	missing(x) %throws%
 		messages$list_is_required(func_call, "x")
 
 	f <- match.fun(f)
@@ -255,13 +255,14 @@ mcPartial <- function (f, x) {
 	rm(func_call, x)
 
 	.remaining <- .formals_f[ !.formals_f %in% names(.fixed) ]
-	
+
 	mcParameters(
 		function () {
 			'a partially applied function'
 			'(use environment(func)$.fixed to see fixed variables)'
 			''
-			.current <- as.list(sys.call())[-1]
+			.current <- Map(function(x)get(x), names(formals()))
 			do.call(f, c(.current, .fixed))
+
 		}, .remaining)
 }
