@@ -8,29 +8,29 @@
 #' \code{mcReduce} applies an associative binary function \code{f} to a list or vector \code{x},
 #' returning a single value. 
 #'
-#' @param f a binary function that takes two of "a thing" and returns one of a "thing".
+#' @param f a binary function that takes two of "a thing" and returns one of a "thing" (see details).
 #' @param x a list or vector.
-#' @param z an initial value to be prepended to x
+#' @param z an initial value to be prepended to \code{x}
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
-#' @details this function can be used as a parallel alternative to foldl or reducel if
-#' and only if the function f is associative; that is
+#' @details \code{mcFold} and \code{mcReduce} function can be used as a parallel alternative to the non-parallel folding functions if
+#' and only if the function \code{f} is associative; that is
 #'
-#' \code{(a f b) f c == a f (b f c)}, 
+#' \deqn{(a f b) f c = a f (b f c)}
 #' 
-#' where a, b or c are values that f takes. For example, plus is an associative 
+#' where \eqn{a, b, c} are values that \code{f} takes. For example, plus is an associative 
 #' binary operator, since
 #'
-#' \code{(a + b) + c == a + (b + c)}
+#' \deqn{(a + b) + c = a + (b + c)}
 #'
-#' for any number a, b or c. Minus does not have this property, so it is not 
-#' suitable for use with mcFold. Only associative binary functions can be folded 
+#' for any number \eqn{a, b, c}. Minus does not have this property, so it is not 
+#' suitable for use with \code{mcFold}. Only associative binary functions can be folded 
 #' or reduced in parallel. 
 #' 
 #' Formally the combination of an associative binary operator,
 #' an identity element for that operator and a set (x) is known as a monoid; the function \code{f}
-#' has a type signature of [A] -> [A] -> [A]. A likely source of errors when using \code{mcFold}
+#' has a type signature of \eqn{[A] -> [A] -> [A]}. A likely source of errors when using \code{mcFold}
 #' or \code{mcReduce} is using a function without this type signature (ie. a function that
 #' takes two of a thing, and returns one of a thing).
 #' 

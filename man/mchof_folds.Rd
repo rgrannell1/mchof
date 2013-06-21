@@ -21,11 +21,11 @@
 }
 \arguments{
   \item{f}{a binary function that takes two of "a thing"
-  and returns one of a "thing".}
+  and returns one of a "thing" (see details).}
 
   \item{x}{a list or vector.}
 
-  \item{z}{an initial value to be prepended to x}
+  \item{z}{an initial value to be prepended to \code{x}}
 
   \item{paropts}{a list of parameters to be handed to
   mclapply (see \link{mchof}).}
@@ -41,30 +41,31 @@
   value.
 }
 \details{
-  this function can be used as a parallel alternative to
-  foldl or reducel if and only if the function f is
+  \code{mcFold} and \code{mcReduce} function can be used as
+  a parallel alternative to the non-parallel folding
+  functions if and only if the function \code{f} is
   associative; that is
 
-  \code{(a f b) f c == a f (b f c)},
+  \deqn{(a f b) f c = a f (b f c)}
 
-  where a, b or c are values that f takes. For example,
-  plus is an associative binary operator, since
+  where \eqn{a, b, c} are values that \code{f} takes. For
+  example, plus is an associative binary operator, since
 
-  \code{(a + b) + c == a + (b + c)}
+  \deqn{(a + b) + c = a + (b + c)}
 
-  for any number a, b or c. Minus does not have this
-  property, so it is not suitable for use with mcFold. Only
-  associative binary functions can be folded or reduced in
-  parallel.
+  for any number \eqn{a, b, c}. Minus does not have this
+  property, so it is not suitable for use with
+  \code{mcFold}. Only associative binary functions can be
+  folded or reduced in parallel.
 
   Formally the combination of an associative binary
   operator, an identity element for that operator and a set
   (x) is known as a monoid; the function \code{f} has a
-  type signature of [A] -> [A] -> [A]. A likely source of
-  errors when using \code{mcFold} or \code{mcReduce} is
-  using a function without this type signature (ie. a
-  function that takes two of a thing, and returns one of a
-  thing).
+  type signature of \eqn{[A] -> [A] -> [A]}. A likely
+  source of errors when using \code{mcFold} or
+  \code{mcReduce} is using a function without this type
+  signature (ie. a function that takes two of a thing, and
+  returns one of a thing).
 
   with \code{mcFold} it useful to use the identity of
   \code{f} as first, as it can make it possible to simplify
