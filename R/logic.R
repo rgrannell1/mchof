@@ -21,13 +21,13 @@
 #' All of these functions return logical values (\code{TRUE}, \code{FALSE}, or \code{NA}) and not boolean values
 #' (\code{TRUE}, \code{FALSE}). \code{NA} values will be obtained if either \code{f} or \code{g} returns \code{NA}
 #' when called with a particular value. This is easily altered by composing the output of \code{mcAnd}, \code{mcNot}, ...
-#' with\code{\link{mcBoolean}}. For example,
+#' with \code{\link{mcBoolean}}. For example,
 #'
 #' \code{finite_number = mcBoolean \%of\% mcAnd(is.numeric, is.finite)}
 #'
 #' \code{finite_number} first checks whether its input is numeric and finite, and then coerces this result to \code{TRUE} or \code{FALSE}.
 #'
-#' The composite functions formals depend on the input function(s):
+#' The composite function's formals depend on the input function(s):
 #'
 #' \enumerate{
 #'     \item If the function \code{f} and \code{g} have the same parameter names - in the same order -

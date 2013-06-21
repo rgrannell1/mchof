@@ -1,6 +1,7 @@
 
 # get the values of x
 # for which one polynomial is larger than polynomial
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcSelect(
 	mcLarger(
@@ -12,6 +13,7 @@ mcSelect(
 
 # is composition of linear functions equivelant to 
 # multiplication?
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 f <- function (x) x * 2
 g <- function (x) x * 3
@@ -26,6 +28,7 @@ mcAll(
 
 # partition a list into values for which
 # sin + cos is bigger than sin + sin
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcPartition(
 	mcLarger(
@@ -36,6 +39,7 @@ mcPartition(
 
 # find the intersection of two lines, if there
 # is one
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcSelect(
 	mcEqual(
@@ -45,8 +49,8 @@ mcSelect(
 	-100:100
 )
 
-# create a function 
-# sin(x) - cos(cos(x))
+# create the function sin(x) - cos(cos(x))
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcMinus(sin, cos %of% cos)
 

@@ -87,6 +87,14 @@ messages <- c(messages, list(
 		stopf (
 			'%s: a list or vector %s is required but was missing',
 			call, name)
+	},
+	list_is_required = function (call, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
+		stopf (
+			'%s: a list %s is required but was missing',
+			call, name)
 	}
 ))
 

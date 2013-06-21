@@ -1,12 +1,4 @@
 
-#' Higher-Order-Functions for Composing Functions
-#'
-#' @description 1
-#'
-#' @rdname mchof_compose
-#' @family mchof-compose
-#' @example inst/examples/examples-compose.r
-#' @export
 
 mcCompose <- function (f, g) {
 	# (a -> b) -> (b -> c) -> (a -> c)
@@ -32,7 +24,6 @@ mcCompose <- function (f, g) {
 	)
 }
 
-#' @export
 
 '%of%' <- mcCompose
 

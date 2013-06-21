@@ -20,11 +20,11 @@ Suggests:
     itertools,
     microbenchmark,
     ggplot2,
-    reshape2,
-    digest
+    reshape2
 License: GPL-2
 Collate:
     'call_mclapply.R'
+    'curry.r'
     'filters.R'
     'math.R'
     'logic.R'

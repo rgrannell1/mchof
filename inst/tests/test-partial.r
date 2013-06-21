@@ -2,22 +2,22 @@
 context("mcPartial: normal cases")
 
 
-ISSUE("fix partial tests")
-DONTRUN({
-
 forall(info = "partial application a binary to unary function works",
 	list(
-		a_ = r_integers(), b_ =  r_integers(),
+		a_ = r_integers(),
+		b_ =  r_integers(),
 		operator_ = list("+", "*", "/", "-")),	
 	function (a_, b_, operator_) {
 	
-		operator <- function (x, y) get(operator_)(x, y)
+		operator <- function (x, y) {
+			match.fun(operator_)(x, y)
+		}
 
-		print(operator)
+		g <- mcPartial(operator, list(x = a_))
 
-		
-		g <- mcPartial(operator, x = a_)
-		g(b_) == get(operator_)(a_, b_)
+		print(g(b_))
+
+		g(b_) == operator(a_, b_)
 	}
 )
 
@@ -28,10 +28,11 @@ forall(info = "iterative partial application works",
 	function (a_, b_, c_, d_) {
 		
 		f <- function (x, y, z, w) x + y + z + w
-		g <- mcPartial(f, x = a_)
-		h <- mcPartial(g, y = b_) 
-		e <- mcPartial(h, z = c_) 
-		
+
+		g <- mcPartial(f, list(x = a_))
+		h <- mcPartial(g, list(y = b_)) 
+		e <- mcPartial(h, list(z = c_)) 
+
 		(e(d_) == a_ + b_ + c_ + d_)
 	}
 )
@@ -43,9 +44,9 @@ forall(info = "iterative partial application shortens the formals one at a time"
 	function (a_, b_, c_, d_) {
 		
 		f <- function (x, y, z, w) x + y + z + w
-		g <- mcPartial(f, x = a_)
-		h <- mcPartial(g, y = b_) 
-		e <- mcPartial(h, z = c_) 
+		g <- mcPartial(f, list(x = a_))
+		h <- mcPartial(g, list(y = b_))
+		e <- mcPartial(h, list(z = c_))
 		
 		length( names(formals(f)) ) == 4 &&
 		length( names(formals(g)) ) == 3 &&
@@ -53,5 +54,3 @@ forall(info = "iterative partial application shortens the formals one at a time"
 		length( names(formals(e)) ) == 1
 	}
 )
-
-})

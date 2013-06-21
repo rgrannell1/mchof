@@ -107,6 +107,7 @@ as_list <- function (x) {
 		list(), x)
 }
 
+
 # sum the vector 1:10 using each function in turn
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
@@ -127,5 +128,6 @@ as_list <- function (x) {
 		},
 		list(), x)
 }
+
 }
 

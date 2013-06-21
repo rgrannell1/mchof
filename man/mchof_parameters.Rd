@@ -4,7 +4,6 @@
 \alias{mcImplode}
 \alias{mcJumble}
 \alias{mcParameters}
-\alias{mcPartial}
 \title{Functions for Modifying Function Parameters}
 \usage{
   mcFlip(f)
@@ -16,8 +15,6 @@
   mcExplode(f)
 
   mcImplode(f)
-
-  mcPartial(f, ...)
 }
 \arguments{
   \item{f}{a function, or a string giving the name of a

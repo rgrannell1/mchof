@@ -49,7 +49,7 @@
   be obtained if either \code{f} or \code{g} returns
   \code{NA} when called with a particular value. This is
   easily altered by composing the output of \code{mcAnd},
-  \code{mcNot}, ... with\code{\link{mcBoolean}}. For
+  \code{mcNot}, ... with \code{\link{mcBoolean}}. For
   example,
 
   \code{finite_number = mcBoolean \%of\% mcAnd(is.numeric,
@@ -59,7 +59,7 @@
   numeric and finite, and then coerces this result to
   \code{TRUE} or \code{FALSE}.
 
-  The composite functions formals depend on the input
+  The composite function's formals depend on the input
   function(s):
 
   \enumerate{ \item If the function \code{f} and \code{g}

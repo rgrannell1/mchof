@@ -18,7 +18,7 @@
 #' @param paropts a list of parameters to be handed to 
 #'    mclapply (see \link{mchof}).
 #'
-#' @details:
+#' @details
 #'
 #' These functions apply \code{f} to each element of \code{x}, and coerce the results to a 
 #' \code{TRUE} or \code{FALSE} value. If an \code{NA} value is obtained it is coerced to 

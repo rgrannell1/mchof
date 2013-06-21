@@ -60,5 +60,9 @@ mcFind(
 
 }
 \keyword{mcFind}
+\keyword{mcFindl}
+\keyword{mcFindr}
 \keyword{mcPosition}
+\keyword{mcPositionl}
+\keyword{mcPositionr}
 

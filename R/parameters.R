@@ -138,19 +138,23 @@ mcParameters <- function (f, x) {
 			formals(f) <- structure(
 				replicate(length(x), missing_default),
 				names = x)
-			f
+			environment(f) <- parent.frame()
+			return (f)
+
 		} else {
+
 			formals(f) <- list()
-			f
+			environment(f) <- parent.frame()
+			return (f)
 		}
 	}
 
 	if (is.list(x)) {
-
 		(any_unnamed(x)) %throws% 
 			messages$not_all_named(func_call, x, "x")
 	
 		formals(f) <- x
+		environment(f) <- parent.frame()
 		return (f)
 	}
 }
@@ -196,53 +200,45 @@ mcImplode <- function (f) {
 	}
 }
 
-#' @rdname mchof_parameters
-#' @family mchof-parameters
-#' @export
 
-mcPartial <- function (f, ...) {
-	# take f and fill in some of its arguments, return a function 
-	# with less formals
-	
-	func_call <- "mcPartial(f, ...)"
+
+ISSUE("fix partial; variables aren't being bound properly")
+
+mcPartial <- function (f, x) {
+	# takes a function f and binds some of its parameters
+	# with values given in x, returning a function with smaller arity
+
+	func_call <- "mcPartial(f, x)"
 
 	missing(f) %throws% 
 		messages$function_is_required(func_call, "f")
-	
+	missing(x) %throws% 
+		messages$list_is_required(func_call, "x")
+
 	f <- match.fun(f)
-	applied <- list(...)
+	.formals_f <- names(mcParameters(f))
 	
-	formals_f <- names(mcParameters(f))
+	("..." %in% .formals_f) %throws% 
+		messages$formals_has_ellipses(func_call, .formals_f, "f")
 	
-	("..." %in% formals_f) %throws% 
-		messages$formals_has_ellipses(func_call, formals_f, "f")
+	( any_unnamed(x) ) %throws% 
+		messages$not_all_named(func_call, x, "x")
 	
-	( any_unnamed(applied) ) %throws% 
-		messages$not_all_named(func_call, applied, "...")
-	
-	( any_duplicated(names(applied)) ) %throws% 
-		messages$matched_muliple_times(func_call, applied, "...")
+	( any_duplicated(names(x)) ) %throws% 
+		messages$matched_muliple_times(func_call, x, "x")
 
-	rm(formals_f, func_call)
+	.fixed <- x
+	rm(func_call, x)
 
-	applied_func <- function () {
+	.remaining <- .formals_f[ !.formals_f %in% names(.fixed) ]
+	
+	func <- mcParameters(
+		function () {
+			'a partially applied function'
+			'(use environment(func)$.fixed to see fixed variables)'
+			''
+			.current <- as.list(sys.call())[-1]
+			do.call(f, c(.current, .fixed))
+		}, .remaining)
 
-		do.call(f, c(applied, as.list(match.call())[-1]) )
-	}
-	
-	formals_f <- names(mcParameters(f))
-	unapplied <- formals_f[ !formals_f %in% names(applied) ]
-	
-	ISSUE("partial is very broken")
-	
-	formals(applied_func) <- empty_formals(unapplied)
-	applied_func
-}
-
-mcCurry <- function (f) {
-	# take a function f that can take multiple multiple 
-	# arguments and transform it into a chain of single variable
-	# functions
-
-	
 }
