@@ -40,7 +40,7 @@
 mcLarger <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
-	binary_functional(f, g, ">", "mcLarger(f, g)")
+	binary_combinator(f, g, ">", "mcLarger(f, g)")
 
 }
 
@@ -51,7 +51,7 @@ mcLarger <- function (f, g) {
 mcSmaller <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
-	binary_functional(f, g, "<", "mcSmaller(f, g)")
+	binary_combinator(f, g, "<", "mcSmaller(f, g)")
 
 }
 
@@ -62,7 +62,7 @@ mcSmaller <- function (f, g) {
 mcPlus <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "+", "mcPlus(f, g)")
+	binary_combinator(f, g, "+", "mcPlus(f, g)")
 }
 
 #' @rdname mchof_math
@@ -72,7 +72,7 @@ mcPlus <- function (f, g) {
 mcMinus <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "-", "mcMinus(f, g)")
+	binary_combinator(f, g, "-", "mcMinus(f, g)")
 
 }
 
@@ -83,7 +83,7 @@ mcMinus <- function (f, g) {
 mcEqual <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
-	binary_functional(f, g, "==", "mcEqual(f, g)")
+	binary_combinator(f, g, "==", "mcEqual(f, g)")
 
 }
 
@@ -94,7 +94,7 @@ mcEqual <- function (f, g) {
 mcNotEqual <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> boolean)
 
-	binary_functional(f, g, "!=", "mcNotEqual(f, g)")
+	binary_combinator(f, g, "!=", "mcNotEqual(f, g)")
 
 }
 
@@ -105,7 +105,7 @@ mcNotEqual <- function (f, g) {
 mcMultiply <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "*", "mcMultiply(f, g)")
+	binary_combinator(f, g, "*", "mcMultiply(f, g)")
 
 }
 
@@ -116,7 +116,7 @@ mcMultiply <- function (f, g) {
 mcDivide <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "/", "mcDivide(f, g)")
+	binary_combinator(f, g, "/", "mcDivide(f, g)")
 
 }
 
@@ -127,7 +127,7 @@ mcDivide <- function (f, g) {
 mcMax <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "max", "mcMax(f, g)")
+	binary_combinator(f, g, "max", "mcMax(f, g)")
 
 }
 
@@ -138,6 +138,6 @@ mcMax <- function (f, g) {
 mcMin <- function (f, g) {
 	# (a -> numeric) -> (a -> numeric) -> (a -> numeric)
 
-	binary_functional(f, g, "min", "mcMin(f, g)")
+	binary_combinator(f, g, "min", "mcMin(f, g)")
 
 }

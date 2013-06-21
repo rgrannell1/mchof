@@ -87,7 +87,9 @@ mcParameters <- function (f, x) {
 	# (a -> b -> ... -> z) -> [a, b, ..., z]
 	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
 	# get the formals/arguments of f if x
-	# isn't given, and set the formals if x is given
+	# isn't given, and set the formals if x is given.
+	# the formal environment of f is set to parent.frame(),
+	# since no relevant variables are being added here
 
 	func_call <- "mcParameters(f, x)"
 
@@ -98,24 +100,13 @@ mcParameters <- function (f, x) {
 
 	use_as_getter <- missing(x)
 
-	if (use_as_getter) {
-
-		parameters <- if (is.primitive(f)) {
+	if (use_as_getter) return (
+		if (is.primitive(f)) {
 			head( as.list(args(f)), -1 )
 		} else {
 			formals(f)
 		}
-		return (parameters)
-	}
-
-	if (is.primitive(f)) {
-		# prime to work with setter 
-
-		g <- function () {
-			do.call( f, as.list(sys.call()) )
-		}
-		
-	}
+	)
 
 	is_correct_class <- 
 		(is.vector(x) && is.character(x)) || is.list(x) 
@@ -123,7 +114,28 @@ mcParameters <- function (f, x) {
 	(!is_correct_class) %throws%
 		messages$cant_be_parameters(func_call, x, "x")
  
-	if (is.vector(x) && is.character(x)) {
+	if (is.list(x)) {
+		(any_unnamed(x)) %throws% 
+			messages$not_all_named(func_call, x, "x")
+	
+
+		if (is.primitive(f)) {
+
+			g <- function () {
+				do.call( f, as.list(sys.call()) )
+			}
+			formals(g) <- list()
+			environment(g) <- parent.frame()
+			return (g)
+		}
+
+		formals(f) <- x
+		environment(f) <- parent.frame()
+		return (f)
+	}
+
+ 	if (is.vector(x) && is.character(x)) {
+		# add names as parameters, with no default
 
 		any_unnamed(x) %throws% 
 			messages$not_all_named(func_call, x, "x")
@@ -135,6 +147,18 @@ mcParameters <- function (f, x) {
 
 		if (length(x) > 0) {
 
+			if (is.primitive(f)) {
+
+				g <- function () {
+					do.call( f, as.list(sys.call()) )
+				}
+				formals(g) <- structure(
+				replicate(length(x), missing_default),
+				names = x)
+				environment(g) <- parent.frame()
+				return (g)
+			}
+
 			formals(f) <- structure(
 				replicate(length(x), missing_default),
 				names = x)
@@ -143,19 +167,19 @@ mcParameters <- function (f, x) {
 
 		} else {
 
+			if (is.primitive(f)) {
+
+				g <- function () {
+					do.call( f, as.list(sys.call()) )
+				}
+				environment(g) <- parent.frame()
+				return (g)
+			}
+
 			formals(f) <- list()
 			environment(f) <- parent.frame()
 			return (f)
 		}
-	}
-
-	if (is.list(x)) {
-		(any_unnamed(x)) %throws% 
-			messages$not_all_named(func_call, x, "x")
-	
-		formals(f) <- x
-		environment(f) <- parent.frame()
-		return (f)
 	}
 }
 
@@ -232,7 +256,7 @@ mcPartial <- function (f, x) {
 
 	.remaining <- .formals_f[ !.formals_f %in% names(.fixed) ]
 	
-	func <- mcParameters(
+	mcParameters(
 		function () {
 			'a partially applied function'
 			'(use environment(func)$.fixed to see fixed variables)'
@@ -240,5 +264,4 @@ mcPartial <- function (f, x) {
 			.current <- as.list(sys.call())[-1]
 			do.call(f, c(.current, .fixed))
 		}, .remaining)
-
 }

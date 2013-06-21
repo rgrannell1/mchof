@@ -15,8 +15,6 @@ forall(info = "partial application a binary to unary function works",
 
 		g <- mcPartial(operator, list(x = a_))
 
-		print(g(b_))
-
 		g(b_) == operator(a_, b_)
 	}
 )

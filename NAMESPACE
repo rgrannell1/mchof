@@ -1,6 +1,7 @@
 export(mcAll)
 export(mcAnd)
 export(mcAny)
+export(mcAutoCurry)
 export(mcDivide)
 export(mcEqual)
 export(mcExplode)

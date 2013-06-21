@@ -54,7 +54,7 @@ mcAnd <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) && g(...))
 
-	binary_functional(f, g, "&&", "mcAnd(f, g)")
+	binary_combinator(f, g, "&&", "mcAnd(f, g)")
 
 }
 
@@ -90,7 +90,7 @@ mcOr <- function (f, g) {
 	# return a function that returns true
 	# if (f(...) || g(...))
 	
-	binary_functional(f, g, "||", "mcOr(f, g)")
+	binary_combinator(f, g, "||", "mcOr(f, g)")
 
 }
 
@@ -105,6 +105,6 @@ mcXor <- function (f, g) {
 	
 	func_call <- "mcXor(f, g)"
 
-	binary_functional(f, g, "xor", "mcXor(f, g)")
+	binary_combinator(f, g, "xor", "mcXor(f, g)")
 
 }

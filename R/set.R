@@ -5,8 +5,8 @@
 #'
 #' @details 1
 #'
-#' @param f a function that returns a value, or a string giving the name of such a function.
-#' @param g a function that returns a value, or a string giving the name of such a function.
+#' @param f a function, or a string giving the name of a function.
+#' @param g a function, or a string giving the name of a function.
 #'
 #' @rdname mchof_set
 #' @family mchof-set
@@ -15,7 +15,7 @@
 
 mcUnion <- function (f, g) {
 
-	binary_functional(f, g, "union", "mcUnion(f, g)")
+	binary_combinator(f, g, "union", "mcUnion(f, g)")
 
 }
 
@@ -25,7 +25,7 @@ mcUnion <- function (f, g) {
 
 mcIntersect <- function (f, g) {
 
-	binary_functional(f, g, "intersect", "mcUnion(f, g)")
+	binary_combinator(f, g, "intersect", "mcUnion(f, g)")
 
 }
 
@@ -35,7 +35,7 @@ mcIntersect <- function (f, g) {
 
 mcSetDiff <- function (f, g) {
 
-	binary_functional(f, g, "setdiff", "mcSetDiff(f, g)")
+	binary_combinator(f, g, "setdiff", "mcSetDiff(f, g)")
 
 }
 
@@ -49,7 +49,7 @@ mcSymDiff <- function (f, g) {
 		union( setdiff(a, b), setdiff(b, a) )
 	}
 
-	binary_functional(f, g, "symdiff", "mcSetDiff(f, g)")
+	binary_combinator(f, g, "symdiff", "mcSetDiff(f, g)")
 
 }
 
@@ -59,7 +59,7 @@ mcSymDiff <- function (f, g) {
 
 mcSetEqual <- function (f, g) {
 
-	binary_functional(f, g, "setequal", "mcSetEqual(f, g)")
+	binary_combinator(f, g, "setequal", "mcSetEqual(f, g)")
 
 }
 
@@ -69,7 +69,7 @@ mcSetEqual <- function (f, g) {
 
 mcIsElement <- function (f, g) {
 
-	binary_functional(f, g, "is.element", "mcIsElement(f, g)")
+	binary_combinator(f, g, "is.element", "mcIsElement(f, g)")
 
 }
 
@@ -84,7 +84,7 @@ mcSymDiff <- function (f, g) {
 		union( setdiff(a, b), setdiff(b, a) )
 	}
 
-	binary_functional(f, g, "symdiff", "mcSetDiff(f, g)")
+	binary_combinator(f, g, "symdiff", "mcSetDiff(f, g)")
 
 }
 
