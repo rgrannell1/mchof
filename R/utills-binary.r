@@ -2,9 +2,6 @@
 binary_combinator <- function (f, g, operator, func_call) {
 	# returns a function operator f(), g()
 
-
-	ISSUE("rename & TEST")
-
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(g) %throws% messages$function_is_required(func_call, "g")		
 

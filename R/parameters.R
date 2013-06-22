@@ -90,6 +90,29 @@ mcJumble <- function (f, x) {
 #' @family mchof-parameters
 #' @export
 
+mcApply <- "%apply%" <- function (f, x) {
+	# call the function f with the list x. If
+	# x is a vector then look up the names in x.
+
+	missing(f) %throws% messages$function_is_required(func_call, "f")
+	missing(x) %throws% messages$vector_is_required(func_call, "x")
+
+	is.factor(x) %throws% 
+		messages$was_a_factor(func_call, x, "x")
+
+	f <- match.fun(f)
+
+	if (is.list(x)) {
+		do.call(f, x)
+	} else if (is.character(x)) {
+		do.call(f, mget(x, inherits = TRUE))
+	}
+}
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
 mcParameters <- function (f, x) {
 	# (a -> b -> ... -> z) -> [a, b, ..., z]
 	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
@@ -206,6 +229,10 @@ mcExplode <- function (f) {
 	f <- match.fun(f)
 
 	function (...) {
+		'an exploded function; takes a variable number'
+		'of arguments, puts them in a list and calls its'
+		'underlying function with that singe list'
+
 		f(list(...))
 	}
 }
@@ -227,6 +254,9 @@ mcImplode <- function (f) {
 	f <- match.fun(f)
 
 	function (x) {
+		'an imploded function; takes a single argument x and'
+		'calls f with x[[1]]...x[[n]]'
+
 		do.call(f, c(list(), x))
 	}
 }

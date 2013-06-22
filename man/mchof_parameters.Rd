@@ -1,4 +1,5 @@
 \name{mcFlip}
+\alias{mcApply}
 \alias{mcExplode}
 \alias{mcFlip}
 \alias{mcImplode}
@@ -9,6 +10,8 @@
   mcFlip(f)
 
   mcJumble(f, x)
+
+  mcApply(f, x)
 
   mcParameters(f, x)
 
