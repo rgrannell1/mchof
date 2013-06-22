@@ -130,9 +130,11 @@ forall(info = "mcApply acts like do.call when called with a list",
 	list(x_ = r_seq_len()),
 	function (x_) {
 
+		sumlist <- function (x) sum( unlist(x) )
+
 		x_ <- as.list(x_)
-		( sum %apply% x_ == do.call(sum, x_) ) &&
-		( sum %apply% "x_" == do.call(sum, x_) )
+		( sumlist %apply% list(list(x_)) == do.call(sum, x_) ) &&
+		( sumlist %apply% "x_" == do.call(sum, x_) )
 	}
 )
 

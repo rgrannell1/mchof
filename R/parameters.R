@@ -68,15 +68,14 @@ mcJumble <- function (f, x) {
 		messages$was_a_factor(func_call, x, "x")
 	
 	f <- match.fun(f)
-	if (length(parameters(f)) < 2) return (f)
+	if (length(mcParameters(f)) < 2) return (f)
 	
-	( !all(x %in% seq_along(parameters(f))) ) %throws% 
+	( !all(x %in% seq_along(mcParameters(f))) ) %throws% 
 		messages$must_be_indices(func_call, x, "x")
 	
-	(length(parameters(f)) != length(x)) %throws% 
+	(length(mcParameters(f)) != length(x)) %throws% 
 		messages$length_mismatch(
-			func_call, c(length(parameters(f)),
-			length(x)), "parameters(f)", "x")
+			func_call, list(mcParameters(f), x), "mcParameters(f)", "x")
 
 	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
@@ -94,6 +93,8 @@ mcApply <- "%apply%" <- function (f, x) {
 	# call the function f with the list x. If
 	# x is a vector then look up the names in x.
 
+	func_call <- "mcApply(f, x)"
+
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 
@@ -101,12 +102,33 @@ mcApply <- "%apply%" <- function (f, x) {
 		messages$was_a_factor(func_call, x, "x")
 
 	f <- match.fun(f)
+	f_params <- mcParameters(f)
 
 	if (is.list(x)) {
-		do.call(f, x)
-	} else if (is.character(x)) {
 
-		.args <- structure(
+		if (!"..." %in% names(f_params)) {
+			# ensure f will work with x 
+
+			(length(f_params) != length(x)) %throws% 
+				messages$length_mismatch(
+					func_call, list(f_params, x),
+					"mcParameters(f)", "x")
+		}
+
+		do.call(f, x)
+
+	} else if (is.character(x)) {
+		
+		if (!"..." %in% names(f_params)) {
+			# ensure f will work with x 
+
+			(length(f_params) != length(x)) %throws% 
+				messages$length_mismatch(
+					func_call, list(f_params, x),
+					"mcParameters(f)", "x")
+		}
+
+		args <- structure(
 			Map(
 				function (name) {
 					# given a name get its value binding 
@@ -118,7 +140,7 @@ mcApply <- "%apply%" <- function (f, x) {
 			name = x
 		)
 
-		do.call(f, .args)
+		do.call(f, args)
 	}
 }
 
