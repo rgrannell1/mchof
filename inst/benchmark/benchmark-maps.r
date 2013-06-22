@@ -26,8 +26,12 @@ benchmark$maps <-
 		list(
 			mcIterateWhile = iterate_control,
 			mcIndMap = function (x) {
-				seq_along(x)
-				lapply(x, function (x) NULL)
+				
+				Map(
+					function (x, y) NULL,
+					x,
+					seq_along(x)
+				)
 			}
 		),
 		c("mcIterateWhile", "mcIndMap")

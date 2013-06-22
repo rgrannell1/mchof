@@ -32,14 +32,15 @@ mcIterateWhile <- function (p, f, x) {
 	p <- match.fun(p)
 
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	repeat {
 
 		result <- p(x)
 
 		(!is_boolean(result)) %throws% 
-			messages$not_a_bool(func_call, result, "p(x)")
+			messages$wrong_class(func_call, result, "TRUE/FALSE value", "p(x)")
 
 		if (!result) break
 
@@ -71,7 +72,8 @@ mcIndMap <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	call_mclapply(
 		function (pair) {

@@ -22,7 +22,8 @@ mcSleep <- function (f, n) {
 	func_call <- "mcSleep(f, n)"
 
 	missing(f) %throws% messages$function_is_required(func_call, "f")
-	(!is.numeric(n)) %throws% messages$not_a_number(func_call, n, "n")
+	(!is.numeric(n)) %throws% 
+		messages$wrong_class(func_call, n, "numeric", "n")
 	
 	f <- match.fun(f)	
 	
@@ -46,7 +47,7 @@ mcTimer <- function (n) {
 	func_call <- "mcTimer(n)"
 
 	(!is.numeric(n)) %throws% 
-		messages$not_a_number(func_call, n, "n")
+		messages$wrong_class(func_call, n, "numeric", "n")
 	
 	( function () {
 		start_time <- Sys.time()

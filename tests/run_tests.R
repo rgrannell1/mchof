@@ -18,9 +18,8 @@ warning("fix mcOne")
 warning("make mcParameters(prim, x) work")
 
 warning("USE FORMALS() TO GET CURRENT FORMALS")
-warning("ADD VECTOR RECYCLING TO R")
+warning("ADD VECTOR RECYCLING TO ZIPS")
 
-warning("good way of writing functions that call whatever parameters they're given ")
 
 warning("juxtapose ((juxt a b c) x) => [(a x) (b x) (c x)]")
 warning("add mcAcc")

@@ -7,8 +7,10 @@ call_mclapply <- function (f, x, paropts = NULL,
 	# a wrapper that maps f over x in parallel, and 
 	# returns the results. OS-specific implementation.
 
-	(!is.function(f)) %throws% messages$not_a_function(func_call, f, "f")
-	(!is.vector(x)) %throws% messages$not_a_vector(func_call, x, "x")
+	(!is.function(f)) %throws% 
+		messages$wrong_class(func_call, f, "function", "f")
+	(!is.vector(x)) %throws% 
+		messages$wrong_class(func_call, f, c("vector", "list"), "f")
 	
 	if (.Platform$OS.type == 'windows') {
 		if (!.mchof_windows_warned) {

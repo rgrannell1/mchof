@@ -2,21 +2,32 @@
 messages <- list()
 
 messages <- c(messages, list(
-	not_a_function = function (call, data, name) {
+	wrong_class = function (call, data, classes, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
 		
+		classes <- paste(classes, "or")
+
 		stopf (
-			"%s: %s is not a function (actual class was %s)",
-			call, name, paste0(class(data), collapse = ", "))
+			"%s: %s is not a %s (actual class was %s)",
+			call, name, classes, paste0(class(data), collapse = ", "))	
 	},
-	function_is_required = function (call, name) {
+	value_required = function (call, spec, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
 
 		stopf (
-			'%s: a function (or function name) %s is required but was missing',
+			'%s: a %s %s is required but was missing',
 			call, name)
+	},
+	function_is_required = function (call, name) {
+		messages$value_required(call, "function (or function name)", name)
+	},
+	vector_is_required = function (call, name) {
+		messages$value_required(call, "vector or list", name)
+	},
+	list_is_required = function (call, name) {
+		messages$value_required(call, "list", name)
 	}
 ))
 
@@ -45,7 +56,6 @@ messages <- c(messages, list(
 		stopf(
 			"%s: %s must be either a character vector or a list of parameter = default pairs",
 			call, name)
-
 	}
 ))
 
@@ -71,34 +81,6 @@ messages <- c(messages, list(
 ))
 
 messages <- c(messages, list(
-	not_a_vector = function (call, data, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			'%s: %s is not a vector (actual class was %s)',
-			call, name, paste0(class(data), collapse = ", "))
-
-	},
-	vector_is_required = function (call, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			'%s: a list or vector %s is required but was missing',
-			call, name)
-	},
-	list_is_required = function (call, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			'%s: a list %s is required but was missing',
-			call, name)
-	}
-))
-
-messages <- c(messages, list(
 	string_is_required = function (call, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
@@ -106,27 +88,10 @@ messages <- c(messages, list(
 		stopf (
 			'%s: a string %s is required but was missing',
 			call, name)	
-	},
-	not_string = function (call, data, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf(
-			'%s: %s was not a length-one character vector (length: %s, class: %s)',
-			call, name, length(data), paste0(class(data), collapse = ", ")
-		)
 	}
 ))
 
 messages <- c(messages, list(
-	was_factor = function (call, data, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			'%s: a list or vector %s was expected but a factor was given',
-			call, name)
-	},
 	these_were_factors = function (call, which, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)
@@ -134,25 +99,6 @@ messages <- c(messages, list(
 		stopf (
 			"%s: elements %s in %s were factors",
 			call, paste0(which, collapse = ", "), name)
-	}
-))
-
-messages <- c(messages, list(
-	not_a_bool = function (call, data, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			"%s: %s wasn't a TRUE or FALSE value",
-			call, name)
-	},
-	not_a_number = function (call, data, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-
-		stopf (
-			"%s: %s wasn't a number (actual class was %s)",
-			call, name, paste0(class(data), collapse = ", "))
 	}
 ))
 
@@ -185,6 +131,16 @@ messages <- c(messages, list(
 		stopf (
 			'%s: length mismatch between %s and %s (%s)',
 			call, name_one, name_two, description)	
+	},
+	class_mismatch = function (call, data, name, expected) {
+		call <- head(call, 1)
+		name <- head(name_one, 1)
+
+		class_data <- paste0(class(data), collapse = ", ")
+		
+		stopf (
+			'%s: %s had the wrong class (actual was %s, expected %s)',
+			call, name, class_data, expected)	
 	},
 	not_all_named = function (call, data, name) {
 		call <- head(call, 1)

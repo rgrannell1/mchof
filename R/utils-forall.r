@@ -45,8 +45,8 @@ forall <- function (
 		)
 
 		(!is_boolean(precondition_holds)) %throws% 
-			messages$not_a_bool(
-				"given(args)", precondition_holds,
+			messages$wrong_class(
+				"given(args)", precondition_holds, "TRUE/FALSE value",
 				"the result of given")
 
 		if (precondition_holds) {
@@ -69,9 +69,9 @@ forall <- function (
 			)
 
 			(!is_boolean(expectation_holds)) %throws% 
-				messages$not_a_bool(
+				messages$wrong_class(
 					"given(args)", expectation_holds,
-					"the result of given")
+					'TRUE/FALSE value', "the result of given")
 
 			expectation_holds
 		} else TRUE

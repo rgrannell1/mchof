@@ -69,7 +69,7 @@ mcNot <- function (f) {
 	
 	func_call <- "mcNot(f)"
 
-	missing(f) %throws%  messages$function_is_required(func_call, "f")
+	missing(f) %throws% messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
 	

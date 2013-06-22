@@ -66,7 +66,8 @@ mcFold <- function (f, z, x, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
 	
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	mcReduce(f, x = c(list(z), x), paropts)
 	
@@ -96,7 +97,8 @@ mcReduce <- function (f, x, paropts = NULL) {
 		
 	f <- match.fun(f)
 	if (length(x) < 2) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	g <- function (x) {
 		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
@@ -128,7 +130,8 @@ mcFoldl <- function (f, z, x) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 		
 	f <- match.fun(f)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
@@ -157,7 +160,8 @@ mcFoldr <- function (f, z, x) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 		
 	f <- match.fun(f)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
@@ -186,7 +190,8 @@ mcReducel <- function (f, x) {
 		
 	f <- match.fun(f)
 	if (length(x) < 2) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	ind <- 1
 	
@@ -217,7 +222,8 @@ mcReducer <- function (f, x) {
 		
 	f <- match.fun(f)
 	if (length(x) < 2) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 		
 	len_x <- length(x)
 	ind <- length(x) - 1

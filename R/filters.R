@@ -49,8 +49,10 @@ mcFilter <- function (f, x, paropts = NULL) {
 	
 	f <- match.fun(f)
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
-	
+
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
+
 	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
 	true_ind <- !is.na(ind) & ind
 	
@@ -83,7 +85,8 @@ mcReject <- function (f, x, paropts = NULL) {
 	}
 
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
 	true_ind <- !is.na(ind) & ind
@@ -107,7 +110,8 @@ mcPartition <- function (f, x, paropts = NULL) {
 	
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	ind <- as.logical( unlist(call_mclapply(f, x, paropts, func_call)) )
 	true_ind <- !is.na(ind) & ind

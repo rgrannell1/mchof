@@ -33,7 +33,8 @@ mcPosition <- mcPositionl <- function (f, x, paropts = NULL) {
 
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	cores <- get_cores(paropts)
 
@@ -99,7 +100,8 @@ mcFind <- mcFindl <- function (f, x, paropts = NULL) {
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 	
 	if (length(x) == 0) return (x)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	first_match <- mcPosition (f, x, paropts)
 	

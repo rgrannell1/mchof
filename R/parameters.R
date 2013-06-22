@@ -64,8 +64,9 @@ mcJumble <- function (f, x) {
 	missing(x) %throws% 
 		messages$vector_is_required(func_call, "x")
 
-	is.factor(x) %throws% 
-		messages$was_a_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
+
 	
 	f <- match.fun(f)
 	if (length(mcParameters(f)) < 2) return (f)
@@ -98,20 +99,20 @@ mcApply <- "%apply%" <- function (f, x) {
 	missing(f) %throws% messages$function_is_required(func_call, "f")
 	missing(x) %throws% messages$vector_is_required(func_call, "x")
 
-	is.factor(x) %throws% 
-		messages$was_a_factor(func_call, x, "x")
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	f <- match.fun(f)
-	f_params <- mcParameters(f)
+	.f_params <- mcParameters(f)
 
 	if (is.list(x)) {
 
-		if (!"..." %in% names(f_params)) {
+		if (!"..." %in% names(.f_params)) {
 			# ensure f will work with x 
 
 			(length(f_params) != length(x)) %throws% 
 				messages$length_mismatch(
-					func_call, list(f_params, x),
+					func_call, list(.f_params, x),
 					"mcParameters(f)", "x")
 		}
 
@@ -128,7 +129,7 @@ mcApply <- "%apply%" <- function (f, x) {
 					"mcParameters(f)", "x")
 		}
 
-		args <- structure(
+		.args <- structure(
 			Map(
 				function (name) {
 					# given a name get its value binding 
@@ -140,7 +141,7 @@ mcApply <- "%apply%" <- function (f, x) {
 			name = x
 		)
 
-		do.call(f, args)
+		do.call(f, .args)
 	}
 }
 
@@ -177,13 +178,12 @@ mcParameters <- function (f, x) {
 		(is.vector(x) && is.character(x)) || is.list(x) 
 
 	(!is_correct_class) %throws%
-		messages$cant_be_parameters(func_call, x, "x")
+		messages$class_mismatch(func_call, x, "x", "character vector or list")
  
 	if (is.list(x)) {
 		(any_unnamed(x)) %throws% 
 			messages$not_all_named(func_call, x, "x")
 	
-
 		if (is.primitive(f)) {
 
 			g <- function () {
@@ -314,7 +314,10 @@ mcPartial <- function (f, x) {
 
 	f <- match.fun(f)
 	.formals_f <- names(mcParameters(f))
-	
+
+	(!is.list(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "list")
+
 	("..." %in% .formals_f) %throws% 
 		messages$formals_has_ellipses(func_call, .formals_f, "f")
 	

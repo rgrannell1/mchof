@@ -5,15 +5,23 @@ Version 0.4
 
 
 
+Improvements:
+
+* added optimisations to several parallel functions when cores = 1
+
 
 
 API Changes:
 * removed the right parameter of mcPosition and mcFind, 
 as it was inconsistent with the philosophy of preferring composing
-functions to using parameters. To remedy this use mcPositionl and mcPositionr.
+functions to using lots of parameters. To remedy this use mcPositionr and mcFindr.
 
 * renamed the "first" parameter of Fold to "z", to make parameters more interchangable
 between mcFold, mcFoldl and mcFoldr.
+
+* inputs are now more rigourously screened, with several functions now
+testing the arity of their input function (only when ellipses aren't used). Practically 
+this only effects the quality of the error messages thrown by mchof for the better.
 
 Version 0.3
 ------------------------------------------------------------------------------

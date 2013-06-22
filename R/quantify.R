@@ -59,8 +59,9 @@ mcAll <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (TRUE)
 
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
-	
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
+
 	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
 	bools[is.na(bools)] <- FALSE
 	
@@ -84,8 +85,10 @@ mcAny <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
 	
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
+		
 	cores <- get_cores(paropts)
 
 	results <- call_mclapply(
@@ -120,8 +123,9 @@ mcOne <- function (f, x, paropts = NULL) {
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
 
-	is.factor(x) %throws% messages$was_factor(func_call, x, "x")
-
+	(!is.vector(x)) %throws% 
+		messages$class_mismatch(func_call, x, "x", "vector or list")
+	
 	cores <- get_cores(paropts)
 	
 	number_true <- 0

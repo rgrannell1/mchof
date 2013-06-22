@@ -26,7 +26,6 @@ mcUnion <- function (f, g) {
 mcIntersect <- function (f, g) {
 
 	binary_combinator(f, g, "intersect", "mcUnion(f, g)")
-
 }
 
 #' @rdname mchof_set
