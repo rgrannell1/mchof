@@ -106,7 +106,19 @@ mcApply <- "%apply%" <- function (f, x) {
 		do.call(f, x)
 	} else if (is.character(x)) {
 
-		do.call(f, mget(x, env = parent.frame(), inherits = TRUE))
+		.args <- structure(
+			Map(
+				function (name) {
+					# given a name get its value binding 
+					# with normal scoping rules
+
+					eval(as.symbol(name))
+				},
+				x),
+			name = x
+		)
+
+		do.call(f, .args)
 	}
 }
 
@@ -201,7 +213,8 @@ mcParameters <- function (f, x) {
 			if (is.primitive(f)) {
 
 				g <- function () {
-					do.call( f, as.list(sys.call()) )
+
+					do.call( f, as.list(match.call()) )
 				}
 				environment(g) <- parent.frame()
 				return (g)
