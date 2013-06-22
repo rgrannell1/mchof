@@ -90,7 +90,7 @@ mcJumble <- function (f, x) {
 #' @family mchof-parameters
 #' @export
 
-mcApply <- "%apply%" <- function (f, x) {
+mcApply <- function (f, x) {
 	# call the function f with the list x. If
 	# x is a vector then look up the names in x.
 

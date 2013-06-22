@@ -19,12 +19,6 @@ type_identity <- function (x) {
 	if (is.list(x)) list() else x[0] 
 }
 
-curry <- function(FUN,...) {
-	# from stack overflow
-	.orig = list(...)
-	function(...) do.call( FUN,c(.orig,list(...)) )
-}
-
 is_boolean <- function (x) {
 	# is the value true or false
 	

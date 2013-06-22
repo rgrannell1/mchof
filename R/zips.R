@@ -47,39 +47,17 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	x <- list(...)
 	f <- match.fun(f)
 
-	if (is_list0(x)) return (list())
-	if (is.null( x[[1]] )) return (NULL)
-	
-	sublist_info <- sapply(x, function (elem) {
-		c(
-			factor = inherits(elem, "factor"),
-			not_null = !is.null(elem),
-			length = length(elem))
-	})
-	
-	any(sublist_info["factor",]) %throws% 
-		messages$these_were_factors(func_call,
-		paste0(which(sublist_info["factor",]), collapse = ", "), "x")
+	x <- Filter(Negate(is.null), x)
+	if (length(x) == 0) return (NULL)
 
-	min_length <- min(sublist_info["length",])
-	
-	if (min_length == 0) return (list())
-
-	which_not_null <- which(sublist_info["not_null",] == 1)
-	
-	if (length(which_not_null) == 0) return (NULL)
-	
-	x <- x[which_not_null]
-	
 	call_mclapply(
 		function (ind) {
-			# get the ind-th element in each sublist,
-			# add to a list, apply f to that list
-			
-			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
+
+			tuple <- lapply( x, function (li) li[[ind]] )
+			do.call(f, tuple)
 		},
 		seq_len(min_length),
-		paropts
+		paropts, func_call
 	)
 }
 
@@ -100,7 +78,6 @@ mcZip <- function(..., paropts = NULL) {
 #' @export
 
 mcUnzipWith <- function (f, x, paropts = NULL) {
-	# rough inverse of mcZipWith: mcUnzipWith ( mcZipWith (x) ) |-> x 
 	# takes a list of n-tuples, returns n lists
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
@@ -113,29 +90,14 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	f <- match.fun(f)
 	if (length(x) == 0) return (list())
 
-	sublist_info <- sapply(x, function (elem) {
-		c(
-			factor = inherits(elem, "factor"),
-			not_null = !is.null(elem), length = length(elem))
-	})
-
-	any(sublist_info["factor",]) %throws% messages$these_were_factors(
-		func_call,
-		paste0(which(sublist_info["factor",]), collapse = ", "),
-		"x")
-
-	min_length <- min(sublist_info["length",])
-	
-	if (min_length == 0) return (list())
-
-	which_not_null <- which(sublist_info["not_null",] == 1)
+	x <- Filter(Negate(is.null), x)
+	if (length(x) == 0) return (NULL)
 
 	call_mclapply(
 		function (ind) {
-			# get the ind-th element in each sublist,
-			# add to a list, apply f to that list
-			
-			do.call(f, lapply( x, function (sublist) sublist[[ind]] ))
+
+			tuple <- lapply( x, function (li) li[[ind]] )
+			do.call(f, tuple)
 		},
 		seq_len(min_length),
 		paropts, func_call
