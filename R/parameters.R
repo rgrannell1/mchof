@@ -43,9 +43,10 @@ mcFlip <- function (f) {
 		messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	if (length(mcParameters(f)) < 2) return (f)
-
-	mcParameters(f, rev(mcParameters(f)))
+	
+	if (length(mcParameters(f)) < 2) f else {
+		mcParameters(f, rev(mcParameters(f)))
+	}
 }
 
 #' @rdname mchof_parameters
@@ -110,7 +111,7 @@ mcApply <- function (f, x) {
 		if (!"..." %in% names(.f_params)) {
 			# ensure f will work with x 
 
-			(length(f_params) != length(x)) %throws% 
+			(length(.f_params) != length(x)) %throws% 
 				messages$length_mismatch(
 					func_call, list(.f_params, x),
 					"mcParameters(f)", "x")
@@ -120,12 +121,12 @@ mcApply <- function (f, x) {
 
 	} else if (is.character(x)) {
 		
-		if (!"..." %in% names(f_params)) {
+		if (!"..." %in% names(.f_params)) {
 			# ensure f will work with x 
 
 			(length(f_params) != length(x)) %throws% 
 				messages$length_mismatch(
-					func_call, list(f_params, x),
+					func_call, list(.f_params, x),
 					"mcParameters(f)", "x")
 		}
 
@@ -187,7 +188,22 @@ mcParameters <- function (f, x) {
 		if (is.primitive(f)) {
 
 			g <- function () {
-				do.call( f, as.list(sys.call()) )
+				'a closure wrapping a primitive function'
+				''
+
+				.args <- structure(
+					Map(
+						function (name) {
+							# given a name get its value binding 
+							# with normal scoping rules
+
+							eval(as.symbol(name))
+						},
+						x),
+					name = x
+				)
+
+				do.call(f, .args)
 			}
 			formals(g) <- list()
 			environment(g) <- parent.frame()
@@ -215,11 +231,26 @@ mcParameters <- function (f, x) {
 			if (is.primitive(f)) {
 
 				g <- function () {
-					do.call( f, as.list(sys.call()) )
+					'a closure wrapping a primitive function'
+					''
+
+					.args <- structure(
+						Map(
+							function (name) {
+								# given a name get its value binding 
+								# with normal scoping rules
+
+								eval(as.symbol(name))
+							},
+							x),
+						name = x
+					)
+
+					do.call(f, .args)
 				}
 				formals(g) <- structure(
-				replicate(length(x), missing_default),
-				names = x)
+					replicate(length(x), missing_default),
+					names = x)
 				environment(g) <- parent.frame()
 				return (g)
 			}
@@ -235,8 +266,22 @@ mcParameters <- function (f, x) {
 			if (is.primitive(f)) {
 
 				g <- function () {
+					'a closure wrapping a primitive function'
+					''
 
-					do.call( f, as.list(match.call()) )
+					.args <- structure(
+						Map(
+							function (name) {
+								# given a name get its value binding 
+								# with normal scoping rules
+
+								eval(as.symbol(name))
+							},
+							x),
+						name = x
+					)
+
+					do.call(f, .args)
 				}
 				environment(g) <- parent.frame()
 				return (g)
@@ -296,8 +341,6 @@ mcImplode <- function (f) {
 		do.call(f, c(list(), x))
 	}
 }
-
-
 
 ISSUE("fix partial; variables aren't being bound properly")
 

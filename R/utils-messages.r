@@ -134,7 +134,7 @@ messages <- c(messages, list(
 	},
 	class_mismatch = function (call, data, name, expected) {
 		call <- head(call, 1)
-		name <- head(name_one, 1)
+		name <- head(name, 1)
 
 		class_data <- paste0(class(data), collapse = ", ")
 		

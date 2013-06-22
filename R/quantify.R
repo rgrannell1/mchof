@@ -91,6 +91,10 @@ mcAny <- function (f, x, paropts = NULL) {
 		
 	cores <- get_cores(paropts)
 
+	if (cores == 1) {
+		return (any( sapply(x, function (el) as.logical(f(el)) ) ))
+	}
+	
 	results <- call_mclapply(
 		f = function (sublist) {
 			
