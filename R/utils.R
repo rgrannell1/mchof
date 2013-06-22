@@ -13,12 +13,6 @@ any_duplicated <- function (x) {
 	any(duplicated(x))
 }
 
-type_identity <- function (x) {
-	stopifnot(is.vector(x))
-
-	if (is.list(x)) list() else x[0] 
-}
-
 is_boolean <- function (x) {
 	# is the value true or false
 	

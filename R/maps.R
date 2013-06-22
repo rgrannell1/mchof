@@ -76,10 +76,10 @@ mcIndMap <- function (f, x, paropts = NULL) {
 		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	call_mclapply(
-		function (pair) {
-			f( pair[[1]], pair[[2]] )
+		function (ind) {
+			f( x[[ind]], ind )
 		},
-		mcZip(x, seq_along(x)),
+		seq_along(x),
 		paropts
 	)
 }

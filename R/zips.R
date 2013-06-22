@@ -50,6 +50,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	x <- Filter(Negate(is.null), x)
 	if (length(x) == 0) return (NULL)
 
+	min_length <- min(vapply(x, length, 1))
+
 	call_mclapply(
 		function (ind) {
 
@@ -93,6 +95,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	x <- Filter(Negate(is.null), x)
 	if (length(x) == 0) return (NULL)
 
+	min_length <- min(vapply(x, length, 1))
+
 	call_mclapply(
 		function (ind) {
 
@@ -115,3 +119,4 @@ mcUnzip <- function (x, paropts = NULL) {
 	mcUnzipWith(f = var_identity, x, paropts = paropts)
 	
 }
+

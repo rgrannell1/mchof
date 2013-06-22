@@ -1,4 +1,3 @@
-export("%apply%")
 export(mcAll)
 export(mcAnd)
 export(mcAny)
