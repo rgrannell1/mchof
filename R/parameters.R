@@ -105,7 +105,8 @@ mcApply <- "%apply%" <- function (f, x) {
 	if (is.list(x)) {
 		do.call(f, x)
 	} else if (is.character(x)) {
-		do.call(f, mget(x, inherits = TRUE))
+
+		do.call(f, mget(x, env = parent.frame(), inherits = TRUE))
 	}
 }
 

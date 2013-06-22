@@ -123,9 +123,19 @@ forall(info = "mcParameters can set the arguments of primitive functions",
 
 context("mcExplode and mcImplode: normal cases")
 
-forall(info = "mcExplode and mcImplode counteract each other",
-	list(),
-	function () {
 
+context("mcApply: normal cases")
+
+forall(info = "mcApply acts like do.call when called with a list",
+	list(x_ = r_seq_len()),
+	function (x_) {
+
+		x_ <- as.list(x_)
+		( sum %apply% x_ == do.call(sum, x_) ) &&
+		( sum %apply% "x_" == do.call(sum, x_) )
 	}
 )
+
+
+
+
