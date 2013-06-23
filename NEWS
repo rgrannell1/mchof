@@ -1,10 +1,6 @@
 Version 0.4
 ------------------------------------------------------------------------------
 
-
-
-
-
 Improvements:
 
 * added optimisations to several parallel functions when cores = 1

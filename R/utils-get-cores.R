@@ -10,7 +10,7 @@ get_cores <- function (paropts) {
 	} else 1
 	
 	(!is.numeric(cores)) %throws% 
-		messages$wrong_class(func_call, cores, "numeric", "mc.cores")
+		messages$class_mismatch(func_call, cores, "mc.cores", "numeric")
 	abs(round(cores, 0))
 }
 

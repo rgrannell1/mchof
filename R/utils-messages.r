@@ -2,15 +2,15 @@
 messages <- list()
 
 messages <- c(messages, list(
-	wrong_class = function (call, data, classes, name) {
+	class_mismatch = function (call, data, name, expected) {
 		call <- head(call, 1)
 		name <- head(name, 1)
-		
-		classes <- paste(classes, "or")
 
+		class_data <- paste0(class(data), collapse = ", ")
+		
 		stopf (
-			"%s: %s is not a %s (actual class was %s)",
-			call, name, classes, paste0(class(data), collapse = ", "))	
+			'%s: %s had the wrong class (actual was %s, expected %s)',
+			call, name, class_data, expected)	
 	},
 	value_required = function (call, spec, name) {
 		call <- head(call, 1)
@@ -18,7 +18,7 @@ messages <- c(messages, list(
 
 		stopf (
 			'%s: a %s %s is required but was missing',
-			call, name)
+			call, spec, name)
 	},
 	function_is_required = function (call, name) {
 		messages$value_required(call, "function (or function name)", name)
@@ -132,16 +132,7 @@ messages <- c(messages, list(
 			'%s: length mismatch between %s and %s (%s)',
 			call, name_one, name_two, description)	
 	},
-	class_mismatch = function (call, data, name, expected) {
-		call <- head(call, 1)
-		name <- head(name, 1)
 
-		class_data <- paste0(class(data), collapse = ", ")
-		
-		stopf (
-			'%s: %s had the wrong class (actual was %s, expected %s)',
-			call, name, class_data, expected)	
-	},
 	not_all_named = function (call, data, name) {
 		call <- head(call, 1)
 		name <- head(name, 1)

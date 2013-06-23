@@ -1,5 +1,7 @@
 \name{mcFlip}
+\alias{\%apply\%}
 \alias{mcApply}
+\alias{mcArguments}
 \alias{mcExplode}
 \alias{mcFlip}
 \alias{mcImplode}
@@ -12,6 +14,10 @@
   mcJumble(f, x)
 
   mcApply(f, x)
+
+  %apply%(f, x)
+
+  mcArguments()
 
   mcParameters(f, x)
 

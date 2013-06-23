@@ -8,9 +8,9 @@ call_mclapply <- function (f, x, paropts = NULL,
 	# returns the results. OS-specific implementation.
 
 	(!is.function(f)) %throws% 
-		messages$wrong_class(func_call, f, "function", "f")
+		messages$class_mismatch(func_call, f, "f", "function")
 	(!is.vector(x)) %throws% 
-		messages$wrong_class(func_call, f, c("vector", "list"), "f")
+		messages$class_mismatch(func_call, f, "f", c("vector", "list"))
 	
 	if (.Platform$OS.type == 'windows') {
 		if (!.mchof_windows_warned) {

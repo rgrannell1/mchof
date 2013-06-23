@@ -67,7 +67,6 @@ mcJumble <- function (f, x) {
 
 	(!is.vector(x)) %throws% 
 		messages$class_mismatch(func_call, x, "x", "vector or list")
-
 	
 	f <- match.fun(f)
 	if (length(mcParameters(f)) < 2) return (f)
@@ -93,7 +92,8 @@ mcJumble <- function (f, x) {
 
 mcApply <- function (f, x) {
 	# call the function f with the list x. If
-	# x is a vector then look up the names in x.
+	# x is a character vector then look up the 
+	# names in x and add them to a list.
 
 	func_call <- "mcApply(f, x)"
 
@@ -124,7 +124,7 @@ mcApply <- function (f, x) {
 		if (!"..." %in% names(.f_params)) {
 			# ensure f will work with x 
 
-			(length(f_params) != length(x)) %throws% 
+			(length(.f_params) != length(x)) %throws% 
 				messages$length_mismatch(
 					func_call, list(.f_params, x),
 					"mcParameters(f)", "x")
@@ -144,6 +144,27 @@ mcApply <- function (f, x) {
 
 		do.call(f, .args)
 	}
+}
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
+"%apply%" <- mcApply
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
+mcArguments <- function () {
+	# return a list of arguments that the function 
+	# in which this function is called in is called with
+
+	func_call <- "mcArguments()"
+	
+	defaults <- mcParameters( sys.function(sys.parent()) )
+
+	as.list( sys.call(sys.parent()) )[-1]
 }
 
 #' @rdname mchof_parameters
@@ -182,10 +203,13 @@ mcParameters <- function (f, x) {
 		messages$class_mismatch(func_call, x, "x", "character vector or list")
  
 	if (is.list(x)) {
+		# set the parameters to x
+
 		(any_unnamed(x)) %throws% 
 			messages$not_all_named(func_call, x, "x")
 	
 		if (is.primitive(f)) {
+			# wrap the primitive before adding parameters
 
 			g <- function () {
 				'a closure wrapping a primitive function'
@@ -199,27 +223,23 @@ mcParameters <- function (f, x) {
 
 							eval(as.symbol(name))
 						},
-						x),
-					name = x
-				)
+						names(formals())),
+						name = names(formals())
+					)
 
 				do.call(f, .args)
 			}
-			formals(g) <- list()
-			environment(g) <- parent.frame()
+			formals(g) <- x
 			return (g)
 		}
 
 		formals(f) <- x
-		environment(f) <- parent.frame()
 		return (f)
 	}
 
  	if (is.vector(x) && is.character(x)) {
-		# add names as parameters, with no default
-
-		any_unnamed(x) %throws% 
-			messages$not_all_named(func_call, x, "x")
+		# if x is a character vector then 
+		# set the parameters to the names theirin
 
 		any_duplicated(x) %throws%
 			messages$matched_multiple_time(func_call, x, "x")
@@ -227,13 +247,12 @@ mcParameters <- function (f, x) {
 		missing_default <- list( formals(function (x) { })$x )
 
 		if (length(x) > 0) {
-
 			if (is.primitive(f)) {
+				# wrap the primitive before adding parameter names
 
 				g <- function () {
 					'a closure wrapping a primitive function'
 					''
-
 					.args <- structure(
 						Map(
 							function (name) {
@@ -245,50 +264,34 @@ mcParameters <- function (f, x) {
 							x),
 						name = x
 					)
-
 					do.call(f, .args)
 				}
+
 				formals(g) <- structure(
 					replicate(length(x), missing_default),
 					names = x)
-				environment(g) <- parent.frame()
 				return (g)
 			}
 
 			formals(f) <- structure(
 				replicate(length(x), missing_default),
 				names = x)
-			environment(f) <- parent.frame()
 			return (f)
 
 		} else {
 
 			if (is.primitive(f)) {
+				# wrap primitive before adding no parameters
 
 				g <- function () {
 					'a closure wrapping a primitive function'
 					''
-
-					.args <- structure(
-						Map(
-							function (name) {
-								# given a name get its value binding 
-								# with normal scoping rules
-
-								eval(as.symbol(name))
-							},
-							x),
-						name = x
-					)
-
-					do.call(f, .args)
+					f()
 				}
-				environment(g) <- parent.frame()
 				return (g)
 			}
 
 			formals(f) <- list()
-			environment(f) <- parent.frame()
 			return (f)
 		}
 	}
@@ -380,7 +383,12 @@ mcPartial <- function (f, x) {
 			'a partially applied function'
 			'(use environment(func)$.fixed to see fixed variables)'
 			''
-			.current <- Map(function(x)get(x), names(formals()))
+			.current <- Map(
+				function(param) {
+					eval(as.symbol(param))
+				},
+				names(formals())
+			)
 			do.call(f, c(.current, .fixed))
 
 		}, .remaining)

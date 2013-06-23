@@ -40,7 +40,7 @@ mcIterateWhile <- function (p, f, x) {
 		result <- p(x)
 
 		(!is_boolean(result)) %throws% 
-			messages$wrong_class(func_call, result, "TRUE/FALSE value", "p(x)")
+			messages$class_mismatch(func_call, result, "p(x)", "TRUE/FALSE value")
 
 		if (!result) break
 

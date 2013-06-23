@@ -45,9 +45,9 @@ forall <- function (
 		)
 
 		(!is_boolean(precondition_holds)) %throws% 
-			messages$wrong_class(
-				"given(args)", precondition_holds, "TRUE/FALSE value",
-				"the result of given")
+			messages$class_mismatch(
+				"given(args)", precondition_holds,
+				"the result of given","TRUE/FALSE value")
 
 		if (precondition_holds) {
 			expectation_checked <<- expectation_checked + 1
@@ -69,9 +69,9 @@ forall <- function (
 			)
 
 			(!is_boolean(expectation_holds)) %throws% 
-				messages$wrong_class(
+				messages$class_mismatch(
 					"given(args)", expectation_holds,
-					'TRUE/FALSE value', "the result of given")
+					"the result of expect", 'TRUE/FALSE value')
 
 			expectation_holds
 		} else TRUE
