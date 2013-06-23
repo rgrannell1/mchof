@@ -1,34 +1,39 @@
 
-
-
 #' @export
 
-mcAutoCurry <- function (f) {
+mcAutoPartial <- function (f) {
 	# transform a function that takes many 
-	# variables into a chain of single variable function
+	# variables into a chain of function
 	# calls. Invoke when every parameter has
 	# an explicit value or default.
 
-	mcParameters(
-		function () {
+	# returns a wrapper function for f (args = args(f))
+		# if f has no parameters left, invoke it!
+		# if f has parameters left, 
 
-			.current <- as.list( sys.call() )[-1]
-			.formals <- formals()
+		mcParameters(
+			function () {
+				"this function takes arguments,"
+				"partially applies them,"
+				"and returns a partially applying function of smaller arity"
+				""
+				this <- list(
+					func = sys.function(sys.parent()),
+					args = mcArguments()
+				)
+				this$params <- mcParameters(this$func)
 
-			next_func <- function () {
+				p <- mcPartial(
+					f = this$func,
+					x = this$args
+				)
 
-				
-				
-			}
-			mcParameters(
-				next_func,
-				tail(.formals, length(.current)))
-
-		},
-		mcParameters(f)
-	)
+				if (length(mcParameters(p)) == 0) {
+					p()
+				} else {
+					mcAutoPartial(p)
+				}
+			},
+			mcParameters(f))
 }
-
-#add <- mcAutoCurry(function (a, b, c) a + b + c)
-
 

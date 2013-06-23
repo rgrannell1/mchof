@@ -11,7 +11,7 @@ mcSelect(
 	-10:10
 )
 
-# is composition of linear functions equivelant to 
+# is composition of linear functions equivalent to 
 # multiplication?
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
@@ -37,8 +37,8 @@ mcPartition(
 	1:100
 )
 
-# find the intersection of two lines, if there
-# is one
+# find the intersection of two lines,
+# if they intersect at some integer -100 >= x >= 100
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcSelect(
@@ -53,4 +53,3 @@ mcSelect(
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 mcMinus(sin, cos %of% cos)
-
