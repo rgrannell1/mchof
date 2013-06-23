@@ -376,6 +376,8 @@ mcPartial <- function (f, x) {
 	.fixed <- x
 	rm(func_call, x)
 
+	ISSUE("preserve defaults in partial")
+
 	.remaining <- .formals_f[ !.formals_f %in% names(.fixed) ]
 
 	mcParameters(
@@ -393,3 +395,40 @@ mcPartial <- function (f, x) {
 
 		}, .remaining)
 }
+
+mcAutoPartial <- function (f) {
+	# transform a function that takes many variables into a chain of
+	# functions. Invoke when every parameter has an explicit value or default.
+
+	mcParameters(
+		function () {
+			"this function takes arguments,"
+			"partially applies them to its underlying function,"
+			"and returns a partially applying function of smaller arity"
+			""
+			this <- list(
+				func = sys.function(sys.parent()),
+				args = as.list( match.call() )[-1]
+			)
+			this$params <- mcParameters(this$func)
+
+			p <- mcPartial(
+				f = this$func,
+				x = this$args
+			)
+
+			all_have_defaults <- all(sapply(
+			    mcParameters(p),
+			    function (el) {
+			    	!identical(el, formals(function (x){ })$x)
+			    }))
+
+			if (length(mcParameters(p)) == 0 || all_have_defaults) {
+				p()
+			} else {
+				mcAutoPartial(p)
+			}
+		},
+		mcParameters(f))
+}
+
