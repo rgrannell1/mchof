@@ -29,6 +29,9 @@ messages <- c(messages, list(
 	list_is_required = function (call, name) {
 		messages$value_required(call, "list", name)
 	}
+	string_is_required = function (call, name) {
+		messages$value_required(call, "string", name)
+	}
 ))
 
 messages <- c(messages, list(
@@ -77,28 +80,6 @@ messages <- c(messages, list(
 			prob = c(0.7, 0.3), size = 1)
 		
 		warning (msg, call. = FALSE)
-	}
-))
-
-messages <- c(messages, list(
-	string_is_required = function (call, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			'%s: a string %s is required but was missing',
-			call, name)	
-	}
-))
-
-messages <- c(messages, list(
-	these_were_factors = function (call, which, name) {
-		call <- head(call, 1)
-		name <- head(name, 1)
-		
-		stopf (
-			"%s: elements %s in %s were factors",
-			call, paste0(which, collapse = ", "), name)
 	}
 ))
 

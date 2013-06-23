@@ -71,6 +71,7 @@ registrar <- list(
 			}			
 		)
 
+
 	},
 	functions = c(),
 	properties = list()

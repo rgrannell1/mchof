@@ -376,9 +376,10 @@ mcPartial <- function (f, x) {
 	.fixed <- x
 	rm(func_call, x)
 
-	ISSUE("preserve defaults in partial")
-
-	.remaining <- .formals_f[ !.formals_f %in% names(.fixed) ]
+	.remaining <- 
+		mcParameters(f)[c(
+			.formals_f[ !.formals_f %in% names(.fixed) ]
+		)]
 
 	mcParameters(
 		function () {
@@ -417,18 +418,21 @@ mcAutoPartial <- function (f) {
 				x = this$args
 			)
 
-			all_have_defaults <- all(sapply(
-			    mcParameters(p),
-			    function (el) {
-			    	!identical(el, formals(function (x){ })$x)
-			    }))
-
-			if (length(mcParameters(p)) == 0 || all_have_defaults) {
+			if (length(mcParameters(p)) == 0) {
 				p()
 			} else {
-				mcAutoPartial(p)
+				all_have_defaults <- all(
+				sapply(
+				   	mcParameters(p),
+				   	function (el) {
+				   		!identical(el, formals(function (x){ })$x)
+				   	})
+				)
+
+				if (all_have_defaults) {
+					p()
+				} else mcAutoPartial(p)
 			}
 		},
 		mcParameters(f))
 }
-
