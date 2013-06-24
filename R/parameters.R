@@ -30,7 +30,54 @@
 
 #' @rdname mchof_parameters
 #' @family mchof-parameters
-#' @example inst/examples/examples-parameters.r
+#' @export
+
+mcExplode <- function (f) {
+	# (a -> b) -> (... -> b)
+	# takes a function that takes a single value and 
+	# makes it into a variadic function
+
+	func_call <- "mcExplode(f)"
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	f <- match.fun(f)
+
+	function (...) {
+		'an exploded function; takes a variable number'
+		'of arguments, puts them in a list and calls its'
+		'underlying function with that single list'
+
+		f(list(...))
+	}
+}
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
+mcImplode <- function (f) {
+	# (... -> b) -> (a -> b)
+	# dual to mcExplode. 
+	# takes a function that takes a many values and 
+	# makes it into a function that takes one list
+
+	func_call <- "mcImplode(f)"
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	f <- match.fun(f)
+
+	function (x) {
+		'an imploded function; takes a single argument x and'
+		'calls f with x[[1]]...x[[n]]'
+
+		do.call(f, c(list(), x))
+	}
+}
+
+#' @rdname mchof_parameters
+#' @family mchof-parameters
 #' @export
 
 mcFlip <- function (f) {
@@ -43,9 +90,12 @@ mcFlip <- function (f) {
 		messages$function_is_required(func_call, "f")
 
 	f <- match.fun(f)
-	
-	if (length(mcParameters(f)) < 2) f else {
-		mcReforge( f, rev(mcParameters(f)) )
+	params_f <- mcParameters(f)
+
+	if (length(params_f) < 2) {
+		mcReforge(f, params_f)
+	} else {
+		mcReforge(f, rev(params_f))
 	}
 }
 
@@ -67,88 +117,23 @@ mcJumble <- function (f, x) {
 
 	(!is.vector(x)) %throws% 
 		messages$class_mismatch(func_call, x, "x", "vector or list")
-	
-	f <- match.fun(f)
-	if (length(mcParameters(f)) < 2) return (f)
-	
-	( !all(x %in% seq_along(mcParameters(f))) ) %throws% 
-		messages$must_be_indices(func_call, x, "x")
-	
-	(length(mcParameters(f)) != length(x)) %throws% 
-		messages$length_mismatch(
-			func_call, list(mcParameters(f), x), "mcParameters(f)", "x")
-
-	(any_duplicated(x)) %throws% 
-		messages$matched_multiple_time(func_call, x, "x")
-
-	mcReforge(f, mcParameters(f)[c(x)])
-}
-
-#' @rdname mchof_parameters
-#' @family mchof-parameters
-#' @export
-
-mcApply <- function (f, x) {
-	# call the function f with the list x. If
-	# x is a character vector then look up the 
-	# names in x and add them to a list.
-
-	func_call <- "mcApply(f, x)"
-
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	f <- match.fun(f)
-	.f_params <- mcParameters(f)
+	x <- if (is.list(x)) unlist(x) else x
+	params_f <- mcParameters(f)
 
-	if (is.list(x)) {
+	if (length(params_f) < 2) {
 
-		if (!"..." %in% names(.f_params)) {
-			# ensure f will work with x 
+		mcReforge(f, params_f)
+	} else {
 
-			(length(.f_params) != length(x)) %throws% 
-				messages$length_mismatch(
-					func_call, list(.f_params, x),
-					"mcParameters(f)", "x")
-		}
+		(!setequal(x, seq_along)) %throws% 
+			messages$not_a_permutation(func_call, x, "x")
 
-		do.call(f, x)
-
-	} else if (is.character(x)) {
-		
-		if (!"..." %in% names(.f_params)) {
-			# ensure f will work with x 
-
-			(length(.f_params) != length(x)) %throws% 
-				messages$length_mismatch(
-					func_call, list(.f_params, x),
-					"mcParameters(f)", "x")
-		}
-
-		.args <- structure(
-			Map(
-				function (name) {
-					# given a name get its value binding 
-					# with normal scoping rules
-
-					eval(as.symbol(name))
-				},
-				x),
-			name = x
-		)
-
-		do.call(f, .args)
+		mcReforge( f, mcParameters(f)[c(x)] )
 	}
 }
 
-#' @rdname mchof_parameters
-#' @family mchof-parameters
-#' @export
-
-"%apply%" <- mcApply
 
 #' @rdname mchof_parameters
 #' @family mchof-parameters
@@ -307,138 +292,12 @@ mcReforge <- function (f, x) {
 #' @family mchof-parameters
 #' @export
 
-mcExplode <- function (f) {
-	# (a -> b) -> (... -> b)
-	# takes a function that takes a single value and 
-	# makes it into a variadic function
+mcClosure <- mcClosure <- function (f) {
+	# convert a primitive function to a closure
 
-	func_call <- "mcExplode(f)"
+	if (is.primitive(f)) {
 
-	missing(f) %throws% 
-		messages$function_is_required(func_call, "f")
-	f <- match.fun(f)
+		mcReforge(f, mcParameters(f))
 
-	function (...) {
-		'an exploded function; takes a variable number'
-		'of arguments, puts them in a list and calls its'
-		'underlying function with that singe list'
-
-		f(list(...))
-	}
-}
-
-#' @rdname mchof_parameters
-#' @family mchof-parameters
-#' @export
-
-mcImplode <- function (f) {
-	# (... -> b) -> (a -> b)
-	# dual to mcExplode. 
-	# takes a function that takes a many values and 
-	# makes it into a function that takes one list
-
-	func_call <- "mcImplode(f)"
-
-	missing(f) %throws% 
-		messages$function_is_required(func_call, "f")
-	f <- match.fun(f)
-
-	function (x) {
-		'an imploded function; takes a single argument x and'
-		'calls f with x[[1]]...x[[n]]'
-
-		do.call(f, c(list(), x))
-	}
-}
-
-ISSUE("fix partial; variables aren't being bound properly")
-
-mcPartial <- function (f, x) {
-	# takes a function f and binds some of its parameters
-	# with values given in x, returning a function with smaller arity
-
-	func_call <- "mcPartial(f, x)"
-
-	missing(f) %throws% 
-		messages$function_is_required(func_call, "f")
-	missing(x) %throws%
-		messages$list_is_required(func_call, "x")
-
-	f <- match.fun(f)
-	.formals_f <- names(mcParameters(f))
-
-	(!is.list(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "list")
-
-	("..." %in% .formals_f) %throws% 
-		messages$formals_has_ellipses(func_call, .formals_f, "f")
-	
-	( any_unnamed(x) ) %throws% 
-		messages$not_all_named(func_call, x, "x")
-	
-	( any_duplicated(names(x)) ) %throws% 
-		messages$matched_muliple_times(func_call, x, "x")
-
-	.fixed <- x
-	rm(func_call, x)
-
-	.remaining <- 
-		mcParameters(f)[c(
-			.formals_f[ !.formals_f %in% names(.fixed) ]
-		)]
-
-	mcReforge(
-		function () {
-			'a partially applied function'
-			'(use environment(func)$.fixed to see fixed variables)'
-			''
-			.current <- Map(
-				function(param) {
-					eval(as.symbol(param))
-				},
-				names(formals())
-			)
-			do.call(f, c(.current, .fixed))
-
-		}, .remaining)
-}
-
-mcAutoPartial <- function (f) {
-	# transform a function that takes many variables into a chain of
-	# functions. Invoke when every parameter has an explicit value or default.
-
-	mcReforge(
-		function () {
-			"this function takes arguments,"
-			"partially applies them to its underlying function,"
-			"and returns a partially applying function of smaller arity"
-			""
-			this <- list(
-				func = sys.function(sys.parent()),
-				args = as.list( match.call() )[-1]
-			)
-			this$params <- mcParameters(this$func)
-
-			p <- mcPartial(
-				f = this$func,
-				x = this$args
-			)
-
-			if (length(mcParameters(p)) == 0) {
-				p()
-			} else {
-				all_have_defaults <- all(
-				sapply(
-				   	mcParameters(p),
-				   	function (el) {
-				   		!identical(el, formals(function (x){ })$x)
-				   	})
-				)
-
-				if (all_have_defaults) {
-					p()
-				} else mcAutoPartial(p)
-			}
-		},
-		mcParameters(f))
+	} else f
 }

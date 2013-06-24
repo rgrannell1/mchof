@@ -59,6 +59,14 @@ messages <- c(messages, list(
 		stopf(
 			"%s: %s must be either a character vector or a list of parameter = default pairs",
 			call, name)
+	},
+	not_a_permutation = function (call, data, name) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
+		stopf(
+			"%s: %s was not a valid permutation of the numbers 1 to %s",
+			call, name, seq_len(data))	
 	}
 ))
 

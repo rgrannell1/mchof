@@ -1,6 +1,11 @@
 
 context("mcFlip: normal cases")
 
+register$add(
+	"mcFlip", type = "test",
+	version = "0.4", is_finished = FALSE
+)
+
 arguments <- function (f) {
 	head(as.list(args(f)), -1)
 }
@@ -35,6 +40,11 @@ forall(info = "mcFlip preserved and reverses formal values",
 )
 
 context("mcJumble: normal cases")
+
+register$add(
+	"mcJumble", type = "test",
+	version = "0.4", is_finished = FALSE
+)
 
 forall(info = "mcJumble permutes formal names",
 	list(func_ = r_functions),
@@ -71,6 +81,11 @@ forall(info = "mcJumble preserved and reverses formal values",
 
 context("mcParameters: normal cases")
 
+register$add(
+	"mcParameters", type = "test",
+	version = "0.4", is_finished = FALSE
+)
+
 forall(info = "mcParameters can get the formals of non-primitive functions",
 	list(func_ = r_functions),
 	function (func_) {
@@ -95,33 +110,13 @@ forall(info = "mcParameters can get the arguments of primitive functions",
 		is.primitive(func_)
 	}
 )		
-forall(info = "mcParameters can set the formals of non-primitive functions",
-	list(func_ = r_functions, name_ = r_words()),
-	function (func_, name_) {
-		
-		func_new <- mcParameters( func_, name_ )
-		names(formals(func_new)) == name_
-
-	},
-	given = function (func_, name_) {
-		!is.primitive(func_) && is.function(func_)
-	}
-)
-
-forall(info = "mcParameters can set the arguments of primitive functions",
-	list(func_ = r_functions, name_ = r_words()),
-	function (func_, name_) {
-		
-		func_new <- mcParameters( func_, name_)
-		names(arguments(func_new)) == name_
-
-	},
-	given = function (func_, name_) {
-		is.primitive(func_)
-	}
-)
 
 context("mcExplode and mcImplode: normal cases")
+
+register$add(
+	c("mcExplode", "mcImplode") type = "test",
+	version = "0.4", is_finished = FALSE
+)
 
 forall(info = "mcExplode returns a variadic function",
 	list(x_ = r_seq_len()),
@@ -155,6 +150,11 @@ forall(info = "mcImplode returns a single variable function",
 
 context("mcApply: normal cases")
 
+register$add(
+	"mcApply", type = "test",
+	version = "0.4", is_finished = FALSE
+)
+
 forall(info = "mcApply works with an args list, or a name vector",
 	list(x_ = r_seq_len()),
 	function (x_) {
@@ -168,6 +168,11 @@ forall(info = "mcApply works with an args list, or a name vector",
 )
 
 context("mcArguments: normal cases")
+
+register$add(
+	"mcArguments", type = "test",
+	version = "0.4", is_finished = FALSE
+)
 
 forall(info = "mcArguments captures arguments of named function",
 	list(x_ = r_integers()),
@@ -203,5 +208,27 @@ forall(info = "mcArguments returns both the defaults and arguments",
 			})(x_, z = z_),
 			list(x = x_, y = 1, z_ = z_))
 
+	}
+)
+
+context("mcClosure: normal cases")
+
+register$add(
+	"mcClosure", type = "test",
+	version = "0.4", is_finished = FALSE
+)
+
+forall(info = "mcClosure converts primitives, with correct arguments",
+	list(func_ = r_functions),
+	function (func_) {
+		
+		res <- mcClosure(func_)
+		a <- mcParameters(res); b <- mcParameters(res)
+
+		(!is.primitive(res)) &&
+		all(names(a) == names(b))
+	},
+	given = function (func_) {
+		is.primitive(func_)
 	}
 )
