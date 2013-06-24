@@ -45,7 +45,7 @@ mcFlip <- function (f) {
 	f <- match.fun(f)
 	
 	if (length(mcParameters(f)) < 2) f else {
-		mcParameters(f, rev(mcParameters(f)))
+		mcReforge( f, rev(mcParameters(f)) )
 	}
 }
 
@@ -81,9 +81,7 @@ mcJumble <- function (f, x) {
 	(any_duplicated(x)) %throws% 
 		messages$matched_multiple_time(func_call, x, "x")
 
-	mcParameters(
-		f,
-		mcParameters(f)[c(x)])
+	mcReforge(f, mcParameters(f)[c(x)])
 }
 
 #' @rdname mchof_parameters
@@ -191,13 +189,10 @@ mcArguments <- function () {
 #' @family mchof-parameters
 #' @export
 
-mcParameters <- function (f, x) {
+mcParameters <- function (f) {
 	# (a -> b -> ... -> z) -> [a, b, ..., z]
-	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
-	# get the formals/arguments of f if x
-	# isn't given, and set the formals if x is given.
-	# the formal environment of f is set to parent.frame(),
-	# since no relevant variables are being added here
+	# get the formals of non-primitive functions, and
+	# the arguments of primitive functions
 
 	func_call <- "mcParameters(f, x)"
 
@@ -206,22 +201,35 @@ mcParameters <- function (f, x) {
 
 	f <- match.fun(f)
 
-	use_as_getter <- missing(x)
+	if (is.primitive(f)) {
+		head( as.list(args(f)), -1 )
+	} else {
+		formals(f)
+	}
+}
 
-	if (use_as_getter) return (
-		if (is.primitive(f)) {
-			head( as.list(args(f)), -1 )
-		} else {
-			formals(f)
-		}
-	)
+#' @rdname mchof_parameters
+#' @family mchof-parameters
+#' @export
+
+mcReforge <- function (f, x) {
+	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
+	# recreates a function with an alternate set of parameters.
+	# if x is a list, the list is bound as f's parameter's.
+	# if x is a character vector, each element is assumed to be a name,
+	# and these names are used as f's parameter names, with no defaults.
+
+	missing(f) %throws% 
+		messages$function_is_required(func_call, "f")
+	missing(x) %throws% 
+		messages$function_is_required(func_call, "x")
 
 	is_correct_class <- 
 		(is.vector(x) && is.character(x)) || is.list(x) 
 
 	(!is_correct_class) %throws%
 		messages$class_mismatch(func_call, x, "x", "character vector or list")
- 
+
 	if (is.list(x)) {
 		# set the parameters to x
 
@@ -401,7 +409,7 @@ mcPartial <- function (f, x) {
 			.formals_f[ !.formals_f %in% names(.fixed) ]
 		)]
 
-	mcParameters(
+	mcReforge(
 		function () {
 			'a partially applied function'
 			'(use environment(func)$.fixed to see fixed variables)'
@@ -421,7 +429,7 @@ mcAutoPartial <- function (f) {
 	# transform a function that takes many variables into a chain of
 	# functions. Invoke when every parameter has an explicit value or default.
 
-	mcParameters(
+	mcReforge(
 		function () {
 			"this function takes arguments,"
 			"partially applies them to its underlying function,"

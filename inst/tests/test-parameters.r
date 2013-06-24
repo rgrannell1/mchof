@@ -193,7 +193,7 @@ forall(info = "mcArguments captures arguments of anonymous function",
 	}
 )
 
-forall(info = "mcArguments returns defaults and arguments",
+forall(info = "mcArguments returns both the defaults and arguments",
 	list(x_ = r_integers(), z_ = r_integers()),
 	function (x_, z_) {
 
