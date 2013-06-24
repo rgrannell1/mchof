@@ -215,9 +215,10 @@ mcParameters <- function (f) {
 mcReforge <- function (f, x) {
 	# (a -> b -> ... -> z) -> [x1, x2, ..., xn] -> (x1 -> x2 -> ... -> xn)
 	# recreates a function with an alternate set of parameters.
-	# if x is a list, the list is bound as f's parameter's.
+	# if x is a list, the list is bound as f's parameters.
 	# if x is a character vector, each element is assumed to be a name,
 	# and these names are used as f's parameter names, with no defaults.
+	# primitive functions are wrapped in a closure first.
 
 	missing(f) %throws% 
 		messages$function_is_required(func_call, "f")
@@ -231,34 +232,22 @@ mcReforge <- function (f, x) {
 		messages$class_mismatch(func_call, x, "x", "character vector or list")
 
 	if (is.list(x)) {
-		# set the parameters to x
+		# use x as the param:default pairs, and add to f
 
-		(any_unnamed(x)) %throws% 
+		any_unnamed(x) %throws% 
 			messages$not_all_named(func_call, x, "x")
-	
-		if (is.primitive(f)) {
-			# wrap the primitive before adding parameters
 
-			g <- function () {
+		if (is.primitive(f)) {
+			# wrap the primitive function in a closure,
+			# and then add formals to the closure
+
+			enclosed <- function () {
 				'a closure wrapping a primitive function'
 				''
-
-				.args <- structure(
-					Map(
-						function (name) {
-							# given a name get its value binding 
-							# with normal scoping rules
-
-							eval(as.symbol(name))
-						},
-						names(formals())),
-						name = names(formals())
-					)
-
-				do.call(f, .args)
+				f %apply% mcArguments()
 			}
-			formals(g) <- x
-			return (g)
+			formals(enclosed) <- x
+			return (enclosed)
 		}
 
 		formals(f) <- x
@@ -267,56 +256,45 @@ mcReforge <- function (f, x) {
 
  	if (is.vector(x) && is.character(x)) {
 		# if x is a character vector then 
-		# set the parameters to the names theirin
+		# set the parameters to the names theirin,
+		# without any default values
 
 		any_duplicated(x) %throws%
 			messages$matched_multiple_time(func_call, x, "x")
 
-		missing_default <- list( formals(function (x) { })$x )
+		empty_default <- list( formals(function (x) { })$x )
 
 		if (length(x) > 0) {
+
+			parameters <- structure(
+				replicate(length(x), empty_default),
+				names = x)
+
 			if (is.primitive(f)) {
 				# wrap the primitive before adding parameter names
 
-				g <- function () {
+				enclosed <- function () {
 					'a closure wrapping a primitive function'
 					''
-					.args <- structure(
-						Map(
-							function (name) {
-								# given a name get its value binding 
-								# with normal scoping rules
-
-								eval(as.symbol(name))
-							},
-							x),
-						name = x
-					)
-					do.call(f, .args)
+					f %apply% mcArguments()
 				}
-
-				formals(g) <- structure(
-					replicate(length(x), missing_default),
-					names = x)
-				return (g)
+				formals(enclosed) <- parameters
+				return (enclosed)
 			}
 
-			formals(f) <- structure(
-				replicate(length(x), missing_default),
-				names = x)
+			formals(f) <- parameters
 			return (f)
 
 		} else {
 
 			if (is.primitive(f)) {
-				# wrap primitive before adding no parameters
+				# wrap primitive in a closure
 
-				g <- function () {
+				return(function () {
 					'a closure wrapping a primitive function'
 					''
 					f()
-				}
-				return (g)
+				})
 			}
 
 			formals(f) <- list()
