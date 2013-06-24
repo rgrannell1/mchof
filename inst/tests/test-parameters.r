@@ -123,10 +123,39 @@ forall(info = "mcParameters can set the arguments of primitive functions",
 
 context("mcExplode and mcImplode: normal cases")
 
+forall(info = "mcExplode returns a variadic function",
+	list(x_ = r_seq_len()),
+	function (x_) {
+
+		res <- mcZipWith(
+			mcExplode(
+				function (li) {
+					li[[1]] == li[[2]]
+				}
+			),
+			x_, x_
+		)
+		all(unlist(res))
+
+	}
+)
+
+forall(info = "mcImplode returns a single variable function",
+	list(x_ = r_seq_len()),
+	function (x_) {
+
+		res <- mcFilter(
+			mcImplode( function (a, b) a == b ),
+			mcZip(x_, x_)
+		)
+
+		identical(res, mcZip(x_, x_))
+	}
+)
 
 context("mcApply: normal cases")
 
-forall(info = "mcApply acts like do.call when called with a list",
+forall(info = "mcApply works with an args list, or a name vector",
 	list(x_ = r_seq_len()),
 	function (x_) {
 
@@ -138,6 +167,41 @@ forall(info = "mcApply acts like do.call when called with a list",
 	}
 )
 
+context("mcArguments: normal cases")
 
+forall(info = "mcArguments captures arguments of named function",
+	list(x_ = r_integers()),
+	function (x_) {
 
+		f = function (x) {
+			mcArguments()
+		}
+		identical( f(x_)$x, x_ ) 
+	}
+)
 
+forall(info = "mcArguments captures arguments of anonymous function",
+	list(x_ = r_integers()),
+	function (x_) {
+
+		identical(
+			(function (x) {
+				mcArguments()
+			})(),
+			x_)
+
+	}
+)
+
+forall(info = "mcArguments returns defaults and arguments",
+	list(x_ = r_integers(), z_ = r_integers()),
+	function (x_, z_) {
+
+		identical(
+			(function (x, y = 1, z) {
+				mcArguments()
+			})(x_, z = z_),
+			list(x = x_, y = 1, z_ = z_))
+
+	}
+)
