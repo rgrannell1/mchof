@@ -28,7 +28,7 @@ messages <- c(messages, list(
 	},
 	list_is_required = function (call, name) {
 		messages$value_required(call, "list", name)
-	}
+	},
 	string_is_required = function (call, name) {
 		messages$value_required(call, "string", name)
 	}

@@ -158,13 +158,33 @@ mcApply <- function (f, x) {
 
 mcArguments <- function () {
 	# return a list of arguments that the function 
-	# in which this function is called in is called with
+	# in which this function is called in...is called with
 
 	func_call <- "mcArguments()"
 	
 	defaults <- mcParameters( sys.function(sys.parent()) )
+	required <- as.list( match.call(
+		def = sys.function( -1 ),
+		call = sys.call(-1)) )[-1]
 
-	as.list( sys.call(sys.parent()) )[-1]
+	structure(
+		 Map(
+			function (default, param) {
+				has_no_default <- identical(
+					default,
+					formals( function (x) {} )$x)
+				
+				if (has_no_default) {
+					required[[param]]
+				} else {
+					default
+				}
+			},
+			unname(defaults),
+			names(defaults)
+		),
+		names = names(defaults)
+	)
 }
 
 #' @rdname mchof_parameters
