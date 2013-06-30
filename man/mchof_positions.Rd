@@ -1,15 +1,21 @@
 \name{mcPosition}
 \alias{mcFind}
+\alias{mcFindl}
 \alias{mcFindr}
 \alias{mcPosition}
+\alias{mcPositionl}
 \alias{mcPositionr}
 \title{Higher-Order-Functions for Finding Values}
 \usage{
   mcPosition(f, x, paropts = NULL)
 
+  mcPositionl(f, x, paropts = NULL)
+
   mcPositionr(f, x, paropts = NULL)
 
   mcFind(f, x, paropts = NULL)
+
+  mcFindl(f, x, paropts = NULL)
 
   mcFindr(f, x, paropts = NULL)
 }

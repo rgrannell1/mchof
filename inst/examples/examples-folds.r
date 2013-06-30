@@ -13,38 +13,7 @@ mcReducer('+', 1:10)
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 sum_1 <- function (x) {
-	mcReduce('+', 0, x)
-}
-
-as_list_1 <- function (x) {
-
-	mcFoldl(
-		function (acc, new) {
-			c(acc, as.list(new))
-		},
-		list(), x)
-}
-map_1 <- function (f, x) {
-
-	mcFoldl(
-		function (a, b) {
-
-			c(a, list( f(b) ))
-
-		}, list(), x
-	)
-}
- 
-# even filter can be defined using a foldl
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
-
-filter <- function (f, x) {
-	mcFoldl(
-		function (a, b) {
-
-			if ( f(b) ) c(a, list(b)) else a 
-		}, list(), x
-	)
+	mcFold('+', 0, x)
 }
 
 # mapReduce! A toy example in which

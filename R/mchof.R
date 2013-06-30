@@ -2,7 +2,6 @@
 #'
 #' @section Functions:
 #' 
-#'
 #' Below is a full list of functions currently included in mchof, along with a
 #' description of what they do
 #'

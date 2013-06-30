@@ -20,7 +20,7 @@
 #' @family mchof-positions
 #' @export
 
-mcPosition <- mcPositionl <- function (f, x, paropts = NULL) {
+mcPosition <- function (f, x, paropts = NULL) {
 	# returns the first index in x that matches
 	# the predicate f
 		
@@ -78,6 +78,12 @@ mcPosition <- mcPositionl <- function (f, x, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
+mcPositionl <- mcPosition
+
+#' @rdname mchof_positions
+#' @family mchof-positions
+#' @export
+
 mcPositionr <- function (f, x, paropts = NULL) {
 	# returns the last index in x that matches
 	# the predicate f
@@ -90,7 +96,7 @@ mcPositionr <- function (f, x, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
-mcFind <- mcFindl <- function (f, x, paropts = NULL) {
+mcFind <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
@@ -109,6 +115,12 @@ mcFind <- mcFindl <- function (f, x, paropts = NULL) {
 		x[[first_match]]
 	} else integer(0)
 }
+
+#' @rdname mchof_positions
+#' @family mchof-positions
+#' @export
+
+mcFindl <- mcFind
 
 #' @rdname mchof_positions
 #' @family mchof-positions

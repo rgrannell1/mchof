@@ -1,13 +1,7 @@
-\name{mcIterateWhile}
+\name{mcIndMap}
 \alias{mcIndMap}
-\alias{mcIterate}
-\alias{mcIterateWhile}
 \title{Map-like Higher-Order-Functions}
 \usage{
-  mcIterateWhile(p, f, x)
-
-  mcIterate(f, x)
-
   mcIndMap(f, x, paropts = NULL)
 }
 \arguments{

@@ -1,23 +1,11 @@
 \name{mcFold}
 \alias{mcFold}
-\alias{mcFoldl}
-\alias{mcFoldr}
 \alias{mcReduce}
-\alias{mcReducel}
-\alias{mcReducer}
 \title{Fold-like Higher-Order-Functions}
 \usage{
   mcFold(f, z, x, paropts = NULL)
 
   mcReduce(f, x, paropts = NULL)
-
-  mcFoldl(f, z, x)
-
-  mcFoldr(f, z, x)
-
-  mcReducel(f, x)
-
-  mcReducer(f, x)
 }
 \arguments{
   \item{f}{a binary function that takes two of "a thing"
@@ -101,38 +89,7 @@ mcReducer('+', 1:10)
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
 sum_1 <- function (x) {
-	mcReduce('+', 0, x)
-}
-
-as_list_1 <- function (x) {
-
-	mcFoldl(
-		function (acc, new) {
-			c(acc, as.list(new))
-		},
-		list(), x)
-}
-map_1 <- function (f, x) {
-
-	mcFoldl(
-		function (a, b) {
-
-			c(a, list( f(b) ))
-
-		}, list(), x
-	)
-}
- 
-# even filter can be defined using a foldl
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=##=#=#=#=#
-
-filter <- function (f, x) {
-	mcFoldl(
-		function (a, b) {
-
-			if ( f(b) ) c(a, list(b)) else a 
-		}, list(), x
-	)
+	mcFold('+', 0, x)
 }
 
 # mapReduce! A toy example in which
