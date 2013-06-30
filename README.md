@@ -12,10 +12,10 @@ Filter, Fold, ZipWith and Partition.
    of running in parallel.
 
 This library was written out of frustration that certain 'embarassingly parallel' functions like filter
-in a list had no parallel implementations in R, and that the existing single core implementations didn't
-interoperate well with other higher-order functions.
+had no parallel implementations in R, and that the existing single core implementations had inconsistent corner
+cases.
 
-Functions included in the current release (0.3)
+###Functions included in the current release (0.3)
 
 ####Filtering a list based on a predicate:
 
