@@ -59,9 +59,13 @@ mcFold <- function (f, z, x, paropts = NULL) {
 		
 	func_call <- "mcFold(f, z, x, paropts = NULL)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(z) %throws% messages$vector_is_required(func_call, "z")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	require_a(c('function', 'string'), f)
+	require_a('any', z)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
+	f <- match.fun(f)
+	
+	require_a('binary function', f)
  
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
@@ -91,10 +95,14 @@ mcReduce <- function (f, x, paropts = NULL) {
 	} 
 	
 	func_call <- "mcReduce(f, x, paropts = NULL)"
+	
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
+	f <- match.fun(f)
+	
+	require_a('binary function', f)
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-		
 	f <- match.fun(f)
 	if (length(x) < 2) return (x)
 	(!is.vector(x)) %throws% 

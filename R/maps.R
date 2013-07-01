@@ -28,14 +28,14 @@ mcIndMap <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcIndMap(f, x, paropts = NULL)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
 	f <- match.fun(f)
+	
+	require_a('binary function', f)
 
 	if (length(x) == 0) return (x)
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	call_mclapply(
 		function (ind) {

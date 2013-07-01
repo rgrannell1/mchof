@@ -24,15 +24,10 @@ Functions included in the current release (0.3)
 * **mcPartition:** split a list into values that return TRUE and FALSE
 * **mcAny**: check if a predicate is true for at least one element in a list
 * **mcAll**: check if a predicate is true for all elements in a list
-* **mcOne**: check if a predicate is true for one element in a list
 * **mcFold**: applies an associative binary operator to a list, with an initial value
 * **mcReject**: get the elements of a list not matching a predicate
 
-Functions in development (0.4) eta July 15th - August 1st
+Functions in development (0.3.1) eta July 15th - August 1st
 
 * **mcIndMap***
 
-Note to developers: early versions (pre 0.7) will be somewhat liable to api 
-changes. At this stage of development I'm focusing on making functions work well
-that keeping them perfectly consistent between versions. I will make extra efforts
-to keep compatability with packages built on mchof, however.

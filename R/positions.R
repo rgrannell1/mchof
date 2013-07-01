@@ -23,18 +23,18 @@
 mcPosition <- function (f, x, paropts = NULL) {
 	# returns the first index in x that matches
 	# the predicate f
-		
-	func_call <- "mcPosition(f, x, paropts=NULL)"
+
+	func_call <- "mcPosition(f, x, paropts = NULL)"
+	
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
 	
 	f <- match.fun(f)
-
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-
+	
+	require_a('unary function', f)
+	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	cores <- get_cores(paropts)
 
@@ -100,10 +100,14 @@ mcFind <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
-	func_call <- "mcFind(f, x, paropts = NULL)"
+	func_call <- 'mcFind(f, x, paropts = NULL)'
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
+	f <- match.fun(f)
+	
+	require_a('unary function', f)
 	
 	if (length(x) == 0) return (x)
 	(!is.vector(x)) %throws% 

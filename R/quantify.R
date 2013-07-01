@@ -49,18 +49,18 @@ mcAll <- function (f, x, paropts = NULL) {
 	# (a -> bool) -> [a] -> bool
 	# apply a function f to x, return TRUE iff f is true
 	# for all x
-	
+
 	func_call <- "mcAll(f, x, paropts = NULL)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-		
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
 	f <- match.fun(f)
+	
+	require_a('unary function', f)
+	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (TRUE)
-
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 
 	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
 	bools[is.na(bools)] <- FALSE
@@ -79,15 +79,15 @@ mcAny <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcAny(f, x, paropts = NULL)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-			
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
 	f <- match.fun(f)
+	
+	require_a('unary function', f)
+	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
-	
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 		
 	cores <- get_cores(paropts)
 
@@ -120,16 +120,16 @@ mcOne <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcOne(f, x, paropts = NULL)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-		
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
 	f <- match.fun(f)
+	
+	require_a('unary function', f)
+	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
 
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
-	
 	cores <- get_cores(paropts)
 	
 	number_true <- 0

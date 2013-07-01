@@ -42,8 +42,8 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	
 	func_call <- "mcZipWith(f, ..., paropts = NULL)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	
+	require_a(c('function', 'string'), f)
+
 	x <- list(...)
 	f <- match.fun(f)
 
@@ -86,8 +86,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 	func_call <- "mcUnzipWith(f, x, paropts = NULL)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	require_a(c('function', 'string'), f)
+	require_a(c('list', 'pairlist', 'null'), x)
 	
 	f <- match.fun(f)
 	if (length(x) == 0) return (list())

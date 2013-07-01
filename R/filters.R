@@ -44,14 +44,14 @@ mcFilter <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcFilter(f, x, paropts = NULL)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "g")
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
 	
 	f <- match.fun(f)
-	if (length(x) == 0) return (x)
+	
+	require_a('unary function', f)
 
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
+	if (length(x) == 0) return (x)
 
 	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
 	true_ind <- !is.na(ind) & ind
@@ -75,14 +75,12 @@ mcReject <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcReject(f, x, paropts = NULL)"
 
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
-		
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
+	
 	f <- match.fun(f)
-	g <- function (...) {
-		res <- as.logical(f(...))
-		!isTRUE(res)
-	}
+	
+	require_a('unary function', f)	
 
 	if (length(x) == 0) return (x)
 	(!is.vector(x)) %throws% 
@@ -105,14 +103,16 @@ mcPartition <- function (f, x, paropts = NULL) {
 	
 	func_call <- "mcPartition(f, x, paropts = NULL)"
 	
-	missing(f) %throws% messages$function_is_required(func_call, "f")
-	missing(x) %throws% messages$vector_is_required(func_call, "x")
+	require_a(c('function', 'string'), f)
+	require_a(c('vector', 'pairlist', 'null'), x)
 	
 	f <- match.fun(f)
-	if (is.null(x)) return (NULL)
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
+	require_a('unary function', f)
+
+	f <- match.fun(f)
+	if (is.null(x)) return (NULL)
+
 	ind <- as.logical( unlist(call_mclapply(f, x, paropts, func_call)) )
 	true_ind <- !is.na(ind) & ind
 	

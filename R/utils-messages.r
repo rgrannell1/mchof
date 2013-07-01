@@ -145,4 +145,15 @@ messages <- c(messages, list(
 	}
 ))
 
+messages <- c(messages, list(
+	property_mismatch = function (call, data, name, properties) {
+		call <- head(call, 1)
+		name <- head(name, 1)
+		
+		stopf (
+		"%s: %s didn't have the property %s",
+		call, name, properties)
+	}
+))
+
 
