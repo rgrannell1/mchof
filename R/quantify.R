@@ -50,19 +50,19 @@ mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for all x
 
-	func_call <- "mcAll(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 	
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (TRUE)
 
-	bools <- as.logical(call_mclapply(f, x, paropts, func_call))
+	bools <- as.logical(call_mclapply(f, x, paropts, pcall))
 	bools[is.na(bools)] <- FALSE
 	
 	all(bools)
@@ -77,14 +77,14 @@ mcAny <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for any x
 	
-	func_call <- "mcAny(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 	
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
@@ -104,7 +104,7 @@ mcAny <- function (f, x, paropts = NULL) {
 			}
 			FALSE
 		},
-		group_into(x, cores), paropts, func_call
+		group_into(x, cores), paropts, pcall
 	)
 	any(unlist(results))
 }
@@ -118,14 +118,14 @@ mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for one x
 	
-	func_call <- "mcOne(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (FALSE)
@@ -147,7 +147,7 @@ mcOne <- function (f, x, paropts = NULL) {
 				isTRUE( as.logical(f( x[[ind]] )) )
 			},
 			x = job_indices[[i]],
-			paropts, func_call
+			paropts, pcall
 		))
 
 		if (length(which(bools)) > 0) {

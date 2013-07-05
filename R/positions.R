@@ -24,14 +24,14 @@ mcPosition <- function (f, x, paropts = NULL) {
 	# returns the first index in x that matches
 	# the predicate f
 
-	func_call <- "mcPosition(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 	
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 	
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (integer(0))
@@ -60,7 +60,7 @@ mcPosition <- function (f, x, paropts = NULL) {
 				is_match <- as.logical(f( x[[ind]] ))	
 				if (isTRUE(is_match)) ind else NaN
 			},
-			x = job_indices[[i]], paropts, func_call
+			x = job_indices[[i]], paropts, pcall
 		))
 		
 		matched_indices <- checked_ind[
@@ -100,18 +100,18 @@ mcFind <- function (f, x, paropts = NULL) {
 	# returns the first (or last) element in x that matches
 	# the predicate f
 
-	func_call <- 'mcFind(f, x, paropts = NULL)'
+	pcall <- sys.call(sys.parent())
 
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 	
 	if (length(x) == 0) return (x)
 	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
+		messages$class_mismatch(pcall, x, "x", "vector or list")
 	
 	first_match <- mcPosition (f, x, paropts)
 	

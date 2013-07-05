@@ -42,18 +42,18 @@ mcFilter <- function (f, x, paropts = NULL) {
 	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is true
 	
-	func_call <- "mcFilter(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())	
 
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a('unary function', f, pcall)
 
 	if (length(x) == 0) return (x)
 
-	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
 	true_ind <- !is.na(ind) & ind
 	
 	x[true_ind]	
@@ -73,20 +73,18 @@ mcReject <- function (f, x, paropts = NULL) {
 	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is false
 	
-	func_call <- "mcReject(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())	
 
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
 	
 	require_a('unary function', f)	
 
 	if (length(x) == 0) return (x)
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
-	
-	ind <- as.logical(unlist(call_mclapply(f, x, paropts, func_call)))
+
+	ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
 	true_ind <- !is.na(ind) & ind
 	
 	x[!true_ind]	
@@ -101,19 +99,18 @@ mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 	
-	func_call <- "mcPartition(f, x, paropts = NULL)"
-	
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	pcall <- sys.call(sys.parent())	
+	require_a(c('function', 'string'), f, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('unary function', f)
+	require_a("unary function", f, pcall)
 
 	f <- match.fun(f)
 	if (is.null(x)) return (NULL)
 
-	ind <- as.logical( unlist(call_mclapply(f, x, paropts, func_call)) )
+	ind <- as.logical( unlist(call_mclapply(f, x, paropts, pcall)) )
 	true_ind <- !is.na(ind) & ind
 	
 	list (x[true_ind], x[!true_ind])

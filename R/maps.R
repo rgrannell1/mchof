@@ -26,14 +26,14 @@
 mcIndMap <- function (f, x, paropts = NULL) {
 	# map f across the list [ [x1_i, x1], ..., [xn_i, xn] ]
 	
-	func_call <- "mcIndMap(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a(c('vector', 'pairlist', 'null'), x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('binary function', f)
+	require_a('binary function', f, pcall)
 
 	if (length(x) == 0) return (x)
 
@@ -42,6 +42,5 @@ mcIndMap <- function (f, x, paropts = NULL) {
 			f( x[[ind]], ind )
 		},
 		seq_along(x),
-		paropts
-	)
+		paropts, pcall)
 }

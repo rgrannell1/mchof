@@ -16,7 +16,7 @@ SystemRequirements: POSIX-compliant OS (not Windows)
 OS_type: unix
 ByteCompile: yes
 Imports:
-    parallel
+    parallel, needy
 Suggests:
     testthat,
     itertools,

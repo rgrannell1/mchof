@@ -56,22 +56,18 @@ mcFold <- function (f, z, x, paropts = NULL) {
 	# (a -> b -> a) -> a -> [b] -> a
 	# swaps the commas in z, x1, x2, ..., xn with
 	# the function f.
-		
-	func_call <- "mcFold(f, z, x, paropts = NULL)"
 
-	require_a(c('function', 'string'), f)
-	require_a('any', z)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	pcall <- sys.call(sys.parent())
+	require_a(c("function", "string"), f, pcall)
+	require_a("any", z, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('binary function', f)
+	require_a('binary function', f, pcall)
  
 	if (is.null(x)) return (NULL)
 	if (length(x) == 0) return (z)
-	
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	mcReduce(f, x = c(list(z), x), paropts)
 	
@@ -94,19 +90,15 @@ mcReduce <- function (f, x, paropts = NULL) {
 		x
 	} 
 	
-	func_call <- "mcReduce(f, x, paropts = NULL)"
+	pcall <- sys.call(sys.parent())
 	
-	require_a(c('function', 'string'), f)
-	require_a(c('vector', 'pairlist', 'null'), x)
+	require_a(c('function', 'string'), f, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
 	
-	require_a('binary function', f)
-
-	f <- match.fun(f)
+	require_a("binary function", f, pcall)
 	if (length(x) < 2) return (x)
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, x, "x", "vector or list")
 	
 	g <- function (x) {
 		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
@@ -114,7 +106,7 @@ mcReduce <- function (f, x, paropts = NULL) {
 
 	final <- iterateWhile(
 		function (reducable) {
-			group_into(call_mclapply(g, reducable, paropts, func_call), size = 2)
+			group_into(call_mclapply(g, reducable, paropts, pcall), size = 2)
 		},
 		function (reducable) {
 			length(reducable) == 1
