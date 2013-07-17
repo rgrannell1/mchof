@@ -40,27 +40,27 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 	
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	
 	require_a(c('function', 'string'), f, pcall)
 
 	x <- list(...)
 	f <- match.fun(f)
-
-	x <- Filter(Negate(is.null), x)
-	if (length(x) == 0) return (NULL)
-
 	min_length <- min(vapply(x, length, 1))
 
-	call_mclapply(
-		function (ind) {
+	if (length(x) == 0 || min_length == 0) {
+		list()
+	} else {
+		call_mclapply(
+			function (ind) {
 
-			tuple <- lapply( x, function (li) li[[ind]] )
-			do.call(f, tuple)
-		},
-		seq_len(min_length),
-		paropts, pcall
-	)
+				tuple <- lapply( x, function (li) li[[ind]] )
+				do.call(f, tuple)
+			},
+			seq_len(min_length),
+			paropts, pcall
+		)		
+	}
 }
 
 #' @rdname mchof_zip
@@ -84,28 +84,28 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 	# returns the result of mapping f over this new list. 
 	# excess elements are discarded. 
 
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	
 	require_a(c('function', 'string'), f, pcall)
 	require_a("listy", x, pcall)
-	
+	require_a("listy", paropts, pcall)
+
 	f <- match.fun(f)
-	if (length(x) == 0) return (list())
-
-	x <- Filter(Negate(is.null), x)
-	if (length(x) == 0) return (NULL)
-
 	min_length <- min(vapply(x, length, 1))
+	
+	if (length(x) == 0 || min_length == 0) {
+		list()
+	} else {
+		call_mclapply(
+			function (ind) {
 
-	call_mclapply(
-		function (ind) {
-
-			tuple <- lapply( x, function (li) li[[ind]] )
-			do.call(f, tuple)
-		},
-		seq_len(min_length),
-		paropts, pcall
-	)
+				tuple <- lapply( x, function (li) li[[ind]] )
+				do.call(f, tuple)
+			},
+			seq_len(min_length),
+			paropts, pcall
+		)
+	}
 }
 
 #' @rdname mchof_zip
@@ -114,9 +114,7 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 
 mcUnzip <- function (x, paropts = NULL) {
 	# inverse of mcZip
-	
-	var_identity <- function (...) list(...)
-	mcUnzipWith(f = var_identity, x, paropts = paropts)
-	
+
+	mcUnzipWith(function (...) list(...), x, paropts = paropts)	
 }
 

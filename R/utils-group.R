@@ -1,18 +1,17 @@
 
-group_into <- function (x, size) {
-	# groups x into chucks of size,
-	# unless too few elements are left
-	
-	size <- abs(size)
-	if (size == length(x)) {
-		list(x)
-	} else if (size == 0) {
+group_into <- function (X, n) {
+
+	pcall <- sys.call()	
+	require_a('listy', X, pcall)
+	require_a('positive whole', n, pcall)
+
+	if (length(X) == 0) {
 		list()
-	} else {	
+	} else {
 		lapply(
-			seq(from = 1, to = length(x), by = size),
+			seq(from = 1, to = length(x), by = n),
 			function (lower) {
-				x[ lower:min(length(x), lower + size - 1) ]
+				x[ lower:min(length(x), lower + n - 1) ]
 		})
 	}
 }

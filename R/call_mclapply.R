@@ -25,13 +25,13 @@ call_mclapply <- function (f, x, paropts = NULL,
 		messages$class_mismatch(func_call, f, "f", "function")
 	(!is.vector(x)) %throws% 
 		messages$class_mismatch(func_call, f, "f", c("vector", "list"))
-	
+
 	if (.Platform$OS.type == 'windows') {
 		warn_windows()
 		return (lapply(x, f))
 	}
 	
-	if (!is.null(paropts)) {
+	if (length(paropts) > 0) {
 		
 		arg_names <- names(paropts)		
 		valid_formals <- names(formals(parallel::mclapply))
