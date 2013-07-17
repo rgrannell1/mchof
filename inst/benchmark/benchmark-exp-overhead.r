@@ -7,7 +7,7 @@ benchmark_exp$overhead <- ( function () {
 	fold_control <- function (x) Reduce(function (a, b) 1, x)
 
 	mcZipWith(
-		mcExplode(function (x) {
+		explode(function (x) {
 			list(test = x[[1]], control = x[[2]], name = x[[3]])	
 		}),
 		list(

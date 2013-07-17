@@ -5,15 +5,14 @@ Improvements:
 
 * added optimisations to several parallel functions when cores = 1
 
-
-
 API Changes:
 * removed the right parameter of mcPosition and mcFind, 
 as it was inconsistent with the philosophy of preferring composing
 functions to using lots of parameters. To remedy this use mcPositionr and mcFindr.
+* NULL values are now treated the same as other length-zero values, for 
+compatability with pairlists.
 
-* renamed the "first" parameter of Fold to "z", to make parameters more interchangable
-between mcFold, mcFoldl and mcFoldr.
+* renamed the "first" parameter of Fold to z.
 
 * inputs are now more rigourously screened, with several functions now
 testing the arity of their input function (only when ellipses aren't used). Practically 

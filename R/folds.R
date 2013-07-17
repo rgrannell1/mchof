@@ -57,20 +57,20 @@ mcFold <- function (f, z, x, paropts = NULL) {
 	# swaps the commas in z, x1, x2, ..., xn with
 	# the function f.
 
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	require_a(c("function", "string"), f, pcall)
 	require_a("any", z, pcall)
 	require_a("listy", x, pcall)
-	
+	require_a("listy", paropts, pcall)
+
 	f <- match.fun(f)
-	
 	require_a('binary function', f, pcall)
  
-	if (is.null(x)) return (NULL)
-	if (length(x) == 0) return (z)
-	
-	mcReduce(f, x = c(list(z), x), paropts)
-	
+	if (length(x) == 0) {
+		z
+	} else {
+		mcReduce(f, x = c(list(z), x), paropts)		
+	}
 }
 
 #' @rdname mchof_folds
@@ -90,28 +90,31 @@ mcReduce <- function (f, x, paropts = NULL) {
 		x
 	} 
 	
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	
 	require_a(c('function', 'string'), f, pcall)
 	require_a("listy", x, pcall)
-	
+	require_a("listy", paropts, pcall)
+
 	f <- match.fun(f)
 	
 	require_a("binary function", f, pcall)
-	if (length(x) < 2) return (x)
-	
-	g <- function (x) {
-		if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
-	}
+	if (length(x) < 2) {
+		x
+	} else {
+		g <- function (x) {
+			if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
+		}
 
-	final <- iterateWhile(
-		function (reducable) {
-			group_into(call_mclapply(g, reducable, paropts, pcall), size = 2)
-		},
-		function (reducable) {
-			length(reducable) == 1
-		},
-		group_into(x, size = 2))
-	
-	g( final[[1]] )
+		final <- iterateWhile(
+			function (reducable) {
+				group_into(call_mclapply(g, reducable, paropts, pcall), size = 2)
+			},
+			function (reducable) {
+				length(reducable) == 1
+			},
+			group_into(x, size = 2))
+		
+		g( final[[1]] )		
+	}
 }

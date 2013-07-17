@@ -42,21 +42,23 @@ mcFilter <- function (f, x, paropts = NULL) {
 	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is true
 	
-	pcall <- sys.call(sys.parent())	
+	pcall <- sys.call()	
 
 	require_a(c('function', 'string'), f, pcall)
 	require_a("listy", x, pcall)
+	require_a("listy", paropts, pcall)
 	
 	f <- match.fun(f)
-	
 	require_a('unary function', f, pcall)
 
-	if (length(x) == 0) return (x)
-
-	ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
-	true_ind <- !is.na(ind) & ind
-	
-	x[true_ind]	
+	if (length(x) == 0) {
+		x
+	} else {
+		ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
+		true_ind <- !is.na(ind) & ind
+		
+		x[true_ind]	
+	}
 }
 
 #' @rdname mchof_filters
@@ -73,21 +75,24 @@ mcReject <- function (f, x, paropts = NULL) {
 	# (a -> boolean) -> [a] -> [a]
 	# returns x[i] such that f(x[i]) is false
 	
-	pcall <- sys.call(sys.parent())	
+	pcall <- sys.call()	
 
 	require_a(c('function', 'string'), f, pcall)
 	require_a("listy", x, pcall)
+	require_a("listy", paropts, pcall)
 	
 	f <- match.fun(f)
 	
 	require_a('unary function', f)	
 
-	if (length(x) == 0) return (x)
-
-	ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
-	true_ind <- !is.na(ind) & ind
-	
-	x[!true_ind]	
+	if (length(x) == 0) {
+		x
+	} else {
+		ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
+		true_ind <- !is.na(ind) & ind
+		
+		x[!true_ind]			
+	}
 }
 
 #' @rdname mchof_filters
@@ -99,16 +104,13 @@ mcPartition <- function (f, x, paropts = NULL) {
 	# returns two lists; a list for which f returns 
 	# true, and a list for which f returns false
 	
-	pcall <- sys.call(sys.parent())	
+	pcall <- sys.call()	
 	require_a(c('function', 'string'), f, pcall)
 	require_a("listy", x, pcall)
+	require_a("listy", paropts, pcall)
 	
 	f <- match.fun(f)
-	
-	require_a("unary function", f, pcall)
-
-	f <- match.fun(f)
-	if (is.null(x)) return (NULL)
+		require_a("unary function", f, pcall)
 
 	ind <- as.logical( unlist(call_mclapply(f, x, paropts, pcall)) )
 	true_ind <- !is.na(ind) & ind

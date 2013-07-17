@@ -1,4 +1,11 @@
 
+explode <- function (f) {
+	f <- match.fun(f)
+	function (...) {
+		f(list(...))
+	}
+}
+
 is_list0 <- function (x) {
 	is.list(x) && length(x) == 0
 }

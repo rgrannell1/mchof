@@ -2,7 +2,7 @@
 null_func <- function (x) NULL
 
 benchmark$backend <- mcZipWith(
-	mcExplode(function (x) {
+	explode(function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	}),
 	list(
@@ -19,7 +19,7 @@ benchmark$backend <- mcZipWith(
 )
 
 benchmark$dual_core <- mcZipWith(
-	mcExplode(function (x) {
+	explode(function (x) {
 		list(test = x[[1]], control = x[[2]], name = x[[3]])	
 	}),
 	list(

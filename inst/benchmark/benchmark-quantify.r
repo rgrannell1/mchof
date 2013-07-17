@@ -8,7 +8,7 @@ false_func <- Negate(true_func)
 
 benchmark$quantify <- 
 	mcZipWith(
-		mcExplode(
+		explode(
 			function (x) list(test = x[[1]], control = x[[2]], name = x[[3]])
 		),
 		list(

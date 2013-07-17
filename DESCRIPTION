@@ -12,11 +12,10 @@ Author: Ryan Grannell
 Maintainer: Ryan Grannell <r.grannell2@gmail.com>
 Contact: Ryan Grannell <r.grannell2@gmail.com>
 BugReports: <r.grannell2@gmail.com>
-SystemRequirements: POSIX-compliant OS (not Windows)
-OS_type: unix
 ByteCompile: yes
 Imports:
-    parallel, needy
+    parallel,
+    needy
 Suggests:
     testthat,
     itertools,
@@ -42,4 +41,3 @@ Collate:
     'quantify.R'
     'positions.R'
     'utils-forall.r'
-    'tools-require_a.R'

@@ -28,7 +28,7 @@ forall(
 	list(paropts_ = r_paropts()),
 	function (paropts_) {
 		is.null(mcZip(NULL, paropts = paropts_)) && 
-		is.null(mcZipWith(mcExplode(mean), NULL, paropts = paropts_))
+		is.null(mcZipWith(explode(mean), NULL, paropts = paropts_))
 	}	
 )
 
@@ -55,7 +55,7 @@ forall(
 	function (f_, x_, paropts_) {
 		is_list0(mcZip(x_, paropts = paropts_)) && 
 		is_list0(mcZip(x_, x_, paropts = paropts_)) &&
-		is_list0(mcZipWith(mcExplode(f_), x_, x_, paropts = paropts_))
+		is_list0(mcZipWith(explode(f_), x_, x_, paropts = paropts_))
 	}
 )
 forall(info = "Unzip, UnzipWith [A](0) |-> list()",
@@ -63,7 +63,7 @@ forall(info = "Unzip, UnzipWith [A](0) |-> list()",
 	function (f_, x_, paropts_) {
 		is_list0(mcUnzip(x_, paropts = paropts_)) &&
 		is_list0(mcUnzip(list(x_, x_), paropts = paropts_)) &&
-		is_list0(mcUnzipWith(mcExplode(f_), x_, paropts = paropts_))
+		is_list0(mcUnzipWith(explode(f_), x_, paropts = paropts_))
 	}
 )
 
@@ -161,7 +161,7 @@ forall(
 	list(x_ = c(r_letters(), r_integers(), r_flat_no_null()), paropts_ = r_paropts()),
 	function (x_, paropts_) {
 		all_equal(list(
-			mcReduce(function (x) stop("too late!"), head(x_, 1), paropts_),		
+			mcReduce(function (x, y) stop("too late!"), head(x_, 1), paropts_),		
 			head(x_, 1)
 		))
 	}

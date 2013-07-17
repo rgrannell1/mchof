@@ -35,13 +35,3 @@ forall(
 		mcFold(paste0, '', x_, paropts_) == paste0(x_, collapse = '')
 	}
 )
-forall(
-	info = "fold list accumulation works properly",
-	list(x_ = r_small_named_list(), paropts_ = r_paropts()),
-	function (x_, paropts_) {
-		
-		acc_fun <- function (acc, new) c(acc, unname(new))
-		mcFold(acc_fun, c(), x_, paropts)
-
-	}
-)

@@ -7,7 +7,7 @@ one_func <- function (x, y) 1
 
 benchmark$folds <- 
 	mcZipWith(
-		mcExplode(
+		explode(
 			function (x) list(test = x[[1]], control = x[[2]], name = x[[3]])
 		),
 		list(

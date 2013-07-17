@@ -50,22 +50,22 @@ mcAll <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for all x
 
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	
 	require_a(c('function', 'string'), f, pcall)
-	require_a(c('vector', 'pairlist', 'null'), x, pcall)
+	require_a("listy", x, pcall)
 	
 	f <- match.fun(f)
-	
 	require_a('unary function', f, pcall)
 	
-	if (is.null(x)) return (NULL)
-	if (length(x) == 0) return (TRUE)
-
-	bools <- as.logical(call_mclapply(f, x, paropts, pcall))
-	bools[is.na(bools)] <- FALSE
-	
-	all(bools)
+	if (length(x) == 0) {
+		TRUE
+	} else {
+		bools <- as.logical(call_mclapply(f, x, paropts, pcall))
+		bools[is.na(bools)] <- FALSE
+		
+		all(bools)		
+	}
 }
 
 #' @rdname mchof_quantify
@@ -80,33 +80,34 @@ mcAny <- function (f, x, paropts = NULL) {
 	pcall <- sys.call(sys.parent())
 	
 	require_a(c('function', 'string'), f, pcall)
-	require_a(c('vector', 'pairlist', 'null'), x, pcall)
-	
+	require_a("listy", x, pcall)
+	require_a("listy", paropts, pcall)
+
 	f <- match.fun(f)
-	
 	require_a('unary function', f, pcall)
 	
-	if (is.null(x)) return (NULL)
-	if (length(x) == 0) return (FALSE)
-		
-	cores <- get_cores(paropts)
+	if (length(x) == 0) {
+		FALSE
+	} else {
+		cores <- get_cores(paropts)
 
-	if (cores == 1) {
-		return (any( sapply(x, function (el) as.logical(f(el)) ) ))
+		if (cores == 1) {
+			return (any( sapply(x, function (el) as.logical(f(el)) ) ))
+		}
+		
+		results <- call_mclapply(
+			f = function (sublist) {
+				
+				for (ind in seq_along(sublist)) {
+					res <- as.logical(f( sublist[[ind]] ))
+					if (isTRUE(res)) return (TRUE)
+				}
+				FALSE
+			},
+			group_into(x, cores), paropts, pcall
+		)
+		any(unlist(results))		
 	}
-	
-	results <- call_mclapply(
-		f = function (sublist) {
-			
-			for (ind in seq_along(sublist)) {
-				res <- as.logical(f( sublist[[ind]] ))
-				if (isTRUE(res)) return (TRUE)
-			}
-			FALSE
-		},
-		group_into(x, cores), paropts, pcall
-	)
-	any(unlist(results))
 }
 
 #' @rdname mchof_quantify
@@ -118,42 +119,41 @@ mcOne <- function (f, x, paropts = NULL) {
 	# apply a function f to x, return TRUE iff f is true
 	# for one x
 	
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 
 	require_a(c('function', 'string'), f, pcall)
-	require_a(c('vector', 'pairlist', 'null'), x, pcall)
+	require_a("listy", x, pcall)
+	require_a("listy", paropts, pcall)
 	
 	f <- match.fun(f)
-	
 	require_a('unary function', f, pcall)
 	
-	if (is.null(x)) return (NULL)
-	if (length(x) == 0) return (FALSE)
+	if (length(x) == 0) {
+		FALSE
+	} else {
+		cores <- get_cores(paropts)
+		number_true <- 0
 
-	cores <- get_cores(paropts)
-	
-	number_true <- 0
+		job_indices <- group_into(seq_along(x), cores)
 
-	job_indices <- group_into(seq_along(x), cores)
+		for (i in seq_along(job_indices)) {
+			
+			if (number_true > 1) return (FALSE)
+			
+			bools <- unlist(call_mclapply(
+				f = function (ind) {
+					# returns indices satisfying f
+					
+					isTRUE( as.logical(f( x[[ind]] )) )
+				},
+				x = job_indices[[i]],
+				paropts, pcall
+			))
 
-	for (i in seq_along(job_indices)) {
-		
-		if (number_true > 1) return (FALSE)
-		
-		bools <- unlist(call_mclapply(
-			f = function (ind) {
-				# returns indices satisfying f
-				
-				isTRUE( as.logical(f( x[[ind]] )) )
-			},
-			x = job_indices[[i]],
-			paropts, pcall
-		))
-
-		if (length(which(bools)) > 0) {
-			number_true <- number_true + length(which(bools))
+			if (length(which(bools)) > 0) {
+				number_true <- number_true + length(which(bools))
+			}
 		}
-
+		number_true == 1
 	}
-	number_true == 1
 }

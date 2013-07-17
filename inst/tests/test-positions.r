@@ -7,7 +7,7 @@ forall(info = "position always returns a single integer, or none",
 		x_ = r_flat_no_null(), paropts_ = r_paropts()),
 	function (func_, x_, paropts_) {
 		
-		res <- mcPosition(func_, x_, TRUE, paropts_)
+		res <- mcPosition(func_, x_, paropts_)
 		is.integer(res) && length(res) == 0 || length(res) == 1
 		
 	}
@@ -26,7 +26,7 @@ forall(info = "position always returns the first match",
 	function (x_, paropts_) {
 		
 		elem <- x_[sample(seq_along(x_), size = 1)]
-		mcPosition(function (x) x == elem, x_, FALSE, paropts_) == which(x_ == elem)[1]
+		mcPosition(function (x) x == elem, x_, paropts_) == which(x_ == elem)[1]
 	},
 	given = function (x_, paropts_) length(x_) > 0
 )
@@ -36,7 +36,7 @@ context("Find: normal cases")
 forall(info = "in the sequence 1...n, the nth element is n",
 	list(n_ = 1:20, x_ = r_seq_len(), paropts_ = r_paropts()),
 	function (n_, x_, paropts_) {
-		val_one <- mcFind(function (y) y == n_, x_, FALSE, paropts_)
+		val_one <- mcFind(function (y) y == n_, x_, paropts_)
 		val_two <- mcFind(function (y) y == n_, rev(x_), paropts_)
 
 		val_one == n_ && val_two == n_

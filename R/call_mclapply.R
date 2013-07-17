@@ -1,6 +1,20 @@
 #' @import parallel
 
-.mchof_windows_warned <- FALSE
+once <- function (f) {
+	.count <- 0
+	function () {
+		if (.count < 1) {
+			.count <<- .count + 1
+			f()
+		} else NULL
+	}
+}
+
+warn_windows <- once(
+	function () {
+		messages$windows_sequential()		
+	}
+)
 
 call_mclapply <- function (f, x, paropts = NULL, 
 	func_call = "call_mclapply(f, x, paropts)") {
@@ -13,11 +27,7 @@ call_mclapply <- function (f, x, paropts = NULL,
 		messages$class_mismatch(func_call, f, "f", c("vector", "list"))
 	
 	if (.Platform$OS.type == 'windows') {
-		if (!.mchof_windows_warned) {
-			
-			messages$windows_sequential()
-			.mchof_windows_warned <<- FALSE	
-		}
+		warn_windows()
 		return (lapply(x, f))
 	}
 	
