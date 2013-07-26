@@ -7,17 +7,17 @@
 \alias{mcPositionr}
 \title{Higher-Order-Functions for Finding Values}
 \usage{
-  mcPosition(f, x, paropts = NULL)
+  mcPosition(p, xs, paropts = NULL)
 
-  mcPositionl(f, x, paropts = NULL)
+  mcPositionl(p, xs, paropts = NULL)
 
-  mcPositionr(f, x, paropts = NULL)
+  mcPositionr(p, xs, paropts = NULL)
 
-  mcFind(f, x, paropts = NULL)
+  mcFind(p, xs, paropts = NULL)
 
-  mcFindl(f, x, paropts = NULL)
+  mcFindl(p, xs, paropts = NULL)
 
-  mcFindr(f, x, paropts = NULL)
+  mcFindr(p, xs, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,

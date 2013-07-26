@@ -4,11 +4,11 @@
 \alias{mcOne}
 \title{Quantifier Functionals}
 \usage{
-  mcAll(f, x, paropts = NULL)
+  mcAll(p, xs, paropts = NULL)
 
-  mcAny(f, x, paropts = NULL)
+  mcAny(p, xs, paropts = NULL)
 
-  mcOne(f, x, paropts = NULL)
+  mcOne(p, xs, paropts = NULL)
 }
 \arguments{
   \item{f}{a unary function that returns a boolean value,

@@ -3,20 +3,30 @@ context("parallel backend checks")
 
 if (exists('call_mclapply')) {
 	
-	forall(
-		list(
-			func_ = list(mcFilter, mcReject, mcPartition),
-			x_ = r_seq_len(), paropts_ = r_paropts()),
-		function (func_, x_, paropts_) {
+	test_that("errors are reported", {
 
-			error_func <- function (...) stop("do you see this error?")
-
-			expect_error(
-				func_(error_func, x_, paropts_),
-				"do you see this error[?]")
-			TRUE
-		}
-	)
+		expect_error(
+			mcSelect(
+				function (x) {
+					stop("do you see me?")
+				},
+				0, list(mc.cores = 2)
+			) )
+		expect_error(
+			mcReduce(
+				function (x, y) {
+					stop("do you see me?")
+				},
+				list(1, 2, 3), list(mc.cores = 2)
+			) )
+		expect_error(
+			mcZipWith(
+				function (x, y) {
+					stop("do you see me?")
+				},
+				list(1, 2, 3), paropts = list(mc.cores = 2)
+		) )
+	})
 
 	forall(
 		info = "check call_mclapply is returning correct results",

@@ -3,9 +3,9 @@
 \alias{mcReduce}
 \title{Fold-like Higher-Order-Functions}
 \usage{
-  mcFold(f, z, x, paropts = NULL)
+  mcFold(f, x, xs, paropts = NULL)
 
-  mcReduce(f, x, paropts = NULL)
+  mcReduce(f, xs, paropts = NULL)
 }
 \arguments{
   \item{f}{a binary function that takes two of "a thing"

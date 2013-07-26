@@ -12,14 +12,14 @@ forall(info = "group_into groups properly",
 		
 	},
 	given = function (x_, size_) {
-		length(x_) >= abs(size_) - 1
+		size_ >= 0 && length(x_) >= abs(size_) - 1
 	}
 )
 
 forall(info = "group_into values are preserved and in the right order",
 	list(x_ = r_seq_len(), size_ = r_integers()),
 	function (x_, size_) {
-		all(unlist(group_into(x_, size_)) == x_)
+		size_ >= 0 && all(unlist(group_into(x_, size_)) == x_)
 	}
 )
 

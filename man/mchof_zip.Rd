@@ -42,9 +42,7 @@
 \details{
   list names are dropped without warning during zipping and
   unzipping; an example below shows how to add names to the
-  output list. NULL elements in x are automatically removed
-  from x. The empty list is not removed in order act as a
-  'zero' to preserve useful structural identities.
+  output list.
 
   the input lists are assumed to be of equal length; if
   they are not excess elements are discarded without

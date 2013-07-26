@@ -30,7 +30,6 @@ Collate:
     'folds.R'
     'maps.R'
     'utils.R'
-    'mchof.R'
     'utils-messages.r'
     'utils-stop-functions.r'
     'utils-group.R'

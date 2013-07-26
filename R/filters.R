@@ -38,26 +38,26 @@
 #' @family mchof-filters
 #' @export
 
-mcFilter <- function (f, x, paropts = NULL) {
-	# (a -> boolean) -> [a] -> [a]
-	# returns x[i] such that f(x[i]) is true
+mcFilter <- function (p, xs, paropts = NULL) {
+	"(a -> boolean) -> [a] -> [a]
+	 returns x[i] such that f(x[i]) is true."
 	
 	pcall <- sys.call()	
 
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 	
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 
-	if (length(x) == 0) {
-		x
+	if (length(xs) == 0) {
+		list()
 	} else {
-		ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
-		true_ind <- !is.na(ind) & ind
+		indices <- unlist(call_mclapply(p, xs, paropts, pcall))
+		true_indices <- !is.na(indices) & indices
 		
-		x[true_ind]	
+		as.list( xs[true_indices] )
 	}
 }
 
@@ -71,27 +71,26 @@ mcSelect <- mcFilter
 #' @family mchof-filters
 #' @export
 
-mcReject <- function (f, x, paropts = NULL) {
-	# (a -> boolean) -> [a] -> [a]
-	# returns x[i] such that f(x[i]) is false
+mcReject <- function (p, xs, paropts = NULL) {
+	"(a -> boolean) -> [a] -> [a]
+	 returns x[i] such that f(x[i]) is false."
 	
 	pcall <- sys.call()	
 
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 	
-	f <- match.fun(f)
-	
-	require_a('unary function', f)	
+	p <- match.fun(p)
+	require_a('unary function', p)	
 
-	if (length(x) == 0) {
-		x
+	if (length(xs) == 0) {
+		list()
 	} else {
-		ind <- as.logical(unlist(call_mclapply(f, x, paropts, pcall)))
-		true_ind <- !is.na(ind) & ind
+		indices <- unlist(call_mclapply(p, xs, paropts, pcall))
+		true_indices <- !is.na(indices) & indices
 		
-		x[!true_ind]			
+		as.list( xs[!true_indices] )			
 	}
 }
 
@@ -99,22 +98,24 @@ mcReject <- function (f, x, paropts = NULL) {
 #' @family mchof-filters
 #' @export
 
-mcPartition <- function (f, x, paropts = NULL) {
-	# (a -> boolean) -> [a] -> [a]
-	# returns two lists; a list for which f returns 
-	# true, and a list for which f returns false
+mcPartition <- function (p, xs, paropts = NULL) {
+	"(a -> boolean) -> [a] -> [a]
+	 returns two lists; a list for which f returns 
+	 true, and a list for which f returns false."
 	
 	pcall <- sys.call()	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 	
-	f <- match.fun(f)
-		require_a("unary function", f, pcall)
+	p <- match.fun(p)
+		require_a("unary function", p, pcall)
 
-	ind <- as.logical( unlist(call_mclapply(f, x, paropts, pcall)) )
-	true_ind <- !is.na(ind) & ind
+	indices <- unlist(call_mclapply(p, xs, paropts, pcall))
+	true_indices <- !is.na(indices) & indices
 	
-	list (x[true_ind], x[!true_ind])
+	list (
+		as.list(xs[true_indices]),
+		as.list(xs[!true_indices]))
 }
 

@@ -1,13 +1,23 @@
 Version 0.3.1
 ------------------------------------------------------------------------------
+Note: 
+
+this version contains most of the breaking changes that will occur during
+development of this library. Many of these changes are made for compatability
+with a more general functional programming library that was forked from this
+project, but will augment this library hugely.
+
+New Functions:
+
+* mcIndMap: apply a function to a list and its indices
 
 Improvements:
 
-* added optimisations to several parallel functions when cores = 1
+* added optimisations to several parallel functions when cores = 1.
 * inputs are now more rigourously screened, with several functions now
 testing the arity of their input function (only when ellipses aren't used). Practically 
 this only effects the quality of the error messages thrown by mchof for the better.
-* Non-parallel functionality now available on windows
+* Non-parallel functionality now available on windows.
 
 API Changes:
 * removed the right parameter of mcPosition and mcFind, 
@@ -15,7 +25,17 @@ as it was inconsistent with the philosophy of preferring composing
 functions to using lots of parameters. To remedy this use mcPositionr and mcFindr.
 * NULL values are now treated the same as other length-zero values, for 
 compatability with pairlists.
-* renamed the "first" parameter of mcFold to z.
+* renamed the several function parameters:
+predicate functions are now named "p", instead of "f".
+collections are now named "xs" instead of "x". Values that
+can be either a collection or a value are still called "x".
+
+
+.
+* mcFilter, mcFind and mcReject now always return lists, instead of the return 
+value depending on the input collection.
+* logical coercion is no longer performed for functions like mcFilter and mcAny.
+* mcPartition always returns a list of lists now.
 
 Version 0.3
 ------------------------------------------------------------------------------

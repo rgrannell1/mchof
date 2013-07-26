@@ -20,59 +20,67 @@
 #' @family mchof-positions
 #' @export
 
-mcPosition <- function (f, x, paropts = NULL) {
-	# returns the first index in x that matches
-	# the predicate f
+mcPosition <- function (p, xs, paropts = NULL) {
+	"returns the first index in x that matches
+	the predicate f"
 
 	pcall <- sys.call()
 	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)	
+
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 	
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
-	
-	if (length(x) == 0) {
+	if (length(xs) == 0) {
 		integer(0)
 	} else {
 		cores <- get_cores(paropts)
 
 		if (cores == 1) {
-			
-			ind <- 1
-			while (ind <= length(x)) {
+			# if only one core execute sequentially.
+			ith <- 1
+			while (ith <= length(xs)) {
 
-				if ( as.logical(f( x[[ind]] )) ) {
-					return (ind)
+				if ( as.logical(p( xs[[ith]] )) ) {
+					return (ith)
 				}
-				ind <- ind + 1
+				ith <- ith + 1
 			}
-			return (integer(0))
-		}
-	 	
-		job_indices <- group_into(seq_along(x), cores) 
-		
-		for (i in seq_along(job_indices)) {
+			integer(0)
+		} else {
+			# run in parallel
+			job_indices <- group_into(seq_along(xs), cores) 
 			
-			checked_ind <- unlist(call_mclapply(
-				f = function (ind) {
-					# returns indices satisfying f
-					
-					is_match <- as.logical(f( x[[ind]] ))	
-					if (isTRUE(is_match)) ind else NaN
-				},
-				x = job_indices[[i]], paropts, pcall
-			))
-			
-			matched_indices <- checked_ind[
-				!is.nan(checked_ind) & checked_ind
-			]
-			
-			if (length(matched_indices) > 0) {
-				return( min(matched_indices) )
+			ith <- 1
+			while (ith <= length(job_indices)) {
+				
+				checked_ind <- unlist(call_mclapply(
+					f = function (jth) {
+						# check a group of indices at once
+
+						is_match <- p( xs[[jth]] )	
+						if (isTRUE(is_match)) {
+							jth
+						} else {
+							NaN
+						}
+					},
+					x = job_indices[[ith]], paropts, pcall
+				))
+				
+				matched_indices <- checked_ind[
+					!is.nan(checked_ind) & checked_ind
+				]
+				
+				if (length(matched_indices) > 0) {
+					return( min(matched_indices) )
+				}
+				ith <- ith + 1
 			}
+			integer(0)
 		}
-		integer(0)
 	}
 }
 
@@ -86,11 +94,11 @@ mcPositionl <- mcPosition
 #' @family mchof-positions
 #' @export
 
-mcPositionr <- function (f, x, paropts = NULL) {
+mcPositionr <- function (p, xs, paropts = NULL) {
 	# returns the last index in x that matches
 	# the predicate f
 
-	mcPositionl(f, rev(x), paropts)
+	mcPositionl(p, rev(xs), paropts)
 	
 }
 
@@ -98,26 +106,26 @@ mcPositionr <- function (f, x, paropts = NULL) {
 #' @family mchof-positions
 #' @export
 
-mcFind <- function (f, x, paropts = NULL) {
-	# returns the first (or last) element in x that matches
-	# the predicate f
+mcFind <- function (p, xs, paropts = NULL) {
+	"returns the first (or last) element in x that matches
+	the predicate f"
 
 	pcall <- sys.call()
 
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a(c('function', 'string'), p, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 	
-	if (length(x) == 0) {
-		x
+	if (length(xs) == 0) {
+		xs
 	} else {	
-		first_match <- mcPosition (f, x, paropts)
+		first_match <- mcPosition (p, xs, paropts)
 		
 		if (!is_integer0(first_match)) {
-			x[[first_match]]
+			s[[first_match]]
 		} else {
 			integer(0)
 		}
@@ -134,10 +142,10 @@ mcFindl <- mcFind
 #' @family mchof-positions
 #' @export
 
-mcFindr <- function (f, x, paropts = NULL) {
+mcFindr <- function (p, xs, paropts = NULL) {
 	# returns the last index in x that matches
 	# the predicate f
 
-	mcFindl(f, rev(x), paropts)
+	mcFindl(p, rev(xs), paropts)
 	
 }

@@ -5,13 +5,13 @@
 \alias{mcSelect}
 \title{Filter-like Higher-Order-Functions}
 \usage{
-  mcFilter(f, x, paropts = NULL)
+  mcFilter(p, xs, paropts = NULL)
 
-  mcSelect(f, x, paropts = NULL)
+  mcSelect(p, xs, paropts = NULL)
 
-  mcReject(f, x, paropts = NULL)
+  mcReject(p, xs, paropts = NULL)
 
-  mcPartition(f, x, paropts = NULL)
+  mcPartition(p, xs, paropts = NULL)
 }
 \description{
   \code{mcFilter} extracts the elements of a vector or list

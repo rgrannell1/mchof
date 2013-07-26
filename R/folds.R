@@ -52,24 +52,24 @@
 #' @family mchof-folds
 #' @export
 
-mcFold <- function (f, z, x, paropts = NULL) {
-	# (a -> b -> a) -> a -> [b] -> a
-	# swaps the commas in z, x1, x2, ..., xn with
-	# the function f.
+mcFold <- function (f, x, xs, paropts = NULL) {
+	"(a -> b -> a) -> a -> [b] -> a
+	 swaps the commas in z, x1, x2, ..., xn with
+	 the function f."
 
 	pcall <- sys.call()
-	require_a(c("function", "string"), f, pcall)
-	require_a("any", z, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", f, pcall)
+	require_a("any", x, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
 	f <- match.fun(f)
 	require_a('binary function', f, pcall)
  
-	if (length(x) == 0) {
-		z
+	if (length(xs) == 0) {
+		x
 	} else {
-		mcReduce(f, x = c(list(z), x), paropts)		
+		mcReduce(f, xs = c(list(x), xs), paropts)		
 	}
 }
 
@@ -77,10 +77,10 @@ mcFold <- function (f, z, x, paropts = NULL) {
 #' @family mchof-folds
 #' @export
 
-mcReduce <- function (f, x, paropts = NULL) {
-	# (a -> b -> a) -> [a] -> a
-	# swaps the commas in x1, x2, x3, ..., xn with
-	# the infix function f.
+mcReduce <- function (f, xs, paropts = NULL) {
+	"(a -> b -> a) -> [a] -> a
+	 swaps the commas in x1, x2, x3, ..., xn with
+	 the infix function f."
 
 	iterateWhile <- function (f, p, x) {
 		# pipe the output x of f into f, 
@@ -92,28 +92,32 @@ mcReduce <- function (f, x, paropts = NULL) {
 	
 	pcall <- sys.call()
 	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", f, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
 	f <- match.fun(f)
 	
 	require_a("binary function", f, pcall)
-	if (length(x) < 2) {
-		x
+	if (length(xs) < 2) {
+		xs
 	} else {
-		g <- function (x) {
-			if (length(x) == 2) f( x[[1]], x[[2]] ) else x[[1]]	
+		g <- function (xs) {
+			if (length(xs) == 2) {
+				f( xs[[1]], xs[[2]] )
+			} else {
+				xs[[1]]
+			}	
 		}
 
 		final <- iterateWhile(
 			function (reducable) {
-				group_into(call_mclapply(g, reducable, paropts, pcall), size = 2)
+				group_into(call_mclapply(g, reducable, paropts, pcall), n = 2)
 			},
 			function (reducable) {
 				length(reducable) == 1
 			},
-			group_into(x, size = 2))
+			group_into(xs, n = 2))
 		
 		g( final[[1]] )		
 	}

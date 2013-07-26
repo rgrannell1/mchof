@@ -45,23 +45,23 @@
 #' @family mchof-quantify
 #' @export
 
-mcAll <- function (f, x, paropts = NULL) {
-	# (a -> bool) -> [a] -> bool
-	# apply a function f to x, return TRUE iff f is true
-	# for all x
+mcAll <- function (p, xs, paropts = NULL) {
+	"(a -> bool) -> [a] -> bool
+	apply a function p to xs, return TRUE iff p is true
+	for all xs"
 
 	pcall <- sys.call()
 	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
 	
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 	
-	if (length(x) == 0) {
+	if (length(xs) == 0) {
 		TRUE
 	} else {
-		bools <- as.logical(call_mclapply(f, x, paropts, pcall))
+		bools <- as.logical(call_mclapply(p, xs, paropts, pcall))
 		bools[is.na(bools)] <- FALSE
 		
 		all(bools)		
@@ -72,41 +72,46 @@ mcAll <- function (f, x, paropts = NULL) {
 #' @family mchof-quantify
 #' @export
 
-mcAny <- function (f, x, paropts = NULL) {
-	# (a -> bool) -> [a] -> bool
-	# apply a function f to x, return TRUE iff f is true
-	# for any x
+mcAny <- function (p, xs, paropts = NULL) {
+	"(a -> bool) -> [a] -> bool
+	apply a function f to x, return TRUE iff f is true
+	for any x"
 	
-	pcall <- sys.call(sys.parent())
+	pcall <- sys.call()
 	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
+	require_a(c('function', 'string'), p, pcall)
+	require_a("listy", xs, pcall)
 	require_a("listy", paropts, pcall)
 
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 	
-	if (length(x) == 0) {
+	if (length(xs) == 0) {
 		FALSE
 	} else {
 		cores <- get_cores(paropts)
 
 		if (cores == 1) {
-			return (any( sapply(x, function (el) as.logical(f(el)) ) ))
-		}
-		
-		results <- call_mclapply(
-			f = function (sublist) {
-				
-				for (ind in seq_along(sublist)) {
-					res <- as.logical(f( sublist[[ind]] ))
-					if (isTRUE(res)) return (TRUE)
-				}
-				FALSE
-			},
-			group_into(x, cores), paropts, pcall
-		)
-		any(unlist(results))		
+			any(sapply(xs, p))
+		} else {
+
+			bools <- unlist(call_mclapply(
+				f = function (sublist) {
+
+					ith <- 1					
+					while (ith <= lengt(sublist)) {
+						res <- p( sublist[[ind]] )
+						if (isTRUE(res)) {
+							TRUE
+						}
+					}
+					FALSE
+				},
+				group_into(xs, cores),
+				paropts, pcall
+			))
+			any(bools)
+		}		
 	}
 }
 
@@ -114,45 +119,49 @@ mcAny <- function (f, x, paropts = NULL) {
 #' @family mchof-quantify
 #' @export
 
-mcOne <- function (f, x, paropts = NULL) {
-	# (a -> bool) -> [a] -> bool
-	# apply a function f to x, return TRUE iff f is true
-	# for one x
+mcOne <- function (p, xs, paropts = NULL) {
+	"(a -> bool) -> [a] -> bool
+	apply a function f to x, return TRUE iff f is true
+	for one x"
 	
 	pcall <- sys.call()
 
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
+	require_a("functionable", p, pcall)
+	require_a("listy", xs, pcall)
 	require_a("listy", paropts, pcall)
 	
-	f <- match.fun(f)
-	require_a('unary function', f, pcall)
+	p <- match.fun(p)
+	require_a('unary function', p, pcall)
 	
-	if (length(x) == 0) {
+	if (length(xs) == 0) {
 		FALSE
 	} else {
 		cores <- get_cores(paropts)
-		number_true <- 0
+		count_true <- 0
 
-		job_indices <- group_into(seq_along(x), cores)
+		job_indices <- group_into(seq_along(xs), cores)
 
-		for (i in seq_along(job_indices)) {
+		ith <- 1
+		while (ith <= length(job_indices)) {
 			
-			if (number_true > 1) return (FALSE)
-			
+			if (count_true > 1) {
+				return (FALSE)
+			}
+
 			bools <- unlist(call_mclapply(
-				f = function (ind) {
+				f = function (jth) {
 					# returns indices satisfying f
 					
-					isTRUE( as.logical(f( x[[ind]] )) )
+					isTRUE(f( xs[[jth]] ))
 				},
-				x = job_indices[[i]],
+				x = job_indices[[ith]],
 				paropts, pcall
 			))
 
 			if (length(which(bools)) > 0) {
-				number_true <- number_true + length(which(bools))
+				count_true <- count_true + length(which(bools))
 			}
+			ith <- ith + 1
 		}
 		number_true == 1
 	}

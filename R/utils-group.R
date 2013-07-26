@@ -1,17 +1,17 @@
 
-group_into <- function (X, n) {
+group_into <- function (xs, n) {
 
 	pcall <- sys.call()	
-	require_a('listy', X, pcall)
-	require_a('positive whole', n, pcall)
+	require_a('listy', xs, pcall)
+	require_a('nonnegative whole', n, pcall)
 
-	if (length(X) == 0) {
+	if (length(xs) == 0) {
 		list()
 	} else {
 		lapply(
-			seq(from = 1, to = length(x), by = n),
+			seq(from = 1, to = length(xs), by = n),
 			function (lower) {
-				x[ lower:min(length(x), lower + n - 1) ]
+				xs[ lower:min(length(xs), lower + n - 1) ]
 		})
 	}
 }
