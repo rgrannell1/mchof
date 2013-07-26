@@ -1,75 +1,93 @@
 #' @import parallel
 
-once <- function (f) {
-	.count <- 0
-	function () {
-		if (.count < 1) {
-			.count <<- .count + 1
-			f()
-		} else NULL
+warn_windows_users <- ( function () {
+	"warn unfortunate windows users that 
+	forking parallel is not available on their platform"
+
+	once <- function (f) {
+		.count <- 0
+		function () {
+			if (.count < 1) {
+				.count <<- .count + 1
+				f()
+			} else {
+				NULL
+			}
+		}
 	}
+
+	once(function () messages$windows_sequential())
+} )()
+
+check_paropts <- function (paropts) {
+	"check that "
+
+	arg_names <- names(paropts)		
+	valid_formals <- names(formals(parallel::mclapply))
+	invalid_formals <- setdiff(arg_names, valid_formals)
+	
+	(length(invalid_formals) > 0) %throws% 
+		messages$invalid_paropts(func_call, invalid_formals)
+	
+	paropts$FUN <- NULL
+	paropts$X <- NULL
+	
+	remove(invalid_formals, valid_formals, arg_names)
 }
 
-warn_windows <- once(
-	function () {
-		messages$windows_sequential()		
-	}
-)
+call_mclapply <- function (f, xs, paropts = NULL, func_call = "call_mclapply(f, xs, paropts)") {
+	"(a -> b) -> [a] -> [b]
+	a wrapper that maps f over x in parallel, and 
+	 returns the results. OS-specific implementation."
 
-call_mclapply <- function (f, x, paropts = NULL, 
-	func_call = "call_mclapply(f, x, paropts)") {
-	# a wrapper that maps f over x in parallel, and 
-	# returns the results. OS-specific implementation.
-
-	(!is.function(f)) %throws% 
-		messages$class_mismatch(func_call, f, "f", "function")
-	(!is.vector(x)) %throws% 
-		messages$class_mismatch(func_call, f, "f", c("vector", "list"))
+	require_a("unary function", f, func_call)
+	require_a("listy", xs, func_call)
+	require_a(c("named list", "named pairlist"), paropts, func_call)
 
 	if (.Platform$OS.type == 'windows') {
-		warn_windows()
-		return (lapply(x, f))
-	}
-	
-	if (length(paropts) > 0) {
-		
-		arg_names <- names(paropts)		
-		valid_formals <- names(formals(parallel::mclapply))
-		invalid_args <- setdiff(arg_names, valid_formals)
-		
-		(length(invalid_args) > 0) %throws% 
-			messages$invalid_paropts(func_call, invalid_args)
-		
-		paropts$FUN <- NULL
-		paropts$X <- NULL
-		
-		rm(invalid_args, valid_formals, arg_names)
-
-	} else if (!is.null(getOption('mc.cores'))) {
-		paropts <- list(mc.cores = getOption('mc.cores'))
-	}
-
-	if (is.null(paropts$mc.cores) || paropts$mc.cores == 1) {
-		lapply(x, f)
+		warn_windows_users()
+		lapply(xs, f)
 	} else {
-		
-		status <- ""
-		output <- withCallingHandlers({	
-			do.call(
-				what = parallel::mclapply,
-				args = c(list(FUN = f, X = x), paropts))
-			},
-			warning = function (warn) {
-				status <<- "warning"
-			}, error = function (err) {
-				status <<- "error"
-		})
-	
-		(status == "warning") %throws% stopf (
-			c('%s', '%s'), func_call, output)
-		
-		(status == "error") %throws% stopf (
-			c('%s', '%s'), func_call, output)
-		output
+
+		if (length(paropts) > 0) {
+			check_paropts(paropts)
+		} else {
+			cores_option <- getOption("mc.cores")
+			paropts <- list(
+				mc.cores = if (is.null(cores_option)) {
+					1
+				} else {
+					cores_option
+				}
+			)
+		}
+
+		if (paropts$mc.cores == 1) {
+			lapply(xs, f)
+		} else {
+			
+			status <- ""
+			output <- withCallingHandlers({	
+				do.call(
+					what = parallel::mclapply,
+					args = c(list(FUN = f, X = xs), paropts))
+				},
+				warning = function (warn) {
+					status <<- "warning"
+				}, error = function (err) {
+					status <<- "error"
+			})
+
+			(status == "warning") %throws% stopf (
+				c('%s', '%s'), func_call, output)
+			
+			(status == "error") %throws% stopf (
+				c('%s', '%s'), func_call, output)
+			output
+		}
 	}
 }
+
+
+
+
