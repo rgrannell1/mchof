@@ -34,25 +34,26 @@
 #' @export
 
 mcZipWith <- function (f, ..., paropts = NULL) {
-	# takes n lists/vectors, generates a list of n-tuples. 
-	# returns the result of mapping f over this new list. 
-	# excess elements are discarded. 
+	"takes n lists/vectors, generates a list of n-tuples. 
+	 returns the result of mapping f over this new list. 
+	 excess elements are discarded."
 	
 	pcall <- sys.call()
+
+	require_a("functionable", f, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 	
-	require_a(c('function', 'string'), f, pcall)
-
-	x <- list(...)
+	xs <- list(...)
 	f <- match.fun(f)
-	min_length <- min(vapply(x, length, 1))
+	min_length <- min(vapply(xs, length, 1))
 
-	if (length(x) == 0 || min_length == 0) {
+	if (length(xs) == 0 || min_length == 0) {
 		list()
 	} else {
 		call_mclapply(
 			function (ind) {
 
-				tuple <- lapply( x, function (li) li[[ind]] )
+				tuple <- lapply( xs, function (li) li[[ind]] )
 				do.call(f, tuple)
 			},
 			seq_len(min_length),
@@ -66,10 +67,9 @@ mcZipWith <- function (f, ..., paropts = NULL) {
 #' @export
 
 mcZip <- function(..., paropts = NULL) {
-	# special case of mcZipWith: applies identity to result
-
-	var_identity <- function (...) list(...)
-	mcZipWith(f = var_identity, ..., paropts = paropts)
+	"special case of mcZipWith: applies identity to result"
+ 
+	mcZipWith(function (...) list(...), ..., paropts = paropts)
 
 }
 
@@ -77,27 +77,27 @@ mcZip <- function(..., paropts = NULL) {
 #' @family mchof-zip
 #' @export
 
-mcUnzipWith <- function (f, x, paropts = NULL) {
-	# takes a list of n-tuples, returns n lists
-	# returns the result of mapping f over this new list. 
-	# excess elements are discarded. 
+mcUnzipWith <- function (f, xs, paropts = NULL) {
+	"takes a list of n-tuples, returns n lists
+	 returns the result of mapping f over this new list. 
+	 excess elements are discarded."
 
 	pcall <- sys.call()
 	
-	require_a(c('function', 'string'), f, pcall)
-	require_a("listy", x, pcall)
-	require_a("listy", paropts, pcall)
+	require_a("functionable", f, pcall)
+	require_a("listy", xs, pcall)
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
 	f <- match.fun(f)
-	min_length <- min(vapply(x, length, 1))
+	min_length <- min(vapply(xs, length, 1))
 	
-	if (length(x) == 0 || min_length == 0) {
+	if (length(xs) == 0 || min_length == 0) {
 		list()
 	} else {
 		call_mclapply(
-			function (ind) {
+			function (ith) {
 
-				tuple <- lapply( x, function (li) li[[ind]] )
+				tuple <- lapply( xs, function (li) li[[ith]] )
 				do.call(f, tuple)
 			},
 			seq_len(min_length),
@@ -110,9 +110,8 @@ mcUnzipWith <- function (f, x, paropts = NULL) {
 #' @family mchof-zip
 #' @export
 
-mcUnzip <- function (x, paropts = NULL) {
-	# inverse of mcZip
+mcUnzip <- function (xs, paropts = NULL) {
+	"inverse of mcZip"
 
-	mcUnzipWith(function (...) list(...), x, paropts = paropts)	
+	mcUnzipWith(function (...) list(...), xs, paropts = paropts)	
 }
-

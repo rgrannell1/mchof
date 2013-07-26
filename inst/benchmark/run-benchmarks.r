@@ -5,8 +5,9 @@ if ( Sys.info()["user"] == "rgrannell1") {
 	# save CRAN the horror of running such 
 	# expensive benchmarks
 
+	require(needy)
 	require(microbenchmark)
-	options(mc.cores = NULL)
+	options(mc.cores = 1)
 
 	collated_timings <- list()
 
@@ -19,7 +20,7 @@ if ( Sys.info()["user"] == "rgrannell1") {
 		"^benchmark[-][^-]+[^.]+[.][rR]",
 		"^benchmark[-]exp.+[.][rR]")
 
-	path <- "/home/rgrannell1/Dropbox/R directory/mchof/inst/benchmark"
+	path <- "/home/rgrannell1/Dropbox/R_directory/mchof/inst/benchmark"
 	all_tests <- paste0(path, "/", list.files(
 		path, 
 		suffix_regex[[which_tests]]

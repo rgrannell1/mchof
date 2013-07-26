@@ -11,9 +11,9 @@ benchmark$folds <-
 			function (x) list(test = x[[1]], control = x[[2]], name = x[[3]])
 		),
 		list(
-			mcFold = function (x) mcFold(one_func, z = 0, x = x),
-			mcFoldl = function (x) mcFoldl(one_func, z = 0, x = x),
-			mcFoldr = function (x) mcFoldr(one_func, z = 0, x = x),
+			mcFold = function (x) mcFold(one_func, 0, x),
+			mcFoldl = function (x) mcFoldl(one_func, 0, x),
+			mcFoldr = function (x) mcFoldr(one_func, 0, x),
 			mcReduce =  function (x) mcReduce(one_func, x),
 			mcReducel =  function (x) mcReducel(one_func, x),
 			mcReducer =  function (x) mcReducer(one_func, x)

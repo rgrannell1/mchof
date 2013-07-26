@@ -3,7 +3,8 @@ get_cores <- function (paropts) {
 	# check paropts and option(mc.cores) for the number 
 	# of cores to use
 	
-	require_a(c("named list", "named paropts"), paropts)
+	pcall <- sys.call()
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
 	cores <- if (!is.null(paropts) && 'mc.cores' %in% names(paropts)) {
 		abs(paropts$mc.cores)
