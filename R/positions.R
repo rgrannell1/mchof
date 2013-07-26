@@ -28,7 +28,7 @@ mcPosition <- function (p, xs, paropts = NULL) {
 	
 	require_a("functionable", p, pcall)
 	require_a("listy", xs, pcall)
-	require_a(c("named list", "named pairlist"), paropts, pcall)	
+	require_a(c("named list", "named pairlist"), paropts, pcall)
 
 	p <- match.fun(p)
 	require_a('unary function', p, pcall)

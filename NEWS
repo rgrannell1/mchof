@@ -29,9 +29,6 @@ compatability with pairlists.
 predicate functions are now named "p", instead of "f".
 collections are now named "xs" instead of "x". Values that
 can be either a collection or a value are still called "x".
-
-
-.
 * mcFilter, mcFind and mcReject now always return lists, instead of the return 
 value depending on the input collection.
 * logical coercion is no longer performed for functions like mcFilter and mcAny.

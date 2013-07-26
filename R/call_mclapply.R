@@ -20,19 +20,21 @@ warn_windows_users <- ( function () {
 } )()
 
 check_paropts <- function (paropts) {
-	"check that "
+	"[a] -> boolean
+	check that all options are valid"
 
 	arg_names <- names(paropts)		
-	valid_formals <- names(formals(parallel::mclapply))
-	invalid_formals <- setdiff(arg_names, valid_formals)
+	valid <- names(formals(parallel::mclapply))
+	invalid <- setdiff(arg_names, valid)
 	
-	(length(invalid_formals) > 0) %throws% 
-		messages$invalid_paropts(func_call, invalid_formals)
+	(length(invalid) > 0) %throws% 
+		messages$invalid_paropts(func_call, invalid)
 	
 	paropts$FUN <- NULL
 	paropts$X <- NULL
 	
-	remove(invalid_formals, valid_formals, arg_names)
+	remove(invalid, valid, arg_names)
+	TRUE
 }
 
 call_mclapply <- function (f, xs, paropts = NULL, func_call = "call_mclapply(f, xs, paropts)") {

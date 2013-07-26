@@ -109,7 +109,7 @@ mcPartition <- function (p, xs, paropts = NULL) {
 	require_a(c("named list", "named pairlist"), paropts, pcall)
 	
 	p <- match.fun(p)
-		require_a("unary function", p, pcall)
+	require_a("unary function", p, pcall)
 
 	indices <- unlist(call_mclapply(p, xs, paropts, pcall))
 	true_indices <- !is.na(indices) & indices
