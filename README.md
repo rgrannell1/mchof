@@ -1,6 +1,5 @@
-mchof - MultiCore Higher-Order Functions
+mchof - MultiCore Higher-Order Functions - v0.3.1
 ===
-**Version 0.3.1**
 
 mchof (read: mac'hoff) is a utility library that provides
 composable, consistent parallel implementations of functionals such as
@@ -15,7 +14,7 @@ This library was written out of frustration that certain 'embarassingly parallel
 had no parallel implementations in R, and that the existing single core implementations had inconsistent corner
 cases.
 
-###Functions included in the current release (0.3)
+###Functions included in the current release (0.3.1)
 
 ####Filtering a list based on a predicate:
 
