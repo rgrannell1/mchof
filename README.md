@@ -4,7 +4,7 @@ mchof - MultiCore Higher-Order Functions - v0.3.1
 Mchof (read: mac'hoff) is a utility library that mixes two good things: 
 higher-order functions and parallelism. It allows functional programs to benefit 
 for a large speedup. This is done with little configuration; the user simply needs to 
-specify how many cores youd like to use.
+specify how many cores you'd like to use.
 
 ### Filtering a list based on a predicate:
 
