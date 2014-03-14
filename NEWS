@@ -1,11 +1,18 @@
+Version 0.3.1
+------------------------------------------------------------------------------
+
+Bug Fixes:
+* To comply with new CRAN policy mchof now uses a maximum of two cores during
+testing. This won't affect users.
+
 Version 0.3
 ------------------------------------------------------------------------------
 
 New Functions:
 
 * mcReject: split a list into two lists based on a predicate.
-* mcFold: applies an associative binary operator 
- to a list (eg. +, *, rbind) with an initial value, returning a single element. 
+* mcFold: applies an associative binary operator
+ to a list (eg. +, *, rbind) with an initial value, returning a single element.
 * mcOne: applies a predicate to a list, count the number of matches,
  returns true if only one match was found.
 mcAll: applies a predicate to a list, count the number of matches,
@@ -28,7 +35,7 @@ Bug Fixes:
 API Changes:
 * mcZip & mcZipWith now takes a variable number of arguments;
 to zip 1:4, 5:8, 9:12 you would now use mcZip(1:4, 5:8, 9:12, paropts = list(mc.cores = 2))
-instead of mcZip(list(1:4, 5:8, 9:12), paropts = list(mc.cores = 2)) 
+instead of mcZip(list(1:4, 5:8, 9:12), paropts = list(mc.cores = 2))
 
 Version 0.2 (2013-05-03)
 ------------------------------------------------------------------------------
@@ -41,7 +48,7 @@ New Functions:
 
 New Features:
 
-* options mechanism for setting the number of cores to be used: 
+* options mechanism for setting the number of cores to be used:
 options(mc.cores) <- 2
 
 Bug Fixes:

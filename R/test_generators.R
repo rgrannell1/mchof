@@ -48,18 +48,16 @@ r_flat_no_null <- function (n=100) {
 			func <- list(r_integers, r_letters, r_words)[[ pick_len(3) ]]
 			func(pick_len(20))
 
-		}, seq_len(n))	
+		}, seq_len(n))
 }
 r_paropts <- function (n=100) {
 	list(
 		list(),
-		list(mc.cores = 1), list(mc.cores = 2), list(mc.cores = 3),
-		list(mc.cores = 4), list(mc.cores = 5), list(mc.cores = 6),
-		list(mc.cores = 7), list(mc.cores = 8), list(mc.cores = 9))
+		list(mc.cores = 1), list(mc.cores = 2))
 }
 r_tuple_list <- function (n=100) {
 	tuple_length <- pick_len(20)
-	
+
 	Map(
 		function (...) {
 			r_flatlist(tuple_length)
@@ -67,9 +65,9 @@ r_tuple_list <- function (n=100) {
 		seq_len(n))
 }
 r_int_tuples <- function (n=100) {
-	
+
 	tuple_length <- pick_len(20)
-	
+
 	Map(
 		function (...) {
 			list(repl(function (...) r_integers(tuple_length), tuple_length))
@@ -92,14 +90,14 @@ r_small_named_list <- function (n=100) {
 }
 r_empty_list_tuples <- function (n=100) {
 	tuple_length <- pick_len(20)
-	
+
 	Map(
 		function (...) {
 			Map(
 				function (...)	{
 					repl(function (...) list(), tuple_length)
 				},
-				seq_len(pick_len(n)))	
+				seq_len(pick_len(n)))
 		},
 		seq_len(pick_len(n)))
 }
@@ -109,5 +107,5 @@ r_typed_vectors <- function (n=100) {
 			sample(c(
 				list(r_integers(pick_len(20))),
 				list(r_letters(pick_len(20)))), size = 1)[[1]]
-		}, n)	
+		}, n)
 }

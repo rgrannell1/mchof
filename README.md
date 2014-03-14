@@ -1,14 +1,14 @@
 mchof - MultiCore Higher-Order Functions
 ===
-**Version 0.3**
+**Version 0.3.1**
 
 mchof (read: mac'hoff) is a utility library that provides
 composable, consistent parallel implementations of functionals such as
 Filter, Fold, ZipWith and Partition.
 
- * Special cases handled consistently between functions to allow composabililty.	
- * Built on the user-friendly multicore parallel library; all the user needs to 
-   do is specify how many cores they would like to use to get 90% of the benefits 
+ * Special cases handled consistently between functions to allow composabililty.
+ * Built on the user-friendly multicore parallel library; all the user needs to
+   do is specify how many cores they would like to use to get 90% of the benefits
    of running in parallel.
 
 This library was written out of frustration that certain 'embarassingly parallel' functions like filter

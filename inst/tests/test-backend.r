@@ -2,18 +2,18 @@
 context("parallel backend checks")
 
 if (exists('call_mclapply')) {
-	
+
 	test_that("errors are reported", {
-		
+
 		suppressWarnings ({
-		
-			errfunc_1 <- function (x) stop('do you see me?') 
-			errfunc_2 <- function (x, y) stop('do you see me, monoid?') 
-			
-			expect_error(mcReject(errfunc_1, 1:10, list(mc.cores = 4)), 'see me?')
-			expect_error(mcFilter(errfunc_1, 1:10, list(mc.cores = 4)), 'see me?')
+
+			errfunc_1 <- function (x) stop('do you see me?')
+			errfunc_2 <- function (x, y) stop('do you see me, monoid?')
+
+			expect_error(mcReject(errfunc_1, 1:10, list(mc.cores = 2)), 'see me?')
+			expect_error(mcFilter(errfunc_1, 1:10, list(mc.cores = 2)), 'see me?')
 			expect_error(mcPartition(errfunc_1, 1:10), 'see me?')
-			
+
 			expect_error(mcPosition(errfunc_1, 1:10), 'see me?')
 			expect_error(mcFind(errfunc_1, 1:10), 'see me?')
 			expect_error(mcAll(errfunc_1, 1:10), 'see me?')
@@ -22,12 +22,12 @@ if (exists('call_mclapply')) {
 
 			expect_error(mcReduce(errfunc_2, 1:10), 'see me?')
 			expect_error(mcFold(errfunc_2, 0,1:10), 'see me?')
-		
-			expect_error(mcUnzipWith(squash(errfunc_1), 1:10), 'see me?')	
+
+			expect_error(mcUnzipWith(squash(errfunc_1), 1:10), 'see me?')
 			expect_error(mcZipWith(squash(errfunc_1), 1:10), 'see me?')
-			
+
 		})
-		
+
 	})
 
 	forall(
@@ -38,9 +38,9 @@ if (exists('call_mclapply')) {
 			unlist(res) == sum(unlist(x_))
 		}
 	)
-	
+
 	if (.Platform$OS.type == 'unix') {
-		
+
 		test_that("error when given bad arguments", {
 		    expect_error(
 		    	call_mclapply("cat", 1:10, list(mc.cores = 2)),
@@ -50,24 +50,24 @@ if (exists('call_mclapply')) {
 		    	call_mclapply(function(x) x, 1:10, list(monkey = identity)),
 		    	regexp = "invalid")
 		})
-	
+
 		test_that("check that everything's running quick", {
-			
+
 			expect_that(
 				system.time(call_mclapply(
-					function(x) Sys.sleep(0.5), 1:10, list(mc.cores = 2)))[3],	
+					function(x) Sys.sleep(0.5), 1:10, list(mc.cores = 2)))[3],
 				takes_less_than(3)) # at least 60% speedup
-		
+
 		})
-		
+
 		test_that("check that the options mechanism works for parallel backend", {
 			options(mc.cores = 2)
-			
+
 			expect_that(
 				system.time(call_mclapply(
-					function(x) Sys.sleep(0.5), 1:10))[3],	
+					function(x) Sys.sleep(0.5), 1:10))[3],
 				takes_less_than(3)) # at least 60% speedup
-			
+
 			options(mc.cores = NULL)
 		})
 	}
