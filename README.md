@@ -1,6 +1,8 @@
 mchof - MultiCore Higher-Order Functions - v0.3.1
 ===
 
+[![Build Status](https://travis-ci.org/rgrannell1/mchof.png)](https://travis-ci.org/rgrannell1/mchof)
+
 Mchof (read: mac'hoff) is a utility library that mixes two good things: 
 higher-order functions and parallelism. It allows functional programs to benefit 
 for a large speedup. This is done with little configuration; the user simply needs to 
