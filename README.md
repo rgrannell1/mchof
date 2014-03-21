@@ -37,3 +37,13 @@ specify how many cores you'd like to use.
 * **mcAll**: check if a predicate is true for all elements in a list
 * **mcOne**: check if a predicate is true for one element in a list
 
+### Authors
+
+Ryan Grannell
+
+### Licensing
+
+Mchof is released under the GPL-2.
+
+
+
