@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 development
 inst/benchmark/benchmark-run.r
+.Rbuildignore
